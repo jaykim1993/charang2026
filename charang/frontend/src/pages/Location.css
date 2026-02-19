@@ -1,0 +1,303 @@
+.guideSelectBar {
+    margin-bottom: 50px;
+}
+.ndo{
+    position: relative;
+}
+.findNearestBtn{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    padding: 15px;
+    font-size: 30px;
+    font-weight: 700;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 2.5px solid #00000086;
+    color: white;
+    z-index: 20;
+    bottom: 10px;
+    left: 10px;
+}
+.findNearestBtn:hover{
+    background-color: #555555;
+}
+.findNearestBtn:hover>.bi-person-walking{
+    color: white;
+}
+.bi-person-walking{
+    transform: translateX(-6.8px);
+}
+
+.locationDetailBox{
+    border: 1px solid #999;
+    margin-top: 80px;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom:80px;
+
+}
+.LocationSpotName{
+    color: #333;
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+.LocationSpotArea{
+    color: #333;
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.LocationSpotDetail{
+    color: #333;
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.LocationSpotTel{
+    color: #333;
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0;
+    margin-left: 10px;
+}
+
+.LocationHowCome{
+    margin-top: 30px;
+    color: #333;
+    font-size: 18px;
+    margin-left: 5px;
+    margin-bottom: 20px;
+}
+.LocationHowComeBox{
+    border: 1px solid #999;
+    border-radius: 15px;
+    list-style: none;
+    margin-bottom: 100px !important;
+}
+.LocationRideType{
+    font-size: 16px;
+    height: fit-content;
+    padding: 18px;
+    color: #333;
+    font-weight: 500;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.ekek{
+    font-weight: 500;
+    list-style: none;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+.LocationUl>li {
+    font-size: 14px;
+    margin: 5px 0 20px 5px;
+    font-weight: 400;
+}
+.LocationUl hr {
+    margin: 10px 0;
+}
+.LocationClickMarker{
+    font-size: 18px;
+}
+.LocationCarImg{
+    width: 150px;
+}
+.LocationTableTD{
+    width: 180px;
+}
+.LocationPage2{
+    position: relative;
+}
+.Locationdropdown {
+  display: flex;
+  justify-content: flex-end; 
+  position: relative;
+}
+.LocationdropdownMenu{
+    list-style: none;
+    position: absolute;
+    width: 200px;
+    background-color: rgb(230, 230, 230);
+    text-align: center;
+    color: #333;
+    padding: 10px 0;
+    top: 82px;
+    transition:
+    max-height 0.3s ease,
+    opacity 0.2s ease,
+    transform 0.3s ease;
+}
+.LocationDropDownMenuLi{
+    font-size: 16px;
+    width: 210px;
+    padding: 10px 20px;
+    background-color: white;
+    cursor: pointer;
+}
+.LocationDropDownMenuLi:hover{
+    background-color: rgb(201, 201, 201);
+}
+.LocationdropdownBtn{
+    width: 210px;
+    font-size: 16px;
+    border: none;
+    border-radius: 7px 7px 0 0 ;
+    margin-top: 30px;
+}
+.Locationdropdown{
+    justify-content: right;
+}
+.LocationdropdownBtn{
+    background-color: #2591cf;
+    padding: 10px 0;
+    color: white;
+}
+.LocationdropdownBtn:hover{
+    background-color:  #065d8f;
+}
+.LoTableWrap{
+    max-height: 500px;
+    overflow-y: auto;
+    transition: max-height 0.4s ease;
+}
+.LoTableWrap.open {
+    max-height: 3000px; 
+}
+.LoTableWrap::-webkit-scrollbar {
+  width: 0;
+}
+.LoTableWrap::-webkit-scrollbar-thumb {
+  background:  #2591cf;
+}
+.tableOpener{
+    font-size: 18px;
+    background-color: inherit;
+    width: 100%;
+    padding: 20px 40px;
+    border: none;
+    border-top:  1px solid #999;
+    transition: 0.3s;
+    font-weight: 500;
+    margin-bottom: 100px;
+    text-align: center;
+}
+
+.LocationTH{
+    background-color: #2591cf;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+}
+.LocationTableTD{
+    text-align: center;
+    height: 150px;
+    font-size: 16px;
+    border-bottom: 1px solid #999;
+}
+.LocationdropdownMenu {
+  list-style: none;
+  position: absolute;
+  right: 0;
+  top: 74px;
+  width: 210px;
+  background-color: white;
+  text-align: center;
+  color: #333;
+  padding: 10px 0;
+  transform-origin: top;
+  transform: scaleY(0);
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 10px 10px;
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease;
+}
+
+.LocationdropdownMenu.open {
+  transform: scaleY(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.Locationdropdown i{
+    color: white;
+}
+
+.LocationPage3Ol{
+    border: 1px solid #999;
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 100px;
+}
+.LocationPage3Li{
+    font-size: 16px;
+    margin: 20px 0;
+    margin-left: 20px;
+    font-weight: 400;
+    color: #333;
+}
+.LocationPage3BottomDiv{
+    width: 100%;
+    margin: 130px auto;
+}
+.LocationPage3Btn{
+    font-size: 19px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #0b79b7;
+    color: white;
+    transition: 0.3s;
+    margin-bottom: 100px;
+}
+.LocationupBtnBox{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+.LocationupBtn{
+    width: 120px;
+    height: 40px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: white;
+    border: none;
+    outline: none;
+    color: #555;
+    transition: 
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+.LocationupBtn.active{
+    background-color: #333;
+    color: #f2f3f5;
+    border-top: 1px solid #999;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    font-weight: 500;
+}
+.LocationupBtn:hover{
+    color: white;
+    background-color: #888;
+    transition: 0.3s;
+}
+.leaflet-container {
+  z-index: 1;
+}
+.LocationPage3Btn:hover{
+    background-color: #065d8f;
+}

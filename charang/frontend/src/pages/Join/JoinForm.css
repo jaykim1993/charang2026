@@ -1,0 +1,435 @@
+/* 회원가입 - 로그인 CSS 통일 */
+/* 회원가입 오버레이 */
+.joinOverlay {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+}
+
+
+/* 회원가입 페이지 공통 CSS */
+.joinWrap {
+    position: relative;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    list-style: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    max-width: 660px;
+    max-height: 830px;
+    overflow-y: auto;
+}
+.joinWrap::-webkit-scrollbar {
+  width: 3px;
+}
+.joinWrap::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 3px;
+}
+.joinBtnX {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: inherit;
+    font-size: 30px;
+    cursor: pointer;
+}
+.joinColorText {
+    color: #0b79b7;
+    font-weight: 900;
+}
+.joinContent {
+    display: flex;
+    width: 550px;
+    flex-direction: column;
+    padding-top: 30px;
+    margin-left: 30px;
+}
+.joinContent li {
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+.joinLabel {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 10px 0;
+    margin-left: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.joinLabel:hover, .joinLabelAll:hover{
+    font-weight: bold;
+}
+.joinCheck {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+.joinFormNext {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    background: #0b79b7;;
+    color: white;
+    border-radius: 6px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.2s;
+}
+.joinFormNext:hover {
+    background: #065d8f;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+.joinInput{
+    display: block;
+    width: 80%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.joinInput:focus {
+  outline: none;
+  border: 1px solid #2591cf;
+}
+/* 회원가입 A페이지 CSS */
+.joinWrapA {
+    position: relative;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    list-style: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    max-width: 660px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+.joinAContentWrap {
+    margin-top: 70px;
+    min-height: 235px;
+}
+.joinContentA {
+    display: flex;
+    width: 550px;
+    flex-direction: column;
+    margin-left: 30px;
+}
+.joinAListbtn {
+    color:  #0b79b7;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+    font-size: 20px;
+    transition: 0.3s;
+}
+.joinAListbtn:hover{
+    transform: scale(1.1);
+}
+.joinTosH3 {
+    display: inline-block;
+    width: 510px;
+}
+.joinTosH {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+.joinTos {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-8px);
+    transition:
+        max-height 0.5s ease,
+        transform 0.5s ease;
+}
+.joinTos.open {
+    max-height: 500px;    
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 10px;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 12px;
+}
+.joinTos::-webkit-scrollbar {
+  width: 3px;
+}
+.joinTos::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 3px;
+}
+.joinAllAgree {
+    margin-bottom: 90px;
+}
+.joinLabelAll {
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+    gap: 5px;
+    margin: 10px 0 50px 0;
+    margin-left: 50px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.joinCheckAll {
+    transform: scale(1.5);
+    cursor: pointer;
+}
+
+/* 회원가입 페이지 B CSS */
+.joinUlB{
+    padding: 0;
+    list-style: none;
+    margin-top: 90px;
+    margin-bottom: 100px;
+}
+.joinLabelB{
+    display: flex;
+    gap: 20px;
+    font-weight: bold;
+    padding-left: 20px;
+}
+.joinTextB{
+    display: inline-block;
+    width: 138px;
+    transform: translateY(12px);
+}
+.joinContentB {
+    margin-bottom: 30px;
+}
+.joinInputB{
+    width: 255px;
+    padding: 15px;
+    margin-left: 30px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.joinInputB:focus {
+  outline: none;
+  border-bottom: 1px solid #2591cf;
+}
+.joinBtnB{
+    width: 100px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    background-color: inherit;
+    box-sizing: border-box;
+    color: white;
+    background: #0b79b7;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s;
+}
+.joinBtnB:hover {
+    background-color: #065d8f;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+
+/* 회원가입 페이지 C CSS */
+.joinContentC {
+    width: 380px;
+    border-bottom: 1px solid #ddd;
+}
+.joinUlC{
+    padding: 0;
+    list-style: none;
+    margin-top: 92px;
+    margin-bottom: 67px;
+}
+.joinTextC {
+    display: inline-block;
+    width: 170px;
+    transform: translateY(12px);
+}
+.joinTextCC {
+    display: inline-block;
+    margin-left: 10px;
+    width: 160px;
+    transform: translateY(12px);
+}
+.joinInputName {
+    width: 360px;
+    padding: 15px;
+    margin: 0;
+    border: none;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.joinInputName:focus {
+    outline: none;
+}
+.joinInputEmail {
+    width: 205px;
+    padding: 15px;
+    margin: 0;
+    border: none;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.joinInputEmail:focus {
+    outline: none;
+}
+.joinSelectEmail {
+    width: 140px;
+    padding: 15px;
+    margin: 0;
+    border: none;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.joinSelectEmail:focus {
+    outline: none;
+}
+.joinInputResi {
+    width: 178px;
+    padding: 15px;
+    margin: 0;
+    border: none;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.joinInputResi:focus {
+    outline: none;
+}
+.joinInput4 {
+    width: 116.5px;
+    padding: 15px;
+    margin: 0;
+    border: none;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.joinInput4:focus, .joinInputAdd:focus, .joinInputLong:focus, .joinInputC:focus, .joinInputCC:focus {
+    outline: none;
+}
+.joinInputAdd {
+    width: 200px;
+    padding: 15px;
+    margin: 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.joinInputLong {
+    width: 95%;
+    padding: 15px;
+    margin: 0;
+    border: none;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.joinInputC {
+    width: 20%;
+    padding: 15px;
+    margin: 0;
+    border: none;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.joinInputCC {
+    width: 118px;
+    padding: 15px;
+    margin: 0;
+    border: none;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.joinbtnC {
+    width: 120px;
+    border: none;
+    cursor: pointer;
+    padding: 8px 4px;
+    margin-right: 60px;
+    margin-top: 5px;
+    color: white;
+    background: #0b79b7;
+    border-radius: 6px;
+    transform: translateY(5px);
+    transition: 0.2s;
+}
+.joinbtnC:hover {
+    background-color: #065d8f;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+.joinCheckC {
+    transform: scale(1.2);
+    margin: 20px 0;
+    cursor: pointer;
+}
+.joinLabelC{
+    display: flex;
+    gap: 20px;
+    font-weight: bold;
+    padding-left: 20px;
+}
+.joinFormSubmit {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    background: #0b79b7;
+    color: white;
+    border-radius: 6px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.joinFormSubmit:hover {
+    background: #065d8f;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+.joinCOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;    
+}
+
+.addressWrap {
+    width: 660px;  
+    height: 703.5px;
+    position: absolute;
+    left: -9px;      
+    background: #fff;
+    border-radius: 12px;
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 1010;
+}
+
+.joinBtnXx {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: inherit;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 1100;  
+}
+
+

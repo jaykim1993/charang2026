@@ -1,0 +1,21 @@
+#root .carRegPage{
+    width: 1300px;
+    margin: 100px auto;
+    /* border: 1px solid red; */
+}
+
+#root .carRegPage h1{
+    /* border: 1px solid blue; */
+    text-align: center;
+    margin: 50px 0;
+}
+/* 표 */
+#root .carRegPage .car_reg_table{
+    margin: 0 auto;
+    width: 800px;
+}
+#root .carRegPage .car_reg_table .car_reg_tbody th, .car_reg_tbody td{
+    border: 1px solid rgb(204, 204, 204);
+    padding: 5px;
+    text-align: center;
+}

@@ -1,0 +1,86 @@
+#root .MypageBooked {
+    width: 1200px;
+    margin: 0 auto; /* 가운데 정렬 */
+    min-height: 1100px;
+}
+
+.mypageBookTable {
+    width: 100%;
+    border-collapse: collapse; 
+    margin: 30px 0;
+    background-color: #f9fafc;
+    /* border: 1px solid #dee2e6; */
+}
+
+/* 헤더 스타일 */
+.mypageBookThead tr {
+    background-color: #e4edf2;
+}
+
+.mypageBookThead tr th {
+    padding: 15px;
+    color: #333;
+    text-align: center;
+    font-size: 18px;
+    /* border: 1px solid #dee2e6; */
+}
+
+/* 본문 셀 스타일 */
+.mypageBookTable .mypage_tbody td {
+    padding: 20px;
+    border-bottom: 1px solid  #dee2e6;
+    text-align: center;
+    vertical-align: middle;
+    position: relative; /* D-Day 위치용 */
+}
+
+.mypageBookTable img {
+    width: 200px; 
+    height: auto;
+    border-radius: 5px;
+}
+
+.mapCarname {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.mapCarBooknum {
+    font-size: 16px;
+    color: #666;
+}
+
+.mapCarDate {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 10px;
+}
+
+.mapCarDays {
+    display: inline-block;
+    background-color: #e8e8e8;
+    color: #2f2f2f;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.mapGoToDetail {
+    width: 120px;
+    display: block;
+    background-color: #0b79b7;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.mapGoToDetail:hover {
+    background-color: #065d8f;
+}

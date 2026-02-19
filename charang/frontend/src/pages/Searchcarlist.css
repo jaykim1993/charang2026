@@ -1,0 +1,552 @@
+a, p, h4, h3, h2, h1{
+    /* text-decoration: none; */
+    /* border: none; */
+    margin: 0;
+    padding: 0;
+}
+#root .Recentcar{
+    width: 1300px;
+    margin: 120px auto;
+    display: flex;
+    gap: 50px
+}
+/* ul 공통 */
+#root ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* 카테고리 */
+#root .Recentcar .R_category{
+    width: 350px;
+}
+
+#root .Recentcar .R_category ul li{
+    margin-bottom: 30px;
+    border-bottom: 1px solid #dcdcdc;
+    padding-bottom: 30px;
+    position: relative;
+}
+
+/* #root .Recentcar .R_category ul li .R_title{
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 18px;
+    background-color: #666;
+} */
+
+#root .Recentcar .R_category ul li h3{
+    font-size: 18px;
+    font-weight: 700;
+    color: #272727;
+    margin-bottom: 20px;
+}
+
+#root .Recentcar .R_category ul li .cateBtn{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+#root .Recentcar .R_category ul li .cateBtn .active{
+    color: #0b79b7;
+    border: 1px solid #0b79b7;
+    background-color: #f9fafc;
+    font-weight: 600;
+}
+#root .Recentcar .R_category ul li button{
+    height: 40px;
+    padding: 0 15px;
+    border-radius: 50px;
+    border: 1px solid #dddddd;
+    /* background-color: #fff; */
+    background-color: #fdfeff;
+    color: #464646 ;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#root .Recentcar .R_category ul li button > img{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+#root .Recentcar .R_category ul li button:hover{
+    /* background-color: #f7f7f7; */
+    border: 1px solid #0b79b7 ;
+}
+#root .Recentcar .R_category ul li h4{
+    color: #6c6c6c;
+    font-size: 15px;
+    margin: 23px 0 10px 0;
+    font-weight: 600;
+}
+#root .Recentcar .R_category ul li img{
+    height: 20px;
+}
+
+/* ----------------------------------------- */
+
+#root .Recentcar .R_carlist{
+    width: 900px;
+}
+
+#root .Recentcar .R_carlist .cate_choice{
+    position: relative;
+    margin-top: 20px;
+}
+/* 카테고리 선택 취소버튼 */
+#root .Recentcar .R_carlist .cate_choice .cate_Btn{
+    margin: 35px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+#root .Recentcar .R_carlist .cate_choice .cate_choiceDel{
+    padding: 7px 15px;
+    border-radius: 50px;
+    border: 1px solid #cecece;
+    background-color: #fff;
+    color: #666666;
+    cursor: pointer;
+    margin-right: 10px;
+}
+#root .Recentcar .R_carlist .cate_choice .cate_Btn > button{
+    height: 40px;
+    padding: 0 15px;
+    border-radius: 50px;
+    /* color: #0b79b7; */
+    color: #666666;
+    border: 1px dashed #cecece;
+    background-color: #f9fafc;
+    font-weight: 500;
+    cursor: pointer;
+}
+#root .Recentcar .R_carlist .cate_choice .cate_Btn > button > i{
+    margin-left: 10px;
+    color: #888;
+    font-size: 12px;
+    display: inline-block;
+    padding-bottom: 4px;
+}
+#root .Recentcar .R_carlist .cate_choice .delBtn{
+    text-align: right;
+    position: absolute;
+    right: 0;
+    bottom: -56px;
+}
+#root .Recentcar .R_carlist .cate_choice .delBtn > button{
+    height: 40px;
+    padding-left: 15px;
+    border-radius: 50px;
+    /* border: 1px solid #7e7e7e;
+    background-color: #fff; */
+    border: none;
+    background-color: transparent;
+    /* color: #464646 ; */
+    cursor: pointer;
+    /* margin-right: 10px; */
+}
+#root .Recentcar .R_carlist .cate_choice .delBtn > button i{
+    color: #3f3f3f;
+    font-weight: bold;
+    font-size: 20px;
+}
+#root .Recentcar .R_carlist .cate_choice .delBtn > button i:hover{
+    color: #2591cf;
+}
+
+/* 총 n대 */
+#root .Recentcar .R_carlist > p{
+    margin: 20px 0 20px 0;
+    display: flex;
+    align-items: center;
+    color: #8d8d8d;
+}
+#root .Recentcar .R_carlist > p strong{
+    color: #333;
+    font-size: 19px;
+}
+
+/* 날짜 . 지점 선택 */
+#root .Recentcar .R_carlist .R_reservation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 2px solid #333;
+    padding-bottom: 38px;
+}
+#root .Recentcar .R_carlist .R_reservation .R_dateTable{
+    /* border: 1px solid red; */
+    display: flex;
+    gap: 20px;
+    /* align-items: center; */
+}
+#root .Recentcar .R_carlist .R_reservation .R_dateTable .R_dateTitle{
+    width: 580px;
+    border-left: 1px solid #d6d6d6;
+    padding-left: 50px;
+}
+#root .Recentcar .R_carlist .R_reservation .R_dateTable .R_dateTitle > p{
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 550;
+}
+#root .Recentcar .R_carlist .R_reservation .R_dateTable .R_dateTitle h4{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.R_reservation_p{
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 550;
+}
+#root .Recentcar .R_reservation .R_dateTable .searchButton{
+    margin-top: 15px;
+}
+#root .Recentcar .R_reservation .R_dateTable .searchButton > button{
+    border: none;
+    background-color: #e5e7eb;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 18px;
+    width: 120px;
+    font-size: 16px;
+    font-weight: 600;
+}
+#root .Recentcar .R_reservation .R_dateTable .searchButton > button:hover{
+    background-color: #dbe0ea;
+}
+
+/* 목록 */
+#root .Recentcar .R_carlist ul li{
+    width: 900px;
+    /* height: 400px; */
+    display: flex;
+    gap: 70px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+    padding: 40px 30px;
+    /* background-color: #f6f7f8; */
+    background-color: #f0f3f6;
+    /* background: #eceef2; */
+    /* background-color: #f9fafc; */
+    border: 1px solid #e5e5e5;
+    /* border: 1px solid #ccc; */
+    /* box-shadow: 0 0 7px rgba(0,0,0,0.15); */
+    border-radius: 10px;
+}
+.car_variant_info.Line_active{
+    position: relative;
+    /* margin-bottom: 50px; */
+    padding-bottom: 28px;
+}
+.car_variant_info.Line_active::before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom: 1px solid #e5e7eb;
+    width: 100%;
+}
+#root .Recentcar .R_carlist .car_list_ul .car_variant_info{
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+    cursor: pointer;
+}
+#root .Recentcar .R_carlist .car_list_ul .car_variant_info:hover h4,
+#root .Recentcar .R_carlist .car_list_ul .car_variant_info:hover p,
+#root .Recentcar .R_carlist .car_list_ul .car_variant_info:hover strong,
+#root .Recentcar .R_carlist .car_list_ul .car_variant_info:hover span,
+#root .Recentcar .R_carlist .car_list_ul .car_variant_info:hover i{
+    color: #0b79b7;
+}
+
+#root .Recentcar .R_carlist .car_list_ul .car_variant_info .bi-chevron-right{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    font-size: 20px;
+}
+.grouped_car_item .car_variant_info .S_detail{
+    color: #999;
+    font-size: 14px;
+}
+.grouped_car_item .car_variant_info > p{
+    margin-top: 5px;
+    margin-bottom: 0;
+    /* white-space: break-word; */
+}
+
+.R_carlist .grouped_car_item{
+    width: 300px;
+    position: relative;
+}
+
+.R_carlist .grouped_car_item img.cars{
+    width: 300px;
+}
+
+.R_carlist .grouped_car_item img.brands{
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    width: 50px;
+}
+#root .Recentcar .R_carlist .car_list_ul{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+.grouped_car_item .car_list_ul .car_variant_info > h4{
+    font-size: 19px;
+    display: inline;
+    font-weight: 550;
+}
+/* .grouped_car_item .car_list_ul .car_variant_info > span{
+    margin-left: 10px;
+} */
+.grouped_car_item .car_list_ul .car_variant_info .carPrice{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.grouped_car_item .car_list_ul .car_variant_info .carPrice > strong{
+    font-size: 20px;
+}
+.carPriceMin {
+    font-size: 15px;
+    color: #666666;
+    margin-left: 20px;
+}
+.carPriceTotal > strong {
+    font-size: 20px;
+}
+
+/* ---------------------------------- */
+
+.empty_car {
+    padding: 60px 0;
+    text-align: center;
+    color: #888;
+    font-size: 17px;
+}
+#root .R_carlist .R_reservation{
+    display: flex;
+    /* border: 1px solid red; */
+}
+
+/* 지점선택 */
+#root .R_carlist .R_reservation .R_spotTable{
+    display: flex;
+    align-items: center;
+}
+#root .R_carlist .R_reservation .R_spotTable .spot_choice{
+    width: 178px;
+    padding-left: 10px;
+    /* border: 1px solid red; */
+}
+#root .R_carlist .R_reservation .R_spotTable .spot_choice .R_spotTitle > h4{
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+}
+/* 찾기버튼 */
+#root .R_carlist .R_dateReservation .R_spotTable .searchButton{
+    width: 170px;
+    padding: 15px 0px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #0b79b7 ;
+    border: none;
+}
+#root .R_carlist .R_dateReservation .R_spotTable .searchButton i{
+    color: #fff;
+    /* font-weight: bold; */
+}
+
+/* 지점 선택 모달 */
+#root .R_carlist .R_location{
+    width: 444px;
+    margin: 0 auto;
+    padding: 25px;
+    padding-bottom: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    position: absolute;
+    margin-top: 30px;
+    left: -460px;
+    z-index: 100;
+}
+
+/* 달력 */
+.calendar-slide {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    position: absolute;
+    margin-top: 30px;
+    top: 140px;
+    z-index: 100;
+    width: 1060px;
+   height: 620px;
+   background-color: #fff;
+   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+   border-radius: 15px;
+}
+.calendar-slide .R_close02 > i{
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    color: #999;
+    padding-right: 25px;
+}
+
+.calendar-slide.open {
+  max-height: 800px; /* 캘린더 높이 예상값 */
+  position: absolute;
+  top: 140px;
+  right: 0;
+  z-index: 100;
+   width: 665px;
+   height: 620px;
+   background-color: #fff;
+   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+   border-radius: 15px;
+   padding: 25px 5px 0 0;
+}
+.calendar-slide.open .R_close02 > i{
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    color: #999;
+    /* padding-right: 25px; */
+    margin-bottom: 20px;
+}
+
+/* 지점 선택 목록 */
+#root .R_carlist .R_location .R_close01 > i{
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    color: #999;
+}
+#root .R_carlist .R_location .R_close01:hover > i{
+    color: #333;
+}
+#root .R_carlist .R_location .R_selectLocation{
+    /* border: 1px solid red; */
+    position: relative;
+    padding-top: 20px;
+}
+#root .R_carlist .R_location .R_selectLocation > span{
+    display: inline-block;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+#root .R_carlist .R_location .R_selectLocation p{
+    font-size: 16px;
+    margin-bottom: 37px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+#root .R_carlist .R_location .R_selectLocation p > span{
+    font-size: 12px;
+    color: rgb(157, 156, 156);
+    margin-left: 10px;
+}
+#root .R_carlist .R_location .R_selectLocation .R_detail{
+    width: 40px;
+    height: 30px;
+    border: none;
+    font-size: 14px;
+    border-radius: 3px;
+}
+#root .R_carlist .R_location .R_selectLocation .R_detail:hover{
+   background-color: rgb(225, 225, 225);
+}
+#root .R_carlist .R_location .R_selectLocation .R_gu{
+    display: flex;
+    justify-content: space-between;
+}
+#root .R_carlist .R_location .R_selectLocation .R_gu > p{
+    cursor: pointer;
+}
+#root .R_carlist .R_location .R_selectLocation .R_seoul::before{
+    content: '';
+    width: 100%;
+    border-bottom: 1px solid rgb(227, 227, 227);
+    position: absolute;
+    top:215px;
+}
+#root .R_carlist .R_location .R_selectLocation .R_gimpo::before{
+    content: '';
+    width: 100%;
+    border-bottom: 1px solid rgb(227, 227, 227);
+    position: absolute; 
+    top:310px;
+}
+
+/* 지점 위치 상세보기 (지도) */
+#root .R_carlist .R_location .R_selectLocation_detail{
+    padding: 25px 0 25px 0;
+    width: 444px;
+}
+#root .R_carlist .R_location .R_selectLocation_detail > h5{
+    padding: 20px 0;
+}
+#root .R_carlist .R_location .R_selectLocation_detail > h5::before{
+    content: '';
+    width: 394px;
+    border-bottom: 1px solid rgb(227, 227, 227);
+    position: absolute;
+    top:710px;
+}
+#root .R_carlist .R_location .R_selectLocation_detail .R_detial_address_title{
+    color: rgb(190, 190, 190) ;
+    font-size: 15px;
+    padding: 10px 0;
+}
+
+.calendar-slide.open{
+    height: 560px;
+}
+
+.background_gray{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f9fafc;
+    z-index: -10;
+}
+
+/* .GrounpedCarsWrap{
+    max-height: 880px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: max-height 0.4s ease;
+}
+.GrounpedCarsWrap.open {
+    max-height: 1600px; 
+}
+.GrounpedCarsWrap::-webkit-scrollbar {
+  width: 0px;
+}
+.GrounpedCarsWrap::-webkit-scrollbar-thumb {
+  background:  #2591cf;
+} */

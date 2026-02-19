@@ -1,0 +1,190 @@
+#root .FooterContainer{
+    width: 100%;
+    border-top: 1px solid #d4d4d4;
+    background-color: #333;
+    position: relative;
+}
+
+#root .FooterContainer .Footer{
+    width: 1300px;
+    margin: 0 auto;
+}
+.F_hr{
+    margin: 20px 0;
+}
+/* 공지사항 */
+/* #root .FooterContainer .Footer_Top .notice{
+    position: relative;
+    padding: 30px 0;
+}
+#root .FooterContainer .Footer_Top .notice::before{
+    width: 100%;
+    content: '';
+    position: absolute;
+    border: 1px solid #ccc;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#root .FooterContainer .Footer_Top .notice::after{
+    width: 100%;
+    content: '';
+    position: absolute;
+    border: 1px solid #ccc;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+} */
+
+/* -------------------------------------- */
+
+/* 로고 */
+#root .FooterContainer .Footer_Top > img{
+    width: 100px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+/* 푸터 섹션 */
+#root .FooterContainer .Footer_Top .Footer_sec{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 좌측 회사정보 */
+#root .FooterContainer .Footer_Top .Footer_sec .F_info{
+    width:  900px;
+    font-size: 14px;
+    display: flex;
+}
+#root .FooterContainer .Footer_Top .Footer_sec .F_info .F_infoUl{
+    margin-right: 20px;
+}
+#root .FooterContainer .Footer_Top .Footer_sec .F_info .F_infoUl .F_infoLi01{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+#root .FooterContainer .Footer_Top .Footer_sec .F_info .F_infoUl .F_infoLi01  > p,
+#root .FooterContainer .Footer_Top .Footer_sec .F_info .F_infoUl .F_infoLi01  > p strong{
+    color: rgb(173, 173, 173);
+}
+#root .FooterContainer .Footer_Top .Footer_sec .F_info .F_infoUl .F_infoLi02 > p,
+#root .FooterContainer .Footer_Top .Footer_sec .F_info .F_infoUl .F_infoLi02 > p strong{
+    color: #7e7e7e;
+    padding: 3px 0;
+}
+
+/* 우측 고객센터 */
+#root .FooterContainer .Footer_Top .Footer_sec .F_support{
+    color: #7e7e7e;
+    width: 330px;
+    /* height: 100px; */
+    padding: 30px;
+    /* text-align: center; */
+    background-color: #c0c0c0;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+#root .FooterContainer .Footer_Top .Footer_sec .F_support > h4{
+    /* font-size: 22px; */
+    font-weight: bold;
+    color: #333;
+}
+#root .FooterContainer .Footer_Top .Footer_sec .F_support > hr{
+    color: #252525;
+}
+
+/* -------------------------------------- */
+
+/* 하단 카피라이트 */
+#root .FooterContainer .F_copyright{
+    font-size: 12px;
+    text-align: center;
+    padding-bottom: 30px;
+}
+#root .FooterContainer .F_copyright p{
+    color: rgb(173, 173, 173);
+}
+#root .F_infoLi02flex{
+    display: flex;
+    gap: 60px;
+}
+#root .F_infoLi02 > hr{
+    margin: 5px 0;
+}
+#root .FooterScrollToTop{
+    position: fixed;
+    bottom: 80px;
+    right: 100px;
+    width: 45px;
+    height: 45px;
+}
+#root .FooterScrollToTop button{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    background-color: rgb(255, 255, 255);
+    border: none;
+}
+#root .FooterScrollToTop button:hover{
+    background-color: #b8b8b8;
+}
+#root .FooterScrollToTop .bi-arrow-up-short{
+   color: rgb(99, 99, 99);
+   font-size: 45px;
+   line-height: 20px;
+}
+.FooterShowRecent {
+  position: fixed;
+  right: 100px;
+  z-index: 10;
+  transition: bottom 0.4s ease-in-out;
+}
+.recentWrapper {
+  position: relative;
+}
+
+/* 원형 버튼 */
+.recentWrapper button {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  overflow: hidden;   /* 🔥 이미지 고정 */
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+/* 이미지 */
+.recentWrapper button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+}
+
+/* 툴팁 */
+.recentTooltip {
+  position: absolute;
+  right: 55px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px 16px;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* hover */
+.recentWrapper:hover .recentTooltip {
+  opacity: 1;
+}
