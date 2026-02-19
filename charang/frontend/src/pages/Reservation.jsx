@@ -104,8 +104,8 @@ export default function Reservation() {
         new Date(`${filterCar.filterStartDate}T${filterCar.filterStartTime}`)) /
         (1000 * 60 * 30);
 
-    /* ===================== 예약 확정 ===================== */
-    
+    /* ===================sdsdfsfdsfdsdfsfd=dd= 예약 확정 ===================== */
+    // dsksdklsdllsd
     const sessionUser = sessionStorage.getItem("userid");
     const userId = sessionUser ? JSON.parse(sessionUser).userId : null;
     console.log(userId); // "user01"
