@@ -1,5 +1,8 @@
 // react에서 자료 공유
+<<<<<<< HEAD
 import axios from "axios";
+=======
+>>>>>>> main
 import { createContext, useState, useEffect} from "react";
 
 // 공유할 데이터가 저장되는 저장소

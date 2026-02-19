@@ -1,1 +1,16 @@
-/.metadata/
+
+# 모든 위치의 .metadata 폴더 무시
+.metadata/
+
+# 이클립스 개별 프로젝트 설정 파일들 (이게 없으면 협업 시 충돌 자주 남)
+.project
+.classpath
+.settings/
+
+# 컴파일 결과물
+bin/
+target/
+build/
+
+# VS Code 설정
+.vscode/
