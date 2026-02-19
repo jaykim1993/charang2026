@@ -65,7 +65,7 @@ export default function CustomerServiceNoticeWrite(){
                 </tbody>
             </table>
             <button onClick={noticeChk}>작성완료</button>
-            {/* <button type="reset">초기화</button> */}
+            {/* <button type="reset">초기화!!</button> */}
         </div>
     )
 }
