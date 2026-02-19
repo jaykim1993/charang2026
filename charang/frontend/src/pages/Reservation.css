@@ -1,0 +1,309 @@
+#root .ReservationSection{
+    width: 1300px;
+    margin: 120px auto;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 좌측 */
+#root .ReservationSection .Reser_driverInfo .Reser_h4{
+    margin: 60px 0 40px 0;
+}
+#root .ReservationSection .Reser_reservationInfo{
+    width: 900px;
+    /* border: 1px solid red; */
+    /* margin: 50px 0 200px 0; */
+}
+#root .ReservationSection .Reser_reservationInfo .R_Head{
+    display: flex;
+    gap: 10px;
+}
+#root .ReservationSection .Reser_reservationInfo .R_modal{
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+}
+#root .ReservationSection .Reser_reservationInfo > h2{
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 40px;
+}
+#root .ReservationSection .Reser_reservationInfo .Reser_driverInfo > h3{
+    font-size: 23px;
+}
+#root .ReservationSection .Reser_reservationInfo .Reser_driverInfo > h3 > span{
+    color: #0b79b7;
+}
+#root .ReservationSection .Reser_reservationInfo .Reser_driverInfo{
+    margin-top: 15px;
+}
+#root .ReservationSection .Reser_reservationInfo .Reser_driverInfo > p{
+    font-size: 16px;
+    color: #888;
+    /* margin-bottom: 50px; */
+}
+.address_position{
+    position: relative;
+}
+.addressBtn{
+    position: absolute;
+    top: 50%;
+    /* transform: translateY(-50%); */
+    right: 200px;
+    border: 1px solid #999;
+    background-color: transparent;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.addressBtn:hover{
+    background-color: #e2e2e2;
+}
+
+/* 운전자 기본정보 */
+#root .ReservationSection .Reser_reservationInfo .Reser_driverInfo .Reser_driverBasicInfo > ul{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    /* margin-top: 30px; */
+}
+#root .ReservationSection .Reser_reservationInfo .Reser_driverInfo .Reser_driverBasicInfo > ul li > h5,
+#root .ReservationSection .Reser_reservationInfo .Reser_driverInfo .Reser_driverLicenseInfo > div ul li > p{
+    /* background-color: #f2f3f5; */
+    border-bottom: 1px solid #dcdee0;
+    padding: 15px 0;
+    margin: 10px 0;
+    font-size: 18px;
+    color: #555;
+    /* width: 500px; */
+    width: 700px;
+}
+
+/* 우편번호 검색 모달 */
+input{
+    outline: none;
+}
+#root .ReservationSection .Reser_reservationInfo .address_position .R_address_Modal,
+#root .ReservationSection .Reser_reservationInfo .address_position .R_modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    height: 600px;
+    background-color: #fff;
+    border-radius: 10px;
+    z-index: 100;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+#root .ReservationSection .Reser_reservationInfo .address_position .R_address_Modal button.handleAddressComplete{
+    border: none;
+    background-color: #0b79b7;
+    font-size: 19px;
+    color: #fff;
+    padding: 10px;
+    border-radius: 7px;
+    margin-top: 210px;
+}
+#root .ReservationSection .Reser_reservationInfo .address_position .R_address_Modal > button:hover{
+    background-color: #065d8f;
+}
+/* #root .ReservationSection .Reser_reservationInfo .address_position .R_address_Modal > i{
+    margin-bottom: 20px;
+} */
+#root .ReservationSection .Reser_reservationInfo .address_position .R_address_Modal #userAddrsearch{
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    padding: 6px 10px;position: absolute;
+    right: 30px;
+    top: 100px;
+    font-size: 14px;
+    font-weight: 600;
+}
+#root .ReservationSection .Reser_reservationInfo .address_position .R_address_Modal #userAddrsearch:hover{
+    background-color: #e2e2e2;
+
+}
+#root .ReservationSection .Reser_reservationInfo .address_position .R_address_Modal > input{
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    font-size: 18px;
+}
+
+/* 닫기 버튼 */
+#root .ReservationSection .Reser_reservationInfo .address_position .R_address_Modal i{
+    align-self: flex-end;
+    cursor: pointer;
+    font-size: 20px;
+    margin-bottom: 30px;
+    color: #333;
+}
+#root .ReservationSection .Reser_reservationInfo .address_position .R_modal i{
+    cursor: pointer;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+}
+.R_modal_overlay{
+    width: 100%;
+    height: 100%;
+    background-color: #00000050;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+/* 운전면허 정보 */
+.Reser_driverLicenseInfo > ul li{
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    margin: 30px 0;
+}
+.Reser_driverLicenseInfo > ul li label{
+    margin-bottom: 10px;
+}
+.Reser_driverLicenseInfo > ul li input{
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0;
+}
+.Reser_driverLicenseInfo > ul li > p{
+    color: #777;
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+/* 안내문구 */
+.Reser_driverLicenseInfo .Reser_reservationNotice{
+    background-color: #f7f8fa;
+    padding: 25px;
+    border-radius: 7px;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* 우측 */
+#root .ReservationSection .Reser_reservationSummary{
+    width: 300px;
+    position: sticky;
+    align-self: flex-start;
+    right: 0;
+    top: 120px;
+    width: 360px;
+    /* height: 550px; */
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+#root .ReservationSection .Reser_reservationSummary .summary_card .info_box > hr{
+    margin: 30px 0;
+}
+#root .ReservationSection .Reser_reservationSummary .summary_card > h5{
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+#root .ReservationSection .Reser_reservationSummary .info_box > h4{
+    font-size: 18px;
+    margin: 10px 0;
+}
+#root .ReservationSection .Reser_reservationSummary .info_box > h5{
+    font-size: 16px;
+}
+
+/* 총결제금액 */
+.price_total > p{
+    font-size: 20px;
+}
+.Reser_payment > hr{
+    margin: 30px 0;
+}
+
+/* 결제정보 */
+.price_total .Reser_payment > h4{
+    margin: 20px 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+.price_total .Reser_payment > p{
+    font-size: 18px;
+    font-weight: 500;
+}
+.price_total .Reser_payment > ul li{
+    margin: 10px 0;
+}
+.price_total .Reser_payment > ul li input{
+    margin-right: 5px;
+}
+.price_total .Reser_payment > ul li input,
+.price_total .Reser_payment > ul li label{
+    cursor: pointer;
+}
+.price_total .Reser_payment > ul li .kakao_pay,
+.price_total .Reser_payment > ul li .naver_pay{
+    width: 50px;
+    margin-left: 10px;
+}
+
+/* 결제하기 버튼 */
+#root .ReservationSection .Reser_reservationSummary .summary_card .pay_btn{
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 19px;
+    background-color: #0b79b7;
+    color: #fff;
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+}
+#root .ReservationSection .Reser_reservationSummary .summary_card .pay_btn:hover{
+    background-color: #065d8f;
+}
+#root .reservationmodalbtn{
+    display: flex;
+    justify-content: space-between;
+}
+#root .reservationmodalbtn button{
+    width: 49%;
+    padding: 10px;
+    font-size: 19px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background-color: #0b79b7;
+}
+#root .reservationmodalbtn button:hover{
+    background-color: #065d8f;
+}
+.reservationOverlay{
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+.reserPriceBox{
+    display: flex;
+    justify-content: space-between;
+}
