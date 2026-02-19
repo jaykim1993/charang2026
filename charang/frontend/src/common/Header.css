@@ -23,40 +23,100 @@
   overflow: visible;
   width: 600px;
 }
+/* 로고 애니매이션----------------------------------------------------------- */
 .animate-logo {
-  animation: logoSlideFloat 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: logoSlideFloat 13s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
+
 @keyframes logoSlideFloat {
-  /* 원래 위치 (중앙) */
+  /* ▶ 우측 정지 + 미세 흔들림 */
   0% {
-    transform: translateX(380px);
-    opacity: 1;
+    transform: translate(380px, 0);
   }
 
-  /* 왼쪽으로 이동 */
-  20% {
-    transform: translateX(-100px);
-    opacity: 1;
+  5% {
+    transform: translate(380px, -2px);
   }
 
-  /* 고정 + 위아래 흔들림 */
-  35% {
-    transform: translate(-100px, -3px);
+  10% {
+    transform: translate(380px, 2px);
+  }
+
+  15% {
+    transform: translate(380px, 0);
+  }
+
+  /* ▶ 우측 → 좌측 천천히 이동 */
+  40% {
+    transform: translate(-100px, 0);
+  }
+
+  /* ▶ 좌측 정지 + 흔들림 */
+  45% {
+    transform: translate(-100px, -2px);
   }
 
   50% {
-    transform: translate(-100px, 3px);
+    transform: translate(-100px, 2px);
   }
 
-  65% {
-    transform: translate(-100px, -3px);
+  55% {
+    transform: translate(-100px, -2px);
   }
-  /* 다시 중앙으로 들어오며 사라짐 */
+
+  60% {
+    transform: translate(-100px, 0);
+  }
+
+  /* ▶ 좌측 → 우측 천천히 복귀 */
   100% {
-    transform: translateX(380px);
-    opacity: 1;
+    transform: translate(380px, 0);
   }
 }
+
+/* 좌우 반전까지 넣은 버젼
+.animate-logo {
+  animation: 여기수정 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+} 
+
+@keyframes 여기수정 {
+  0% {
+    transform: translateX(380px) scaleX(1);
+  }
+
+  10% {
+    transform: translateX(380px) scaleX(1);
+  }
+
+  35% {
+    transform: translateX(-120px) scaleX(1);
+  }
+
+  45% {
+    transform: translateX(-120px) scaleX(1);
+  }
+
+  50% {
+    transform: translateX(-120px) scaleX(-1);
+  }
+
+  75% {
+    transform: translateX(380px) scaleX(-1);
+  }
+
+  85% {
+    transform: translateX(380px) scaleX(-1);
+  }
+
+  100% {
+    transform: translateX(380px) scaleX(1);
+  }
+}
+  */
+/* ----------------------------------------------------------- */
+
+
 
 .headerLogo {
     width: 100px;
@@ -235,6 +295,7 @@
     padding: 10px 30px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     overflow-y: auto;
+    overflow-x: hidden;
 }
 .headerNavSide::-webkit-scrollbar {
   width: 5px;

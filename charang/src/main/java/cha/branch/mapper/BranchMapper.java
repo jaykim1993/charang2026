@@ -11,4 +11,7 @@ public interface BranchMapper {
 
 	// 전체 지점 리스트 메서드
 	public List<BranchDTO> getAllBranch();
+	
+	// 특정 브랜치 출력
+	
 }

@@ -1,141 +1,202 @@
 import { useState, useContext, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { BookingContext } from '../contexts/Bookingcontext';
-import { CalendarContext } from '../contexts/Calendarcontext';
+import { useLocation, useNavigate, useParams, Link } from "react-router-dom";
+import axios from "axios";
+
+import { BookingContext } from "../contexts/Bookingcontext";
+import { CalendarContext } from "../contexts/Calendarcontext";
+import { DataContext } from "../contexts/Datacontext";
 import { AuthContext } from '../contexts/Authcontext';
-import DaumPostCode from 'react-daum-postcode';
+import DaumPostCode from "react-daum-postcode";
+import "./Reservation.css";
 
-import './Reservation.css';
-
-export default function Reservation(){
-    // const {  } = useContext(BookingContext);
-    const location = useLocation();
-    // navigate 보낼 때 넣었던 state 객체 꺼내기 / 비어있을 경우를 대비해 기본값 {} 설정
-    const { car, filter, totalPrice, filterStartDate, filterEndDate, filterStartTime, filterEndTime } = location.state || {};
-    const { availableCars, filteredInfoUser, startdayText,enddayText, DeleteYear } = useContext(CalendarContext);
-    const {userid, username, user_email, user_resistnum, user_phonenum, address, address_detail, user_iskorean, user_license } = useContext(AuthContext);
-    const { setBookedlistAll, calculatePrice} = useContext(BookingContext);
-
-    // 예외처리
-    if(!car) return <div className='ReservationSection'>날짜, 지점을 선택해주세요.</div>;
-
-    // 주소 수정 (상세주소 검색 모달)
-    const [isChange, setIsChange]=useState(false);
-    const [openModal,setOpenModal]=useState(false);
-
-    const [zipcode,setZipcode]=useState(''); // 우편번호
-    const [change_address, setChange_address]=useState(''); // 지역명 주소
-
-    // const [arr,setArr]=useState('');
-    const changeAddressHandler=(data)=>{
-        // 도로명, 지역명으로 입력할 예정
-        let arr = '';
-        if(data.userSeletedType === 'R'){
-            arr = data.roadAddress; // 도로명 주소
-        }else{
-            arr = data.jibunAddress; // 지역명 주소
-        }
-        setZipcode(data.zonecode);
-        setChange_address(arr);
-        // setIsChange(!isChange);
-        setOpenModal(false);
-    }
-    console.log(change_address);
-
-    // ===================== 예약/결제 관련 함수 ======================
-    const { id } = useParams();
+export default function Reservation() {
+    /* ===================== router ===================== */
     const navigate = useNavigate();
+    const { id } = useParams();
+    console.log(id);
 
-    const selectedCar = availableCars.find(car => car.id === Number(id)) || availableCars[0];
+    /* ===================== context ===================== */
+    const { setBookedlistAll } = useContext(BookingContext);
+    const { startdayText, enddayText, DeleteYear } = useContext(CalendarContext);
+    const { branch } = useContext(DataContext);
+    const {logout,loginNeeded}=useContext(AuthContext);
+
+
+    /* ===================== localStorage ===================== */
+    const filteredInfoUser =
+        JSON.parse(localStorage.getItem("filteredInfoUser")) || [];
+    const firstFilteredCar =
+        JSON.parse(localStorage.getItem("firstFilteredCar")) || [];
+    const calendarFilters =
+        JSON.parse(localStorage.getItem("calendarFilters")) || [];
+    const totalPrice = 
+        JSON.parse(localStorage.getItem("totalPrice")) || [];
+    /* ===================== user ===================== */
+    const [userid,setUserid]=useState(null);
+
+    useEffect(()=>{
+    axios.get('/api/userinfo')
+    .then((res)=>{
+        if(!res.data){
+        loginNeeded();
+        }else{
+        setUserid(res.data);
+        }
+    })
+    .catch((error)=>{
+        console.log(error)
+    })
+    },[])
+    
+    /* ===================== 주소 관련 ===================== */
+    const [isChange, setIsChange] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const [zipcode, setZipcode] = useState("");
+    const [change_address, setChange_address] = useState("");
+    const [detailAddress, setDetailAddress] = useState("");
+
+    const changeAddressHandler = (data) => {
+        const address =
+        data.userSelectedType === "R"
+            ? data.roadAddress
+            : data.jibunAddress;
+
+        setZipcode(data.zonecode);
+        setChange_address(address);
+        setOpenModal(false);
+    };
+
+    /* ===================== 결제 ===================== */
+    const [payment, setPayment] = useState(null);
+     
+    const payChange = (value) => {
+    setPayment(value);
+    };
+
+    /* ===================== 모달 ===================== */
+    const [modalOpen, setModalOpen] = useState(false);
+    const [overlayOpen, setOverlayOpen] = useState(false);
+    const [backtohome, setBacktohome] = useState(null);
+
+    /* ===================== 데이터 가공 ===================== */
+    const selectedCar =
+        firstFilteredCar.find((car) => car.carId === Number(id)) ||
+        firstFilteredCar[0];
+    console.log(selectedCar);
     const filterCar =
-        filteredInfoUser?.find(car => car.id === Number(id))
-        ?? filteredInfoUser?.[0];
+        filteredInfoUser.find((car) => car.carId === Number(id)) ||
+        filteredInfoUser[0];
 
-        if (!selectedCar || !filterCar) {
-        return <div>예약 정보를 불러오는 중입니다...</div>;
-        } // 방어코드 , 22일 성중 수정
-    let date = (new Date(`${filterCar.filterEndDate}T${filterCar.filterEndTime}`)-new Date(`${filterCar.filterStartDate}T${filterCar.filterStartTime}`))/ (1000 * 60 * 30);
-    // 예약/결제하기 버튼 함수
+    const branchName =
+    branch.find(b => b.branchId === selectedCar.branchId)?.name || '';
+    /* ===================== 예외 처리 (Hook 이후) ===================== */
+    if (!userid) {
+        return <div>로딩중 ....</div>;
+    }
+
+    if (!selectedCar || !filterCar) {
+        return <div>차량 정보를 불러오는 중입니다...</div>;
+    }
+
+    /* ===================== 날짜 계산 ===================== */
+    const date =
+        (new Date(`${filterCar.filterEndDate}T${filterCar.filterEndTime}`) -
+        new Date(`${filterCar.filterStartDate}T${filterCar.filterStartTime}`)) /
+        (1000 * 60 * 30);
+
+    /* ===================sdsdfsfdsfdsdfsfd=dd= 예약 확정 ===================== */
+    // dsksdklsdllsd
+    const sessionUser = sessionStorage.getItem("userid");
+    const userId = sessionUser ? JSON.parse(sessionUser).userId : null;
+    console.log(userId); // "user01"
+    const bookingId = `${Date.now()}_${userId}`;
+    const carId = filterCar.carId;
+    const bookedDate = new Date().toISOString().slice(0, 10);
+    const startDate = calendarFilters.startDate;
+    const startTime = calendarFilters.startTime;
+    const endDate = calendarFilters.endDate;
+    const endTime = calendarFilters.endTime;
+    const carPrice = totalPrice; 
+    const insurancePrice = date * selectedCar.priceValue * 200;
+    const finalTotalPrice = totalPrice + insurancePrice;
+
     const addBookInfo = () => {
         if (!payment) {
         alert("결제수단을 선택해주세요.");
         return;
         }
-        if (!filterCar || !userid) {
-            alert("예약 정보를 다시 선택해주세요.");
-            return;
-        } else {
-            alert("예약이 완료되었습니다.");
-        }
-        setBookedlistAll(prev => [
-          ...prev,
-          {
-            id: `${Date.now()}_${userid}`,
-            bookedDate: new Date().toISOString().slice(0, 10),
-            userId:userid,
-            carId:car.id,
-            startDate: filterCar.filterStartDate,
-            endDate: filterCar.filterEndDate,
-            startTime: filterCar.filterStartTime,
-            endTime: filterCar.filterEndTime,
-            carPrice: totalPrice,
-            insurancePrice:  date * (car.price_value * 200),
-            totalPrice: totalPrice + date*car.price_value*200
-          }
-        ]);
-        navigate('/mypage/booked');
+
+        axios.post('/api/insertBook', {    
+            bookingId: bookingId,
+            userId: userId,
+            carId: carId,
+            bookedDate: bookedDate,
+            startDate: startDate,
+            startTime: startTime,
+            endDate: endDate,
+            endTime: endTime,
+            carPrice: carPrice,
+            insurancePrice: insurancePrice,
+            totalPrice: finalTotalPrice
+        })
+        .then((res)=>{
+            if(res.data == 1){
+
+                alert("예약이 완료되었습니다.");
+                navigate("/mypage/booked");
+            }
+        })
+        .catch((error)=>{
+            alert("예약 에러 발생");
+            console.log(error);
+        })
+
+        // setBookedlistAll((prev) => [
+        // ...prev,
+        // {
+        //     id: `${Date.now()}_${userid}`,
+        //     bookedDate: new Date().toISOString().slice(0, 10),
+        //     userId: userid,
+        //     carId: car.id,
+        //     startDate: filterCar.filterStartDate,
+        //     endDate: filterCar.filterEndDate,
+        //     startTime: filterCar.filterStartTime,
+        //     endTime: filterCar.filterEndTime,
+        //     carPrice: totalPrice,
+        //     insurancePrice: date * car.price_value * 200,
+        //     totalPrice: totalPrice + date * car.price_value * 200,
+        // },
+        // ]);
+
     };
 
-    // 상세주소 입력
-    const [detailAddress, setDetailAddress] = useState('');
-
-    // 완료 버튼
-    const handleAddressComplete = () => {
-        if (!zipcode || !change_address) {
-            alert("주소를 먼저 검색해주세요.");
-            return;
-        }
-        setIsChange(false);
+    /* ===================== 이동 ===================== */
+    const goHomeBtn = () => {
+        setOverlayOpen(true);
+        setModalOpen(true);
+        setBacktohome(1);
     };
 
-    //기본 결제수단 
-    const [payment, setPayment] = useState(null);
-    const payChange = (value) => {
-    setPayment(value);
+    const goBackBtn = () => {
+        setOverlayOpen(true);
+        setModalOpen(true);
+        setBacktohome(2);
     };
 
-    //모달 세팅값
-    const [modalOpen,setModalOpen]=useState(false);
-    const [overlayOpen,setOverlayOpen]=useState(false);
-    const [backtohome,setBacktohome]=useState(null);
-
-    //홈으로가기버튼
-    const goHomeBtn=()=>{
-          setOverlayOpen(true);
-          setModalOpen(true);
-          setBacktohome(1)
-    }
-    //뒤로가기버튼
-    const goBackBtn=()=>{
-          setOverlayOpen(true);
-          setModalOpen(true);
-          setBacktohome(2)
-    }
-    //페이지이동버튼
-    const backPage=()=>{
+    const backPage = () => {
         setModalOpen(false);
         setOverlayOpen(false);
-        if(backtohome ===1?navigate('/'):navigate(-1))
-        navigate(-1);
-    }
-    const stayPage=()=>{
+        backtohome === 1 ? navigate("/") : navigate(-1);
+    };
+
+    const stayPage = () => {
         setModalOpen(false);
         setOverlayOpen(false);
         setBacktohome(null);
-    }
+    };
 
-    
+
+
 
     return(
         <div className="ReservationSection">
@@ -175,20 +236,20 @@ export default function Reservation(){
                         <ul>
                             <li>
                                 <label>이름</label>
-                                <h5>{username}</h5>
+                                <h5>{userid.name}</h5>
                             </li>
                             <li>
                                 <label>휴대폰 번호</label>
-                                <h5>{user_phonenum}</h5>
+                                <h5>{userid.phone}</h5>
                             </li>
                             <li>
                                 <label>생년월일</label>
-                                <h5>{user_resistnum.slice(0,5)}-*******</h5>
+                                <h5>{userid.resistNum.slice(0,5)}-*******</h5>
                             </li>
                             <li className="address_position">
                                 <label>주소</label>
                                 {zipcode === '' 
-                                    ? <h5>{address} {address_detail}</h5> 
+                                    ? <h5>{userid.address} {userid.addressDetail}</h5> 
                                     : <><h5>{zipcode}</h5> <h5>{change_address}</h5> <h5>{detailAddress}</h5></>
                                 }
                                 <button type='button' onClick={()=>setIsChange(!isChange)} className="addressBtn">주소검색</button>
@@ -254,17 +315,17 @@ export default function Reservation(){
             {/* 우측 선택일자, 지점, 차량 */}
             <div className='Reser_reservationSummary'>
                 <div className="summary_card">
-                    <h5><span className="loginColor">{username}</span>님의 여정</h5>
+                    <h5><span className="loginColor">{userid.name}</span>님의 여정</h5>
                     <div className="info_box">
                         <p className="label">지점</p>
-                        <h4 className="val">{car.location}</h4>
+                        <h4 className="val">{branchName}</h4>
                         <hr />
                         <p className="label">일정</p>
-                        <h4 className="val">{DeleteYear(filterStartDate)} ({startdayText}) {filterStartTime} ~ {DeleteYear(filterEndDate)} ({enddayText}) {filterEndTime}</h4>
+                        <h4 className="val">{DeleteYear(filterCar.filterStartDate)} ({startdayText}) {filterCar.filterStartTime} ~ {DeleteYear(filterCar.filterEndDate)} ({enddayText}) {filterCar.filterEndTime}</h4>
                         <hr />
                         <p className="label">차량</p>
-                        <h4 className="val">{car.model}</h4>
-                        <h5>{car.plate_number}</h5>
+                        <h4 className="val">{selectedCar.model}</h4>
+                        <h5>{selectedCar.plateNumber}</h5>
                         <hr />                        
                         <div className="price_total">
                             {/* 결제정보 */}
@@ -276,11 +337,11 @@ export default function Reservation(){
                                 </div>
                                 <div className="reserPriceBox">
                                     <span>보험 금액</span>
-                                    <p><strong style={{color:'gray',fontSize:'15px'}}>{(date*car.price_value*200).toLocaleString()}</strong>&nbsp;원</p>
+                                    <p><strong style={{color:'gray',fontSize:'15px'}}>{(date*selectedCar.priceValue*200).toLocaleString()}</strong>&nbsp;원</p>
                                 </div>
                                 <div className="reserPriceBox">
                                     <span>총 결제 금액</span>
-                                    <p><strong>{(totalPrice + date*car.price_value*200).toLocaleString()}</strong>&nbsp;원</p>
+                                    <p><strong>{(totalPrice + date*selectedCar.priceValue*200).toLocaleString()}</strong>&nbsp;원</p>
                                 </div>     
                                 <hr />
                                 <p>결제수단 선택</p>

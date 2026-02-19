@@ -66,7 +66,7 @@ const [recentView, setRecentView] = useState([]);
   const removeRecentView = (carId) => {
   setRecentView(prev => {
     const filtered = prev.filter(
-      item => !(item.userid === userid && item.car_id === carId)
+      item => !(item.userid === userid && item.carId === carId)
     );
 
     localStorage.setItem("recentView", JSON.stringify(filtered));
@@ -80,27 +80,27 @@ const [recentView, setRecentView] = useState([]);
 
       <div className="Recent_Head">
           <Link to={'/'}><span style={{color:'rgb(160, 160, 160)'}}>홈</span></Link>
-          <i class="bi bi-caret-right-fill"></i>
+          <i className="bi bi-caret-right-fill"></i>
           <span>최근 본 차량</span>
       </div>
 
-      <p>총&nbsp;<strong>{recentView.length}</strong>&nbsp;대</p>
-      {recentView.length > 0?
+      <p>총&nbsp;<strong>{recentViews.length}</strong>&nbsp;대</p>
+      {recentViews.length > 0?
       <ul className="Recent_ByDate">
-        {recentView.slice(0,viewMore).map(item => (
+        {recentViews.slice(0,viewMore).map(item => (
           // 해당 차량 브랜드 searchcarlist로 넘기기 12.23 성중
-          <div className="hihihihi">
+          <div className="hihihihi" key={item.carId}>
             <div className="RecentDelBox">
-                <button className="RecentDel"><i  onClick={() => removeRecentView(item.car_id)} className="bi bi-x"></i></button>
+                <button className="RecentDel"><i  onClick={() => removeRecentView(item.carId)} className="bi bi-x"></i></button>
             </div>
-            <li className="Recent_ByDate" key={item.id} >
+            <li className="Recent_ByDate"  >
             <div className="Recent_car_item" onClick={()=>goToSearchcarlist(item.model)}>
               <img className="Recent_logo" src={`/images/brands/${item.brand}.png`}/>
               <img
-                src={`/images/cars/${item.car_img}`}
+                src={`/images/cars/${item.carImg}`}
                 alt={item.model}
                 className="Recent_car_img" />
-              <p className="Recent_car_p"> {item.model} <span className="Recent_car_span">{item.fuel_type}</span></p>
+              <p className="Recent_car_p"> {item.model} <span className="Recent_car_span">{item.fuelYype}</span></p>
               <p className="RecentCar_viewDate">최근 본 날짜 : {item.viewDate.replaceAll('-','.')}</p>
             </div>
           </li>

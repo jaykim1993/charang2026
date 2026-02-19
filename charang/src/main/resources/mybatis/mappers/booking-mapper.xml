@@ -2,6 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="rentcar2026.booking.mapper.BookingMapper">
+<mapper namespace="cha.booking.mapper.BookingMapper">
+	<!-- 전체 예약 목록 출력 -->
+	<select id="getAllBooking" resultType="bookingDTO">
+		SELECT * FROM booking
+	</select>
+	<!-- 선택 예약 목록 출력 -->
+	<insert id="insertBooking" parameterType="bookingDTO">
+		INSERT INTO booking(bookingId, userId, carId, bookedDate, startDate, startTime, endDate, endTime, carPrice, insurancePrice, totalPrice)
+		VALUES(#{bookingId}, #{userId}, #{carId}, #{bookedDate}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{carPrice}, #{insurancePrice}, #{totalPrice})
+	</insert>
 
+	
 </mapper>

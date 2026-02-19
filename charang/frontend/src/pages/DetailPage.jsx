@@ -15,30 +15,41 @@ import 'leaflet/dist/leaflet.css';
 import './DetailPage.css'
 
 export default function DetailPage(){
-    // console.log("재가공된 filteredInfoUser: ", filteredInfoUser);
-    const { setBookedlistAll, calculatePrice, clickCarArr, setClickCarArr } = useContext(BookingContext);
-    const { availableCars, filteredInfoUser, DeleteYear, timeAMPM, startdayText, enddayText} = useContext(CalendarContext);
 
+    const { setBookedlistAll, calculatePrice, clickCarArr, setClickCarArr } = useContext(BookingContext);
+    const {  DeleteYear, timeAMPM, startdayText, enddayText} = useContext(CalendarContext);
     // console.log('calculatePrice');
     // console.log(calculatePrice);
+    const storedFilteredInfoUser = JSON.parse(localStorage.getItem("filteredInfoUser")) || [];
+    const storedCalendarFilters = JSON.parse(localStorage.getItem("calendarFilters")) || {};
 
     // 차 id 가져오기
-    const { id } = useParams();
+    const selectedCarId = Number(useParams().id);
     // user id 가져오기
     const { userid } = useContext(AuthContext);
-
+    
     const navigate = useNavigate();
 
-    const selectedCar = availableCars.find(car => car.id === Number(id)) || availableCars[0];
-    const filterCar =
-        filteredInfoUser?.find(car => car.id === Number(id))
-        ?? filteredInfoUser?.[0];
+    console.log(selectedCarId);
+    // 선택 차량
+    const selectedCar = JSON.parse(localStorage.getItem("firstFilteredCar") || "[]")
+    .find(car => car.carId === selectedCarId) || null;
 
-        if (!selectedCar || !filterCar) {
-        return <div>예약 정보를 불러오는 중입니다...</div>;
-        } // 방어코드 , 22일 성중 수정
-        
-        console.log(selectedCar);
+    // 사용자 필터
+        const filterCar = storedFilteredInfoUser.find(car => car.carId === selectedCarId) || {
+        filterStartDate: storedCalendarFilters.startDate,
+        filterEndDate: storedCalendarFilters.endDate,
+        filterStartTime: storedCalendarFilters.startTime,
+        filterEndTime: storedCalendarFilters.endTime,
+        carId: selectedCar?.carId,
+        branchId: selectedCar?.branchId,
+        fuelType: selectedCar?.fuelType,
+        };
+
+
+
+        console.log(filterCar);
+
 
     // 최근 본 차량 추가(Local Storage)
     useEffect(() => {
@@ -52,19 +63,19 @@ export default function DetailPage(){
                 (item) =>
                 !(
                     item.userid === userid &&
-                    item.car_id === selectedCar.id
+                    item.carId === selectedCar.carId
                 )
             );
 
             const newRecentView = {
                 id: `${Date.now()}_${userid}`,
                 userid: userid,
-                car_id: selectedCar.id,
+                carId: selectedCar.carId,
                 model: selectedCar.model,
-                car_img: selectedCar.car_img,
+                carImg: selectedCar.carImg,
                 brand: selectedCar.brand,
-                brand_logo: selectedCar.brand_logo,
-                fuel_type: selectedCar.fuel_type,
+                brandLogo: selectedCar.brandLogo,
+                fuelType: selectedCar.fuelType,
                 viewDate: new Date().toISOString().slice(0, 10),
             };
 
@@ -100,7 +111,7 @@ export default function DetailPage(){
         {id:4, lat: 37.493788, lng: 127.012596, name: "서울남부", address: "서울특별시 서초구 서초대로 283" },
         {id:5, lat: 37.653579, lng: 127.058793, name: "서울북부", address: "서울 노원구 노해로 456 동방빌딩 1층"},
     ];
-    const detail = positions.find(item => item.name === selectedCar.location);
+    const detail = positions.find(item => item.id === selectedCar.branchId);
   
     let detail_lat=detail?.lat;
     let detail_lng=detail?.lng;
@@ -111,11 +122,18 @@ export default function DetailPage(){
     let date = (new Date(`${filterCar.filterEndDate}T${filterCar.filterEndTime}`)-new Date(`${filterCar.filterStartDate}T${filterCar.filterStartTime}`))/ (1000 * 60 * 30);
 
     //  console.log('기간: ',date);
+    const [totalPrice, setTotalPrice] = useState(0);
 
-    const totalPrice =
-        date && calculatePrice && selectedCar
-        ? calculatePrice(selectedCar) * date
-        : 0;
+    useEffect(() => {
+    if (!date || !selectedCar || !calculatePrice) return;
+
+    const price = calculatePrice(selectedCar) * date;
+
+    setTotalPrice(price);
+
+    // 새로고침 대비 저장
+    localStorage.setItem("totalPrice", JSON.stringify(price));
+    }, [date, selectedCar, calculatePrice]);
 
     // ===================== Reservation으로 값 넘기기 ========================
     const toReservation = () => {
@@ -123,23 +141,7 @@ export default function DetailPage(){
             alert("예약 정보를 다시 선택해주세요");
             return;
         }
-        
-        // 결제 페이지로 값 전달
-        navigate('/reservation', {
-            state: {
-                car: selectedCar,
-                filter: filterCar,
-                totalPrice: totalPrice,
-                id: `${Date.now()}_${userid}`,
-                bookedDate: new Date().toISOString().slice(0, 10),
-                userid:userid,
-                carId:selectedCar.id,
-                filterStartDate: filterCar.filterStartDate,
-                filterEndDate: filterCar.filterEndDate,
-                filterStartTime: filterCar.filterStartTime,
-                filterEndTime: filterCar.filterEndTime
-            }
-        })
+        navigate('/reservation');
     };
 
        const SelectedIcon = new L.Icon({
@@ -164,11 +166,11 @@ export default function DetailPage(){
                 {/* 이미지, 차이름 등 */}
                 <div className="D_imgInfo">
                     <div className="D_carImg">
-                        <img src={`/images/cars/${selectedCar.car_img}`} alt={`${selectedCar.brand} ${selectedCar.model}`} />
+                        <img src={`/images/cars/${selectedCar.carImg}`} alt={`${selectedCar.brand} ${selectedCar.model}`} />
                     </div>
-                    <p><img src={`/images/brands/${selectedCar.brand_logo}`} alt={`${selectedCar.brand}`} /> {selectedCar.brand}</p>
-                    <h4>{selectedCar.model} {selectedCar.fuel_type}</h4>
-                    <h5>{selectedCar.plate_number}</h5>
+                    <p><img src={`/images/brands/${selectedCar.brandLogo}`} alt={`${selectedCar.brand}`} /> {selectedCar.brand}</p>
+                    <h4>{selectedCar.model} {selectedCar.fuelType}</h4>
+                    <h5>{selectedCar.plateNumber}</h5>
                 </div>
 
                 <hr />
@@ -178,22 +180,22 @@ export default function DetailPage(){
                     <h4>차량 정보</h4>
                     {/* 기본정보 */}
                     <ul className="basic_info_list">
-                        <li><strong>{selectedCar.fuel_type}</strong>로 움직이는 차량이에요.
+                        <li><strong>{selectedCar.fuelType}</strong>로 움직이는 차량이에요.
                             <i className="bi bi-fuel-pump-fill"></i>
                         </li>
-                        <li><strong>{selectedCar.model_year}</strong>년식 이에요.
+                        <li><strong>{selectedCar.modelYear}</strong>년식 이에요.
                             <i className="bi bi-car-front-fill"></i>
                         </li>
                         <li><strong>{selectedCar.seats}인승</strong>이에요.
                             <i className="bi bi-people-fill"></i>
                         </li>
-                        <li>연비는 <strong>{selectedCar.km_per}</strong>이에요.
+                        <li>연비는 <strong>{selectedCar.kmPer}</strong>이에요.
                             <i className="bi bi-ev-front-fill"></i>
                         </li>
-                        <li><strong>{selectedCar.drive_license_type}</strong>부터 이용 가능해요.
+                        <li><strong>{selectedCar.licenseType}</strong>부터 이용 가능해요.
                             <i className="bi bi-person-fill-up"></i>
                         </li>
-                        <li><strong>만 {selectedCar.driver_min_age}세 이상</strong> 이용 가능해요.
+                        <li><strong>만 {selectedCar.driverMinAge}세 이상</strong> 이용 가능해요.
                             <i className="bi bi-person-vcard"></i>
                         </li>
                     </ul>
@@ -288,7 +290,7 @@ export default function DetailPage(){
                         <div key={idx} className="info_box">
                             <div className="info_item">
                                 <p className="label">지점</p>
-                                <h4 className="val">{info.location}</h4>
+                                <h4 className="val">{detail.name}</h4>
                             </div>
                             <hr />
                             <div className="info_item">

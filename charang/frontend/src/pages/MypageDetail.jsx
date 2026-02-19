@@ -13,7 +13,7 @@ export default function MypageDetail(){
     const { userid, username } = useContext(AuthContext); // 유저 정보 호출
     const { DeleteYear, timeAMPM, startdayText, enddayText } = useContext(CalendarContext);
 
-    const bookedThis = myBookings.find(book => book.id === id);
+    const bookedThis = myBookings.find(book => book.bookingid === id);
 
     const [showMap,setShowMap]=useState(false);
 
@@ -22,7 +22,7 @@ export default function MypageDetail(){
     //리스트삭제핸들러
         const bookdeleteHandle = () => {
         setBookedlistAll(prev =>
-            prev.filter(book => book.id !== id)
+            prev.filter(book => book.bookingid !== id)
         );
         alert("예약이 취소되었습니다.");
         navigate("/mypage/booked");

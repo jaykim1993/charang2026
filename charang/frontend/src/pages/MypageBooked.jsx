@@ -11,8 +11,8 @@ import "./MypageBooked.css";
 export default function MypageBooked() {
   const { DeleteYear, timeAMPM, startdayText, enddayText, days } = useContext(CalendarContext);  // 연도 삭제
   const { myBookings, bookedlistAll } = useContext(BookingContext); // 예약내역 보기 함수 호출
-  const { userid, username } = useContext(AuthContext); // 유저 정보 호출
-  
+  const { branch } = useContext(DataContext); // 유저 정보 호출
+
   // console.log(myBookings)
   // console.log(bookedlistAll)
 
@@ -35,7 +35,7 @@ export default function MypageBooked() {
         {myBookings.length === 0?
         <div>
           <div className="mypageBookCard">
-            <i class="bi bi-exclamation-lg warningIcon"></i>
+            <i className="bi bi-exclamation-lg warningIcon"></i>
             <p className="noBookedP">아직 예약 내역이 없습니다.</p>
           </div>
           <Link to={'/searchcarlist'} className="noBookedGoToBook">예약하러가기</Link>
@@ -53,6 +53,11 @@ export default function MypageBooked() {
             </thead>
 
           {sortedByLatest.map(book => {
+            // 지점명 따기
+            const branchName =
+              branch.find(
+                b => b.branchId === book.matchedCar?.branchId
+            )?.name || '';
             // 요일
             const sDate = new Date(book.startDate);
             const eDate = new Date(book.endDate);
@@ -73,14 +78,14 @@ export default function MypageBooked() {
             else dText = `D+${Math.abs(diffDays)}`;
 
             return(
-                <tbody className="mypage_tbody">
-                  <tr key={book.id}>
+                <tbody className="mypage_tbody"  key={book.bookingId}>
+                  <tr>
                     <td>
-                      <img src={`/images/cars/${book.car?.car_img}`} alt={book.car?.model}/>
+                      <img src={`/images/cars/${book.matchedCar?.carImg}`} alt={book.matchedCar?.model}/>
                     </td>
                     <td>
-                      <h3 className="mapCarname">{book.car?.brand} {book.car?.model}</h3>
-                      <p className="mapCarBooknum" >{book.car?.location}점</p>
+                      <h3 className="mapCarname">{book.matchedCar?.brand} {book.matchedCar?.model}</h3>
+                      <p className="mapCarBooknum" >{branchName}</p>
                     </td>
                     <td>
                       <h3 className="mapCarDays">{dText}</h3>
