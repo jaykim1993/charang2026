@@ -1,0 +1,219 @@
+a{
+    text-decoration: none;
+    color: #333;
+}
+hr{
+    margin: 70px 0;
+    color: #a1a1a1;
+}
+
+#root .DetailPage{
+    width: 1300px;
+    margin: 70px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 좌측 상세 전체 */
+#root .DetailPage .detailContent{
+    /* border: 1px solid red; */
+    width: 900px;
+    margin: 50px 0 200px 0;
+}
+#root .DetailPage .detailContent h4{
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+#root .DetailPage .detailContent h5{
+    font-weight: bold;
+    font-size: 18px;
+}
+#root .DetailPage .detailContent .D_Head{
+    display: flex;
+    gap: 10px;
+}
+
+#root .DetailPage .detailContent .D_imgInfo{
+    margin-bottom: 30px;
+}
+#root .DetailPage .detailContent .D_imgInfo .D_carImg{
+    display: flex;
+    justify-content: center;
+}
+#root .DetailPage .detailContent .D_imgInfo .D_carImg > img{
+    /* width: 600px; */
+    height: 350px;
+}
+#root .DetailPage .detailContent .D_imgInfo > p >img{
+    width: 45px;
+}
+
+/* 차량정보 */
+#root .DetailPage .detailContent .D_carInfo > ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+#root .DetailPage .detailContent .D_carInfo > ul li{
+    font-size: 19px;
+    word-break: keep-all;
+    border: 1px solid #e0e1e4;
+    border-radius: 7px;
+    width: 279px;
+    height: 165px;
+    padding: 30px;
+    position: relative;
+}
+#root .DetailPage .detailContent .D_carInfo > ul li i{
+    font-size: 30px;
+    color: #a1a1a1;
+    display: block;
+    position: absolute;
+    bottom: 30px;
+}
+/* 옵션 */
+#root .DetailPage .detailContent div.D_carInfo div.option_list{
+    margin-top: 30px;
+}
+#root .DetailPage .detailContent div.D_carInfo div.option_list ul.option_list{
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+    gap: 50px;
+    background-color: #f7f8fa;
+    padding: 30px;
+    border-radius: 7px;
+}
+#root .DetailPage .detailContent div.D_carInfo div.option_list > p{
+    font-size: 20px;
+    font-weight: 500;
+}
+#root .DetailPage .detailContent div.D_carInfo div.option_list ul.option_list > li i{
+    margin-right: 10px;
+    font-size: 20px;
+}
+/* 요금안내 */
+#root .DetailPage .detailContent .D_priceInfo > a{
+    font-size: 18x;
+}
+#root .DetailPage .detailContent .D_priceInfo > a:hover,
+#root .DetailPage .detailContent .D_priceInfo > a:hover i{
+    color: #29abf7;
+    text-decoration: underline;
+}
+/* 지도 */
+#root .DetailPage .detailContent .D_location hr{
+    /* padding: 25px 0; */
+    margin: 20px 0;
+}
+#root .DetailPage .detailContent .D_location > h5{
+    padding: 20px 0 0 0;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+#root .DetailPage .detailContent .D_location .D_detial_address_title{
+    color: #aaaaaa;
+    font-size: 15px;
+    padding: 0 0 10px 0;
+}
+#root .DetailPage .detailContent .D_location .D_detial_address{
+    font-weight: 500;
+}
+/* 반납규정 */
+#root .DetailPage .detailContent .D_location .D_rentalPolicy{
+    background-color: #f7f8fa;
+    padding: 30px;
+    margin-top: 30px;
+    border-radius: 7px;
+}
+/* 유의사항 */
+#root .DetailPage .detailContent .D_usageNotice{
+    margin-top: 30px;
+    background-color: #e9eaee;
+    padding: 30px;
+    border-radius: 7px;
+}
+#root .DetailPage .detailContent .D_usageNotice > hr{
+    margin: 25px 0;
+    /* color: #fff; */
+}
+#root .DetailPage .detailContent .D_usageNotice .bi-exclamation-circle-fill{
+    color: #ff6f43;
+}
+
+/* ----------------------------------- */
+
+/* 우측 요약 및 예약하기 버튼 */
+#root .DetailPage {
+  position: relative;
+}
+#root .DetailPage .detailSummary{
+    position: sticky;
+    align-self: flex-start;
+    right: 0;
+    top: 155px;
+    width: 340px;
+    background-color: #f9fafc;
+    /* height: 570px; */
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #e5e5e5;
+}
+#root .DetailPage .detailSummary .summary_card > h5 {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 35px;
+}
+#root .DetailPage .detailSummary .summary_card .reserve_btn{
+    border: none;
+    border-radius: 7px;
+    padding: 10px;
+    width: 100%;
+    font-size: 19px;
+    background-color: #0b79b7;
+    color: #f7f8fa;
+    margin-top: 20px;
+}
+#root .DetailPage .detailSummary .summary_card .info_box{
+    margin: 20px 0;
+}
+#root .DetailPage .detailSummary .summary_card .info_box .info_item > p{
+    color: #999;
+}
+#root .DetailPage .detailSummary .summary_card .info_box .info_item > h4{
+    font-size: 17px;
+    margin: 10px 0 0 0;
+    font-weight: 600;
+}
+#root .DetailPage .detailSummary .summary_card hr{
+    margin: 30px 0;
+}
+#root .DetailPage .detailSummary .summary_card .reserve_btn:hover{
+    background-color: #0a6aa1;
+}
+#root .DetailPage .detailSummary .price_total > p{
+    display: flex;
+    align-items: flex-end;
+    font-size: 23px;
+}
+
+.calendar-slide.open{
+    width: 690px;
+    top: 85px;
+}
+#root .Recentcar .R_carlist{
+    position: relative;
+}
+#root .R_carlist .R_location{
+    top: 85px;
+    right: 0;
+}
+.fc .fc-myPrev-button::before{
+    content: '〈';
+}
+.fc .fc-myNext-button::before{
+    content: '〉';
+}

@@ -1,0 +1,42 @@
+#root .ManagerAllCar{
+    width: 1300px;
+    margin: 100px auto;
+    /* border: 1px solid red; */
+}
+
+#root .ManagerAllCar h1{
+    /* border: 1px solid blue; */
+    text-align: center;
+    margin: 50px 0;
+}
+/* 표 */
+#root .ManagerAllCar .managerAllCar_table{
+    margin: 0 auto;
+}
+#root .ManagerAllCar .managerAllCar_table .managerAllCar_th th, 
+ .managerAllCar_tb td{
+    border: 1px solid rgb(204, 204, 204);
+    padding: 5px;
+    text-align: center;
+}
+/* 번호 */
+#root .ManagerAllCar .managerAllCar_table .managerAllCar_tableNum{
+    width: 80px;
+}
+/* 차량 */
+#root .ManagerAllCar .managerAllCar_table .managerAllCar_tableCar{
+    width: 380px;
+}
+/* 차량 번호 */
+#root .ManagerAllCar .managerAllCar_table .managerAllCar_tableCarNum{
+    width: 200px;
+}
+/* 차량 코드 */
+#root .ManagerAllCar .managerAllCar_table .managerAllCar_tableCarCode{
+    width: 200px;
+}
+/* 차량 등록 일자 */
+#root .ManagerAllCar .managerAllCar_table .managerAllCar_tableRegDate{
+    width: 200px;
+}
+

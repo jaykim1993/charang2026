@@ -1,0 +1,59 @@
+#root .myinfo-Wrap{
+  min-height: 1100px;
+}
+#root .myinfo-Wrap .myinfo-context{
+    padding: 30px;
+    border-radius: 10px;
+    /* border: 1px solid rgb(218, 218, 218); */
+    margin-top: 50px;
+    width: 100%;
+    border-top: 2px solid #444;
+}
+#root .myinfo-Wrap .myinfo-list{
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+}
+
+#root .myinfo-Wrap .myinfo-list > tr{
+  padding: 20px 0;
+  border-bottom: 1px solid #d4d4d4;
+  display: flex;
+  align-items: center;
+}
+
+#root .myinfo-Wrap .myinfo-list > tr .myinfo-label{
+  font-weight: 400;
+  font-size: 15px;
+  width: 250px;
+  padding: 0 35px;
+  color: #555;
+}
+
+#root .myinfo-Wrap .myinfo-list > tr .myinfo-value{
+  font-size: 16px;
+}
+
+.myinfo-btn{
+  margin-top: 70px;
+  width: 80%;
+  height: 48px;
+  border-radius: 10px;
+  border: none;
+  background-color: #0b79b7;
+  color: #fff;
+  font-size: 19px;
+  cursor: pointer;
+  transition:  0.2s ease;
+}
+
+.myinfo-btn:hover {
+  background-color: #09679c;
+}
+.myinfo-btn-wrap{
+  display: flex;
+  gap: 20px;
+}
+
+
+

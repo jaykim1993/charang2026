@@ -1,0 +1,10 @@
+package cha.car.service;
+
+import java.util.List;
+
+import cha.car.dto.CarDTO;
+
+public interface CarService {
+	// 차량 전체 출력 서비스
+	public List<CarDTO> getAllCar();
+}
