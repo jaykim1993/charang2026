@@ -1,5 +1,7 @@
 package cha.user.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,12 @@ public class UserApiController {
 	
 	@Autowired
 	UserService userservice;
+	
+	@GetMapping("/alluser")
+	public List<UserDTO> getAllUserList(){
+		System.out.println("회원 전체 출력 컨트롤러");
+		return userservice.getAllUser();
+	}
 	
 	//아이디 중복만 체크하는거
 	@PostMapping("/checkid")
