@@ -10,6 +10,7 @@
 		<typeAlias alias="branchDTO" type="cha.branch.dto.BranchDTO" />
 		<typeAlias alias="userDTO" type="cha.user.dto.UserDTO" />
 		<typeAlias alias="bookingDTO" type="cha.booking.dto.BookingDTO" />
+		<typeAlias alias="noticeDTO" type="cha.notice.dto.NoticeDTO" />
 	</typeAliases>
 </configuration>
 

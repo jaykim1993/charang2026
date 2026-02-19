@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import cha.user.dto.UserDTO;
 
 
-
 @Mapper
 public interface UserMapper {
    /*   //ȸ        ߺ     

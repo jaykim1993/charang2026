@@ -1,5 +1,7 @@
 package cha.user.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,7 +11,7 @@ import cha.user.mapper.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService {
-   	// 전체 회원 출력
+   // 전체 회원 출력
 	@Override
 	public List<UserDTO> getAllUser() {
 		System.out.println("전체 회원 출력 서비스");

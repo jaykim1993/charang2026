@@ -31,10 +31,18 @@ export default function Header() {
 
     // 사이드네비게이션 활성화 상태 변수 (초기값 false)
     const [isNavOpen, setIsNavOpen] = useState(false);
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
     // 사이드 메뉴 오픈 함수
     const openNav = () => {
         setIsNavOpen(true)
     };
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
     // 사이드 메뉴 닫기 함수
     const closeNav = () => {
         setIsNavOpen(false)
@@ -84,11 +92,11 @@ export default function Header() {
                                             관리자 메뉴
                                         </button>
                                         <div className="header-manager-dropdown-menu">
-                                            <Link to="/"><div className="item">차량관리</div></Link>
-                                            <Link to="/"><div className="item">회원관리</div></Link>
-                                            <Link to="/"><div className="item">예약관리</div></Link>
-                                            <Link to="/"><div className="item">공지사항</div></Link>
-                                            <Link to="/"><div className="item">1:1 문의</div></Link>
+                                            <Link to="/" className='item'>차량관리</Link>
+                                            <Link to="/" className='item'>회원관리</Link>
+                                            <Link to="/" className='item'>예약관리</Link>
+                                            <Link to="/" className='item'>공지사항</Link>
+                                            <Link to="/" className='item'>1:1 문의</Link>
                                         </div>
                                     </div>
                                     <Link to="/">
@@ -116,7 +124,11 @@ export default function Header() {
                                         예약내역
                                     </button>
                                     <Link to="/">
+<<<<<<< HEAD
                                         <button className='headerBtn' type='text' onClick={logoutHandler}>
+=======
+                                        <button className='headerBtn' type='text' onClick={logout}>
+>>>>>>> main
                                         로그아웃
                                         </button>
                                     </Link>
@@ -151,6 +163,7 @@ export default function Header() {
                             {(myBookings.length)===0? 
                                     <p className='headermodalText'>예약내역이 없습니다.</p>
                                     : <>{myBookings.map(book => (
+<<<<<<< HEAD
                                     <Link to={'/mypage/booked'} key={book.bookingId}>
                                         <div className="headerModalInfo">
                                             <img
@@ -161,6 +174,18 @@ export default function Header() {
                                             <div>
                                                 <p className='headermodalText'>
                                                     {book.matchedCar.model}
+=======
+                                    <Link to={'/mypage/booked'} key={book.id}>
+                                        <div className="headerModalInfo">
+                                            <img
+                                                style={{width:'80px', height:'60px'}}
+                                                src={`/images/cars/${book.car?.car_img}`}
+                                                alt={book.car?.model}
+                                            />
+                                            <div>
+                                                <p className='headermodalText'>
+                                                    {book.car.model}
+>>>>>>> main
                                                 </p>
                                                 <p className='headerModalDate'>
                                                     {book.startDate} ~ {book.endDate}
