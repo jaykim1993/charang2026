@@ -1,5 +1,5 @@
 import './Header.css';
-import { useContext, useState } from 'react';
+import { useContext, useState,useEffect } from 'react';
 import { AuthContext } from '../contexts/Authcontext';
 import { BookingContext } from "../contexts/Bookingcontext";
 import { Link } from 'react-router-dom';
@@ -10,9 +10,10 @@ import JoinFormC from '../pages/Join/JoinFormC';
 
 export default function Header() {
     // login 관련 변수&함수 불러오기
-    const{userid, username, logout} = useContext(AuthContext);
+    const{userid , username, logout} = useContext(AuthContext);
     // 예약내역 보기 함수 호출
       const { myBookings } = useContext(BookingContext); 
+
     // logout 핸들러 함수
     const logoutHandler = () => {
         logout();
@@ -38,7 +39,6 @@ export default function Header() {
     const closeNav = () => {
         setIsNavOpen(false)
     };
- 
 
     // 예약 차량 토글 보이기
     const [openUserBookedModal, setOpenUserBookedModal] = useState(false);
@@ -46,8 +46,10 @@ export default function Header() {
         setOpenUserBookedModal(false)
     };
 
+
+
 // const userID = "admin";
-    
+
     return (
         <div className='headerWrap'>
             <header className="header">
@@ -149,16 +151,16 @@ export default function Header() {
                             {(myBookings.length)===0? 
                                     <p className='headermodalText'>예약내역이 없습니다.</p>
                                     : <>{myBookings.map(book => (
-                                    <Link to={'/mypage/booked'} key={book.id}>
+                                    <Link to={'/mypage/booked'} key={book.bookingId}>
                                         <div className="headerModalInfo">
                                             <img
                                                 style={{width:'80px', height:'60px'}}
-                                                src={`/images/cars/${book.car?.car_img}`}
-                                                alt={book.car?.model}
+                                                src={`/images/cars/${book.matchedCar?.carImg}`}
+                                                alt={book.matchedCar?.model}
                                             />
                                             <div>
                                                 <p className='headermodalText'>
-                                                    {book.car.model}
+                                                    {book.matchedCar.model}
                                                 </p>
                                                 <p className='headerModalDate'>
                                                     {book.startDate} ~ {book.endDate}

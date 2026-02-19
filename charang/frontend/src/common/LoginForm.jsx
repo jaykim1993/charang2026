@@ -3,53 +3,42 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/Authcontext';
+import { useNavigate } from 'react-router-dom';
 // import { Link, useNavigate } from 'react-router-dom';
 
 export default function LoginForm({ onClose, onJoin }) {
     const [userid, setUserid] = useState('');
     const [userpw, setUserpw] = useState('');
     const {loginsave} = useContext(AuthContext);
-
-    // 로그인 핸들러
-    const login = async (e) => {
-        e.preventDefault();
-
-        if (!userid || !userpw) {
-            alert('아이디와 비밀번호를 모두 입력하세요.');
+    const navigate = useNavigate();
+    const login=(e)=>{
+    e.preventDefault();
+    if(userid === ''){
+            alert("아이디를 입력하세요");
             return;
         }
-
-        try {
-            const res = await axios.post(
-                '/api/login.php',
-                { userid, userpw }
-            );
-
-            if (res.data.status === 'success') {
-                loginsave({
-                    userid: res.data.userid,
-                    username: res.data.username,
-                    user_email:res.data.user_email,
-                    user_resistnum:res.data.user_resistnum,
-                    user_phonenum:res.data.user_phonenum,
-                    address:res.data.address,
-                    address_detail:res.data.address_detail,
-                    user_iskorean:res.data.user_iskorean,
-                    user_license:res.data.user_license,
-                });
-
-                alert(`${res.data.username}님, 환영합니다.`);
-                onClose();
-            } else {
-                alert('아이디 또는 비밀번호가 일치하지 않습니다.');
-                setUserpw('');
-            }
-
-        } catch (error) {
-            console.error("에러", error);
-            alert('서버 연결 오류');
+        if(userpw === ''){
+            alert("비밀번호를 입력하세요");
+            return;
         }
-    };
+    axios.post('/api/login',{userId:userid,userPw:userpw})
+    .then((res)=>{
+        if(res.data){
+            onClose();
+            alert(`${res.data.userId}님 환영합니다.`);
+            loginsave({
+            userId: res.data.userId,
+            name: res.data.name
+            });
+            navigate("/"); 
+        }else{
+            alert("아이디 또는 비밀번호를 확인하세요.");
+            setUserpw('');
+            setUserid('');
+        }
+})
+
+}
 
     return (
         <div className='loginOverlay' >
@@ -68,6 +57,7 @@ export default function LoginForm({ onClose, onJoin }) {
                                         className='loginInput'
                                         type="text"
                                         placeholder="아이디"
+                                        name="userid"
                                         value={userid}
                                         onChange={(e) => setUserid(e.target.value)}
                                     />
@@ -81,6 +71,7 @@ export default function LoginForm({ onClose, onJoin }) {
                                         className='loginInput'
                                         type="password"
                                         placeholder="비밀번호"
+                                        name="userpw"
                                         value={userpw}
                                         onChange={(e) => setUserpw(e.target.value)}
                                     />

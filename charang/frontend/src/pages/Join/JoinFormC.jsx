@@ -49,84 +49,136 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
     }  
 
     // 9. 내/외국인 체크박스
-    const [user_iskorean, setUser_iskorean] = useState(false)
+    const [user_iskorean, setUser_iskorean] = useState(0)
     // 내/외국인 판별 함수
-    const toggle = () => {
-        setUser_iskorean(prev => {
-        const newValue = !prev;
-        return newValue;
-        });
-        console.log(user_iskorean)
-    };
+    // const toggle = () => {
+    //     setUser_iskorean(prev => {
+    //     const newValue = !prev;
+    //     return newValue;
+    //     });
+    //     console.log(user_iskorean)
+    // };
     
-    // 10. 운전면허증 (licenseFront - licenseBack)
+    // 10. 운전면허번호 (licenseFront - licenseBack)
     const [licenseFront, setLicenseFront] = useState("");
     const [licenseSecond, setLicenseSecond] = useState("");
     const [licenseThird, setLicenseThird] = useState("");
     const [licenseBack, setLicenseBack] = useState("");
     const user_license = `${licenseFront}-${licenseSecond}-${licenseThird}-${licenseBack}`;
 
+    // 11. 운전면허종류
+    const [license, setLicense] = useState("");
+
+    console.log("@@@@@@@@@@@@@@@@@",userid);
+    console.log("@@@@@@@@@@@@@@@@@",userpw);
+
+
 
     // 데이터 DB에 추가
-    const signup = async (e) => {
-        e.preventDefault();
-        if (!username || !emailId || !resistFront || !resistBack || !phoneFront || !phoneMiddle || !phoneBack) {
-            alert("필수 기입 사항을 입력하세요");
-            return;
-        }
-
-        try {
-            const res = await axios.post(
-                '/api/join.php',
-                {
-                    userid,
-                    userpw,
-                    username,
-                    user_email,
-                    user_resistnum,
-                    user_phonenum,
-                    user_license,
-                    address,
-                    address_detail,
-                    user_iskorean
-                }
-            );
-
-            console.log("join입력", res.data);
-
-            if (res.data.status === 'success') {
+    const signup =()=>{
+        axios.post('/api/signup',{ userId: userid, userPw: userpw,name: username, mail: user_email,resistNum: user_resistnum,
+            phone: user_phonenum,address: address,addressDetail: address_detail,isKorean: user_iskorean,licenseNum: user_license,license:license})
+        .then((res)=>{
+            if(res.data === 1){
                 alert("회원 가입을 환영합니다. 로그인 페이지로 이동합니다.");
                 onClose();
-                onComplete();
+                onComplete();     
+                // 초기화
+             setUserName('');
+             setEmailId('');
+             setEmailDomain('naver.com');
+             setResistFront('');
+             setResistBack('');
+             setPhoneFront('');
+             setPhoneMiddle('');
+             setPhoneBack('');
+             setAddress('');
+             setAddress_detail('');
+             setZipcode('');
+             setLicenseFront('');
+             setLicenseSecond('');
+             setLicenseThird('');
+             setLicenseBack('');
+             setUser_iskorean(0);
+             setLicense('');
+
+            }else if(res.data === 0){
+                alert("아이디가 이미 존재합니다.")
+            }else{
+                alert("회원가입 실패")
+            }
+        })
+        .catch((error)=>{
+            alert("서버 에러 발생");
+            console.log(error);
+        })
+    }
+
+
+
+
+
+    // const signup = async (e) => {
+    //     e.preventDefault();
+    //     if (!username || !emailId || !resistFront || !resistBack || !phoneFront || !phoneMiddle || !phoneBack) {
+    //         alert("필수 기입 사항을 입력하세요");
+    //         return;
+    //     }
+
+    //     try {
+    //         const res = await axios.post(
+    //             '/api/join.php',
+    //             {
+    //                 userid,
+    //                 userpw,
+    //                 username,
+    //                 user_email,
+    //                 user_resistnum,
+    //                 user_phonenum,
+    //                 user_license,
+    //                 address,
+    //                 address_detail,
+    //                 user_iskorean
+    //             }
+    //         );
+
+    //         console.log("join입력", res.data);
+
+    //         if (res.data.status === 'success') {
+    //             alert("회원 가입을 환영합니다. 로그인 페이지로 이동합니다.");
+    //             onClose();
+    //             onComplete();
                 
                 
 
-                // 초기화
-                setUserName('');
-                setEmailId('');
-                setEmailDomain('naver.com');
-                setResistFront('');
-                setResistBack('');
-                setPhoneFront('');
-                setPhoneMiddle('');
-                setPhoneBack('');
-                setAddress('');
-                setAddress_detail('');
-                setZipcode('');
-                setLicenseFront('');
-                setLicenseSecond('');
-                setLicenseThird('');
-                setLicenseBack('');
-                setUser_iskorean(false);
+    //             // 초기화
+    //             setUserName('');
+    //             setEmailId('');
+    //             setEmailDomain('naver.com');
+    //             setResistFront('');
+    //             setResistBack('');
+    //             setPhoneFront('');
+    //             setPhoneMiddle('');
+    //             setPhoneBack('');
+    //             setAddress('');
+    //             setAddress_detail('');
+    //             setZipcode('');
+    //             setLicenseFront('');
+    //             setLicenseSecond('');
+    //             setLicenseThird('');
+    //             setLicenseBack('');
+    //             setUser_iskorean(false);
                 
-            } else {
-                alert(res.data.message || "회원 가입 실패");
-            }
-        } catch (error) {
-            console.log("회원가입 에러", error);
-            alert("서버 연결 오류");
-        }
-    };
+    //         } else {
+    //             alert(res.data.message || "회원 가입 실패");
+    //         }
+    //     } catch (error) {
+    //         console.log("회원가입 에러", error);
+    //         alert("서버 연결 오류");
+    //     }
+    // };
+
+    
 
     return (
         <div className='joinOverlay' >
@@ -143,6 +195,7 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                 <input className='joinInputName'
                                     type="text"
                                     placeholder="이름 입력"
+                                    name="username"
                                     value={username}
                                     onChange={(e) => setUserName(e.target.value)}
                                 />
@@ -254,7 +307,7 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                 value={address_detail} 
                                 onChange={(e) => setAddress_detail(e.target.value)} 
                                 placeholder='상세주소' 
-                                name='Address' 
+                                name='address_detail' 
                                 id='address_detial'
                                 />
                             </div>
@@ -285,14 +338,24 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                         )}
                     </li>
                     <li className='joinLiB'>
-                        <label htmlFor="isKorean" className='joinLabelB'>
-                        <div className='joinTextCC'>  해외국적자</div>  
-                        <input
-                            id='isKorean'
-                            className='joinCheckC'
-                            type="checkbox"
-                            onChange={toggle}
-                        />
+                        <div className='joinTextCC'>국적</div>
+                        <label className='joinLabelB'>
+                            국내국적자
+                            <input
+                            type="radio"
+                            name="user_iskorean"
+                            value="0"
+                            onChange={(e) => setUser_iskorean(Number(e.target.value))}
+                            />
+                        </label>
+                        <label className='joinLabelB'>
+                            해외국적자
+                            <input
+                            type="radio"
+                            name="user_iskorean"
+                            value="1"
+                            onChange={(e) => setUser_iskorean(Number(e.target.value))}
+                            />
                         </label>
                     </li>
                     <li className='joinLiB'>
@@ -333,7 +396,28 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                             </div>
                         </label>
                     </li>
+                    <li className='joinLiB'>
+                        <div className='joinTextCC'>면허 종류</div>
+                        <label className='joinLabelB'>
+                            1종
+                            <input
+                            type="radio"
+                            name="license"
+                            value="1"
+                            onChange={(e) => setLicense(e.target.value)}
+                            />
+                        </label>
 
+                        <label className='joinLabelB'>
+                            2종
+                            <input
+                            type="radio"
+                            name="license"
+                            value="2"
+                            onChange={(e) => setLicense(e.target.value)}
+                            />
+                        </label>
+                    </li>
                 </ul>
                 <div className="joinNextbtn">
                     <button

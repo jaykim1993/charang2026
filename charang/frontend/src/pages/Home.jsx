@@ -17,10 +17,10 @@ import 'leaflet/dist/leaflet.css';
 
 export default function Home(){
   const navigate = useNavigate();
-  const {setLocation, location, startDate, endDate ,startTime, endTime, apply, setApply,
+  const {branchId, setBranchId, setLocation, location, startDate, endDate ,startTime, endTime, apply, setApply,
          handleSearchBtn, setIsLocation,setIsCalendar,isLocation, isCalendar,startdayText, 
          enddayText, DeleteYear, timeAMPM} = useContext(CalendarContext);
-  const {myRecentlist,setClickCar,setResetTest,resetTest} = useContext(BookingContext);
+  const {myRecentlist} = useContext(BookingContext);
   const {userid, username} = useContext(AuthContext);
   const {cars, car, branch} = useContext(DataContext);
 
@@ -311,7 +311,7 @@ export default function Home(){
                 <div className="H_seoul">
                   <div className="H_gu">
                     <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                      <p onClick={()=>setLocation("서울북부")}>
+                      <p onClick={()=>{setLocation("서울북부"); setBranchId(5);}}>
                         서울 북부 <span>노원구</span>
                       </p>
                     </div>
@@ -320,7 +320,7 @@ export default function Home(){
 
                   <div className="H_gu">
                     <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                      <p onClick={()=>setLocation("서울남부")}>
+                      <p onClick={()=>{setLocation("서울남부"); setBranchId(4);}}>
                         서울 남부 <span>서초구</span>
                       </p>
                     </div>
@@ -329,7 +329,7 @@ export default function Home(){
 
                   <div className="H_gu">
                     <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                      <p onClick={()=>setLocation("서울동부")}>
+                      <p onClick={()=>{setLocation("서울동부"); setBranchId(3);}}>
                         서울 동부 <span>동대문구</span>
                       </p>
                     </div>
@@ -341,7 +341,7 @@ export default function Home(){
                 <div className="H_gimpo">
                   <div className="H_gu">
                     <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                      <p onClick={()=>setLocation("김포공항")}>
+                      <p onClick={()=>{setLocation("김포공항"); setBranchId(2)}}>
                         김포공항 <span>강서구</span>
                       </p>
                     </div>
@@ -352,7 +352,7 @@ export default function Home(){
                 <span>인천</span>
                 <div className="H_gu">
                   <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                    <p onClick={()=>setLocation("인천공항")}>
+                    <p onClick={()=>{setLocation("인천공항"); setBranchId(1)}}>
                       인천공항 <span>인천</span>
                     </p>
                   </div>

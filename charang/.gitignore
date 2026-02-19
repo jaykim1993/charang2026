@@ -33,9 +33,6 @@ out/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
-.vscode/
-
 
 # 모든 위치의 .metadata 폴더 무시
 .metadata/
@@ -52,4 +49,3 @@ build/
 
 # VS Code 설정
 .vscode/
-

@@ -16,31 +16,49 @@ export default function JoinFormB({ onClose, onNext }) {
   // DB 내 아이디 중복 체크
   const [isidChecked, setIsidChecked] = useState(false);
   const [ispwChecked, setIspwChecked] = useState(false);
-  const checkId = async () => {
+
+  const checkId = () => {
     if (!userid) return alert("아이디를 입력하세요.");
-
-    try {
-      // await 사용해서 Promise 완료 후 결과 받기
-      const res = await axios.post('/api/join.php', {
-        action: 'checkId',
-        userid: userid  //  실제 입력값 전달
-      });
-
-      // 서버에서 { exists: true/false } 반환
-      if (res.data.exists) {
+    
+    axios.post('/api/checkid',{userId: userid})
+      .then((res)=>{
+      if(res.data) {
         alert("중복된 아이디입니다.");
         setIsidChecked(false);
       } else {
         alert("사용 가능한 아이디입니다.");
         setIsidChecked(true);
       }
-
-    } catch (err) {
-      console.error(err);
+    })
+    .catch((error)=>{
+      console.log(error);
       alert("오류 발생");
       setIsidChecked(false);
-    }
-  };
+    });
+  }
+
+  //   try {
+  //     // await 사용해서 Promise 완료 후 결과 받기
+  //     const res = await axios.post('/api/join.php', {
+  //       action: 'checkId',
+  //       userid: userid  //  실제 입력값 전달
+  //     });
+
+  //     // 서버에서 { exists: true/false } 반환
+  //     if (res.data.exists) {
+  //       alert("중복된 아이디입니다.");
+  //       setIsidChecked(false);
+  //     } else {
+  //       alert("사용 가능한 아이디입니다.");
+  //       setIsidChecked(true);
+  //     }
+
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert("오류 발생");
+  //     setIsidChecked(false);
+  //   }
+  // };
 
   // 비밀번호 확인 버튼 함수
   const checkpw =()=>{

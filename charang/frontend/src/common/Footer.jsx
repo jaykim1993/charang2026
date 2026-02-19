@@ -66,7 +66,7 @@ useEffect(() => {
                         <div className="recentTooltip">최근 본 차량</div>
                         <button type="button" onClick={gotoRecentsideBtn}>
                             <img
-                            src={`/images/cars/${recentViews[0].car_img}`}
+                            src={`/images/cars/${recentViews[0].carImg}`}
                             alt="최근 본 차량"
                             />
                         </button>

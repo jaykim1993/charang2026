@@ -1,100 +1,83 @@
-import { useState, useContext, useEffect } from "react";
-import { DataContext } from "../contexts/Datacontext";
+import { useState, useContext, useMemo } from "react";
+// import { DataContext } from "../contexts/Datacontext"; // 안쓰면 제거
 import { CalendarContext } from "../contexts/Calendarcontext";
 import { AuthContext } from "../contexts/Authcontext";
-import './Searchcarlist.css'
+import { BookingContext } from "../contexts/Bookingcontext";
 import { useNavigate, useLocation } from "react-router-dom";
 import Calendar from './Calendar';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { BookingContext } from "../contexts/Bookingcontext";
-import { Link } from "react-router-dom";
+import L from 'leaflet';
+import './Searchcarlist.css';
 
+// ================= 1. 상수 데이터 분리 (설정값) =================
+// Leaflet 아이콘 객체 (외부로 분리하여 불필요한 재생성 방지)
+const SelectedIcon = new L.Icon({
+    iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png",
+    shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+});
 
-export default function Recentcar(){
+// 지점 좌표 데이터
+const BRANCH_LOCATIONS = [
+    {id:1, lat: 37.446842, lng: 126.454047, name: "인천공항점", address: "인천광역시 중구 공항로 271", region: "인천", gu: "중구"},
+    {id:2, lat: 37.56517, lng: 126.803013, name: "김포공항점", address: "서울특별시 강서구 하늘길 38", region: "김포", gu: "강서구"},
+    {id:3, lat: 37.570097, lng: 127.064886, name: "서울동부점", address: "서울 동대문구 한천로 100 1-2층", region: "서울", gu: "동대문구"},
+    {id:4, lat: 37.493788, lng: 127.012596, name: "서울남부점", address: "서울특별시 서초구 서초대로 283", region: "서울", gu: "서초구"},
+    {id:5, lat: 37.653579, lng: 127.058793, name: "서울북부점", address: "서울 노원구 노해로 456 동방빌딩 1층", region: "서울", gu: "노원구"},
+];
 
-    // const { cars } = useContext(DataContext);
-    const { availableCars,setLocation, location, startDate, endDate ,startTime, endTime, setStartDate, setEndDate, setApply,
-        apply, handleSearchBtn, setIsLocation, setIsCalendar, isLocation, isCalendar,startdayText, enddayText, DeleteYear,timeAMPM} = useContext(CalendarContext);
-    const { calculatePrice, clickCar, clickCarArr, setClickCarArr, setClickCar, finalPrice ,resetTest,setResetTest} = useContext(BookingContext);
+// 필터 옵션 데이터
+const FILTER_CONFIG = {
+    carSize: ['경소형', '중형', '대형'],
+    fuelType: ['하이브리드', '경유', '휘발유'],
+    brands: [
+        { name: '쉐레보', img: 'CHEVROLET.png', category: '국산' },
+        { name: '제네러스', img: 'GENESIS.png', category: '국산' },
+        { name: '한대', img: 'HYUNDAI.png', category: '국산' },
+        { name: 'KGB', img: 'KGM.png', category: '국산' },
+        { name: '크아', img: 'KIA.png', category: '국산' },
+        { name: '라노', img: 'RENAULT-KOREA.png', category: '국산' },
+        { name: '아우디즈', img: 'AUDI.png', category: '수입' },
+        { name: '빈츠', img: 'BENZ.png', category: '수입' },
+        { name: 'BMW', img: 'BMW.png', category: '수입' },
+        { name: 'BYD', img: 'BYD.png', category: '수입' },
+        { name: '푸도', img: 'FORD.png', category: '수입' },
+        { name: '렉사드', img: 'LEXUS.png', category: '수입' },
+        { name: '테셀라', img: 'TESLA.png', category: '수입' },
+        { name: '토유', img: 'TOYATA.png', category: '수입' },
+        { name: '복스바그', img: 'VOLKSWAGEN.png', category: '수입' },
+        { name: '볼바즈', img: 'VOLVO.png', category: '수입' },
+    ],
+    options: [
+        { key: 'navigation', label: '내비게이션' },
+        { key: 'rearCamera', label: '후방카메라' },
+        { key: 'heatedSeat', label: '열선시트' },
+        { key: 'heatedHandle', label: '핸들열선' },
+        { key: 'bluetooth', label: '블루투스' },
+        { key: 'smartKey', label: '스마트키' },
+        { key: 'sunLoof', label: '썬루프' }, // DB 컬럼명 주의
+    ]
+};
+
+export default function Recentcar() {
+    // ================= 2. Context & Hooks =================
+    const navigate = useNavigate();
+    const { state } = useLocation();
+    const selectedModel = state?.model; // 메인에서 모델 선택해서 넘어온 경우
+
+    const { 
+        firstFilteredCar, setLocation, setBranchId, location, 
+        startDate, endDate, startTime, endTime, 
+        setStartDate, setEndDate, setApply, 
+        setIsLocation, setIsCalendar, isLocation, isCalendar, 
+        startdayText, enddayText, DeleteYear, timeAMPM 
+    } = useContext(CalendarContext);
+
+    const { calculatePrice } = useContext(BookingContext);
     const { userid, setModal } = useContext(AuthContext);
 
-    // ================= 달력 관련 =================
-
-    const calendarHandler=()=>{
-      setIsCalendar(!isCalendar);
-      setIsLocation(false);
-    };
-    const locationHandler=()=>{
-      setIsCalendar(false);
-      setIsLocation(!isLocation);
-    };
-
-    // 상세보기 close 버튼 핸들러함수
-  const detailCloseHandler=()=>{
-    if(isDetail){
-      setIsDetail(false);
-    }else{
-      setIsLocation(false);
-    }
-  };
-
-    // 지점 상세보기 모달
-    const [isDetail,setIsDetail]=useState(null);
-    // console.log('번호: ',isDetail);
-
-    // 여러 좌표를 배열로 관리  각 데이터에있는 주소 위도,경도 검색 후 삽입
-    const positions = [
-        {id:1, lat: 37.446842, lng: 126.454047, name: "인천공항점" , address: "인천광역시 중구 공항로 271" },
-        {id:2, lat: 37.56517, lng: 126.803013, name: "김포공항점" , address: "서울특별시 강서구 하늘길 38"},
-        {id:3, lat: 37.570097, lng: 127.064886, name: "서울동부점", address: "서울 동대문구 한천로 100 1-2층" },
-        {id:4, lat: 37.493788, lng: 127.012596, name: "서울남부점", address: "서울특별시 서초구 서초대로 283" },
-        {id:5, lat: 37.653579, lng: 127.058793, name: "서울북부점", address: "서울 노원구 노해로 456 동방빌딩 1층"},
-    ];
-    
-    const detail=positions.find(item => item.id === isDetail);
-    
-    let detail_lat=detail?.lat;
-    let detail_lng=detail?.lng;
-    
-    // ================= 초기화 =================
-    useEffect(()=>{
-        setIsDetail(null);
-        // setClickCar('');
-    },[isLocation]);
-
-
-    // ================= 필터 판별 =================
-    const filterCar = (car, filters) => {
-
-        for (const category in filters) {
-            const selectedValues = filters[category];
-            if (selectedValues.length === 0) continue;
-
-            // 차종 / 연료 / 제조사
-            if (category === 'carSize' && !selectedValues.includes(car.car_size)) return false;
-            if (category === 'fuelType' && !selectedValues.includes(car.fuel_type)) return false;
-            if (category === 'brand' && !selectedValues.includes(car.brand)) return false;
-
-            // 옵션 (AND 조건)
-            if (category === 'option') {
-                for (let i = 0; i < selectedValues.length; i++) {
-                    const opt = selectedValues[i];
-
-                    if (opt === '내비게이션' && !car.navigation) return false;
-                    if (opt === '후방카메라' && !car.rear_camera) return false;
-                    if (opt === '열선시트' && !car.heated_seat) return false;
-                    if (opt === '핸들열선' && !car.heated_handle) return false;
-                    if (opt === '블루투스' && !car.bluetooth) return false;
-                    if (opt === '스마트키' && !car.smart_key) return false;
-                    if (opt === '썬루프' && !car.sun_loof) return false;
-                }
-            }
-        }
-
-        return true;
-    };
-
-    // ================= 상태 =================
+    // ================= 3. State (필요한 상태만 남김) =================
     const [selectedFilters, setSelectedFilters] = useState({
         carSize: [],
         fuelType: [],
@@ -102,565 +85,352 @@ export default function Recentcar(){
         option: []
     });
 
-    const [displayedCars, setDisplayedCars] = useState(availableCars);
+    const [isDetail, setIsDetail] = useState(null); // 지점 상세 보기 ID
+    const [tdOpen, setTdOpen] = useState(false); // 더보기 버튼
 
-    /* 달력 조건 바뀌면 목록 초기화 */
-   useEffect(() => {
-    updateDisplayedCars(selectedFilters); // 현재 필터 적용
-    }, [availableCars, selectedFilters, startDate, endDate]);
+    // ================= 4. Logic: Derived State (useMemo 사용) =================
+    // 4-1. 필터링 로직 (useEffect 제거, firstFilteredCar 변경 시 즉시 재계산)
+    // => 화면 랜더링용 마지막 필터 적용 배열이며, 그룹화해서 랜더링 진행됨
+    const secondFilteredCar = useMemo(() => {
+        let cars = firstFilteredCar;
+
+        // 메인페이지에서 모델을 선택해서 들어온 경우
+        if (selectedModel) {
+            cars = cars.filter(car => car.model === selectedModel);
+        }
+
+        // 상세 필터 적용
+        return cars.filter(car => {
+            const { carSize, fuelType, brand, option } = selectedFilters;
+
+            if (carSize.length > 0 && !carSize.includes(car.carSize)) return false;
+            if (fuelType.length > 0 && !fuelType.includes(car.fuelType)) return false;
+            if (brand.length > 0 && !brand.includes(car.brand)) return false;
+
+            // 옵션은 AND 조건 (모두 포함되어야 함)
+            if (option.length > 0) {
+                // FILTER_CONFIG에서 label과 매칭되는 key(DB컬럼명)를 찾아서 검사
+                const optionKeys = option.map(optLabel => 
+                    FILTER_CONFIG.options.find(o => o.label === optLabel)?.key
+                );
+                // 하나라도 false면 탈락
+                for (let key of optionKeys) {
+                    if (key && !car[key]) return false;
+                }
+            }
+            return true;
+        });
+    }, [firstFilteredCar, selectedModel, selectedFilters]);
+
+    // 4-2. 그룹화 로직 (secondFilteredCar 변경 시 즉시 재계산)
+    const groupedCars = useMemo(() => {
+        const groups = {};
+        secondFilteredCar.forEach(car => {
+            if (!groups[car.model]) groups[car.model] = [];
+            groups[car.model].push(car);
+        });
+        return groups;
+    }, [secondFilteredCar]);
+
+    // 4-3. 총 대여 시간(30분 단위) 계산
+    const rentalDuration = useMemo(() => {
+        if (!startDate || !endDate || !startTime || !endTime) return 0;
+        const start = new Date(`${startDate}T${startTime}`);
+        const end = new Date(`${endDate}T${endTime}`);
+        return (end - start) / (1000 * 60 * 30);
+    }, [startDate, endDate, startTime, endTime]);
 
 
-    
-    // ================= 필터 적용 =================
-    const updateDisplayedCars = (filters) => {
-        const filtered = availableCars.filter(car => filterCar(car, filters));
-        setDisplayedCars(filtered);
-    };
-    
-
+    // ================= 5. Event Handlers =================
     const toggleFilter = (category, value) => {
-        const current = selectedFilters[category];
-        const next = current.includes(value)
-            ? current.filter(v => v !== value)
-            : [...current, value];
-
-        const newFilters = {
-            ...selectedFilters,
-            [category]: next
-        };
-
-        setSelectedFilters(newFilters);
-        updateDisplayedCars(newFilters);
-    };
-
-    const removeSingleValueFilter = (category, value) => {
-        const next = selectedFilters[category].filter(v => v !== value);
-        const newFilters = { ...selectedFilters, [category]: next };
-        setSelectedFilters(newFilters);
-        updateDisplayedCars(newFilters);
+        setSelectedFilters(prev => {
+            const current = prev[category];
+            const next = current.includes(value)
+                ? current.filter(v => v !== value)
+                : [...current, value];
+            return { ...prev, [category]: next };
+        });
     };
 
     const resetFilters = () => {
-        const empty = { carSize: [], fuelType: [], brand: [], option: [] };
-        setSelectedFilters(empty);
-        setDisplayedCars(availableCars);
+        setSelectedFilters({ carSize: [], fuelType: [], brand: [], option: [] });
     };
 
-    // ================= 그룹화 =================
-    const { state } = useLocation();
-    const selectedModel = state?.model;
-    const [groupedCars, setGroupedCars] = useState({});
-
-    const [carNum, setCarNum] = useState();
-
-    useEffect(() => {
-        let sourceCars = displayedCars;
-        // model이 있으면 해당 모델만 필터
-        if (selectedModel) {
-            sourceCars = displayedCars.filter(
-            car => car.model === selectedModel
-            );
-            setCarNum(sourceCars.length);
-        }
-
-        // 그룹화
-        const grouped = {};
-        sourceCars.forEach(car => {
-            if (!grouped[car.model]) grouped[car.model] = [];
-            grouped[car.model].push(car);
-        });
-
-        setGroupedCars(grouped);
-    }, [displayedCars, selectedModel]);
-    
-
-    // ================= 선택 태그 =================
-    const renderSelectedFilters = () => {
-        const result = [];
-        for (const category in selectedFilters) {
-            for (const value of selectedFilters[category]) {
-                result.push(
-                    <button key={`${category}-${value}`} onClick={() => removeSingleValueFilter(category, value)}>
-                        {value}
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                );
-            }
-        }
-        return result;
+    const handleResetAll = () => {
+        setLocation("");
+        setBranchId("");
+        setStartDate(null);
+        setEndDate(null);
+        setApply(false);
+        resetFilters();
+        alert("검색 조건이 초기화되었습니다.");
+        // navigate는 필요 시 여기서 호출 (현재 로직상 불필요해 보임)
     };
 
-    const shouldShowResetButton = () => {
-        for(const key in selectedFilters) {
-            if(selectedFilters[key].length > 0) return true;
-        }
-        return false;
-    };
-
-
-    // ================= 출력 =================
-    const navigate = useNavigate();
-    
     const goToDetail = (carId) => {
-        // 로그인 체크
         if (!userid) {
             alert("로그인 후 이용 가능합니다.");
             setModal('login');
             return;
-            
         }
-
-        // 날짜 / 지점 체크
         if (!location || !endTime) {
             alert("날짜와 지점을 먼저 선택해주세요.");
             return;
         }
-
-        // 정상 이동
+        console.log(carId);
         navigate(`/detailpage/${carId}`);
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
-    // 출력 함수
-    const renderGroupedCars = () => {
-        const result = [];
-    if (!groupedCars || Object.keys(groupedCars).length === 0) {
-        return (
-            <p className="empty_car">선택 가능한 차량이 없습니다.</p>
+    const calendarHandler = () => {
+        setIsCalendar(!isCalendar);
+        setIsLocation(false);
+    };
+
+    const locationHandler = () => {
+        setIsCalendar(false);
+        setIsLocation(!isLocation);
+    };
+
+    const detailCloseHandler = () => {
+        if (isDetail) setIsDetail(false);
+        else setIsLocation(false);
+    };
+    
+    // 현재 선택된 지점 정보
+    const detailSpot = BRANCH_LOCATIONS.find(item => item.id === isDetail);
+
+
+    // ================= 6. Render Functions =================
+    // 상단 선택된 필터 태그 렌더링
+    const renderSelectedTags = () => {
+        return Object.entries(selectedFilters).flatMap(([category, values]) => 
+            values.map(value => (
+                <button key={`${category}-${value}`} onClick={() => toggleFilter(category, value)}>
+                    {value} <i className="bi bi-x-lg"></i>
+                </button>
+            ))
         );
-    }
-    // 총 가격 산출 
-    // 가격 계산
-    let date = (new Date(`${endDate}T${endTime}`)-new Date(`${startDate}T${startTime}`))/ (1000 * 60 * 30);
+    };
 
-    //  console.log('기간: ',date);
-    console.log(resetTest)
+    // 차량 목록 렌더링
+    const renderCarList = () => {
+        const models = Object.keys(groupedCars);
+        if (models.length === 0) return <p className="empty_car">선택 가능한 차량이 없습니다.</p>;
 
-        
-
-        for(const modelName in groupedCars){
+        return models.map(modelName => {
             const group = groupedCars[modelName];
             const first = group[0];
-            
-            result.push(
+
+            return (
                 <li key={modelName} className="grouped_car_item">
-                        <div>
-                            <img
-                            className="brands"
-                            src={`images/brands/${first.brand_logo}`}
-                            />
-                            <img
-                            className="cars"
-                            src={`images/cars/${first.car_img}`}
-                            alt={`${first.brand} ${first.model}`}
-                            />
-                        </div>
-
-                        <div className="car_list_ul">
-                            {group.map((car, index) => {
-                            const car_price = calculatePrice(car);
-
+                    <div>
+                        <img className="brands" src={`images/brands/${first.brandLogo}`} alt={first.brand} />
+                        <img className="cars" src={`images/cars/${first.carImg}`} alt={modelName} />
+                    </div>
+                    <div className="car_list_ul">
+                        {group.map((car, index) => {
+                            const unitPrice = calculatePrice(car);
+                            const totalPrice = unitPrice * rentalDuration;
+                            
                             return (
-                                <div
-                                key={car.id}
-                                className={`car_variant_info ${
-                                    index !== group.length - 1 ? "Line_active" : ""
-                                }`}
-                                onClick={() => goToDetail(first.id)}
-                                style={{ cursor: "pointer" }}
-                                >
-                                    <h4>{modelName}  {car.fuel_type} </h4>
-                                    {/* <span>{car.fuel_type}</span> */}
-                                    <p className="S_detail">{car.model_year}년식 · {car.car_size} · {car.car_type}</p>
+                                <div key={car.carId} 
+                                     className={`car_variant_info ${index !== group.length - 1 ? "Line_active" : ""}`}
+                                     onClick={() => goToDetail(car.carId)}
+                                     style={{ cursor: "pointer" }}>
+                                    
+                                    <h4>{modelName} {car.fuelType}</h4>
+                                    <p className="S_detail">{car.modelYear}년식 · {car.carSize} · {car.carType}</p>
                                     <i className="bi bi-chevron-right"></i>
 
-                                    {startDate && endDate && startTime && endTime ? 
-                                    <div className="car_ee">
-                                        <p>{car.location}</p>
+                                    {rentalDuration > 0 ? (
+                                        <div className="car_ee">
+                                            <p>{car.location}</p>
+                                            <div className="carPrice">
+                                                <span className="carPriceTotal">
+                                                    총 금액 <strong>{totalPrice.toLocaleString()}</strong>원~
+                                                </span>
+                                                <span className="carPriceMin">
+                                                    (30분당 <strong>{unitPrice.toLocaleString()}</strong>원)
+                                                </span>
+                                            </div>
+                                        </div>
+                                    ) : (
                                         <div className="carPrice">
                                             <span className="carPriceTotal">
-                                                총 금액 &nbsp;
-                                                <strong>{(car_price*date).toLocaleString()}</strong>원~
-                                            </span> 
-                                            <span className="carPriceMin">(30분당&nbsp;
-                                                <strong>{car_price.toLocaleString()}</strong>원)
+                                                30분당 <strong>{unitPrice.toLocaleString()}</strong>원
                                             </span>
                                         </div>
-                                    </div>
-                                    :<div className="carPrice">
-                                            <span className="carPriceTotal">
-                                                30분당&nbsp;
-                                                <strong>{car_price.toLocaleString()}</strong>원
-                                            </span>
-                                    </div>}
+                                    )}
                                 </div>
                             );
-                            })}
-                        </div>
+                        })}
+                    </div>
                 </li>
             );
-        }
-        return result;
+        });
     };
 
-    // 필터 초기화 시 navigate 전달 오류 해결
-    const handleResetAll = () => {
-        setLocation(null);
-        setIsCalendar(null);
-        setClickCar('');
-        setStartDate(null);
-        setEndDate(null);
-        setApply(false);
-        if(handleSearchBtn) handleSearchBtn(navigate); // navigate 전달
-        resetFilters();
-        alert("검색 조건이 초기화되었습니다.");
-    };
-    // 더보기 버튼 추가 12.26 성중
-    const [tdOpen, setTdOpen] = useState(false);
+    console.log("secondFilteredCar", secondFilteredCar);
+    console.log("firstFilteredCar", firstFilteredCar);
 
-       const SelectedIcon = new L.Icon({
-      iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png",
-      shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-    });
-
-
- 
-
-
-    return(
+    return (
         <div className="Recentcar">
-            {/* 카테고리 */}
+            {/* 카테고리 필터 섹션 */}
             <div className="R_category">
                 <ul>
                     <li>
                         <h3>차종/차량등급</h3>
-                        {/* 다중 선택 토글 기능 적용 .*/}
                         <div className="cateBtn">
-                            <button 
-                                onClick={() => toggleFilter('carSize', '경소형')} 
-                                className={selectedFilters.carSize.includes('경소형') ? 'active' : ''}>
-                                경소형
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('carSize', '중형')} 
-                                className={selectedFilters.carSize.includes('중형') ? 'active' : ''}>
-                                중형
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('carSize', '대형')} 
-                                className={selectedFilters.carSize.includes('대형') ? 'active' : ''}>
-                                대형
-                            </button>
+                            {FILTER_CONFIG.carSize.map(size => (
+                                <button key={size} 
+                                    onClick={() => toggleFilter('carSize', size)}
+                                    className={selectedFilters.carSize.includes(size) ? 'active' : ''}>
+                                    {size}
+                                </button>
+                            ))}
                         </div>
                     </li>
                     <li>
                         <h3>연료</h3>
-                         {/* 다중 선택 토글 기능 적용 */}
                         <div className="cateBtn">
-                            <button 
-                                onClick={() => toggleFilter('fuelType', '하이브리드')}
-                                className={selectedFilters.fuelType.includes('하이브리드') ? 'active' : ''}>
-                                하이브리드
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('fuelType', '경유')}
-                                className={selectedFilters.fuelType.includes('경유') ? 'active' : ''}>
-                                경유
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('fuelType', '휘발유')}
-                                className={selectedFilters.fuelType.includes('휘발유') ? 'active' : ''}>
-                                휘발유
-                            </button>
+                            {FILTER_CONFIG.fuelType.map(fuel => (
+                                <button key={fuel} 
+                                    onClick={() => toggleFilter('fuelType', fuel)}
+                                    className={selectedFilters.fuelType.includes(fuel) ? 'active' : ''}>
+                                    {fuel}
+                                </button>
+                            ))}
                         </div>
                     </li>
                     <li>
                         <h3>제조사</h3>
-                        <h4>국산차</h4>
-                         {/* 다중 선택 토글 기능 적용 */}
-                        <div className="cateBtn">
-                            <button 
-                                onClick={() => toggleFilter('brand', '쉐레보')}
-                                className={selectedFilters.brand.includes('쉐레보') ? 'active' : ''}>
-                                <img src="images/brands/CHEVROLET.png" alt="쉐레보" />
-                                &nbsp;쉐레보
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', '제네러스')}
-                                className={selectedFilters.brand.includes('제네러스') ? 'active' : ''}>
-                                <img src="images/brands/GENESIS.png" alt="제네러스" />
-                                &nbsp;제네러스
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', '한대')}
-                                className={selectedFilters.brand.includes('한대') ? 'active' : ''}>
-                                <img src="images/brands/HYUNDAI.png" alt="한대" />
-                                &nbsp;한대
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', 'KGB')}
-                                className={selectedFilters.brand.includes('KGB') ? 'active' : ''}>
-                                <img src="images/brands/KGM.png" alt="KGB" />
-                                &nbsp;KGB
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', '크아')}
-                                className={selectedFilters.brand.includes('크아') ? 'active' : ''}>
-                                <img src="images/brands/KIA.png" alt="크아" />
-                                &nbsp;크아
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', '라노')}
-                                className={selectedFilters.brand.includes('라노') ? 'active' : ''}>
-                                <img src="images/brands/RENAULT-KOREA.png" alt="라노" />
-                                &nbsp;라노
-                            </button>
-                        </div>
-                        <h4>수입차</h4>
-                        <div className="cateBtn">
-                            <button 
-                                onClick={() => toggleFilter('brand', '아우디즈')}
-                                className={selectedFilters.brand.includes('아우디즈') ? 'active' : ''}>
-                                <img src="images/brands/AUDI.png" alt="아우디즈" />
-                                아우디즈
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', '빈츠')}
-                                className={selectedFilters.brand.includes('빈츠') ? 'active' : ''}>
-                                <img src="images/brands/BENZ.png" alt="빈츠" />
-                                빈츠
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', 'BMW')}
-                                className={selectedFilters.brand.includes('BMW') ? 'active' : ''}>
-                                <img src="images/brands/BMW.png" alt="dmw" />
-                                dmw
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', 'BYD')}
-                                className={selectedFilters.brand.includes('BYD') ? 'active' : ''}>
-                                <img src="images/brands/BYD.png" alt="BYD" />
-                                BYD
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', '푸도')}
-                                className={selectedFilters.brand.includes('푸도') ? 'active' : ''}>
-                                <img src="images/brands/FORD.png" alt="푸도" />
-                                푸도
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', '렉사드')}
-                                className={selectedFilters.brand.includes('렉사드') ? 'active' : ''}>
-                                <img src="images/brands/LEXUS.png" alt="렉사드" />
-                                렉사드
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', '테셀라')}
-                                className={selectedFilters.brand.includes('테셀라') ? 'active' : ''}>
-                                <img src="images/brands/TESLA.png" alt="테셀라" />
-                                테셀라
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', '토유')}
-                                className={selectedFilters.brand.includes('토유') ? 'active' : ''}>
-                                <img src="images/brands/TOYATA.png" alt="토유" />
-                                토유
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', '복스바그')}
-                                className={selectedFilters.brand.includes('복스바그') ? 'active' : ''}>
-                                <img src="images/brands/VOLKSWAGEN.png" alt="복스바그" />
-                                복스바그
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('brand', '볼바즈')}
-                                className={selectedFilters.brand.includes('볼바즈') ? 'active' : ''}>
-                                <img src="images/brands/VOLVO.png" alt="볼바즈" />
-                                볼바즈
-                            </button>
-                        </div>
+                        {/* 국산/수입 구분하여 렌더링 */}
+                        {['국산', '수입'].map(cat => (
+                            <div key={cat}>
+                                <h4>{cat}차</h4>
+                                <div className="cateBtn">
+                                    {FILTER_CONFIG.brands.filter(b => b.category === cat).map(brand => (
+                                        <button key={brand.name} 
+                                            onClick={() => toggleFilter('brand', brand.name)}
+                                            className={selectedFilters.brand.includes(brand.name) ? 'active' : ''}>
+                                            <img src={`images/brands/${brand.img}`} alt={brand.name} />
+                                            &nbsp;{brand.name}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
                     </li>
                     <li>
                         <h3>옵션</h3>
                         <div className="cateBtn">
-                            <button 
-                                onClick={() => toggleFilter('option', '내비게이션')}
-                                className={selectedFilters.option.includes('내비게이션') ? 'active' : ''}>
-                                내비게이션
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('option', '후방카메라')}
-                                className={selectedFilters.option.includes('후방카메라') ? 'active' : ''}>
-                                후방카메라
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('option', '열선시트')}
-                                className={selectedFilters.option.includes('열선시트') ? 'active' : ''}>
-                                열선시트
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('option', '핸들열선')}
-                                className={selectedFilters.option.includes('핸들열선') ? 'active' : ''}>
-                                핸들열선
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('option', '블루투스')}
-                                className={selectedFilters.option.includes('블루투스') ? 'active' : ''}>
-                                블루투스
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('option', '스마트키')}
-                                className={selectedFilters.option.includes('스마트키') ? 'active' : ''}>
-                                스마트키
-                            </button>
-                            <button 
-                                onClick={() => toggleFilter('option', '썬루프')}
-                                className={selectedFilters.option.includes('썬루프') ? 'active' : ''}>
-                                썬루프
-                            </button>
+                            {FILTER_CONFIG.options.map(opt => (
+                                <button key={opt.label} 
+                                    onClick={() => toggleFilter('option', opt.label)}
+                                    className={selectedFilters.option.includes(opt.label) ? 'active' : ''}>
+                                    {opt.label}
+                                </button>
+                            ))}
                         </div>
                     </li>
                 </ul>
             </div>
-            {/* 목록 */}
+
+            {/* 목록 및 예약 섹션 */}
             <div className="R_carlist">
-                    {/* 예약 섹션 */}
-                    <div className="R_reservation">
-                        {/* 지점 선택 파트 */}
-                        <div className="R_spotTable">
-                            <div className="spot_choice" style={{cursor:'pointer'}}>
-                                <div className="R_spotTitle" onClick={locationHandler}>
-                                    <p className="R_reservation_p">어디서 출발할까요?</p>
-                                    {location? <h4>{location}</h4> : <h4>지점선택</h4>}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="R_dateTable" style={{cursor:'pointer'}}>
-                            <div className="R_dateTitle" onClick={calendarHandler}>
-                                <p>언제 필요하세요?</p>
-                                {/* 날짜를 선택하세요 출력 조건 수정 12.26 */}
-                                {startDate?
-                                <h4>
-                                    {startDate && endDate && (
-                                        <>
-                                            {DeleteYear(startDate)} ({startdayText}){timeAMPM(startTime)}
-                                            {" ~ "}
-                                            {DeleteYear(endDate)} ({enddayText}){timeAMPM(endTime)}
-                                        </>
-                                    )}
-                                </h4>:
-                                <h4>날짜선택</h4>}
-                            </div>
-                            <div className="searchButton">
-                                <button type="submit" onClick={handleResetAll} onMouseOver={()=>console.log('오버확인')}>
-                                    초기화 <i className="bi bi-arrow-clockwise"></i>
-                                </button>
+                <div className="R_reservation">
+                    {/* 지점 선택 */}
+                    <div className="R_spotTable">
+                        <div className="spot_choice" style={{ cursor: 'pointer' }}>
+                            <div className="R_spotTitle" onClick={locationHandler}>
+                                <p className="R_reservation_p">어디서 출발할까요?</p>
+                                {location ? <h4>{location}</h4> : <h4>지점선택</h4>}
                             </div>
                         </div>
                     </div>
-                
-                {/* 지점 모달 파트 */}
+                    {/* 날짜 선택 */}
+                    <div className="R_dateTable" style={{ cursor: 'pointer' }}>
+                        <div className="R_dateTitle" onClick={calendarHandler}>
+                            <p>언제 필요하세요?</p>
+                            {startDate && endDate ? (
+                                <h4>
+                                    {DeleteYear(startDate)} ({startdayText}){timeAMPM(startTime)}
+                                    {" ~ "}
+                                    {DeleteYear(endDate)} ({enddayText}){timeAMPM(endTime)}
+                                </h4>
+                            ) : (
+                                <h4>날짜선택</h4>
+                            )}
+                        </div>
+                        <div className="searchButton">
+                            <button type="submit" onClick={handleResetAll}>
+                                초기화 <i className="bi bi-arrow-clockwise"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* 지점 모달 */}
                 {isLocation && (
-                  <div className="R_location">
-                    <span className="R_close01" onClick={detailCloseHandler}><i className="bi bi-x-lg"></i></span>
-                    {/* 상세 위치 (지도.) */}
-                    {isDetail ? (
-                      <>
-                        <div className="R_selectLocation_detail">
-                
-                          <MapContainer center={[detail_lat, detail_lng]} zoom={20} style={{ height: "300px", width: "394px"}}> 
-                            <TileLayer
-                              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
-                            />
-                            {/* positions 배열을 map으로 돌면서 여러 Marker 렌더링 */}
-                            {positions.map((spot) => (
-                              <Marker key={spot.id} position={[spot.lat, spot.lng]}
-                              icon={SelectedIcon}
-                              >
-                                <Popup>{spot.name}</Popup>
-                              </Marker>
-                            ))}
-                          </MapContainer>
-                          <h5>{detail.name}</h5>
-                          <p className="R_detial_address_title">주소</p>
-                          <span className="R_detial_address">{detail.address}</span>
-                        </div>
-                      </>
-                    ) : (
-                    // 지점 목록 
-                      <>
-                        <h3>지점을 선택하세요</h3>
-                        <div className="R_selectLocation">
-                          <span>서울</span>
-                          <div className="R_seoul">
-                            <div className="R_gu">
-                              <div className="R_Click" onClick={()=>setIsLocation(false)}>
-                                <p onClick={()=>setLocation("서울북부")}>
-                                  서울 북부 <span>노원구</span>
-                                </p>
-                              </div>
-                              <button className="R_detail" onClick={()=>setIsDetail(5)}>상세</button>
+                    <div className="R_location">
+                        <span className="R_close01" onClick={detailCloseHandler}><i className="bi bi-x-lg"></i></span>
+                        {isDetail && detailSpot ? (
+                            <div className="R_selectLocation_detail">
+                                <MapContainer center={[detailSpot.lat, detailSpot.lng]} zoom={15} style={{ height: "300px", width: "394px" }}>
+                                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; OSM' />
+                                    {BRANCH_LOCATIONS.map((spot) => (
+                                        <Marker key={spot.id} position={[spot.lat, spot.lng]} icon={SelectedIcon}>
+                                            <Popup>{spot.name}</Popup>
+                                        </Marker>
+                                    ))}
+                                </MapContainer>
+                                <h5>{detailSpot.name}</h5>
+                                <p className="R_detial_address_title">주소</p>
+                                <span className="R_detial_address">{detailSpot.address}</span>
                             </div>
-                
-                            <div className="R_gu">
-                              <div className="R_Click" onClick={()=>setIsLocation(false)}>
-                                <p onClick={()=>setLocation("서울남부")}>
-                                  서울 남부 <span>서초구</span>
-                                </p>
-                              </div>
-                              <button className="R_detail" onClick={()=>setIsDetail(4)}>상세</button>
-                            </div>
-                
-                            <div className="R_gu">
-                              <div className="R_Click" onClick={()=>setIsLocation(false)}>
-                                <p onClick={()=>setLocation("서울동부")}>
-                                  서울 동부 <span>동대문구</span>
-                                </p>
-                              </div>
-                              <button className="R_detail" onClick={()=>setIsDetail(3)}>상세</button>
-                            </div>
-                          </div>
-                
-                          <span>김포</span>
-                          <div className="R_gimpo">
-                            <div className="R_gu">
-                              <div className="R_Click" onClick={()=>setIsLocation(false)}>
-                                <p onClick={()=>setLocation("김포공항")}>
-                                  김포공항 <span>강서구</span>
-                                </p>
-                              </div>
-                              <button className="R_detail" onClick={()=>setIsDetail(2)}>상세</button>
-                            </div>
-                          </div>
-                
-                          <span>인천</span>
-                          <div className="R_gu">
-                            <div className="R_Click" onClick={()=>setIsLocation(false)}>
-                              <p onClick={()=>setLocation("인천공항")}>
-                                인천공항 <span>서초구</span>
-                              </p>
-                            </div>
-                            <button className="R_detail" onClick={()=>setIsDetail(1)}>상세</button>
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </div>
+                        ) : (
+                            <>
+                                <h3>지점을 선택하세요</h3>
+                                <div className="R_selectLocation">
+                                    {/* 지역별 자동 그룹핑 렌더링 예시 (서울, 김포 등) */}
+                                    {['서울', '김포', '인천'].map(region => (
+                                        <div key={region}>
+                                            <span>{region}</span>
+                                            <div className={region === '서울' ? 'R_seoul' : 'R_gu'}>
+                                                {BRANCH_LOCATIONS.filter(b => b.region === region).map(branch => (
+                                                    <div className="R_gu" key={branch.id}>
+                                                        <div className="R_Click" onClick={() => setIsLocation(false)}>
+                                                            <p onClick={() => { setLocation(branch.name); setBranchId(branch.id); }}>
+                                                                {branch.name} <span>{branch.gu}</span>
+                                                            </p>
+                                                        </div>
+                                                        <button className="R_detail" onClick={() => setIsDetail(branch.id)}>상세</button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </>
+                        )}
+                    </div>
                 )}
-                
-                {isCalendar && 
+
+                {/* 달력 모달 */}
+                {isCalendar && (
                     <div className={`calendar-slide ${isCalendar ? "open" : ""}`}>
-                        <span className="R_close02" onClick={()=>setIsCalendar(false)}><i className="bi bi-x-lg"></i></span>
+                        <span className="R_close02" onClick={() => setIsCalendar(false)}><i className="bi bi-x-lg"></i></span>
                         <Calendar />
-                    </div>}
+                    </div>
+                )}
+
+                {/* 선택된 필터 태그 표시 & 초기화 버튼 */}
                 <div className="cate_choice">
                     <div className="cate_Btn">
-                        {renderSelectedFilters()}
+                        {renderSelectedTags()}
                     </div>
-                    {shouldShowResetButton() && (
+                    {Object.values(selectedFilters).some(arr => arr.length > 0) && (
                         <div className="delBtn">
                             <button onClick={resetFilters}>
                                 <i className="bi bi-arrow-clockwise"></i>
@@ -668,15 +438,18 @@ export default function Recentcar(){
                         </div>
                     )}
                 </div>
-                <p>총&nbsp;<strong>{selectedModel ?  carNum : displayedCars.length}</strong>&nbsp;종</p>
+
+                {/* 차량 리스트 결과 */}
+                <p>총 <strong>{selectedModel ? secondFilteredCar.length : secondFilteredCar.length}</strong> 종</p>
+                
                 <ul className={`GrounpedCarsWrap ${tdOpen ? 'open' : ''}`}>
-                    {renderGroupedCars()}
+                    {renderCarList()}
                 </ul>
+                
                 <button className="tableOpener" onClick={() => setTdOpen(!tdOpen)}>
                     {tdOpen ? '접기' : '더보기'}
                 </button>
             </div>
-            {/* <div className="background_gray"></div> */}
         </div>
     );
 }

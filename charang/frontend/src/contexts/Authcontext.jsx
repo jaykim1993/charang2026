@@ -10,100 +10,36 @@ export default function AuthProvider({children}){
     // 상태 저장 변수
     // 마이페이지, 예약 내 사용을 위해 입력된 모든 값을 저장함
     const[userid, setUserid]=useState(null);
-    // const[userpw, setUserpw]=useState(null);
     const[username, setUsername]=useState(null);
-    const[user_email, setUser_email]=useState(null);
-    const[user_resistnum, setUser_resistnum]=useState(null);
-    const[user_phonenum, setUser_phonenum]=useState(null);
-    const[address, setAddress]=useState(null);
-    const[address_detail, setAddress_detail]=useState(null);
-    const[user_iskorean, setUser_iskorean]=useState(null);
-    const[user_license, setUser_license]=useState(null);
 
     // 컴포넌트 마운트 될 때 localStorage에서 사용자 정보 불러오기
+
     useEffect(() => {
-        const savedUserid = localStorage.getItem("userid");
-        if (savedUserid) {
-        setUserid(savedUserid);
-        }
-        const savedUsername = localStorage.getItem("username");
-        if (savedUsername) {
-        setUsername(savedUsername);
-        }
-        const savedUser_email = localStorage.getItem("user_email");
-        if (savedUser_email) {
-        setUser_email(savedUser_email);
-        }
-        const savedUser_resistnum = localStorage.getItem("user_resistnum");
-        if (savedUser_resistnum) {
-        setUser_resistnum(savedUser_resistnum);
-        }
-        const savedUser_phonenum = localStorage.getItem("user_phonenum");
-        if (savedUser_phonenum) {
-        setUser_phonenum(savedUser_phonenum);
-        }
-        const savedUser_address = localStorage.getItem("address");
-        if (savedUser_address) {
-        setAddress(savedUser_address);
-        }
-        const savedUser_address_detail = localStorage.getItem("address_detail");
-        if (savedUser_address_detail) {
-        setAddress_detail(savedUser_address_detail);
-        }
-        const savedUser_iskorean = localStorage.getItem("user_iskorean");
-        if (savedUser_iskorean) {
-        setUser_iskorean(savedUser_iskorean);
-        }
-        const savedUser_license = localStorage.getItem("user_license");
-        if (savedUser_resistnum) {
-        setUser_license(savedUser_license);
-        }
+    const saveUser = sessionStorage.getItem("userid");
+    if (saveUser) {
+        const userData = JSON.parse(saveUser);
+
+    setUserid(userData.userId);
+    setUsername(userData.name);
+    }
     }, []);
-    // 로그인 정보 저장 함수
+
+    // 로그인 함수
       const loginsave = (userData) => {
-        // userData 전체 중 userid, username 저장
-        setUserid(userData.userid);
-        setUsername(userData.username);
-        setUser_email(userData.user_email);
-        setUser_resistnum(userData.user_resistnum);
-        setUser_phonenum(userData.user_phonenum);
-        setAddress(userData.address);
-        setAddress_detail(userData.address_detail);
-        setUser_iskorean(userData.user_iskorean);
-        setUser_license(userData.user_license);
-        localStorage.setItem("userid", userData.userid);
-        localStorage.setItem("username", userData.username);
-        localStorage.setItem("user_email", userData.user_email);
-        localStorage.setItem("user_resistnum", userData.user_resistnum);
-        localStorage.setItem("user_phonenum", userData.user_phonenum);
-        localStorage.setItem("address", userData.address);
-        localStorage.setItem("address_detail", userData.address_detail);
-        localStorage.setItem("user_iskorean", userData.user_iskorean);
-        localStorage.setItem("user_license", userData.user_license);
-        console.log("로그인 시도 값", userid, username, address_detail);
+        sessionStorage.setItem("userid",JSON.stringify(userData));
+        setUserid(userData.userId);
+        setUsername(userData.name);
     };
 
     // 로그아웃 함수
-    const logout = () => {
+    const logout =()=>{
+        //세션 스토리지 정보 삭제
+        sessionStorage.removeItem("userid");
+        alert("로그아웃 되었습니다. 메인페이지로 이동합니다.")
+        //초기값 null
         setUserid(null);
         setUsername(null);
-        setUser_email(null);
-        setUser_resistnum(null);
-        setUser_phonenum(null);
-        setAddress(null);
-        setAddress_detail(null);
-        setUser_iskorean(null);
-        setUser_license(null);
-        localStorage.removeItem("userid");
-        localStorage.removeItem("username");
-        localStorage.removeItem("user_email");
-        localStorage.removeItem("user_resistnum");
-        localStorage.removeItem("user_phonenum");
-        localStorage.removeItem("address");
-        localStorage.removeItem("address_detail");
-        localStorage.removeItem("user_iskorean");
-        localStorage.removeItem("user_license");
-    };
+}
 
     // 로그인 및 회원가입 열기
      const [modal, setModal] = useState(null); // 값 : 'login' | 'joinA' | 'joinB' | 'joinC' | null
@@ -145,15 +81,8 @@ export default function AuthProvider({children}){
     return(
         <AuthContext.Provider 
         value={{
-            userid, 
-            username, 
-            user_email, 
-            user_resistnum, 
-            user_phonenum, 
-            address, 
-            address_detail, 
-            user_iskorean, 
-            user_license ,
+            userid,
+            username,
             loginsave, 
             logout,
             modal,
