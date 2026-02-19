@@ -2,11 +2,14 @@ import './MypageMyinfo.css'
 import { useContext, useState ,useEffect} from "react"
 import { AuthContext } from '../contexts/Authcontext';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function MypageMyinfo(){
     const [userid,setUserid]=useState(null);
     const {logout,loginNeeded}=useContext(AuthContext);
+    const navigate = useNavigate();
 
+    //개인회원 정보 불러오기
     useEffect(()=>{
     axios.get('/api/userinfo')
     .then((res)=>{
@@ -24,6 +27,28 @@ export default function MypageMyinfo(){
     if(!userid){
     return <div>로딩중 ....</div>
     }
+
+
+    //회원 탈퇴하기 // 예약내역 가져올수 있으면 조건문 추가해야함  // 예약내역이 존재해서 탈퇴가 불가능하다~ 
+    const deleteHandler=()=>{
+        if(!window.confirm('정말 삭제하시겠습니까? 삭제된 데이터는 복구가 불가능합니다.')){
+            return;
+            }
+            axios.delete('/api/delete')
+            .then((res)=>{
+            if(res.data === 1){
+                alert('회원 탈퇴 처리 완료');
+                logout();
+                navigate("/");
+            }else{
+                alert('삭제 실패')
+            }
+            })
+            .catch((error)=>{
+            console.log(error)
+            })
+        }
+
 
     return(
         <div className="myinfo-Wrap">
@@ -74,8 +99,10 @@ export default function MypageMyinfo(){
                     </tr>
                 </tbody>
             </table>
-            <button className='myinfo-btn' type='button'>정보 수정</button>
-            <button className='myinfo-btn' type='button'>회원 탈퇴</button>
+            <div className="myinfo-btn-wrap">
+                <button className="myinfo-btn" onClick={() => navigate('/mypage/modify')}>정보 수정</button>
+                <button className='myinfo-btn' type='button' onClick={deleteHandler}>회원 탈퇴</button>
+            </div>
         </div>
     )
 }
