@@ -1,0 +1,46 @@
+#root .ManagerAllReservation{
+    width: 1300px;
+    margin: 100px auto;
+    border: 1px solid red;
+}
+
+#root .ManagerAllReservation h1{
+    border: 1px solid blue;
+    text-align: center;
+    margin: 50px 0;
+}
+/* 표 */
+#root .ManagerAllReservation .managerAllReservation_table .ManagerAllRes_table{
+    margin: 0 auto;
+}
+#root .ManagerAllReservation .managerAllReservation_table .ManagerAllRes_table
+ .managerAllReservation_table_th_tb th, .managerAllReservation_table_tb td{
+    border: 1px solid rgb(204, 204, 204);
+    padding: 5px;
+    text-align: center;
+}
+/* 번호 */
+#root .ManagerAllReservation .managerAllReservation_table .managerAllRes_tableNum{
+    width: 80px;
+}
+/* 차량 */
+#root .ManagerAllReservation .managerAllReservation_table .managerAllRes_tableCar{
+    width: 380px;
+}
+/* 에약자 */
+#root .ManagerAllReservation .managerAllReservation_table .managerAllRes_tableUser{
+    width: 200px;
+}
+/* 대여일자 */
+#root .ManagerAllReservation .managerAllReservation_table .managerAllRes_tableRentDate{
+    width: 200px;
+}
+/* 반납일자 */
+#root .ManagerAllReservation .managerAllReservation_table .managerAllRes_tableReturnDate{
+    width: 200px;
+}
+/* 예약일자 */
+#root .ManagerAllReservation .managerAllReservation_table .managerAllRes_tableResDate{
+    width: 200px;
+}
+

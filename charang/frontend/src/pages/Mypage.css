@@ -1,0 +1,13 @@
+#root .guideWrap{
+    margin-top: 120px;
+}
+.MyPageSideMenus{
+    display: block;
+    font-size: 20px;
+    margin: 10px 0;
+    font-weight: 700;
+    color: gray;
+}
+.MyPageSideMenus:hover{
+    color: #333;
+}

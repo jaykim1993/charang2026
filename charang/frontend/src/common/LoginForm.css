@@ -1,0 +1,115 @@
+/* 로그인 - 회원가입 CSS 통일 */
+/* 로그인 오버레이 */
+.loginOverlay {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 110;
+}
+.loginWrap {
+    position: relative;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    list-style: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+.loginBtnX {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: inherit;
+    font-size: 30px;
+    transition: 0.3s;
+    cursor: pointer;
+    color: #333;
+}
+.loginH {
+    font-weight: 900;
+    margin-bottom: 40px;
+}
+.loginColor {
+    color: #0b79b7;
+    display: inline-block;
+    width: fit-content;
+}
+.loginContent {
+    display: flex;
+    width: 550px;
+    flex-direction: column;
+    padding-top: 30px;
+    margin-left: 30px;
+}
+.loginUl {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.loginLiB {
+  margin-top: 20px;
+}
+
+.loginLabel {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  align-items: center;
+}
+
+.loginInput {
+  display: block;
+  width: 80%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.loginInput:focus {
+  outline: none;
+  border-color: #2591cf;
+}
+.loginBtnWrap{
+  margin-top: 64px;
+  text-align: center;
+}
+.loginBtn {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    background: #0b79b7;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: white;
+    font-size: 20px;
+}
+.loginBtn:hover {
+    background: #065d8f;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);  
+}
+.loginAccount{
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+    margin: 10px 0 0 100px;
+}
+.loginBtnSamll {
+    border: none;
+    padding: 0 25px;
+    background-color: inherit;
+    transition: 0.2s;
+    cursor: pointer;
+}

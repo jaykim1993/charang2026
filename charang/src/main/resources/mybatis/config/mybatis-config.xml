@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+	<typeAliases>
+		<!-- <typeAlias alias="MemberDTO" type="com.green.member.MemberDTO" />  -->
+		<typeAlias alias="carDTO" type="cha.car.dto.CarDTO" />
+		<typeAlias alias="branchDTO" type="cha.branch.dto.BranchDTO" />
+		<typeAlias alias="userDTO" type="cha.user.dto.UserDTO" />
+	</typeAliases>
+</configuration>

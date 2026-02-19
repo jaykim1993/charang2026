@@ -1,0 +1,19 @@
+package cha.user.dto;
+
+import java.util.Date;
+
+public class UserDTO {
+	private String userId;
+	private String userPw;
+	private String name;
+	private String mail;
+	private String resistNum;
+	private String phone;
+	private String address;
+	private String addressDetail;
+	private int isKorean;
+	private String license;
+	private String licenseNum;
+	private Date regDate;
+	private Date modDate;
+}

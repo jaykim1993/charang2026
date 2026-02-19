@@ -1,0 +1,111 @@
+#root .Recent_car_list{
+    width: 1300px;
+    margin: 120px auto;
+    padding: 0;
+    min-height: 900px;
+}
+#root .Recent_car_list .Recent_Head{
+    display: flex;
+    gap: 10px;
+    margin: 30px 0;
+}
+#root .Recent_car_p{
+    /* margin: 0 0 20px 0; */
+    padding-top: 15px;
+    color: #333;
+    font-weight: 600;
+    font-size: 17px;
+    border-top: 1px solid #cad7e8;
+}
+#root .Recent_car_p span{
+    font-size: 14px;
+}
+.Recent_car_span{
+    font-size: 15px;
+}#root .Recent_car_list{
+    min-height: 900px;
+}
+#root .Recent_car_list > ul{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 29px 13px;
+    padding: 15px 0;
+}
+/* 1대 */
+#root .Recent_car_list .Recent_ByDate  .Recent_car_item{
+    width: 305px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    margin: 0;
+    padding: 20px 20px;
+    background-color: #eaf2f9;
+    border-radius: 5px;
+    min-height: 280px;
+}
+#root .Recent_car_list .Recent_ByDate .Recent_car_img{
+    border-radius: 7px;
+    width: 100%;
+    margin-bottom: 20px;
+    transition: 0.2s;
+    min-height: 160px;   
+}
+#root .Recent_car_list .Recent_ByDate  .Recent_car_item:hover{
+    /* background-color: #d8e1e8; */
+    background-color: #f5fbff;
+    /* border: 1px solid #cad7e8; */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.Recent_logo {
+    position: absolute;
+    top: 14px;
+    left: 19px;
+    width: 40px;
+    height: 40px;
+}
+.RecentCar_viewDate{
+    font-size: 13px;
+    color: #777;
+}
+.Recent_buttons{
+    display: flex;
+    justify-content: center;
+}
+.Recent_buttons > button{
+    padding: 15px; 
+    border: none;
+    background-color: transparent;
+}
+.Recent_buttons > button > i{
+    font-size: 30px;
+    color: #657282;
+}
+
+.RecentDel{
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    background-color: transparent;
+    border: none;
+}
+.RecentDel i:hover{
+    color: #0b79b7;
+}
+.hihihihi{
+    position: relative;
+}
+.RecentDelBox{
+    text-align: right;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+}
+.noRecentCar{
+    width: 200px;
+    margin: 150px auto;
+    text-align: center;
+
+}

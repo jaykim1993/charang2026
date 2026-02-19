@@ -1,0 +1,105 @@
+/* 컨테이너 및 제목 */
+#root .ManagerAllCar {
+    width: 1300px;
+    margin: 100px auto;
+}
+
+#root .ManagerAllCar h1 {
+    text-align: center;
+    margin: 50px 0;
+    font-size: 2rem;
+    color: #333;
+}
+
+/* 표 기본 설정 */
+#root .ManagerAllCar .m_AllCar_table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    table-layout: fixed; /* 고정 너비 적용을 위해 필수 */
+}
+
+/* 헤더와 셀 공통 스타일 */
+#root .ManagerAllCar .m_AllCar_table th,
+#root .ManagerAllCar .m_AllCar_table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    /* vertical-align: middle; */
+}
+
+/* 헤더 배경색 */
+#root .ManagerAllCar .m_AllCar_th {
+    background-color: #f8f9fa;
+}
+
+/* 번호 */
+#root .ManagerAllCar .m_AllCar_table .m_AllCar_tableNum { 
+    width: 60px; 
+}
+
+/* 이미지 */
+#root .ManagerAllCar .m_AllCar_table .m_AllCar_tableCarImg { 
+    width: 220px; 
+}
+
+/* 차량(브랜드/모델) */
+#root .ManagerAllCar .m_AllCar_table .m_AllCar_tableCar { 
+    width: 250px; 
+}
+
+/* 차량 번호 */
+#root .ManagerAllCar .m_AllCar_table .m_AllCar_tableCarNum { 
+    width: 180px; 
+}
+
+/* 등록 일자 */
+#root .ManagerAllCar .m_AllCar_table .m_AllCar_tableRegDate { 
+    width: 180px; 
+}
+
+/* 삭제*/
+#root .ManagerAllCar .m_AllCar_table .m_AllCar_tableDel { 
+    width: 50px; 
+}
+
+/* 차량 이미지 스타일 */
+#root .ManagerAllCar .m_AllCar_tableCarImg img {
+    width: 100px;
+    margin: 0 auto;
+}
+
+/* 삭제 체크박스 스타일 */
+#root .ManagerAllCar .m_AllCar_tableDel .AllCar_del{
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* 데이터 없을 때 */
+#root .ManagerAllCar .m_AllCar_td_none {
+    padding: 80px;
+    color: #999;
+    font-size: 16px;
+}
+
+/* 하단 버튼 영역 */
+.btn_part {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    margin-top: 20px;
+}
+
+.reg_btn {
+    padding: 10px 25px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reg_btn:hover {
+    background-color: #555;
+}
