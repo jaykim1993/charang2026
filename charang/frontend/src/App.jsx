@@ -40,10 +40,9 @@ import GuideInventory from './pages/GuideInventory';
 import GuideReturn from './pages/GuideReturn';
 import GuideRental from './pages/GuideRental';
 import GuidePricing from './pages/GuidePricing';
-
+import MypageModify from './pages/MypageModify';
 // 폰트어썸
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
 function App() {
   return (
     <AuthProvider>
@@ -85,6 +84,7 @@ function App() {
                     <Route path="detail/:id" element={<MypageDetail />} />
                     <Route path="inquiry" element={<MypageInquiry />} />
                     <Route path="myinfo" element={<MypageMyinfo />} />
+                    <Route path="modify" element={<MypageModify />} />
                 </Route>
 
                 <Route path="/manager/carlist" element={<AllCarPage/>}/>

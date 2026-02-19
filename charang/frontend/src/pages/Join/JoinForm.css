@@ -261,7 +261,6 @@
 }
 .joinTextCC {
     display: inline-block;
-    margin-left: 10px;
     width: 160px;
     transform: translateY(12px);
 }
@@ -410,7 +409,7 @@
 
 .addressWrap {
     width: 660px;  
-    height: 703.5px;
+    height: 780px;
     position: absolute;
     left: -9px;      
     background: #fff;
@@ -432,4 +431,51 @@
     z-index: 1100;  
 }
 
+/* =========================
+   JoinFormC - 국적/면허종류 정렬
+   ========================= */
+
+/* 국적/면허종류가 있는 li를 한 줄(row)로 정렬 */
+.joinUlC .joinLiB:nth-of-type(6),
+.joinUlC .joinLiB:nth-of-type(8) {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-left: 20px;
+  margin: 20px 0;
+}
+
+/* 왼쪽 제목(국적, 면허 종류) */
+.joinUlC .joinLiB:nth-of-type(6) .joinTextCC,
+.joinUlC .joinLiB:nth-of-type(8) .joinTextCC {
+  width: 160px;          /* 기존 joinTextCC 폭 유지 */
+  transform: none;       /* translateY 제거해서 깔끔하게 */
+  margin-left: 0;
+}
+
+/* 옵션 라벨(국내/해외, 1종/2종) */
+.joinUlC .joinLiB:nth-of-type(6) .joinLabelB,
+.joinUlC .joinLiB:nth-of-type(8) .joinLabelB {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 0;       /* 기존 padding-left 제거 */
+  font-weight: 600;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* 라디오 버튼 크기/정렬 */
+.joinUlC .joinLiB:nth-of-type(6) input[type="radio"],
+.joinUlC .joinLiB:nth-of-type(8) input[type="radio"] {
+  transform: scale(1.1);
+  margin: 0;
+  accent-color: #0b79b7; /* 크롬/엣지에서 색 통일 */
+}
+
+/* 옵션 사이 간격 */
+.joinUlC .joinLiB:nth-of-type(6) .joinLabelB + .joinLabelB,
+.joinUlC .joinLiB:nth-of-type(8) .joinLabelB + .joinLabelB {
+  margin-left: 18px;
+}
 

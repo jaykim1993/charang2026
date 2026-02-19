@@ -223,8 +223,7 @@ export default function Home(){
       iconAnchor: [12, 41],
     });
 
-
-
+    console.log(userid+"유저아이디");
   return(
     <div className="Home">
         {/* 예약 섹션 */}
@@ -497,13 +496,23 @@ export default function Home(){
                 <span>더보기</span>
               </Link>
           </div>
-          <div className="H_sec_history_map">
+          {sec03Sort.length > 0?
+             <div className="H_sec_history_map">
               {sec03Sort.map(item=>(
                   <div className="H_recent" key={item.id} onClick={()=>{goToSearchcarlist(item.model);scrollTo(0,0)}}>
                     <img src={`/images/cars/${item.carImg}`} alt={item.model}/>
                   </div>
               ))}
           </div>
+          :
+          <>
+           <div className="H_sec_noRecentcars">
+              <p>아직 최근 본 차량이 없습니다.</p>
+              <div>
+                  <span>!</span>
+              </div>
+           </div>
+          </>}
         </div>
       }
 
