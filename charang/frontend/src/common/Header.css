@@ -23,7 +23,6 @@
   overflow: visible;
   width: 600px;
 }
-<<<<<<< HEAD
 /* 로고 애니매이션----------------------------------------------------------- */
 .animate-logo {
   animation: logoSlideFloat 13s cubic-bezier(0.4, 0, 0.2, 1) infinite;
@@ -118,42 +117,6 @@
 /* ----------------------------------------------------------- */
 
 
-=======
-.animate-logo {
-  animation: logoSlideFloat 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-@keyframes logoSlideFloat {
-  /* 원래 위치 (중앙) */
-  0% {
-    transform: translateX(380px);
-    opacity: 1;
-  }
-
-  /* 왼쪽으로 이동 */
-  20% {
-    transform: translateX(-100px);
-    opacity: 1;
-  }
-
-  /* 고정 + 위아래 흔들림 */
-  35% {
-    transform: translate(-100px, -3px);
-  }
-
-  50% {
-    transform: translate(-100px, 3px);
-  }
-
-  65% {
-    transform: translate(-100px, -3px);
-  }
-  /* 다시 중앙으로 들어오며 사라짐 */
-  100% {
-    transform: translateX(380px);
-    opacity: 1;
-  }
-}
->>>>>>> main
 
 .headerLogo {
     width: 100px;
@@ -191,11 +154,7 @@
 
 .headerBtn{
     border: none;
-<<<<<<< HEAD
     padding: 8px 12px;
-=======
-    padding: 12px;
->>>>>>> main
     border-radius: 5px;
     background-color: inherit;
     text-decoration: none;
@@ -425,24 +384,14 @@ Link {
 .header-manager-dropdown-menu {
     position: absolute;
     width: 100px;
-<<<<<<< HEAD
-    top: 40px;       
-=======
     top: 56px;       
->>>>>>> main
     left: 0;
     background-color: #333;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     opacity: 0;
-<<<<<<< HEAD
-    transform: translateY(-15px);
-    transition:
-    opacity 0.2s ease,
-=======
     transform: translateY(-250px);
     transition:
     /* opacity 0.2s ease, */
->>>>>>> main
     transform 0.3s ease;
 }
 
@@ -452,13 +401,6 @@ Link {
     padding: 12px;
     color: #eee;
     cursor: pointer;
-<<<<<<< HEAD
-    margin-left: 5px;
-}
-
-.header-manager-dropdown-menu .item:hover {
-    text-decoration: underline;
-=======
     /* margin-left: 5px; */
     text-align: center;
 }
@@ -466,7 +408,6 @@ Link {
 .header-manager-dropdown-menu .item:hover {
     /* text-decoration: underline; */
     background-color: #555;
->>>>>>> main
 }
 
 .header-managerBtn-wrap:hover .header-manager-dropdown-menu {
