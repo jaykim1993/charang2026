@@ -271,8 +271,8 @@ export default function Recentcar() {
         });
     };
 
-    console.log("secondFilteredCar", secondFilteredCar);
-    console.log("firstFilteredCar", firstFilteredCar);
+    // console.log("secondFilteredCar", secondFilteredCar);
+    // console.log("firstFilteredCar", firstFilteredCar);
 
     return (
         <div className="Recentcar">

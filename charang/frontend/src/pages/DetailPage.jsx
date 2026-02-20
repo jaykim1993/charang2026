@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from "react";
 import { CalendarContext } from "../contexts/Calendarcontext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-
 import { BookingContext } from "../contexts/Bookingcontext";
 import { AuthContext } from "../contexts/Authcontext";
 import { DataContext } from "../contexts/Datacontext";
@@ -22,7 +21,7 @@ export default function DetailPage(){
     // console.log(calculatePrice);
     const storedFilteredInfoUser = JSON.parse(localStorage.getItem("filteredInfoUser")) || [];
     const storedCalendarFilters = JSON.parse(localStorage.getItem("calendarFilters")) || {};
-
+    
     // 차 id 가져오기
     const selectedCarId = Number(useParams().id);
     // user id 가져오기
@@ -30,7 +29,7 @@ export default function DetailPage(){
     
     const navigate = useNavigate();
 
-    console.log(selectedCarId);
+    // console.log(selectedCarId);
     // 선택 차량
     const selectedCar = JSON.parse(localStorage.getItem("firstFilteredCar") || "[]")
     .find(car => car.carId === selectedCarId) || null;
@@ -48,7 +47,7 @@ export default function DetailPage(){
 
 
 
-        console.log(filterCar);
+        // console.log(filterCar);
 
 
     // 최근 본 차량 추가(Local Storage)
@@ -141,7 +140,9 @@ export default function DetailPage(){
             alert("예약 정보를 다시 선택해주세요");
             return;
         }
-        navigate('/reservation');
+        navigate('/reservation', {
+            state : {selectedCarId}
+        });
     };
 
        const SelectedIcon = new L.Icon({

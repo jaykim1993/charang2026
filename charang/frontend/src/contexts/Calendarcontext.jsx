@@ -21,7 +21,7 @@ export default function CalendarProvider({ children }) {
   const tocanRentMin =canRentStart.getMinutes();
 
   
-  //DDD
+
   //30분보다 적으면 시간 그대로
   //30분보다 크면 시간 +1
   const CanRentHour =()=>{
@@ -86,7 +86,7 @@ const [endTime, setEndTime] = useState(
       .map((book) => book.carId);
   }, [bookedlistAll, startDate, endDate, startTime, endTime]);
 
-  console.log("이용 불가능한 차량 리스트", blockedCarIds);
+  // console.log("이용 불가능한 차량 리스트", blockedCarIds);
 
 
 
