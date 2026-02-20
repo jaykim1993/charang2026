@@ -74,7 +74,7 @@ function App() {
                   <Route path="notice" element={<CustomerServiceNotice/>} />  {/* 공지사항 */}
                   <Route path="/customerservice/notice/Info/:noticeId" element={<CustomerServiceNoticeInfo />} />  {/* 공지사항 상세*/}
                 </Route>
-                <Route path="/customerservice/notice/write" element={<CustomerServiceNoticeWrite />} />  {/* 공지사항 상세*/}
+                <Route path="/customerservice/notice/manager/write" element={<CustomerServiceNoticeWrite />} />    {/* 공지사항 작성*/}
                 
                 <Route path="/location" element={<LocationPage />} />
                 <Route path="/recent" element={<Recentcarlist />} />

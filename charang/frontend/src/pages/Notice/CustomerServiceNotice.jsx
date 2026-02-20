@@ -56,7 +56,7 @@ export default function CustomerServiceNotice(){
                 {/* 관리자(=admin)일 때만 글쓰기 버튼 생김 */}
                 {userid === 'admin' && (
                     <div className="notice_adminBtn">
-                        <button onClick={() => navigate("/customerservice/notice/write")}>
+                        <button onClick={() => navigate("/customerservice/notice/manager/write")}>
                             글쓰기
                         </button>
                     </div>

@@ -26,19 +26,18 @@ export default function CustomerServiceNoticeWrite(){
             return;
         }
 
-        axios.post('/api/customerservice/notice/writePro', {title: title, content: content})
+        axios.post('/api/customerservice/notice/manager/writePro', {userId: userid, title: title, content: content})
         .then((res) => {
             if(res.data === 1){
                 console.log("res.data : ", res.data);
-                alert('공지사항 등록 완료')
+                alert('공지사항 등록 완료!')
                 navigate('/customerservice/notice');
             }else{
-                alert("공지사항 등록 실패");
+                alert("공지사항 등록 실패 - 권한이 없거나 데이터 오류");
             }
         })
         .catch((error) => console.log("error : ", error))
     }
-
 
     return(
         <div className="notice_write">
@@ -58,9 +57,6 @@ export default function CustomerServiceNoticeWrite(){
                             <textarea type="text" name="content" rows="15" cols="80" 
                             onChange={(e) => setContent(e.target.value)} placeholder="제목을 입력하세요." />
                         </td>
-                    </tr>
-                    <tr>
-                        
                     </tr>
                 </tbody>
             </table>
