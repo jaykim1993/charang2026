@@ -23,7 +23,7 @@ export default function MypageModify() {
   const [zipcode, setZipcode] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  // 내 정보 불러오기
+  // 내 정보 불러오기 ~~
 useEffect(() => {
   axios.get("/api/userinfo")
     .then(res => {
