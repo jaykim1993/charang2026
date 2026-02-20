@@ -14,8 +14,8 @@ export default function JoinFormB({ onClose, onNext }) {
   const [userpwCheck, setUserpwCheck] = useState("");
 
   // DB 내 아이디 중복 체크
-  const [isidChecked, setIsidChecked] = useState(false);
-  const [ispwChecked, setIspwChecked] = useState(false);
+  const [isidChecked, setIsidChecked] = useState(true);
+  const [ispwChecked, setIspwChecked] = useState(true);
 
   const checkId = () => {
     if (!userid) return alert("아이디를 입력하세요.");
