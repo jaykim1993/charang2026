@@ -36,7 +36,7 @@
 
 .myinfo-btn{
   margin-top: 70px;
-  width: 100%;
+  width: 80%;
   height: 48px;
   border-radius: 10px;
   border: none;
@@ -50,5 +50,10 @@
 .myinfo-btn:hover {
   background-color: #09679c;
 }
+.myinfo-btn-wrap{
+  display: flex;
+  gap: 20px;
+}
+
 
 

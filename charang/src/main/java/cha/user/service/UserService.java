@@ -5,7 +5,7 @@ import java.util.List;
 import cha.user.dto.UserDTO;
 
 public interface UserService {
-   	// 전체 회원 출력 메서드
+   // 전체 회원 출력 메서드
 	public List<UserDTO> getAllUser();
    
    //ȸ    Ƶ     ߺ üũ

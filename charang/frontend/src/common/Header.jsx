@@ -31,10 +31,12 @@ export default function Header() {
 
     // 사이드네비게이션 활성화 상태 변수 (초기값 false)
     const [isNavOpen, setIsNavOpen] = useState(false);
+
     // 사이드 메뉴 오픈 함수
     const openNav = () => {
         setIsNavOpen(true)
     };
+
     // 사이드 메뉴 닫기 함수
     const closeNav = () => {
         setIsNavOpen(false)
@@ -84,11 +86,11 @@ export default function Header() {
                                             관리자 메뉴
                                         </button>
                                         <div className="header-manager-dropdown-menu">
-                                            <Link to="/"><div className="item">차량관리</div></Link>
-                                            <Link to="/"><div className="item">회원관리</div></Link>
-                                            <Link to="/"><div className="item">예약관리</div></Link>
-                                            <Link to="/"><div className="item">공지사항</div></Link>
-                                            <Link to="/"><div className="item">1:1 문의</div></Link>
+                                            <Link to="/" className='item'>차량관리</Link>
+                                            <Link to="/" className='item'>회원관리</Link>
+                                            <Link to="/" className='item'>예약관리</Link>
+                                            <Link to="/" className='item'>공지사항</Link>
+                                            <Link to="/" className='item'>1:1 문의</Link>
                                         </div>
                                     </div>
                                     <Link to="/">

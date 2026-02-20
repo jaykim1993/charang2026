@@ -69,11 +69,6 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
     // 11. 운전면허종류
     const [license, setLicense] = useState("");
 
-    console.log("@@@@@@@@@@@@@@@@@",userid);
-    console.log("@@@@@@@@@@@@@@@@@",userpw);
-
-
-
     // 데이터 DB에 추가
     const signup =()=>{
         axios.post('/api/signup',{ userId: userid, userPw: userpw,name: username, mail: user_email,resistNum: user_resistnum,
@@ -114,71 +109,6 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
         })
     }
 
-
-
-
-
-    // const signup = async (e) => {
-    //     e.preventDefault();
-    //     if (!username || !emailId || !resistFront || !resistBack || !phoneFront || !phoneMiddle || !phoneBack) {
-    //         alert("필수 기입 사항을 입력하세요");
-    //         return;
-    //     }
-
-    //     try {
-    //         const res = await axios.post(
-    //             '/api/join.php',
-    //             {
-    //                 userid,
-    //                 userpw,
-    //                 username,
-    //                 user_email,
-    //                 user_resistnum,
-    //                 user_phonenum,
-    //                 user_license,
-    //                 address,
-    //                 address_detail,
-    //                 user_iskorean
-    //             }
-    //         );
-
-    //         console.log("join입력", res.data);
-
-    //         if (res.data.status === 'success') {
-    //             alert("회원 가입을 환영합니다. 로그인 페이지로 이동합니다.");
-    //             onClose();
-    //             onComplete();
-                
-                
-
-    //             // 초기화
-    //             setUserName('');
-    //             setEmailId('');
-    //             setEmailDomain('naver.com');
-    //             setResistFront('');
-    //             setResistBack('');
-    //             setPhoneFront('');
-    //             setPhoneMiddle('');
-    //             setPhoneBack('');
-    //             setAddress('');
-    //             setAddress_detail('');
-    //             setZipcode('');
-    //             setLicenseFront('');
-    //             setLicenseSecond('');
-    //             setLicenseThird('');
-    //             setLicenseBack('');
-    //             setUser_iskorean(false);
-                
-    //         } else {
-    //             alert(res.data.message || "회원 가입 실패");
-    //         }
-    //     } catch (error) {
-    //         console.log("회원가입 에러", error);
-    //         alert("서버 연결 오류");
-    //     }
-    // };
-
-    
 
     return (
         <div className='joinOverlay' >
@@ -338,8 +268,9 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                         )}
                     </li>
                     <li className='joinLiB'>
-                        <div className='joinTextCC'>국적</div>
+                        
                         <label className='joinLabelB'>
+                            <div className='joinTextCC'>국적</div>
                             국내국적자
                             <input
                             type="radio"
@@ -397,8 +328,9 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                         </label>
                     </li>
                     <li className='joinLiB'>
-                        <div className='joinTextCC'>면허 종류</div>
+                        
                         <label className='joinLabelB'>
+                            <div className='joinTextCC'>면허 종류</div>
                             1종
                             <input
                             type="radio"

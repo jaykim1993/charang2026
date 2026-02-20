@@ -1,0 +1,111 @@
+/* 공지사항 전체 */
+.notice{
+    width: 90%;
+    min-height: 800px;
+    /* margin: 50px auto; */
+    color: #333;
+}
+
+/* 공지사항 타이틀 */
+.notice_title{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+.notice .notice_title h4{
+    font-size: 24px;
+}
+
+/* 관리자 버튼 */
+.notice_adminBtn button{
+    background-color: #444;
+    color: white;
+    padding: 5px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.notice_adminBtn button:hover{
+    background-color: #666;
+}
+
+/* 테이블 */
+.notice .notice_table table{
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid #dee2e6;
+    /* border-top: 2px solid #333; */
+}
+
+/* .notice .notice_table table th{
+    background-color: #f8f9fa;
+    padding: 12px;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: 600;
+    color: #495057;
+    text-align: center;
+} */
+
+.notice .notice_table table td{
+    padding: 20px;
+    border-bottom: 1px solid #dee2e6;
+    color: #666;
+    vertical-align: middle;
+    /* text-align: center; */
+}
+
+/* 행(tr) 호버 효과 */
+.notice .notice_table table tbody tr:hover{
+    background-color: #f7f8fa;
+}
+
+/* 제목 링크 스타일 */
+.notice .notice_table table td a{
+    text-decoration: none;
+    color: #333;
+    display: block;
+    width: 100%;
+    font-weight: 500;
+}
+
+/* .notice .notice_table table td a:hover{
+    color: #0b79b7;
+} */
+
+/* 번호, 날짜, 조회수 열 너비 조절 */
+.notice th:nth-child(1), .notice td:nth-child(1){ width: 10%; text-align: center; }
+.notice th:nth-child(2), .notice td:nth-child(2){ width: 55%; text-align: left; }
+.notice th:nth-child(3), .notice td:nth-child(3){ width: 20%; text-align: center; }
+.notice th:nth-child(4), .notice td:nth-child(4){ width: 15%; text-align: center; }
+
+/* 데이터 없을 때 메시지 */
+.notice .notice_table table td[colspan="4"]{
+    padding: 50px 0;
+    color: #adb5bd;
+    font-style: italic;
+}
+
+/* 페이징 */
+.notice .notice_table .notice_paging{
+    text-align: center;
+}
+.notice .notice_table .notice_paging button{
+    border: none;
+    background-color: transparent;
+    padding: 10px;
+    color: #666;
+}
+.notice .notice_table .notice_paging button:hover{
+    color: #333;
+}
+.notice .notice_table .notice_paging button i{
+    color: #666;
+}
+.notice .notice_table .notice_paging button i:hover{
+    color: #333;
+}
+.notice_paging button.active{
+    font-weight: bold;
+    color: #333;
+}

@@ -11,7 +11,7 @@ import cha.user.mapper.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService {
-   	// 전체 회원 출력
+   // 전체 회원 출력
 	@Override
 	public List<UserDTO> getAllUser() {
 		System.out.println("전체 회원 출력 서비스");
