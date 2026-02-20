@@ -2,8 +2,8 @@ export default function GuideRental(){
     return(
         <>
          <div>
-            <h3>대여안내</h3>
-            <h2 className="guideExplain">대여방법 및 절차</h2>
+            <h3 className="daaae">대여안내</h3>
+            <></>
             <p className="guideExplainDetail">차랑차랑렌터카 사용예약을 위해 고객님께서는 아래 절차대로 진행해 주세요.</p>
             <p className="guideRentalProcessExplain">
                 온라인으로 예약이 어려우신 경우 지점을 방문하시거나 전화로 예약이 가능합니다. (고객센터 : 910-1112)

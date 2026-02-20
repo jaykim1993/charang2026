@@ -41,8 +41,8 @@ export default function GuideBranch(){
         setLocationDetail(spotId)
     }
     const handleSelectSpot = (spot) => {
-      setSelectedId(spot.id);
-      setLocationDetail(spot.id);
+      setSelectedId(spot.branchId);
+      setLocationDetail(spot.branchId);
       setMapAction({
         position: [spot.lat, spot.lng],
         zoom: defaultZoom + 5,
@@ -74,19 +74,8 @@ export default function GuideBranch(){
                 {mapAction && <MoveMapOnClick position={mapAction.position} zoom={mapAction.zoom} />}
                 </MapContainer>
     //===================================================================================
-    
-    const [pageShow,setpageShow]=useState(1) //보여주는 페이지 기본 1
-    const location1Page =()=>{
-        setpageShow(1)
-    }
-    const location2Page =()=>{
-        setpageShow(2)
-    }
-    const location3Page =()=>{
-        setpageShow(3)
-    }
     //
-    const selectedSpot = branch.find((p) => p.id === locationDetail);
+    const selectedSpot = branch.find((p) => p.branchId === locationDetail);
     
     //====================================================================================
     
@@ -129,19 +118,19 @@ export default function GuideBranch(){
       return nearest;
     }
     const findMyNearest = () => {
-      if (!positions || positions.length === 0) return;
+      if (!branch || branch.length === 0) return;
     
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           const myLat = pos.coords.latitude;
           const myLng = pos.coords.longitude;
     
-          const nearest = findNearestSpot(myLat, myLng, positions);
+          const nearest = findNearestSpot(myLat, myLng, branch);
           if (!nearest) return;
     
           //연결
-          setSelectedId(nearest.id);
-          setLocationDetail(nearest.id);
+          setSelectedId(nearest.branchId);
+          setLocationDetail(nearest.branchId);
           setMapAction({
             position: [nearest.lat, nearest.lng],
             zoom: defaultZoom + 5,
@@ -188,7 +177,7 @@ export default function GuideBranch(){
                     <div className="locationDetailBox">
                         <h2 className="LocationSpotName">{selectedSpot.name}</h2>
                         <h3 className="LocationSpotArea">{selectedSpot.location}</h3>
-                        <h3 className="LocationSpotDetail">{selectedSpot.location_detail}</h3>
+                        <h3 className="LocationSpotDetail">{selectedSpot.address}</h3>
                         <h3 className="LocationSpotTel">Tel : {selectedSpot.tel}</h3>
                     </div>
             )}

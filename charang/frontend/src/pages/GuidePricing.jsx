@@ -78,28 +78,28 @@ const SMALL_SIZES = ['소형', '경소형'];
 
 // 사이즈나 타입 별 분류 
 const koreanSmall = uniqueCars.filter(item => 
-  KOREAN_BRANDS.includes(item.brand) && SMALL_SIZES.includes(item.car_size)
+  KOREAN_BRANDS.includes(item.brand) && SMALL_SIZES.includes(item.carSize)
 );
 const koreanMiddle = uniqueCars.filter(item => 
-  KOREAN_BRANDS.includes(item.brand) && item.car_size === '중형'
+  KOREAN_BRANDS.includes(item.brand) && item.carSize === '중형'
 );
 const koreanLarge = uniqueCars.filter(item => 
-  KOREAN_BRANDS.includes(item.brand) && item.car_size === '대형'
+  KOREAN_BRANDS.includes(item.brand) && item.carSize === '대형'
 );
 const koreanRV = uniqueCars.filter(item => 
-  KOREAN_BRANDS.includes(item.brand) && item.car_type === 'RV'
+  KOREAN_BRANDS.includes(item.brand) && item.carType === 'RV'
 );
 const koreanTruck = uniqueCars.filter(item => 
-  KOREAN_BRANDS.includes(item.brand) && item.car_type === '화물'
+  KOREAN_BRANDS.includes(item.brand) && item.carType === '화물'
 );
 const foreignSmall = uniqueCars.filter(item => 
-  FOREIGN_BRANDS.includes(item.brand) && SMALL_SIZES.includes(item.car_size)
+  FOREIGN_BRANDS.includes(item.brand) && SMALL_SIZES.includes(item.carSize)
 );
 const foreignMiddle = uniqueCars.filter(item => 
-  FOREIGN_BRANDS.includes(item.brand) && item.car_size === '중형'
+  FOREIGN_BRANDS.includes(item.brand) && item.carSize === '중형'
 );
 const foreignLarge = uniqueCars.filter(item => 
-  FOREIGN_BRANDS.includes(item.brand) && item.car_size === '대형'
+  FOREIGN_BRANDS.includes(item.brand) && item.carSize === '대형'
 );
 
 const getFilteredCars = () => {
@@ -141,7 +141,7 @@ const getFilteredCars = () => {
                 </div>
                 ):(
                 <div className="guideSelectForCar">
-                    <button className={`guideSelectCarSizeBtn2 ${selectForeignSize===1?'active':''}`} onClick={selectForeignSmall}>소형</button>
+                    <button className={`guideSelectCarSizeBtn2 ${selectForeignSize===1?'active':''}`} onClick={selectForeignSmall}>경소형</button>
                     <button className={`guideSelectCarSizeBtn2 ${selectForeignSize===2?'active':''}`} onClick={selectForeignMiddle}>중형</button>
                     <button className={`guideSelectCarSizeBtn2 ${selectForeignSize===3?'active':''}`} onClick={selectForeignLarge}>대형</button>
                 </div>
@@ -161,12 +161,12 @@ const getFilteredCars = () => {
                     <tbody className="guideTbody">
                     {carListToRender.length > 0 ? (
                         carListToRender.map((car) => (
-                        <tr key={car.id}>
+                        <tr key={car.carId}>
                             <td className="guideTd">{car.model}</td>
                             {/* 시간당 요금 (3000 * price_value) */}
-                            <td className="guideTd">{(700 * car.price_value)}원</td>
+                            <td className="guideTd">{(700 * car.priceValue)}원</td>
                             {/* 하루 완전 자차 보험료 */}
-                            <td className="guideTd">{(200 *48* car.price_value)}원</td>
+                            <td className="guideTd">{(200 *48* car.priceValue)}원</td>
                         </tr>
                         ))
                     ) : (

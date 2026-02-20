@@ -3,11 +3,13 @@ import { useState, useContext, useMemo } from "react";
 import { CalendarContext } from "../contexts/Calendarcontext";
 import { AuthContext } from "../contexts/Authcontext";
 import { BookingContext } from "../contexts/Bookingcontext";
+import { DataContext } from "../contexts/Datacontext";
 import { useNavigate, useLocation } from "react-router-dom";
 import Calendar from './Calendar';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import './Searchcarlist.css';
+import 'leaflet/dist/leaflet.css';
 
 // ================= 1. 상수 데이터 분리 (설정값) =================
 // Leaflet 아이콘 객체 (외부로 분리하여 불필요한 재생성 방지)
@@ -19,13 +21,13 @@ const SelectedIcon = new L.Icon({
 });
 
 // 지점 좌표 데이터
-const BRANCH_LOCATIONS = [
-    {id:1, lat: 37.446842, lng: 126.454047, name: "인천공항점", address: "인천광역시 중구 공항로 271", region: "인천", gu: "중구"},
-    {id:2, lat: 37.56517, lng: 126.803013, name: "김포공항점", address: "서울특별시 강서구 하늘길 38", region: "김포", gu: "강서구"},
-    {id:3, lat: 37.570097, lng: 127.064886, name: "서울동부점", address: "서울 동대문구 한천로 100 1-2층", region: "서울", gu: "동대문구"},
-    {id:4, lat: 37.493788, lng: 127.012596, name: "서울남부점", address: "서울특별시 서초구 서초대로 283", region: "서울", gu: "서초구"},
-    {id:5, lat: 37.653579, lng: 127.058793, name: "서울북부점", address: "서울 노원구 노해로 456 동방빌딩 1층", region: "서울", gu: "노원구"},
-];
+// const BRANCH_LOCATIONS = [
+//     {id:1, lat: 37.446842, lng: 126.454047, name: "인천공항점", address: "인천광역시 중구 공항로 271", region: "인천", gu: "중구"},
+//     {id:2, lat: 37.56517, lng: 126.803013, name: "김포공항점", address: "서울특별시 강서구 하늘길 38", region: "김포", gu: "강서구"},
+//     {id:3, lat: 37.570097, lng: 127.064886, name: "서울동부점", address: "서울 동대문구 한천로 100 1-2층", region: "서울", gu: "동대문구"},
+//     {id:4, lat: 37.493788, lng: 127.012596, name: "서울남부점", address: "서울특별시 서초구 서초대로 283", region: "서울", gu: "서초구"},
+//     {id:5, lat: 37.653579, lng: 127.058793, name: "서울북부점", address: "서울 노원구 노해로 456 동방빌딩 1층", region: "서울", gu: "노원구"},
+// ];
 
 // 필터 옵션 데이터
 const FILTER_CONFIG = {
@@ -76,6 +78,7 @@ export default function Recentcar() {
 
     const { calculatePrice } = useContext(BookingContext);
     const { userid, setModal } = useContext(AuthContext);
+    const { branch } = useContext(DataContext);
 
     // ================= 3. State (필요한 상태만 남김) =================
     const [selectedFilters, setSelectedFilters] = useState({
@@ -198,7 +201,7 @@ export default function Recentcar() {
     };
     
     // 현재 선택된 지점 정보
-    const detailSpot = BRANCH_LOCATIONS.find(item => item.id === isDetail);
+    const detailSpot = branch.find(item => item.branchId === isDetail);
 
 
     // ================= 6. Render Functions =================
@@ -379,8 +382,8 @@ export default function Recentcar() {
                             <div className="R_selectLocation_detail">
                                 <MapContainer center={[detailSpot.lat, detailSpot.lng]} zoom={15} style={{ height: "300px", width: "394px" }}>
                                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; OSM' />
-                                    {BRANCH_LOCATIONS.map((spot) => (
-                                        <Marker key={spot.id} position={[spot.lat, spot.lng]} icon={SelectedIcon}>
+                                    {branch.map((spot) => (
+                                        <Marker key={spot.branchId} position={[spot.lat, spot.lng]} icon={SelectedIcon}>
                                             <Popup>{spot.name}</Popup>
                                         </Marker>
                                     ))}
@@ -391,27 +394,60 @@ export default function Recentcar() {
                             </div>
                         ) : (
                             <>
-                                <h3>지점을 선택하세요</h3>
-                                <div className="R_selectLocation">
-                                    {/* 지역별 자동 그룹핑 렌더링 예시 (서울, 김포 등) */}
-                                    {['서울', '김포', '인천'].map(region => (
-                                        <div key={region}>
-                                            <span>{region}</span>
-                                            <div className={region === '서울' ? 'R_seoul' : 'R_gu'}>
-                                                {BRANCH_LOCATIONS.filter(b => b.region === region).map(branch => (
-                                                    <div className="R_gu" key={branch.id}>
-                                                        <div className="R_Click" onClick={() => setIsLocation(false)}>
-                                                            <p onClick={() => { setLocation(branch.name); setBranchId(branch.id); }}>
-                                                                {branch.name} <span>{branch.gu}</span>
-                                                            </p>
-                                                        </div>
-                                                        <button className="R_detail" onClick={() => setIsDetail(branch.id)}>상세</button>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    ))}
+                            <h3>지점을 선택하세요</h3>
+                            <div className="H_selectLocation">
+                                <span>서울</span>
+                                <div className="H_seoul">
+                                <div className="H_gu">
+                                    <div className="H_Click" onClick={()=>setIsLocation(false)}>
+                                    <p className="searchCarP" onClick={()=>{setLocation("서울북부"); setBranchId(5);}}>
+                                        서울 북부 <span>노원구</span>
+                                    </p>
+                                    </div>
+                                    <button className="H_detail" onClick={()=>setIsDetail(5)}>상세</button>
                                 </div>
+
+                                <div className="H_gu">
+                                    <div className="H_Click" onClick={()=>setIsLocation(false)}>
+                                    <p className="searchCarP" onClick={()=>{setLocation("서울남부"); setBranchId(4);}}>
+                                        서울 남부 <span>서초구</span>
+                                    </p>
+                                    </div>
+                                    <button className="H_detail" onClick={()=>setIsDetail(4)}>상세</button>
+                                </div>
+
+                                <div className="H_gu">
+                                    <div className="H_Click" onClick={()=>setIsLocation(false)}>
+                                    <p className="searchCarP" onClick={()=>{setLocation("서울동부"); setBranchId(3);}}>
+                                        서울 동부 <span>동대문구</span>
+                                    </p>
+                                    </div>
+                                    <button className="H_detail" onClick={()=>setIsDetail(3)}>상세</button>
+                                </div>
+                                </div>
+
+                                <span>김포</span>
+                                <div className="H_gimpo">
+                                <div className="H_gu">
+                                    <div className="H_Click" onClick={()=>setIsLocation(false)}>
+                                    <p className="searchCarP" onClick={()=>{setLocation("김포공항"); setBranchId(2)}}>
+                                        김포공항 <span>강서구</span>
+                                    </p>
+                                    </div>
+                                    <button className="H_detail" onClick={()=>setIsDetail(2)}>상세</button>
+                                </div>
+                                </div>
+
+                                <span>인천</span>
+                                <div className="H_gu">
+                                <div className="H_Click" onClick={()=>setIsLocation(false)}>
+                                    <p className="searchCarP" onClick={()=>{setLocation("인천공항"); setBranchId(1)}}>
+                                    인천공항 <span>인천</span>
+                                    </p>
+                                </div>
+                                <button className="H_detail" onClick={()=>setIsDetail(1)}>상세</button>
+                                </div>
+                            </div>
                             </>
                         )}
                     </div>

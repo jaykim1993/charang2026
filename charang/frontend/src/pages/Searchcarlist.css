@@ -535,6 +535,11 @@ a, p, h4, h3, h2, h1{
     z-index: -10;
 }
 
+/* 찬하추가 0220 */
+.searchCarP{
+    cursor: pointer;
+}
+
 /* .GrounpedCarsWrap{
     max-height: 880px;
     overflow-y: auto;
