@@ -5,7 +5,7 @@ import './Guide.css'
 import { Link, Outlet } from "react-router-dom"
 
 export default function GuidePricing(){
-const {cars}=useContext(DataContext); //데이터받아오기
+const {car}=useContext(DataContext); //데이터받아오기
 
 const [showPage,setShowPage]=useState(true); //기본화면 출력 기본값 true
 const showGuideOne=()=>{
@@ -17,7 +17,7 @@ const showGuideTwo=()=>{
     console.log(showPage)
 }
 
-const carsCopy=[...cars] //얕은복사
+const carsCopy=[...car] //얕은복사
 
 const uniqueCars = carsCopy.filter((car, index, array) =>   // 얕은복사한거로 중복제거
   index === array.findIndex(carItem => carItem.model === car.model)

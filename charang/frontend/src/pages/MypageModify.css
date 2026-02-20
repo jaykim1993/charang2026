@@ -1,0 +1,230 @@
+/* =========================
+   MypageModify 전용 스코프
+   ========================= */
+
+/* 바깥 배경 */
+.mypagemodify {
+  background: #fff;
+  min-height: 100vh;
+  padding: 30px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+/* 카드(컨텐츠 래퍼) */
+.mypagemodify .mypage-card {
+  width: 100%;
+  max-width: none;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* 제목 */
+.mypagemodify .mypage-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 34px;
+  color: #222;
+}
+
+/* 폼 */
+.mypagemodify .mypage-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* 필드 간격 통일 */
+}
+
+/* 필드 */
+.mypagemodify .field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mypagemodify .field-label {
+  font-size: 14px;
+  font-weight: 800;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+/* 인풋 공통 */
+.mypagemodify .mypage-form input {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  padding: 0 12px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.mypagemodify .mypage-form input:focus {
+  border-color: #2a7db8;
+  box-shadow: 0 0 0 3px rgba(42, 125, 184, 0.15);
+}
+
+/* 같은 field 안에서 input들 간격 */
+.mypagemodify .field input + input {
+  margin-top: 8px;
+}
+
+/* 전화번호 */
+.mypagemodify .phone-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mypagemodify .phone-input {
+  width: 120px;
+  height: 48px;
+  text-align: center;
+}
+
+.mypagemodify .phone-dash {
+  font-weight: 800;
+  color: #777;
+  user-select: none;
+}
+
+/* 주소 상단(버튼 + 우편번호) */
+.mypagemodify .addr-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mypagemodify .addr-top input {
+  flex: 1;
+}
+
+/* 우편번호 버튼 */
+.mypagemodify .joinbtnC {
+  height: 48px;
+  padding: 0 18px;
+  background: #2a7db8;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s;
+  white-space: nowrap;
+  margin-bottom: 13px;
+}
+
+.mypagemodify .joinbtnC:hover {
+  background: #22699a;
+}
+
+/* 하단 버튼 */
+.mypagemodify .btn-area {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.mypagemodify .mypage-btn {
+  flex: 1;
+  height: 52px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.mypagemodify .mypage-btn.primary {
+  background: #2a7db8;
+  color: #fff;
+  border: none;
+}
+
+.mypagemodify .mypage-btn.primary:hover {
+  background: #22699a;
+}
+
+.mypagemodify .mypage-btn.secondary {
+  background: #f1f3f5;
+  color: #333;
+  border: 1px solid #e2e6ea;
+}
+
+.mypagemodify .mypage-btn.secondary:hover {
+  background: #e9ecef;
+}
+
+/* 다음주소 모달 */
+.mypagemodify .joinCOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.mypagemodify .addressWrap {
+  background: #fff;
+  width: min(520px, calc(100vw - 32px));
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.mypagemodify .addr-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 6px 10px 6px;
+}
+
+.mypagemodify .addr-modal-title {
+  font-weight: 900;
+  color: #222;
+}
+
+.mypagemodify .addr-close {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.mypagemodify .addr-close:hover {
+  background: #f3f4f6;
+}
+
+/* 반응형 */
+@media (max-width: 520px) {
+  .mypagemodify .phone-input {
+    width: 90px;
+  }
+
+  .mypagemodify .addr-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mypagemodify .joinbtnC {
+    width: 100%;
+  }
+}

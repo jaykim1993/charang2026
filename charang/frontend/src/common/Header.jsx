@@ -31,10 +31,12 @@ export default function Header() {
 
     // 사이드네비게이션 활성화 상태 변수 (초기값 false)
     const [isNavOpen, setIsNavOpen] = useState(false);
+
     // 사이드 메뉴 오픈 함수
     const openNav = () => {
         setIsNavOpen(true)
     };
+
     // 사이드 메뉴 닫기 함수
     const closeNav = () => {
         setIsNavOpen(false)

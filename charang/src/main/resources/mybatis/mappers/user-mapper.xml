@@ -25,7 +25,7 @@
    <!-- 회원 수정 -->
    <update id="modUser" parameterType="userDTO">
       UPDATE user SET name=#{name},mail=#{mail},phone=#{phone},address=#{address},addressDetail=#{addressDetail},
-                  license=#{license},licenseNum=#{licenseNum}
+                  license=#{license},licenseNum=#{licenseNum} WHERE userId=#{userId}
    </update>
    
    <!-- 회원탈퇴 -->
@@ -47,7 +47,7 @@
    <select id="existUserId" parameterType="String" resultType="boolean">
        SELECT COUNT(*) > 0
        FROM user
-       WHERE user_id = #{userId}
+       WHERE userId = #{userId}
    </select>
    
 </mapper>
