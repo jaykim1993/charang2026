@@ -30,17 +30,19 @@ export default function AllCarPage(){
 
         const delCarCopy = [...delCar]; // 얕은 복사
 
-        // 체크되었으면(true) 
-        if(e.target.checked){
-            delCarCopy.push(carId);
-            setDelCar(delCarCopy);
-        }
-        // 다시 체크를 취소할 경우(false)
-        else{
-            delCarCopy = delCar.filter(id => id !== carId); // 해당 carId를 제외한 나머지 carId만 배열에 넣기
-            setDelCar(delCarCopy);
-        }
-    }
+    //해연씨 여기 오류요 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    //     // 체크되었으면(true) 
+    //     if(e.target.checked){
+    //         delCarCopy.push(carId);
+    //         setDelCar(delCarCopy);
+    //     }
+    //     // 다시 체크를 취소할 경우(false)
+    //     else{
+    //         delCarCopy = delCar.filter(id => id !== carId); // 해당 carId를 제외한 나머지 carId만 배열에 넣기
+    //         setDelCar(delCarCopy);
+    //     }
+    //해연씨 여기 오류요 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+     }
 
     // ※ 차량 id만 보내면 되기때문에, 객체배열 방식이 아닌 그냥 배열 방식으로 보내도 sql에서 알아서 변환해줌( ex) 1,5,45 )
     // 차량 삭제 핸들러
