@@ -1,5 +1,3 @@
-2026/02/19-21:15:16.996 4044 Log #3: 13 ops saved to Table #4 OK
-2026/02/19-21:15:17.000 4044 Archiving C:\rentcar2026\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/000003.log: OK
-2026/02/19-21:15:17.001 4044 Table #4: 13 entries OK
-2026/02/19-21:15:17.002 4044 Archiving C:\rentcar2026\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/MANIFEST-000001: OK
-2026/02/19-21:15:17.036 4044 **** Repaired leveldb C:\rentcar2026\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database; recovered 1 files; 317 bytes. Some data may have been lost. ****
+2026/02/20-18:50:44.753 924 Reusing MANIFEST C:\rentcar2026\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/MANIFEST-000001
+2026/02/20-18:50:44.757 924 Recovering log #3
+2026/02/20-18:50:44.758 924 Reusing old log C:\rentcar2026\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/000003.log 

@@ -12,7 +12,7 @@ export default function Header() {
     // login 관련 변수&함수 불러오기
     const{userid , username, logout} = useContext(AuthContext);
     // 예약내역 보기 함수 호출
-      const { myBookings } = useContext(BookingContext); 
+      const { myBooking } = useContext(BookingContext); 
 
     // logout 핸들러 함수
     const logoutHandler = () => {
@@ -150,19 +150,19 @@ export default function Header() {
                             <i className="bi bi-x"></i>
                         </button>
                         <div className='headerUserBookModalContext'>
-                            {(myBookings.length)===0? 
+                            {(myBooking.length)===0? 
                                     <p className='headermodalText'>예약내역이 없습니다.</p>
-                                    : <>{myBookings.map(book => (
+                                    : <>{myBooking.map(book => (
                                     <Link to={'/mypage/booked'} key={book.bookingId}>
                                         <div className="headerModalInfo">
                                             <img
                                                 style={{width:'80px', height:'60px'}}
-                                                src={`/images/cars/${book.matchedCar?.carImg}`}
-                                                alt={book.matchedCar?.model}
+                                                src={`/images/cars/${book.carImg}`}
+                                                alt={book.model}
                                             />
                                             <div>
                                                 <p className='headermodalText'>
-                                                    {book.matchedCar.model}
+                                                    {book.model}
                                                 </p>
                                                 <p className='headerModalDate'>
                                                     {book.startDate} ~ {book.endDate}

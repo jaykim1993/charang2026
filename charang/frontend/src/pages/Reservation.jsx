@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { useLocation, useNavigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
-
 import { BookingContext } from "../contexts/Bookingcontext";
 import { CalendarContext } from "../contexts/Calendarcontext";
 import { DataContext } from "../contexts/Datacontext";
@@ -12,14 +11,16 @@ import "./Reservation.css";
 export default function Reservation() {
     /* ===================== router ===================== */
     const navigate = useNavigate();
-    const { id } = useParams();
-    console.log(id);
 
+    const { state } = useLocation();
+    console.log(state.selectedCarId);
+    const id = state.selectedCarId;
+    console.log(id);
     /* ===================== context ===================== */
-    const { setBookedlistAll } = useContext(BookingContext);
+    const { fetchBookedList } = useContext(BookingContext);
     const { startdayText, enddayText, DeleteYear } = useContext(CalendarContext);
     const { branch } = useContext(DataContext);
-    const {logout,loginNeeded}=useContext(AuthContext);
+    const { loginNeeded }=useContext(AuthContext);
 
 
     /* ===================== localStorage ===================== */
@@ -104,13 +105,12 @@ export default function Reservation() {
         new Date(`${filterCar.filterStartDate}T${filterCar.filterStartTime}`)) /
         (1000 * 60 * 30);
 
-    /* ===================sdsdfsfdsfdsdfsfd=dd= 예약 확정 ===================== */
-    // dsksdklsdllsd
+    /* ==================== 예약 확정 ===================== */
     const sessionUser = sessionStorage.getItem("userid");
     const userId = sessionUser ? JSON.parse(sessionUser).userId : null;
     console.log(userId); // "user01"
     const bookingId = `${Date.now()}_${userId}`;
-    const carId = filterCar.carId;
+    const carId = state.selectedCarId;
     const bookedDate = new Date().toISOString().slice(0, 10);
     const startDate = calendarFilters.startDate;
     const startTime = calendarFilters.startTime;
@@ -143,6 +143,7 @@ export default function Reservation() {
             if(res.data == 1){
 
                 alert("예약이 완료되었습니다.");
+                fetchBookedList();
                 navigate("/mypage/booked");
             }
         })
@@ -151,22 +152,6 @@ export default function Reservation() {
             console.log(error);
         })
 
-        // setBookedlistAll((prev) => [
-        // ...prev,
-        // {
-        //     id: `${Date.now()}_${userid}`,
-        //     bookedDate: new Date().toISOString().slice(0, 10),
-        //     userId: userid,
-        //     carId: car.id,
-        //     startDate: filterCar.filterStartDate,
-        //     endDate: filterCar.filterEndDate,
-        //     startTime: filterCar.filterStartTime,
-        //     endTime: filterCar.filterEndTime,
-        //     carPrice: totalPrice,
-        //     insurancePrice: date * car.price_value * 200,
-        //     totalPrice: totalPrice + date * car.price_value * 200,
-        // },
-        // ]);
 
     };
 

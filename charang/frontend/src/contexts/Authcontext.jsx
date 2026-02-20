@@ -56,7 +56,7 @@ export default function AuthProvider({children}){
     useEffect(()=>{
         axios.get("/api/alluser")
         .then((res)=>{
-            console.log("전체 회원 출력: ",res.data);
+            // console.log("전체 회원 출력: ",res.data);
             if(res.data){
                 setAllUser(res.data);
             }

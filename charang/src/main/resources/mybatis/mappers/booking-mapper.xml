@@ -13,5 +13,9 @@
 		VALUES(#{bookingId}, #{userId}, #{carId}, #{bookedDate}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{carPrice}, #{insurancePrice}, #{totalPrice})
 	</insert>
 
+	<!-- 선택 예약 삭제 -->
+	<delete id="deleteBooking" parameterType="String">
+		DELETE FROM booking WHERE bookingId = #{bookingId}
+	</delete>
 	
 </mapper>

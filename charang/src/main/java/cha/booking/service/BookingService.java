@@ -14,8 +14,6 @@ public interface BookingService {
 	public int insertBooking(BookingDTO bdto);
 	
 	// 예약 삭제 메서드
-	public int deleteBooking(String bookingId);
+	public boolean deleteBooking(String bookingId);
 	
-	// 예약 수정 메서드
-	public int modBooking(BookingDTO bdto);
 }
