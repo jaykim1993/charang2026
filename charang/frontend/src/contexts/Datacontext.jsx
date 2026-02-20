@@ -8592,7 +8592,7 @@ export default function DataProvider({children}){
   return(
     <>
       <DataContext.Provider 
-      value={{car, cars, positions, branch ,notices, find, setSearchType, setSearchWord,
+      value={{car, branch ,notices, find, setSearchType, setSearchWord,
        searchCar, pageNum, setPageNum, pagesHandler, paging}}>
         {children}
       </DataContext.Provider>

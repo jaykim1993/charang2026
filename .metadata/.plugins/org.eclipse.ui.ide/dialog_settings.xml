@@ -6,6 +6,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\rentcar2026"/>
 			<item value="C:\Users\Administrator\Desktop\charang"/>
 			<item value="C:\Users\Administrator\Desktop\rentcar2026 (2)"/>
 			<item value="C:\Users\Administrator\Desktop\rentcar2026"/>

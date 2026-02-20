@@ -47,7 +47,7 @@
    <select id="existUserId" parameterType="String" resultType="boolean">
        SELECT COUNT(*) > 0
        FROM user
-       WHERE user_id = #{userId}
+       WHERE userId = #{userId}
    </select>
    
 </mapper>

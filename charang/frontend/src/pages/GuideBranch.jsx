@@ -33,7 +33,7 @@ export default function GuideBranch(){
     const [selectedId, setSelectedId] = useState(null);
     const [mapAction, setMapAction] = useState(null); // 클릭한 마커 위치와 줌
     const defaultZoom = 10;
-    const {positions, cars}=useContext(DataContext)
+    const {branch,car}=useContext(DataContext)
     
     //마커 클릭시 해당 마커 id번호로 state값 변하게
     const [locationDetail,setLocationDetail]=useState(null);
@@ -58,11 +58,11 @@ export default function GuideBranch(){
                     >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
     
-                {positions.map((spot) => (
+                {branch.map((spot) => (
                    <Marker
-                        key={spot.id}
+                        key={spot.branchId}
                         position={[spot.lat, spot.lng]}
-                        icon={selectedId === spot.id ? SelectedIcon : NoneSelectIcon}
+                        icon={selectedId === spot.branchId ? SelectedIcon : NoneSelectIcon}
                         eventHandlers={{
                             click: () => handleSelectSpot(spot),
                         }}
@@ -86,7 +86,7 @@ export default function GuideBranch(){
         setpageShow(3)
     }
     //
-    const selectedSpot = positions.find((p) => p.id === locationDetail);
+    const selectedSpot = branch.find((p) => p.id === locationDetail);
     
     //====================================================================================
     
@@ -154,7 +154,7 @@ export default function GuideBranch(){
     };
     const [locaisOpen, setLocaIsOpen] = useState(false);
     const [locaselected, setLocaSelected] = useState('지점을 선택해주세요');
-    const carCopy = [...cars]
+    const carCopy = [...car]
     const filteredCars = locaselected === '지점을 선택해주세요'
     ? carCopy
     : carCopy.filter(item => item.location === locaselected);
@@ -168,11 +168,11 @@ export default function GuideBranch(){
         <div>
             <h3>지점/정비소</h3>
             <div className="LocationupBtnBox">
-            {positions.map((spot) => (
+            {branch.map((spot) => (
                 <button
-                    key={spot.id}
+                    key={spot.branchId}
                     onClick={() => handleSelectSpot(spot)}
-                    className={`LocationupBtn ${selectedId === spot.id ? 'active' : ''}`}
+                    className={`LocationupBtn ${selectedId === spot.branchId ? 'active' : ''}`}
                     >
                     {spot.name}
                     </button>
