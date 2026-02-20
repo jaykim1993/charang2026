@@ -2,7 +2,6 @@ package cha.car.service;
 
 import java.util.List;
 
-<<<<<<< HEAD
 import org.apache.ibatis.annotations.Param;
 
 import cha.car.dto.CarDTO;
@@ -31,11 +30,5 @@ public interface CarService {
 			@Param("searchType") String searchType, 
 			@Param("searchKeyWord") String searchKeyWord
 			);
-=======
-import cha.car.dto.CarDTO;
 
-public interface CarService {
-	// 차량 전체 출력 서비스
-	public List<CarDTO> getAllCar();
->>>>>>> main
 }
