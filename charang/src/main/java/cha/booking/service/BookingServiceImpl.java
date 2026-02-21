@@ -19,6 +19,12 @@ public class BookingServiceImpl implements BookingService {
 		System.out.println("예약 서비스 : 전체 예약 출력 서비스");
 		return bookingmapper.getAllBooking();
 	}
+	
+	@Override
+	public List<BookingDTO> getUserBooking(String userId) {
+		System.out.println("예약 서비스 : 로그인 유저 예약 출력 서비스");
+		return bookingmapper.getUserBooking(userId);
+	}
 
 	@Override
 	public int insertBooking(BookingDTO bdto) {
@@ -31,6 +37,8 @@ public class BookingServiceImpl implements BookingService {
 	public boolean deleteBooking(String bookingId) {
 	    return bookingmapper.deleteBooking(bookingId) > 0;
 	}
+
+
 
 
 

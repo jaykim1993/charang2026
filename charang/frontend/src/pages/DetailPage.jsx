@@ -14,9 +14,9 @@ import 'leaflet/dist/leaflet.css';
 import './DetailPage.css'
 
 export default function DetailPage(){
-
-    const { setBookedlistAll, calculatePrice, clickCarArr, setClickCarArr } = useContext(BookingContext);
-    const {  DeleteYear, timeAMPM, startdayText, enddayText} = useContext(CalendarContext);
+    const { userid, setModal } = useContext(AuthContext);
+    const { calculatePrice } = useContext(BookingContext);
+    const {  DeleteYear, startdayText, enddayText} = useContext(CalendarContext);
     // console.log('calculatePrice');
     // console.log(calculatePrice);
     const storedFilteredInfoUser = JSON.parse(localStorage.getItem("filteredInfoUser")) || [];
@@ -24,8 +24,6 @@ export default function DetailPage(){
     
     // 차 id 가져오기
     const selectedCarId = Number(useParams().id);
-    // user id 가져오기
-    const { userid } = useContext(AuthContext);
     
     const navigate = useNavigate();
 
@@ -136,7 +134,13 @@ export default function DetailPage(){
 
     // ===================== Reservation으로 값 넘기기 ========================
     const toReservation = () => {
-        if(!filterCar || !userid){
+        if (!userid) {
+            alert("로그인 후 이용 가능합니다.");
+            setModal('login');
+            return;
+        }
+
+        if(!filterCar){
             alert("예약 정보를 다시 선택해주세요");
             return;
         }

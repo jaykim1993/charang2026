@@ -41,6 +41,8 @@ public class ManagerDTO {
 	private int sunRoof;
 	private Date regDate;
 	private Date modDate;
+	// 개인 예약 미래 / 진행중 / 과거 넣기 위한 변수 선언
+	private String bookingStatus;
 	
 	
 	public String getBookingId() {
@@ -258,6 +260,12 @@ public class ManagerDTO {
 	}
 	public void setModDate(Date modDate) {
 		this.modDate = modDate;
+	}
+	public String getBookingStatus() {
+		return bookingStatus;
+	}
+	public void setBookingStatus(String bookingStatus) {
+		this.bookingStatus = bookingStatus;
 	}
 	
 	
