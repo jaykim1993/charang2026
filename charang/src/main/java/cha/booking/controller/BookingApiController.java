@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cha.booking.dto.BookingDTO;
 import cha.booking.service.BookingService;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api")
@@ -24,6 +25,12 @@ public class BookingApiController {
 	public List<BookingDTO> getAllBookingList(){
 		System.out.println("예약 컨트롤러 - 예약 전체 출력 컨트롤러");
 		return bookingservice.getAllBooking();
+	}
+	
+	@GetMapping("/userbooklist")
+	public List<BookingDTO> getUserBookingList(HttpSession session){
+		String loginId = (String) session.getAttribute("loginUser");
+		return bookingservice.getUserBooking(loginId);
 	}
 	
 	@PostMapping("/insertBook")

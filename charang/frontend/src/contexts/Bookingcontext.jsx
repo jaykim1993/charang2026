@@ -1,14 +1,12 @@
 import { createContext, useContext, useState } from "react";
 import { AuthContext } from "./Authcontext";
-import { DataContext } from "./Datacontext";
-import { useMemo, useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 
 export const BookingContext = createContext();
 
 export default function BookingProvider({ children }) {
   const { userid } = useContext(AuthContext);
-  const { car } = useContext(DataContext);
 
 
     // ======================
@@ -29,18 +27,27 @@ export default function BookingProvider({ children }) {
     // ======================
     // 개인 예약 목록 (MypageBooked.jsx)
     // ======================
+      // 세션에 담겨있는 userId를 이용하여 백앤드서버에서
+      // 해당 아이디의 예약과 예약에 대한 차량정보를 조인해서 데이터 가져온다.
+      // 즉 예약 테이블 + 차량정보 where userId = #{userId}
       const [myBooking, setMyBooking] = useState([]);
-      const userId = userid;
-      useEffect(() => {
-        fetchOneBookCar();
-      }, []);
+
       const fetchOneBookCar = async () => {
         const res = await axios.get("/api/onebookcar", {
           withCredentials: true 
         });
-        // console.log("개인 예약 (+카 정보 조인)", res.data);
+        console.log("개인 예약 (+카 정보 조인)", res.data);
         setMyBooking(res.data);
       };
+      useEffect(() => {
+        if (!userid) {
+          // 로그아웃 시 예약 목록 초기화
+          setMyBooking([]);
+          return;
+        }
+        // 로그인 유저 바뀌면 자동 재조회
+        fetchOneBookCar();
+      }, [userid]);
     
 
     // ======================
@@ -70,7 +77,7 @@ export default function BookingProvider({ children }) {
           alert('서버 오류로 예약 취소에 실패했습니다.');
         }
       };
-      //ddd
+    
     // ======================
     // 최근 본 차량 목록 (Home.jsx, Recentcarlist.jsx)
     // ======================

@@ -8,7 +8,7 @@ import { DataContext } from "../contexts/Datacontext";
 import "./MypageBooked.css";
 
 export default function MypageBooked() {
-  const { DeleteYear, timeAMPM, startdayText, enddayText, days } = useContext(CalendarContext);  // 연도 삭제
+  const { DeleteYear, timeAMPM, days } = useContext(CalendarContext);  // 연도 삭제
   const { myBooking, fetchBookedList, fetchOneBookCar } = useContext(BookingContext); // 예약내역 보기 함수 호출
   const { branch } = useContext(DataContext); // 지점 정보 호출
 
@@ -17,14 +17,17 @@ export default function MypageBooked() {
     fetchOneBookCar();
   }, []);
 
-  // 예약날짜 가까운 순서대로 정렬
-  const sortedByLatest = [...myBooking].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+  // 다가오는 예약 / 진행중인 예약건 / 지난 예약건 나누기
+  const upcoming = myBooking.filter(b => b.bookingStatus === 'UPCOMING');
+  const ongoing  = myBooking.filter(b => b.bookingStatus === 'ONGOING');
+  const past     = myBooking.filter(b => b.bookingStatus === 'PAST');
 
-  const sortedByLatestCopy = [...sortedByLatest];
-  sortedByLatestCopy.push(() => {
-    startdayText,
-    enddayText
-  })
+  // 다가오는 예약 => 예약날짜 가까운 순서대로 정렬
+  const upcomingByLatest = [...upcoming].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+  const ongoingByLatest = [...upcoming].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+  const pastByLatest = [...upcoming].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+
   useEffect(() => {
   window.scrollTo(0, 0);
   }, []);
@@ -53,7 +56,7 @@ export default function MypageBooked() {
               </tr>
             </thead>
 
-          {sortedByLatest.map(book => {
+          {upcomingByLatest.map(book => {
             // 지점명 따기
             const branchName =
               branch.find(

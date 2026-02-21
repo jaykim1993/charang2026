@@ -14,12 +14,76 @@
 	
 	<!-- 개인 예약 목록 + 차량 데이터 출력 -->
 	<select id="getOneBookCar" resultType="managerDTO">
-		SELECT *
-		FROM booking b
-		INNER JOIN car c
-		  ON b.carId = c.carId
-		WHERE b.userId = #{userId}
-		ORDER BY b.bookedDate DESC;
+	  <![CDATA[
+	  SELECT
+	    b.bookingId,
+	    b.userId,
+	    b.carId,
+	    b.bookedDate,
+	    b.startDate,
+	    b.startTime,
+	    b.endDate,
+	    b.endTime,
+	    b.carPrice,
+	    b.insurancePrice,
+	    b.totalPrice,
+	
+	    c.carImg,
+	    c.brandLogo,
+	    c.brand,
+	    c.model,
+	    c.color,
+	    c.plateNumber,
+	    c.modelYear,
+	    c.seats,
+	    c.carSize,
+	    c.carType,
+	    c.fuelType,
+	    c.branchId,
+	    c.licenseType,
+	    c.driverMinAge,
+	    c.kmPer,
+	    c.priceValue,
+	    c.navigation,
+	    c.rearCamera,
+	    c.heatSeat,
+	    c.heatHandle,
+	    c.bluetooth,
+	    c.smartKey,
+	    c.sunRoof,
+	    c.regDate,
+	    c.modDate,
+	
+	    CASE
+	      WHEN NOW() < STR_TO_DATE(
+	        CONCAT(b.startDate, ' ', b.startTime),
+	        '%Y-%m-%d %H:%i'
+	      )
+	        THEN 'UPCOMING'
+	
+	      WHEN NOW() BETWEEN
+	        STR_TO_DATE(
+	          CONCAT(b.startDate, ' ', b.startTime),
+	          '%Y-%m-%d %H:%i'
+	        )
+	        AND
+	        STR_TO_DATE(
+	          CONCAT(b.endDate, ' ', b.endTime),
+	          '%Y-%m-%d %H:%i'
+	        )
+	        THEN 'ONGOING'
+	
+	      ELSE 'PAST'
+	    END AS bookingStatus
+	
+	  FROM booking b
+	  INNER JOIN car c ON b.carId = c.carId
+	  WHERE b.userId = #{userId}
+	  ORDER BY STR_TO_DATE(
+	    CONCAT(b.startDate, ' ', b.startTime),
+	    '%Y-%m-%d %H:%i'
+	  ) DESC
+	  ]]>
 	</select>
 	
 </mapper>
