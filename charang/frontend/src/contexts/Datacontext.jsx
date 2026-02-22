@@ -80,19 +80,10 @@ export default function DataProvider({children}){
         })
       },[])
 
-
-
-
-
-  const notices = [
-    { id:1, title:"2026년 파르세 메크리라드 입고 예정 안내", content:"안녕하세요 차랑차랑 회원 여러분, 고객님들의 성원에 힘입어 이번 2026년 붉은 말의 해 기념 파르세 메크리라드 레드컬러 차량이 신규 입고 될 예정입니다. 많은 관심 부탁드립니다.", regDate:"2026-01-13",},
-    { id:2, title:"2026년 신년 특가 혜택 안내", content:"안녕하세요 차랑차랑 회원 여러분, 2025년을 뒤로하고 새로운 2026년을 기념하여 고객님들께 특가 혜택 이벤트를 제공하고자하니 많은 관심부탁드립니다.", regDate:"2026-02-01",},
-     ]
-
   return(
     <>
       <DataContext.Provider 
-      value={{car, branch ,notices, find, setSearchType, setSearchWord,
+      value={{car, branch, find, setSearchType, setSearchWord,
        searchCar, pageNum, setPageNum, pagesHandler, paging}}>
         {children}
       </DataContext.Provider>

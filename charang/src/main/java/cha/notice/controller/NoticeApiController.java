@@ -1,6 +1,5 @@
 package cha.notice.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import cha.PageHandler;
 import cha.notice.dto.NoticeDTO;
 import cha.notice.service.NoticeService;
-import cha.user.dto.UserDTO;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
@@ -41,7 +40,6 @@ public class NoticeApiController {
 //		PageHandler 클래스 접근하기 위해 인스턴스화
 		PageHandler ph = new PageHandler(totalCnt, page, pageSize);
 		
-//		List<NoticeDTO> noticeList = noticeService.getPageList(totalCnt, pageSize);
 		List<NoticeDTO> noticeList = noticeService.getPageList(ph.getStartRow(), pageSize);
 		
 		Map<String, Object> result = new HashMap<>();
@@ -88,32 +86,38 @@ public class NoticeApiController {
 
 		return 0; // 권한 없거나 실패 시 0
 	}
+	
+//	공지사항 수정 페이지로 이동
+	@GetMapping("/notice/manager/modify")
+	public String noticeModify() {
+		System.out.println("NoticeApiController - 공지사항 수정페이지로 이동");
+		
+		return "";
+	}
 
-//	공지사항 수정 (성공 시 1, 실패 시 0 반환)
-	@PostMapping("/notice/manager/modifyPro")
-	public int noticeModifyPro(@RequestBody NoticeDTO dto, HttpSession session) {
-		System.out.println("NoticeApiController - 공지사항 수정");
+//	공지사항 수정 처리 (성공 시 1, 실패 시 0 반환)
+	@PutMapping("/notice/manager/modify/{noticeId}")
+	public int noticeModifyPro(@PathVariable("noticeId") int noticeId, 
+			@RequestBody NoticeDTO ndto, HttpSession session) {
+		System.out.println("NoticeApiController - 공지사항 수정처리");
 
-		UserDTO loginMember = (UserDTO) session.getAttribute("loginmember");
+//		NoticeDTO noticeNum = (NoticeDTO) session.getAttribute("noticeNum");
+		ndto.setNoticeId(noticeId);
 
-		if (loginMember != null && "admin".equals(loginMember.getUserId())) {
-			return noticeService.updateNotice(dto); // 성공 시 1 반환
-		}
+//		if (noticeNum != null && "admin".equals(noticeNum.getUserId())) {
+//			return 
+//		}
 
-		return 0;
+		return noticeService.updateNotice(ndto); // 성공 시 1 반환
 	}
 
 //	공지사항 삭제 (성공 시 1, 실패 시 0 반환)
 	@DeleteMapping("/notice/manager/delete")
-	public int noticeDeletePro(@RequestParam("noticeId") int noticeId, HttpSession session) {
+	public int noticeDelete(@RequestParam("noticeId") int noticeId) {
 		System.out.println("NoticeApiController - 공지사항 삭제");
-
-		UserDTO loginMember = (UserDTO) session.getAttribute("loginmember");
-
-		if (loginMember != null && "admin".equals(loginMember.getUserId())) {
-			return noticeService.deleteNotice(noticeId); // 성공 시 1 반환
-		}
-
-		return 0;
+		
+		int result = noticeService.deleteNotice(noticeId);
+		
+		return result;
 	}
 }

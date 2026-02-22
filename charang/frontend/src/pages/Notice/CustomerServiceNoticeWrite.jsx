@@ -41,8 +41,8 @@ export default function CustomerServiceNoticeWrite(){
 
     return(
         <div className="notice_write">
-            <h4>공지사항</h4>
-            <table border="1">
+            <h4>공지사항 작성하기</h4>
+            <table>
                 <tbody>
                     <tr>
                         <th>제목</th>
@@ -54,14 +54,17 @@ export default function CustomerServiceNoticeWrite(){
                     <tr>
                         <th>내용</th>
                         <td>
-                            <textarea type="text" name="content" rows="15" cols="80" 
-                            onChange={(e) => setContent(e.target.value)} placeholder="제목을 입력하세요." />
+                            <textarea type="text" name="content" rows="15"
+                            onChange={(e) => setContent(e.target.value)} placeholder="내용을 입력하세요.">
+                                <c:out value="${content}" />
+                            </textarea>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <button onClick={noticeChk}>작성완료</button>
-            {/* <button type="reset">초기화!!</button> */}
+            <div className="notice_adminBtn">
+                <button onClick={noticeChk}>작성완료</button>
+            </div>
         </div>
     )
 }
