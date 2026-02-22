@@ -12,6 +12,7 @@
 		<typeAlias alias="bookingDTO" type="cha.booking.dto.BookingDTO" />
 		<typeAlias alias="noticeDTO" type="cha.notice.dto.NoticeDTO" />
 		<typeAlias alias="managerDTO" type="cha.manager.dto.ManagerDTO" />
+		<typeAlias alias="InquiryDTO" type="cha.inquiry.dto.InquiryDTO" />
 	</typeAliases>
 </configuration>
 

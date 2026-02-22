@@ -4,23 +4,35 @@ export const DataContext = createContext();
 export default function DataProvider({children}){
 
   // ================================================ 페이징 ====================================================
-      // 서버에서 받은 ph
+    // 서버에서 받은 ph
     const [paging, setPaging] = useState({}); 
     // 현재 페이지 번호 (기본값 1)
     const [pageNum, setPageNum] = useState(1); 
 
     // 페이지 이동 핸들러
     const pagesHandler = () => {
-        const pageNumbers = [];
-        // paging 가 있고, startPage와 endPage가 계산되었을 때만 작동
-        if(paging.startPage && paging.endPage){
-            for(let i = paging.startPage; i <= paging.endPage; i++){
-                pageNumbers.push(i);
-            }
-        }
-        // console.log("페이징 확인: ", pageNumbers);
-        return pageNumbers;
+      const pageNumbers = [];
+      // paging 가 있고, startPage와 endPage가 계산되었을 때만 작동
+      if(paging.startPage && paging.endPage){
+          for(let i = paging.startPage; i <= paging.endPage; i++){
+              pageNumbers.push(i);
+          }
+      }
+      // console.log("페이징 확인: ", pageNumbers);
+      return pageNumbers;
     }
+
+    // const pagesHandler = (now) => {
+    //   console.log("함수 내부 now 확인:", now);
+    //   const pageNumbers = [];
+    //   // 받은 now을 사용
+    //   if (now && now.startPage && now.endPage) {
+    //       for (let i = now.startPage; i <= now.endPage; i++) {
+    //           pageNumbers.push(i);
+    //       }
+    //   }
+    //   return pageNumbers;
+    // };
   // ==============================================================================================================
 
   // 차량 전체 출력 

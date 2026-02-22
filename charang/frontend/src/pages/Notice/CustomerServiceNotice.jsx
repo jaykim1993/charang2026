@@ -7,7 +7,25 @@ import './CustomerServiceNotice.css'
 import axios from "axios";
 
 export default function CustomerServiceNotice(){
-    const { pagesHandler, paging, setPaging, pageNum, setPageNum } = useContext(DataContext);
+    // const { pagesHandler, paging, setPaging, pageNum, setPageNum } = useContext(DataContext);
+
+    // 서버에서 받은 ph
+    const [paging, setPaging] = useState({}); 
+    // 현재 페이지 번호 (기본값 1)
+    const [pageNum, setPageNum] = useState(1); 
+
+    // 페이지 이동 핸들러
+    const pagesHandler = () => {
+      const pageNumbers = [];
+      // paging 가 있고, startPage와 endPage가 계산되었을 때만 작동
+      if(paging.startPage && paging.endPage){
+          for(let i = paging.startPage; i <= paging.endPage; i++){
+              pageNumbers.push(i);
+          }
+      }
+      // console.log("페이징 확인: ", pageNumbers);
+      return pageNumbers;
+    }
 
     // 로그인 정보/유저 현재 로그인 유저 아이디 알아야됨
     const { userid } = useContext(AuthContext);
@@ -30,6 +48,8 @@ export default function CustomerServiceNotice(){
         })
         .catch(error => console.log("error : ", error));
     }, [pageNum]);
+
+    console.log("렌더링 시점 paging 상태:", paging);
     
     return(
         <div className="notice">
@@ -87,7 +107,7 @@ export default function CustomerServiceNotice(){
                     )}
 
                     {/* 페이지 번호들 */}
-                    {pagesHandler().map(num => (
+                    {pagesHandler(paging).map(num => (
                         <button key={num} className={pageNum === num ? "active" : ""} onClick={() => setPageNum(num)}>
                             {num}
                         </button>

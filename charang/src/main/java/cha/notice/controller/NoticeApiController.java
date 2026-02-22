@@ -24,9 +24,9 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/api/customerservice")
 public class NoticeApiController {
 	@Autowired
-	NoticeService noticeService;
+	NoticeService noticeservice;
 
-//	전체 공지사항 목록
+//	전체 공지사항 목록 (페이징)
 	@GetMapping("/notice")
 	public Map<String, Object> noticeList(
 //			1. 페이지 번호 - 1부터 시작이므로 초기값 1로 정의
@@ -35,12 +35,12 @@ public class NoticeApiController {
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 		System.out.println("NoticeApiController - 공지사항 전체목록");
 		
-		int totalCnt = noticeService.getAllCount();
+		int totalCnt = noticeservice.getAllCount();
 		
 //		PageHandler 클래스 접근하기 위해 인스턴스화
 		PageHandler ph = new PageHandler(totalCnt, page, pageSize);
 		
-		List<NoticeDTO> noticeList = noticeService.getPageList(ph.getStartRow(), pageSize);
+		List<NoticeDTO> noticeList = noticeservice.getPageList(ph.getStartRow(), pageSize);
 		
 		Map<String, Object> result = new HashMap<>();
 		
@@ -58,8 +58,8 @@ public class NoticeApiController {
 		System.out.println("NoticeApiController - 공지사항 상세페이지로 이동" + noticeId);
 
 		// 조회수 1 증가시키고 데이터 들고오기
-		noticeService.updateReadCount(noticeId);
-		return noticeService.selectNoticeDetail(noticeId);
+		noticeservice.updateReadCount(noticeId);
+		return noticeservice.selectNoticeDetail(noticeId);
 	}
 
 //	공지사항 등록 (성공 시 1, 실패 시 0 반환)
@@ -81,7 +81,7 @@ public class NoticeApiController {
 //		if(loginMember != null && "admin".equals(loginMember.getUserId())) {
 		if("admin".equals(ndto.getUserId())) {
 //			dto.setUserId(loginMember.getUserId());
-			return noticeService.insertNotice(ndto); // 성공 시 1 반환
+			return noticeservice.insertNotice(ndto); // 성공 시 1 반환
 		}
 
 		return 0; // 권한 없거나 실패 시 0
@@ -108,7 +108,7 @@ public class NoticeApiController {
 //			return 
 //		}
 
-		return noticeService.updateNotice(ndto); // 성공 시 1 반환
+		return noticeservice.updateNotice(ndto); // 성공 시 1 반환
 	}
 
 //	공지사항 삭제 (성공 시 1, 실패 시 0 반환)
@@ -116,7 +116,7 @@ public class NoticeApiController {
 	public int noticeDelete(@RequestParam("noticeId") int noticeId) {
 		System.out.println("NoticeApiController - 공지사항 삭제");
 		
-		int result = noticeService.deleteNotice(noticeId);
+		int result = noticeservice.deleteNotice(noticeId);
 		
 		return result;
 	}
