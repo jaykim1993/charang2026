@@ -75,7 +75,7 @@ export default function Recentcar() {
     } = useContext(CalendarContext);
 
     const { calculatePrice } = useContext(BookingContext);
-    const { userid, setModal } = useContext(AuthContext);
+
 
     // ================= 3. State (필요한 상태만 남김) =================
     const [selectedFilters, setSelectedFilters] = useState({
@@ -168,11 +168,7 @@ export default function Recentcar() {
     };
 
     const goToDetail = (carId) => {
-        if (!userid) {
-            alert("로그인 후 이용 가능합니다.");
-            setModal('login');
-            return;
-        }
+        // 로그인 필요 위치 DetailPage로 조정 26.02.21
         if (!location || !endTime) {
             alert("날짜와 지점을 먼저 선택해주세요.");
             return;
@@ -271,8 +267,8 @@ export default function Recentcar() {
         });
     };
 
-    console.log("secondFilteredCar", secondFilteredCar);
-    console.log("firstFilteredCar", firstFilteredCar);
+    // console.log("secondFilteredCar", secondFilteredCar);
+    // console.log("firstFilteredCar", firstFilteredCar);
 
     return (
         <div className="Recentcar">

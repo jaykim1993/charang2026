@@ -19,23 +19,27 @@ public class BookingServiceImpl implements BookingService {
 		System.out.println("예약 서비스 : 전체 예약 출력 서비스");
 		return bookingmapper.getAllBooking();
 	}
+	
+	@Override
+	public List<BookingDTO> getUserBooking(String userId) {
+		System.out.println("예약 서비스 : 로그인 유저 예약 출력 서비스");
+		return bookingmapper.getUserBooking(userId);
+	}
 
 	@Override
 	public int insertBooking(BookingDTO bdto) {
-		int result = bookingmapper.insertBooking(bdto);
+		System.out.println("예약 서비스 : 예약 삽입 서비스");
+		bookingmapper.insertBooking(bdto);
 		return 1;
 	}
 
 	@Override
-	public int deleteBooking(String bookingId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean deleteBooking(String bookingId) {
+	    return bookingmapper.deleteBooking(bookingId) > 0;
 	}
 
-	@Override
-	public int modBooking(BookingDTO bdto) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
+
+
 
 }

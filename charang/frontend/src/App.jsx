@@ -81,7 +81,7 @@ function App() {
                 {/* 마이페이지 */}
                 <Route path="/mypage" element={<Mypage />}>
                     <Route path="booked" element={<MypageBooked/>} />
-                    <Route path="detail/:id" element={<MypageDetail />} />
+                    <Route path="detail/:bookingId" element={<MypageDetail />} />
                     <Route path="inquiry" element={<MypageInquiry />} />
                     <Route path="myinfo" element={<MypageMyinfo />} />
                     <Route path="modify" element={<MypageModify />} />
