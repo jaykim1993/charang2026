@@ -70,23 +70,23 @@ public class CarApiController {
 			){
 		System.out.println("차 컨트롤러 - 검색 차량 출력 컨트롤러");
 		
-		int totalCnt = carservice.getAllCount();
-		
-//		PageHandler 클래스 접근하기 위해 인스턴스화
-		PageHandler ph = new PageHandler(totalCnt, page, pageSize);
-		
 //		List<NoticeDTO> noticeList = noticeService.getPageList(totalCnt, pageSize);
 		List<CarDTO> carList;
+		PageHandler ph;
 		
 		Map<String, Object> result = new HashMap<>();
 		
 		// 검색 O -> 검색 결과 존재 -> (검색 차량만 출력)
 		if(searchType != null && !searchKeyWord.trim().isEmpty()) {
+			int totalCnt = carservice.getSearchCount(searchType, searchKeyWord); // 검색 차량 개수
+			ph = new PageHandler(totalCnt, page, pageSize);
 			carList = carservice.getSearchCar(ph.getStartRow(), pageSize, searchType, searchKeyWord);
 		}
 		// 검색 X -> 전체 차량 출력
 		else {
-			carList = carservice.getAllCar();
+			int totalCnt = carservice.getAllCount(); // 전체 차량 개수
+			ph = new PageHandler(totalCnt, page, pageSize);
+			carList = carservice.getAllCarPage(ph.getStartRow(), pageSize);
 		}
 		
 		result.put("list", carList);

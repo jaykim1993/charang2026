@@ -86,19 +86,6 @@ export default function Home(){
 
   // 지점 상세보기 모달
   const [isDetail,setIsDetail]=useState(null);
-
-  // 여러 좌표를 배열로 관리  각 데이터에있는 주소 위도,경도 검색 후 삽입
-  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~26.02.12 첫번째 죽이기 
-  // DB에서 지점 정보를 불러와야함
-      // 1. mapper에서 Select * from branch ~> controller -> axios.get -> 아래의 형태 오브젝트 배열화
-
-  // const positions = [
-  //   {id:1, lat: 37.446842, lng: 126.454047, name: "인천공항점" , address: "인천광역시 중구 공항로 271" },
-  //   {id:2, lat: 37.56517, lng: 126.803013, name: "김포공항점" , address: "서울특별시 강서구 하늘길 38"},
-  //   {id:3, lat: 37.570097, lng: 127.064886, name: "서울동부점", address: "서울 동대문구 한천로 100 1-2층" },
-  //   {id:4, lat: 37.493788, lng: 127.012596, name: "서울남부점", address: "서울특별시 서초구 서초대로 283" },
-  //   {id:5, lat: 37.653579, lng: 127.058793, name: "서울북부점", address: "서울 노원구 노해로 456 동방빌딩 1층"},
-  // ];
     
   const detail=branch.find(item => item.branchId === isDetail);
 

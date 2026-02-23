@@ -2,6 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="rentcar2026.inquiry.mapper.InquiryMapper">
+<mapper namespace="cha.inquiry.mapper.InquiryMapper">
+	<!-- public void insertInquiry(InquiryDTO rdto); -->
+	<insert id="insertInquiry" parameterType="InquiryDTO">
+        INSERT INTO inquiry(userId, title, password, content, regDate) 
+        VALUES (#{userId}, #{title}, #{password}, #{content}, NOW())
+    </insert>
+	
+	<!-- public void updateAnswer(InquiryDTO rdto); -->
+	<update id="updateAnswer" parameterType="cha.inquiry.dto.InquiryDTO">
+		UPDATE inquiry 
+		SET answer = #{answer}, 
+		    modDate = NOW() 
+		WHERE inquiryId = #{inquiryId}
+	</update>
+	
+	<!-- public List<InquiryDTO> inquiryList(); -->
+	<select id="inquiryList" resultType="InquiryDTO">
+		SELECT * FROM inquiry ORDER BY ref DESC, re_step ASC
+	</select>
+	
+	<!-- public InquiryDTO getInquiryDetail(int inquiryId); -->
+	<select id="getInquiryDetail" resultType="InquiryDTO" parameterType="int">
+		SELECT * FROM inquiry WHERE inquiryId=#{inquiryId}
+	</select>
+	
+	<!-- public void reWriteInsert(InquiryDTO rdto); -->
+	<!-- <insert id="reWriteInsert" parameterType="InquiryDTO">
+		INSERT INTO inquiry(userId, title, password, ref, re_step, re_level, content) 
+		VALUES(#{userId}, #{title}, #{password}, #{ref}, #{re_step} + 1, #{re_level} + 1, #{content})
+	</insert> -->
 
+	<!-- public void reSqUpdate(InquiryDTO rdto); -->
+	<!-- <update id="reSqUpdate" parameterType="InquiryDTO">
+		UPDATE inquiry SET re_step = re_step + 1 WHERE ref=#{ref} AND re_step > #{re_step}
+	</update> -->
+	
+	<!-- ======================= 페이징 ======================= -->
+
+	<!-- 전체 공지 개수 -->
+	<select id="getAllCount" resultType="int">
+		SELECT COUNT(*) FROM inquiry
+	</select>
+
+	<!-- 공지 전체 목록 -->
+	<select id="getPageList" resultType="InquiryDTO">
+		SELECT * FROM inquiry ORDER BY inquiryId DESC LIMIT #{startRow}, #{pageSize}
+	</select>
 </mapper>

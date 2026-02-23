@@ -20,15 +20,6 @@ const SelectedIcon = new L.Icon({
     iconAnchor: [12, 41],
 });
 
-// 지점 좌표 데이터
-// const BRANCH_LOCATIONS = [
-//     {id:1, lat: 37.446842, lng: 126.454047, name: "인천공항점", address: "인천광역시 중구 공항로 271", region: "인천", gu: "중구"},
-//     {id:2, lat: 37.56517, lng: 126.803013, name: "김포공항점", address: "서울특별시 강서구 하늘길 38", region: "김포", gu: "강서구"},
-//     {id:3, lat: 37.570097, lng: 127.064886, name: "서울동부점", address: "서울 동대문구 한천로 100 1-2층", region: "서울", gu: "동대문구"},
-//     {id:4, lat: 37.493788, lng: 127.012596, name: "서울남부점", address: "서울특별시 서초구 서초대로 283", region: "서울", gu: "서초구"},
-//     {id:5, lat: 37.653579, lng: 127.058793, name: "서울북부점", address: "서울 노원구 노해로 456 동방빌딩 1층", region: "서울", gu: "노원구"},
-// ];
-
 // 필터 옵션 데이터
 const FILTER_CONFIG = {
     carSize: ['경소형', '중형', '대형'],

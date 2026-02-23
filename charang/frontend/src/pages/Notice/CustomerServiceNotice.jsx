@@ -7,36 +7,14 @@ import './CustomerServiceNotice.css'
 import axios from "axios";
 
 export default function CustomerServiceNotice(){
-    // const {notices} = useContext(DataContext);
+    // const { pagesHandler, paging, setPaging, pageNum, setPageNum } = useContext(DataContext);
 
-    // 로그인 정보/유저 현재 로그인 유저 아이디 알아야됨
-    const { userid } = useContext(AuthContext);
-
-    // const { noticeId, userId } = useParams(); 
-
-    // 공지사항 목록 상태
-    const [notice, setNotice] = useState([]);
     // 서버에서 받은 ph
-    const [paging, setPaging] = useState({}); // << context 로 빼야할것같음
+    const [paging, setPaging] = useState({}); 
     // 현재 페이지 번호 (기본값 1)
-    const [pageNum, setPageNum] = useState(1); // << context 로 빼야할것같음
+    const [pageNum, setPageNum] = useState(1); 
 
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        // fetch('/api/customerservice/notice')
-        axios.get(`/api/customerservice/notice?page=${pageNum}`)
-        .then((res) => {
-            console.log("공지사항전체 - 받아온데이터 : ", res.data);
-            setNotice(res.data.list);
-            setPaging(res.data.ph);
-            console.log("res.data.list : ", res.data.list);
-            console.log("res.data.ph : ", res.data.ph);
-        })
-        .catch(error => console.log("error : ", error));
-    }, [pageNum]);  // 확인 필요
-
-    // 페이지 이동 핸들러 << context 로 빼야할것같음
+    // 페이지 이동 핸들러
     const pagesHandler = () => {
         const pageNumbers = [];
         // paging 가 있고, startPage와 endPage가 계산되었을 때만 작동
@@ -45,18 +23,42 @@ export default function CustomerServiceNotice(){
                 pageNumbers.push(i);
             }
         }
-        console.log("페이징 확인 : ", pageNumbers);
+        // console.log("페이징 확인: ", pageNumbers);
         return pageNumbers;
     }
+
+    // 로그인 정보/유저 현재 로그인 유저 아이디 알아야됨
+    const { userid } = useContext(AuthContext);
+
+    // const { noticeId, userId } = useParams(); 
+
+    // 공지사항 목록 상태
+    const [notice, setNotice] = useState([]);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        axios.get(`/api/customerservice/notice?page=${pageNum}`)
+        .then((res) => {
+            console.log("공지사항전체 - 받아온데이터 : ", res.data);
+            setNotice(res.data.list);  // 받아온 데이터
+            setPaging(res.data.ph);  // 페이징
+            console.log("res.data.list : ", res.data.list);
+            console.log("res.data.ph : ", res.data.ph);
+        })
+        .catch(error => console.log("error : ", error));
+    }, [pageNum]);
+
+    console.log("렌더링 시점 paging 상태:", paging);
     
     return(
         <div className="notice">
-            <div className="notice_title">
+            <div className="notice_admin">
                 <h4>공지사항</h4>
                 {/* 관리자(=admin)일 때만 글쓰기 버튼 생김 */}
                 {userid === 'admin' && (
                     <div className="notice_adminBtn">
-                        <button onClick={() => navigate("/customerservice/notice/write")}>
+                        <button onClick={() => navigate("/customerservice/notice/manager/write")}>
                             글쓰기
                         </button>
                     </div>
@@ -105,7 +107,7 @@ export default function CustomerServiceNotice(){
                     )}
 
                     {/* 페이지 번호들 */}
-                    {pagesHandler().map(num => (
+                    {pagesHandler(paging).map(num => (
                         <button key={num} className={pageNum === num ? "active" : ""} onClick={() => setPageNum(num)}>
                             {num}
                         </button>
