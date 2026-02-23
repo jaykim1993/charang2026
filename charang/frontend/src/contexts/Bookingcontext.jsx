@@ -17,6 +17,7 @@ export default function BookingProvider({ children }) {
       try {
         const res = await axios.get("/api/booklist");
         if (Array.isArray(res.data)) {
+          console.log("전체예약목록", res.data);
           setBookedlistAll(res.data);
         }
       } catch (err) {
@@ -36,7 +37,7 @@ export default function BookingProvider({ children }) {
         const res = await axios.get("/api/onebookcar", {
           withCredentials: true 
         });
-        console.log("개인 예약 (+카 정보 조인)", res.data);
+        // console.log("개인 예약 (+카 정보 조인)", res.data);
         setMyBooking(res.data);
       };
       useEffect(() => {
@@ -81,16 +82,15 @@ export default function BookingProvider({ children }) {
     // ======================
     // 최근 본 차량 목록 (Home.jsx, Recentcarlist.jsx)
     // ======================
-      // 목록은 DB나 배열로 실존하지 않으며 local storage에만 존재한다.
-      // localStorage 내에서 해당 userid에 부합하는 내용만 찾기
+      // 목록은 DB나 배열로 실존하지 않으며 sessionStorage에만 존재한다.
+      // sessionStorage 내에서 해당 userid에 부합하는 내용만 찾기
       const myRecentlist = (userid) => {
         if (!userid) return [];
-        const data = JSON.parse(localStorage.getItem("recentView")) || [];
+        const data = JSON.parse(sessionStorage.getItem("recentView")) || [];
         return data
           .filter(item => item.userid === userid)
           .sort((a, b) => b.viewed_at - a.viewed_at)
       };
-
 
 
   // ================= 금액 =================

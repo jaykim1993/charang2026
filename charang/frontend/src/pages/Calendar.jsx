@@ -19,8 +19,6 @@ export default function RentalCalendar() {
     endTime,
     setEndTime,
     timeInfoArrHandler,
-    apply,
-    setApply,
     handleDateFilter,
     isDisabledEndTime,
     isDisabledStartTime
@@ -89,7 +87,6 @@ export default function RentalCalendar() {
       alert("날짜를 선택해주세요.");
       return;
     }else{
-      setApply(true);
       setIsCalendar(false);
     }
 
@@ -105,7 +102,6 @@ export default function RentalCalendar() {
     const allCancleHandler=()=>{
       setStartDate(null);
       setEndDate(null);
-      setApply(false);
     }
 
   const renderDay = (arg) =>

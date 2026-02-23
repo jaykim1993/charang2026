@@ -27,10 +27,14 @@ export default function MypageInquiry(){
             {myInquiries.length === 0 ? (
             <div>
                 <div className="mypageBookCard">
-                    <i class="bi bi-exclamation-lg warningIcon"></i>
-                    <p className="noBookedP">아직 문의내역이 없습니다.</p>
+                    <div className="myBooked_noBook">
+                        <p>아직 예약내역이 없습니다.</p>
+                        <div>
+                            <span>!</span>
+                        </div>
+                    </div>
                 </div>
-                <Link to={'/customerservice/inquiry'} className="noBookedGoToBook">1:1 문의하기</Link>
+                <Link to={'/customerservice/inquiry'}><button className='noBookedGoToBook'>1:1 문의하기</button></Link>
             </div> 
                 ) : (
             <table className="mypage-inquiries-table">

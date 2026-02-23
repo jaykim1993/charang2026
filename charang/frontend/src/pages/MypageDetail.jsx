@@ -45,17 +45,25 @@ export default function MypageDetail(){
             )?.location || '';
 
     //며칠 남앗는지
+    // 3단계로 나눠서 계산 26.02.23 성중
         const today = new Date();
             today.setHours(0, 0, 0, 0);
-            const [y, m, d] = bookedThis.startDate.split('-');
-            const startDate = new Date(y, m - 1, d);
+            const [sy, sm, sd] = bookedThis.startDate.split('-');
+            const [ey, em, ed] = bookedThis.endDate.split('-');
+            const startDate = new Date(sy, sm - 1, sd);
+            const endDate = new Date(ey, em - 1, ed);
             const diffDays = Math.ceil(
             (startDate - today) / (1000 * 60 * 60 * 24)
         );
+            const diffDayse = Math.ceil(
+            (endDate - today) / (1000 * 60 * 60 * 24)
+        );
+        console.log(diffDays);
+        console.log(diffDayse);
         let dText;
             if (diffDays > 0) dText = `D-${diffDays}`;
-            else if (diffDays === 0) dText = 'D-Day';
-            else dText = `D+${Math.abs(diffDays)}`;
+            else if (diffDays <= 0 && diffDayse > 0) dText = '진행중';
+            else if (diffDayse < 0 ) dText = `완료된 예약`;
   
     //몇시간 이용하는지
         let date = (new Date(`${bookedThis.endDate}T${bookedThis.endTime}`)-new Date(`${bookedThis.startDate}T${bookedThis.startTime}`))/ (1000 * 60 * 30);

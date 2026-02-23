@@ -1,6 +1,7 @@
 #root .mypage-inquries{
-    min-height: 900px;
-    margin-left: 50px;
+    min-height: 1100px;
+    width: 900px;
+    margin: 0 auto; /* 가운데 정렬 */
 }
 .mypage-inquiries-table{
     width: 100%;
@@ -92,4 +93,19 @@
 }
 .mypage-inquries .noBookedGoToBook{
     margin-bottom: 80px;
+}
+.noBookedGoToBook{
+    margin-top: 20px;
+    width: 100%;
+    height: 48px;
+    border-radius: 10px;
+    border: none;
+    background-color: #0b79b7;
+    color: #fff;
+    font-size: 19px;
+    cursor: pointer;
+    transition:  0.2s ease;
+}
+.noBookedGoToBook:hover{
+    background-color: #09679c;
 }

@@ -12,7 +12,7 @@ export default function AuthProvider({children}){
     const[userid, setUserid]=useState(null);
     const[username, setUsername]=useState(null);
 
-    // 컴포넌트 마운트 될 때 localStorage에서 사용자 정보 불러오기
+    // 컴포넌트 마운트 될 때 sessionStorage에서 사용자 정보 불러오기
 
     useEffect(() => {
     const saveUser = sessionStorage.getItem("userid");
