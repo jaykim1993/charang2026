@@ -7,11 +7,22 @@
 	<select id="getAllBooking" resultType="bookingDTO">
 		SELECT * FROM booking
 	</select>
+	
+	<!-- 로그인한 유저 예약 목록 출력 -->
+	<select id="getUserBooking" resultType="bookingDTO">
+		SELECT * FROM booking
+		WHERE userId = #{userId}
+	</select>
+	
 	<!-- 선택 예약 목록 출력 -->
 	<insert id="insertBooking" parameterType="bookingDTO">
 		INSERT INTO booking(bookingId, userId, carId, bookedDate, startDate, startTime, endDate, endTime, carPrice, insurancePrice, totalPrice)
 		VALUES(#{bookingId}, #{userId}, #{carId}, #{bookedDate}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{carPrice}, #{insurancePrice}, #{totalPrice})
 	</insert>
 
+	<!-- 선택 예약 삭제 -->
+	<delete id="deleteBooking" parameterType="String">
+		DELETE FROM booking WHERE bookingId = #{bookingId}
+	</delete>
 	
 </mapper>

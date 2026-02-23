@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from "react";
 import { CalendarContext } from "../contexts/Calendarcontext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-
 import { BookingContext } from "../contexts/Bookingcontext";
 import { AuthContext } from "../contexts/Authcontext";
 import { DataContext } from "../contexts/Datacontext";
@@ -15,14 +14,14 @@ import 'leaflet/dist/leaflet.css';
 import './DetailPage.css'
 
 export default function DetailPage(){
-
-    const { setBookedlistAll, calculatePrice, clickCarArr, setClickCarArr } = useContext(BookingContext);
-    const {  DeleteYear, timeAMPM, startdayText, enddayText} = useContext(CalendarContext);
+    const { userid, setModal } = useContext(AuthContext);
+    const { calculatePrice } = useContext(BookingContext);
+    const {  DeleteYear, startdayText, enddayText} = useContext(CalendarContext);
     // console.log('calculatePrice');
     // console.log(calculatePrice);
     const storedFilteredInfoUser = JSON.parse(localStorage.getItem("filteredInfoUser")) || [];
     const storedCalendarFilters = JSON.parse(localStorage.getItem("calendarFilters")) || {};
-
+    
     // 차 id 가져오기
     const selectedCarId = Number(useParams().id);
     // user id 가져오기
@@ -31,7 +30,7 @@ export default function DetailPage(){
     
     const navigate = useNavigate();
 
-    console.log(selectedCarId);
+    // console.log(selectedCarId);
     // 선택 차량
     const selectedCar = JSON.parse(localStorage.getItem("firstFilteredCar") || "[]")
     .find(car => car.carId === selectedCarId) || null;
@@ -136,11 +135,19 @@ export default function DetailPage(){
 
     // ===================== Reservation으로 값 넘기기 ========================
     const toReservation = () => {
-        if(!filterCar || !userid){
+        if (!userid) {
+            alert("로그인 후 이용 가능합니다.");
+            setModal('login');
+            return;
+        }
+
+        if(!filterCar){
             alert("예약 정보를 다시 선택해주세요");
             return;
         }
-        navigate('/reservation');
+        navigate('/reservation', {
+            state : {selectedCarId}
+        });
     };
 
        const SelectedIcon = new L.Icon({

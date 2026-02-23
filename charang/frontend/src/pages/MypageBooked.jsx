@@ -3,27 +3,31 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { CalendarContext } from "../contexts/Calendarcontext";
 import { BookingContext } from "../contexts/Bookingcontext";
-import { AuthContext } from "../contexts/Authcontext";
 import { DataContext } from "../contexts/Datacontext";
 
 import "./MypageBooked.css";
 
 export default function MypageBooked() {
-  const { DeleteYear, timeAMPM, startdayText, enddayText, days } = useContext(CalendarContext);  // 연도 삭제
-  const { myBookings, bookedlistAll } = useContext(BookingContext); // 예약내역 보기 함수 호출
-  const { branch } = useContext(DataContext); // 유저 정보 호출
+  const { DeleteYear, timeAMPM, days } = useContext(CalendarContext);  // 연도 삭제
+  const { myBooking, fetchBookedList, fetchOneBookCar } = useContext(BookingContext); // 예약내역 보기 함수 호출
+  const { branch } = useContext(DataContext); // 지점 정보 호출
 
-  // console.log(myBookings)
-  // console.log(bookedlistAll)
+  useEffect(() => {
+    fetchBookedList();
+    fetchOneBookCar();
+  }, []);
 
-  // 예약날짜 가까운 순서대로 정렬
-  const sortedByLatest = [...myBookings].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+  // 다가오는 예약 / 진행중인 예약건 / 지난 예약건 나누기
+  const upcoming = myBooking.filter(b => b.bookingStatus === 'UPCOMING');
+  const ongoing  = myBooking.filter(b => b.bookingStatus === 'ONGOING');
+  const past     = myBooking.filter(b => b.bookingStatus === 'PAST');
 
-  const sortedByLatestCopy = [...sortedByLatest];
-  sortedByLatestCopy.push(() => {
-    startdayText,
-    enddayText
-  })
+  // 다가오는 예약 => 예약날짜 가까운 순서대로 정렬
+  const upcomingByLatest = [...upcoming].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+  const ongoingByLatest = [...upcoming].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+  const pastByLatest = [...upcoming].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+
   useEffect(() => {
   window.scrollTo(0, 0);
   }, []);
@@ -32,7 +36,7 @@ export default function MypageBooked() {
     <div className="MypageBooked">
       <h2 className="guideMainText">예약내역</h2>
       <div className="myPageBookWarp">
-        {myBookings.length === 0?
+        {myBooking.length === 0?
         <div>
           <div className="mypageBookCard">
             <i className="bi bi-exclamation-lg warningIcon"></i>
@@ -52,11 +56,11 @@ export default function MypageBooked() {
               </tr>
             </thead>
 
-          {sortedByLatest.map(book => {
+          {upcomingByLatest.map(book => {
             // 지점명 따기
             const branchName =
               branch.find(
-                b => b.branchId === book.matchedCar?.branchId
+                b => b.branchId === book.branchId
             )?.name || '';
             // 요일
             const sDate = new Date(book.startDate);
@@ -81,10 +85,10 @@ export default function MypageBooked() {
                 <tbody className="mypage_tbody"  key={book.bookingId}>
                   <tr>
                     <td>
-                      <img src={`/images/cars/${book.matchedCar?.carImg}`} alt={book.matchedCar?.model}/>
+                      <img src={`/images/cars/${book.carImg}`} alt={book.model}/>
                     </td>
                     <td>
-                      <h3 className="mapCarname">{book.matchedCar?.brand} {book.matchedCar?.model}</h3>
+                      <h3 className="mapCarname">{book.brand} {book.model}</h3>
                       <p className="mapCarBooknum" >{branchName}</p>
                     </td>
                     <td>
@@ -97,7 +101,7 @@ export default function MypageBooked() {
                     </td>
                     <td >
                       <div className="GoToDetailBoxmap">
-                        <Link to={`/mypage/detail/${book.id}`} className="mapGoToDetail" onClick={() => window.scrollTo(0,0)}>예약 상세보기</Link>
+                        <Link to={`/mypage/detail/${book.bookingId}`} className="mapGoToDetail" onClick={() => window.scrollTo(0,0)}>예약 상세보기</Link>
                       </div>
                     </td>
                   </tr>

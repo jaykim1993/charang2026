@@ -22,7 +22,7 @@ export default function Home(){
          enddayText, DeleteYear, timeAMPM} = useContext(CalendarContext);
   const {myRecentlist} = useContext(BookingContext);
   const {userid, username} = useContext(AuthContext);
-  const {cars, car, branch} = useContext(DataContext);
+  const { car, branch} = useContext(DataContext);
 
   const images = [
     "/images/banner/banner01.png",
@@ -223,7 +223,7 @@ export default function Home(){
       iconAnchor: [12, 41],
     });
 
-    console.log(userid+"유저아이디");
+    // console.log(userid+"유저아이디");
   return(
     <div className="Home">
         {/* 예약 섹션 */}

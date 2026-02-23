@@ -1,5 +1,0 @@
-package cha.user.mapper;
-
-public interface UserMapper {
-
-}

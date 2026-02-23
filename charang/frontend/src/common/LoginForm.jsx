@@ -36,7 +36,7 @@ export default function LoginForm({ onClose, onJoin }) {
             userId: res.data.userId,
             name: res.data.name
             });
-            navigate("/"); 
+           // 로그인 후 홈으로 이동 제거 26.02.21 성중
         }else{
             alert("아이디 또는 비밀번호를 확인하세요.");
             setUserpw('');
