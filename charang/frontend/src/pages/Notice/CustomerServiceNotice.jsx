@@ -2,12 +2,19 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { AuthContext } from "../../contexts/Authcontext"
-import { DataContext } from "../../contexts/Datacontext";
 import './CustomerServiceNotice.css'
 import axios from "axios";
 
 export default function CustomerServiceNotice(){
-    // const { pagesHandler, paging, setPaging, pageNum, setPageNum } = useContext(DataContext);
+    // 로그인 정보/유저 현재 로그인 유저 아이디 알아야됨
+    const { userid } = useContext(AuthContext);
+
+    // const { noticeId, userId } = useParams(); 
+
+    // 공지사항 목록 상태
+    const [notice, setNotice] = useState([]);
+
+    const navigate = useNavigate();
 
     // 서버에서 받은 ph
     const [paging, setPaging] = useState({}); 
@@ -27,29 +34,17 @@ export default function CustomerServiceNotice(){
         return pageNumbers;
     }
 
-    // 로그인 정보/유저 현재 로그인 유저 아이디 알아야됨
-    const { userid } = useContext(AuthContext);
-
-    // const { noticeId, userId } = useParams(); 
-
-    // 공지사항 목록 상태
-    const [notice, setNotice] = useState([]);
-
-    const navigate = useNavigate();
-
     useEffect(() => {
         axios.get(`/api/customerservice/notice?page=${pageNum}`)
         .then((res) => {
             console.log("공지사항전체 - 받아온데이터 : ", res.data);
             setNotice(res.data.list);  // 받아온 데이터
             setPaging(res.data.ph);  // 페이징
-            console.log("res.data.list : ", res.data.list);
-            console.log("res.data.ph : ", res.data.ph);
+            console.log("공지사항 - res.data.list : ", res.data.list);
+            console.log("공지사항 - res.data.ph : ", res.data.ph);
         })
         .catch(error => console.log("error : ", error));
     }, [pageNum]);
-
-    console.log("렌더링 시점 paging 상태:", paging);
     
     return(
         <div className="notice">
@@ -57,7 +52,7 @@ export default function CustomerServiceNotice(){
                 <h4>공지사항</h4>
                 {/* 관리자(=admin)일 때만 글쓰기 버튼 생김 */}
                 {userid === 'admin' && (
-                    <div className="notice_adminBtn">
+                    <div className="adminBtn">
                         <button onClick={() => navigate("/customerservice/notice/manager/write")}>
                             글쓰기
                         </button>

@@ -220,12 +220,12 @@
     z-index: 50;
 }
 .submitinqu{
-    width: 535px;
-    margin: 0 auto;
+    width: 648px;
+    /* margin: 0 auto; */
     text-align: center;
 }
 .submitinqu button{
-    width: 535px;
+    width: 100%;
     font-size: 19px;
     padding: 10px;
     border: none;

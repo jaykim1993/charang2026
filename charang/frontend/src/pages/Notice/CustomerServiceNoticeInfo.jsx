@@ -16,7 +16,7 @@ export default function CustomerServiceNoticeInfo() {
         axios.get(`/api/customerservice/notice/Info/${noticeId}`)
         .then((res) => {
             setNotice(res.data);
-            console.log("res.data : ", res.data);
+            console.log("공지 상세 - res.data : ", res.data);
         })
         .catch(error => console.log("error : ", error));
     }, [noticeId]);
@@ -60,7 +60,7 @@ export default function CustomerServiceNoticeInfo() {
                 <button onClick={() => navigate("/customerservice/notice")}>목록으로 돌아가기</button>
                 
                 {userid === 'admin' && (
-                    <div className="notice_adminBtn">
+                    <div className="adminBtn">
                         <button onClick={() => navigate(`/customerservice/notice/manager/modify/${noticeId}`)}>
                             수정하기
                         </button>

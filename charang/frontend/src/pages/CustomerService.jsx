@@ -17,7 +17,7 @@ export default function CustomerService(){
             </div> 
             <div className="guideFlex">
                 <div className="guideLeft">
-                <Link to='inquiry'><span className='MyPageSideMenus'>상담 안내</span></Link>
+                <Link to='inquiry/write'><span className='MyPageSideMenus'>상담 안내</span></Link>
                 <Link to='FAQ'><span className='MyPageSideMenus'>자주 찾는 질문</span></Link>
                 <Link to='notice'><span className='MyPageSideMenus'>공지 사항</span></Link>
                 </div>

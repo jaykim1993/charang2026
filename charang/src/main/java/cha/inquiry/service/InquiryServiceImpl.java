@@ -16,25 +16,29 @@ public class InquiryServiceImpl implements InquiryService {
 	@Override
 	public void insertInquiry(InquiryDTO rdto) {
 		System.out.println("InquiryServiceImpl - 문의등록");
+		
+		inquirymapper.insertInquiry(rdto);
 	}
 
 	@Override
-	public void updateAnswer(InquiryDTO rdto) {
+	public void updateAnswer(InquiryDTO rdto, String inquiryId) {
 		System.out.println("InquiryServiceImpl - 문의 답변완료 업데이트");
+		
+		inquirymapper.updateAnswer(rdto, inquiryId);;
 	}
 
 	@Override
 	public List<InquiryDTO> inquiryList() {
 		System.out.println("InquiryServiceImpl - 문의목록");
 		
-		return null;
+		return inquirymapper.inquiryList();
 	}
 
 	@Override
-	public InquiryDTO getInquiryDetail(int inquiryId) {
+	public InquiryDTO getInquiryDetail(String inquiryId) {
 		System.out.println("InquiryServiceImpl - 문의 상세");
 		
-		return null;
+		return inquirymapper.getInquiryDetail(inquiryId);
 	}
 
 	@Override
@@ -46,5 +50,4 @@ public class InquiryServiceImpl implements InquiryService {
 	public List<InquiryDTO> getPageList(int startRow, int pageSize) {
 		return inquirymapper.getPageList(startRow, pageSize);
 	}
-	
 }

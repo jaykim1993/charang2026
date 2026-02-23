@@ -5,35 +5,35 @@
 <mapper namespace="cha.inquiry.mapper.InquiryMapper">
 	<!-- public void insertInquiry(InquiryDTO rdto); -->
 	<insert id="insertInquiry" parameterType="InquiryDTO">
-        INSERT INTO inquiry(userId, title, password, content, regDate) 
-        VALUES (#{userId}, #{title}, #{password}, #{content}, NOW())
+        INSERT INTO inquiry(inquiryId, userId, title, password, content, regDate) 
+        VALUES (CONCAT(DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')),
+         #{userId}, #{title}, #{password}, #{content}, NOW())
     </insert>
 	
-	<!-- public void updateAnswer(InquiryDTO rdto); -->
-	<update id="updateAnswer" parameterType="cha.inquiry.dto.InquiryDTO">
+	<!-- public void updateAnswer(InquiryDTO idto, String inquiryId); -->
+	<update id="updateAnswer">
 		UPDATE inquiry 
-		SET answer = #{answer}, 
-		    modDate = NOW() 
+		SET answer = #{answer}, modDate = NOW() 
 		WHERE inquiryId = #{inquiryId}
 	</update>
 	
 	<!-- public List<InquiryDTO> inquiryList(); -->
 	<select id="inquiryList" resultType="InquiryDTO">
-		SELECT * FROM inquiry ORDER BY ref DESC, re_step ASC
+		SELECT * FROM inquiry ORDER BY modDate ASC
 	</select>
 	
-	<!-- public InquiryDTO getInquiryDetail(int inquiryId); -->
-	<select id="getInquiryDetail" resultType="InquiryDTO" parameterType="int">
+	<!-- public InquiryDTO getInquiryDetail(String inquiryId); -->
+	<select id="getInquiryDetail" resultType="InquiryDTO" parameterType="String">
 		SELECT * FROM inquiry WHERE inquiryId=#{inquiryId}
 	</select>
 	
-	<!-- public void reWriteInsert(InquiryDTO rdto); -->
+	<!-- public void reWriteInsert(InquiryDTO idto); -->
 	<!-- <insert id="reWriteInsert" parameterType="InquiryDTO">
 		INSERT INTO inquiry(userId, title, password, ref, re_step, re_level, content) 
 		VALUES(#{userId}, #{title}, #{password}, #{ref}, #{re_step} + 1, #{re_level} + 1, #{content})
 	</insert> -->
 
-	<!-- public void reSqUpdate(InquiryDTO rdto); -->
+	<!-- public void reSqUpdate(InquiryDTO idto); -->
 	<!-- <update id="reSqUpdate" parameterType="InquiryDTO">
 		UPDATE inquiry SET re_step = re_step + 1 WHERE ref=#{ref} AND re_step > #{re_step}
 	</update> -->
