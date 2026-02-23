@@ -34,6 +34,7 @@ import CustomerServiceFAQ from './pages/CustomerServiceFAQ';
 import CustomerServiceNotice from './pages/Notice/CustomerServiceNotice';
 import CustomerServiceNoticeInfo from './pages/Notice/CustomerServiceNoticeInfo';
 import CustomerServiceNoticeWrite from './pages/Notice/CustomerServiceNoticeWrite';
+import CustomerServiceNoticeModfiy from './pages/Notice/CustomerServiceNoticeModfiy';
 
 import GuideBranch from './pages/GuideBranch';
 import GuideInventory from './pages/GuideInventory';
@@ -67,13 +68,14 @@ function App() {
                 </Route>
 
                 {/* 고객 가이드 */}
-                <Route path="/customerservice" element={<CustomerService />}>
-                  <Route path="inquiry" element={<CustomerServiceInquiry/>} />{/* 1:1문의 */}
-                  <Route path="FAQ" element={<CustomerServiceFAQ/>} />        {/* 자주 찾는 질문 */}
-                  <Route path="notice" element={<CustomerServiceNotice/>} />  {/* 공지사항 */}
-                  <Route path="/customerservice/notice/Info/:noticeId" element={<CustomerServiceNoticeInfo />} />  {/* 공지사항 상세*/}
-                </Route>
-                <Route path="/customerservice/notice/write" element={<CustomerServiceNoticeWrite />} />  {/* 공지사항 상세*/}
+                                <Route path="/customerservice" element={<CustomerService />}>
+                                  <Route path="inquiry" element={<CustomerServiceInquiry/>} />{/* 1:1문의 */}
+                                  <Route path="FAQ" element={<CustomerServiceFAQ/>} />        {/* 자주 찾는 질문 */}
+                                  <Route path="notice" element={<CustomerServiceNotice/>} />  {/* 공지사항 */}
+                                  <Route path="/customerservice/notice/Info/:noticeId" element={<CustomerServiceNoticeInfo />} />  {/* 공지사항 상세*/}
+                                </Route>
+                                <Route path="/customerservice/notice/manager/write" element={<CustomerServiceNoticeWrite />} />    {/* 공지사항 작성*/}
+                                <Route path="/customerservice/notice/manager/modify/:noticeId" element={<CustomerServiceNoticeModfiy />} />  {/* 공지사항 수정*/}
                 
                 <Route path="/location" element={<LocationPage />} />
                 <Route path="/recent" element={<Recentcarlist />} />

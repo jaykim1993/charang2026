@@ -8,7 +8,7 @@ export default function CustomerServiceNoticeInfo() {
     const navigate = useNavigate();
     
     // 주소창에서 :noticeId 자리에 있는 값을 바로 뽑아옴
-    const { noticeId, userId } = useParams(); 
+    const { noticeId } = useParams();
     const { userid } = useContext(AuthContext);
     const [notice, setNotice] = useState({});
 
@@ -23,10 +23,15 @@ export default function CustomerServiceNoticeInfo() {
 
     const handleDelete = () => {
         if (window.confirm("정말 삭제하시겠습니까?")) {
-            axios.get(`/api/customerservice/notice/delete/${noticeId}`)
+            // axios.delete(`/api/customerservice/notice/manager/delete/${noticeId}`)
+            axios.delete("/api/customerservice/notice/manager/delete", { params: { noticeId: noticeId } })
             .then((res) => {
-                alert("삭제되었습니다.");
-                navigate("/customerservice/notice");
+                if(res.data === 1){
+                    alert("삭제되었습니다.");
+                    navigate("/customerservice/notice");
+                }else{
+                    alert("삭제실패");
+                }
             })
             .catch(error => console.log("error : ", error));
         }
@@ -40,16 +45,13 @@ export default function CustomerServiceNoticeInfo() {
             <table>
                 <tbody>
                     <tr>
-                        <td colSpan="2">
-                            <h3>{notice.title}</h3>
+                        <td>
+                            <h4>{notice.title}</h4>
                         </td>
+                        <td style={{width: '200px'}}>조회수&nbsp;&nbsp;&nbsp;&nbsp;{notice.readCount}</td>
                     </tr>
                     <tr>
-                        <th>조회수</th>
-                        <td>{notice.readCount}</td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2" style={{fontSize: "17px", padding: "50px 5px"}}>{notice.content}</td>
+                        <td colSpan="2" style={{fontSize: "17px", padding: "40px 5px", whiteSpace: "pre-wrap"}}>{notice.content}</td>
                     </tr>
                 </tbody>
             </table>
@@ -59,7 +61,7 @@ export default function CustomerServiceNoticeInfo() {
                 
                 {userid === 'admin' && (
                     <div className="notice_adminBtn">
-                        <button onClick={() => navigate(`/customerservice/notice/modify/${noticeId}`)}>
+                        <button onClick={() => navigate(`/customerservice/notice/manager/modify/${noticeId}`)}>
                             수정하기
                         </button>
                         <button onClick={handleDelete}>

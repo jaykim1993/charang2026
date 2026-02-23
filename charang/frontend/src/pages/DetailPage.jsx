@@ -99,20 +99,6 @@ export default function DetailPage(){
 
     const activeOptions = getActiveOptions(selectedCar);
 
-    // 지도
-    // 여러 좌표를 배열로 관리 각 데이터에있는 주소 위도,경도 검색 후 삽입
-    // const positions = [
-    //     {id:1, lat: 37.446842, lng: 126.454047, name: "인천공항" , address: "인천광역시 중구 공항로 271" },
-    //     {id:2, lat: 37.56517, lng: 126.803013, name: "김포공항" , address: "서울특별시 강서구 하늘길 38"},
-    //     {id:3, lat: 37.570097, lng: 127.064886, name: "서울동부", address: "서울 동대문구 한천로 100 1-2층" },
-    //     {id:4, lat: 37.493788, lng: 127.012596, name: "서울남부", address: "서울특별시 서초구 서초대로 283" },
-    //     {id:5, lat: 37.653579, lng: 127.058793, name: "서울북부", address: "서울 노원구 노해로 456 동방빌딩 1층"},
-    // ];
-    // const detail = positions.find(item => item.id === selectedCar.branchId);
-  
-    // let detail_lat=detail?.lat;
-    // let detail_lng=detail?.lng;
-
     if(!selectedCar) return <div>차량정보를 불러올 수 없습니다.</div>;
 
     // 가격 계산
