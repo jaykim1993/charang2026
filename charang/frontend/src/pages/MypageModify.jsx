@@ -68,7 +68,7 @@ useEffect(() => {
         ...user,
         phone: `${phoneFront}-${phoneMiddle}-${phoneBack}`
         };
-    axios.post("/api/modify", updatedUser)
+    axios.put("/api/modify", updatedUser)
       .then(res => {
         if(res.data === 1){
           alert("회원정보 수정 완료");

@@ -10,6 +10,12 @@ export default function LoginForm({ onClose, onJoin }) {
     const [userid, setUserid] = useState('');
     const [userpw, setUserpw] = useState('');
     const {loginsave} = useContext(AuthContext);
+
+    //로그인 아이디찾기 비밀번호찾기 스테이트
+    const [formView,setFormView] = useState(1); //초기값 로그인화면
+
+
+
     const navigate = useNavigate();
     const login=(e)=>{
     e.preventDefault();
@@ -41,6 +47,7 @@ export default function LoginForm({ onClose, onJoin }) {
 }
 
     return (
+        formView === 1?(
         <div className='loginOverlay' >
             <div className="loginWrap" >
                 <button className="loginBtnX" onClick={onClose}>
@@ -79,8 +86,8 @@ export default function LoginForm({ onClose, onJoin }) {
                             </li>
                         </ul>
                         <div className='loginAccount'>
-                                {/* <button className='loginBtnSamll' type='button'>아이디 찾기</button> | 
-                                <button className='loginBtnSamll' type='button'>비밀번호 찾기</button> |  */}
+                                <button className='loginBtnSamll' type='button' onClick={()=>setFormView()}>아이디 찾기</button> | 
+                                <button className='loginBtnSamll' type='button'>비밀번호 찾기</button> |  
                                 <button className='loginBtnSamll' type='button' onClick={onJoin}>회원가입</button>
                         </div>
                     </div>
@@ -89,6 +96,53 @@ export default function LoginForm({ onClose, onJoin }) {
                     </div>
                 </form>
             </div>
-        </div>
+        </div>)
+    :
+    //여긴 아이디 찾기
+        (<div className='loginOverlay' >
+            <div className="loginWrap" >
+                 <button className="loginBtnX" onClick={onClose}>
+                    <i className="bi bi-x"></i>
+                </button>
+                <h2 className='loginH'><div className='loginColor'>아이디</div> 찾기</h2>
+                <form onSubmit={login}>
+                    <div className='loginContent'>
+                        <ul className='loginUl'>
+                            <li className='loginLiB'>
+                                <label className='loginLabel'>
+                                    이름
+                                    <input
+                                        className='loginInput'
+                                        type="text"
+                                        placeholder="이름"
+                                        name="name"
+                                        value={userid}
+                                        onChange={(e) => setUserid(e.target.value)}
+                                    />
+                                </label>
+                            </li>
+
+                            <li className='loginLiB'>
+                                <label className='loginLabel'>
+                                    이메일
+                                    <input
+                                        className='loginInput'
+                                        type="email"
+                                        placeholder="이메일"
+                                        name="userpw"
+                                        value={userpw}
+                                        onChange={(e) => setUserpw(e.target.value)}
+                                    />
+                                </label>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div className="loginBtnWrap">
+                        <button className='loginBtn' type="submit">아이디찾기</button>
+                    </div>
+                </form>
+            </div>
+        </div>)
     );
 }

@@ -10,9 +10,19 @@ public interface CarService {
 	
 	// 차량 전체 출력 서비스
 	public List<CarDTO> getAllCar();
+	// 차량 전체 출력 페이징 포함된 서비스
+	public List<CarDTO> getAllCarPage(int startRow, int pageSize);
 
 	// 검색 차량 출력 서비스
 //	public List<CarDTO> getSearchCar(String searchType, String searchKeyWord);
+	
+	//	검색 차량 출력
+	public List<CarDTO> getSearchCar(
+		int startRow, 
+		int pageSize,
+		String searchType, 
+		String searchKeyWord
+		);
 
 	// 차량 추가 서비스
 	public boolean addCar(CarDTO cdto);
@@ -22,13 +32,8 @@ public interface CarService {
 
 	// 차량 전체 목록 개수
 	public int getAllCount();
-	
-	//	차량 전체 목록 개수
-	public List<CarDTO> getSearchCar(
-			@Param("startRow") int startRow, 
-			@Param("pageSize") int pageSize,
-			@Param("searchType") String searchType, 
-			@Param("searchKeyWord") String searchKeyWord
-			);
+
+	// 검색 차량 개수 
+	public int getSearchCount(String searchType, String searchKeyWord);
 
 }

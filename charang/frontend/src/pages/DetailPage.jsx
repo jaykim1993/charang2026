@@ -24,6 +24,8 @@ export default function DetailPage(){
     
     // 차 id 가져오기
     const selectedCarId = Number(useParams().id);
+    // user id 가져오기
+    const { car,branch } = useContext(DataContext);
     
     const navigate = useNavigate();
 
@@ -42,11 +44,6 @@ export default function DetailPage(){
         branchId: selectedCar?.branchId,
         fuelType: selectedCar?.fuelType,
         };
-
-
-
-        // console.log(filterCar);
-
 
     // 최근 본 차량 추가(Local Storage)
     useEffect(() => {
@@ -85,33 +82,36 @@ export default function DetailPage(){
     const getActiveOptions = (car) => {
         const optionsMap = {
             navigation: { name: '내비게이션', icon: 'bi-map' },
-            rear_camera: { name: '후방카메라', icon: 'bi-webcam-fill' },
-            heated_seat: { name: '열선시트', icon: 'bi-thermometer-sun' },
-            heated_handle: { name: '핸들열선', icon: 'bi-sun' },
+            rearCamera: { name: '후방카메라', icon: 'bi-webcam-fill' },
+            heatSeat: { name: '열선시트', icon: 'bi-thermometer-sun' },
+            heatHandle: { name: '핸들열선', icon: 'bi-sun' },
             bluetooth: { name: '블루투스', icon: 'bi-bluetooth' },
-            smart_key: { name: '스마트키', icon: 'bi-key-fill' },
-            sun_loof: { name: '썬루프', icon: 'bi-brightness-high' },
+            smartKey: { name: '스마트키', icon: 'bi-key-fill' },
+            sunRoof: { name: '썬루프', icon: 'bi-brightness-high' },
+            
         };
 
         // car 객체에서 위 키값이 true인 것들만 배열로 반환
-        return Object.keys(optionsMap).filter(key => car[key] === true).map(key => optionsMap[key]);
+        return Object.keys(optionsMap)
+        .filter((key) => Boolean(car[key]))  // 1/true면 true, 0/false/undefined면 false
+        .map((key) => optionsMap[key]);
     };
 
     const activeOptions = getActiveOptions(selectedCar);
 
     // 지도
     // 여러 좌표를 배열로 관리 각 데이터에있는 주소 위도,경도 검색 후 삽입
-    const positions = [
-        {id:1, lat: 37.446842, lng: 126.454047, name: "인천공항" , address: "인천광역시 중구 공항로 271" },
-        {id:2, lat: 37.56517, lng: 126.803013, name: "김포공항" , address: "서울특별시 강서구 하늘길 38"},
-        {id:3, lat: 37.570097, lng: 127.064886, name: "서울동부", address: "서울 동대문구 한천로 100 1-2층" },
-        {id:4, lat: 37.493788, lng: 127.012596, name: "서울남부", address: "서울특별시 서초구 서초대로 283" },
-        {id:5, lat: 37.653579, lng: 127.058793, name: "서울북부", address: "서울 노원구 노해로 456 동방빌딩 1층"},
-    ];
-    const detail = positions.find(item => item.id === selectedCar.branchId);
+    // const positions = [
+    //     {id:1, lat: 37.446842, lng: 126.454047, name: "인천공항" , address: "인천광역시 중구 공항로 271" },
+    //     {id:2, lat: 37.56517, lng: 126.803013, name: "김포공항" , address: "서울특별시 강서구 하늘길 38"},
+    //     {id:3, lat: 37.570097, lng: 127.064886, name: "서울동부", address: "서울 동대문구 한천로 100 1-2층" },
+    //     {id:4, lat: 37.493788, lng: 127.012596, name: "서울남부", address: "서울특별시 서초구 서초대로 283" },
+    //     {id:5, lat: 37.653579, lng: 127.058793, name: "서울북부", address: "서울 노원구 노해로 456 동방빌딩 1층"},
+    // ];
+    // const detail = positions.find(item => item.id === selectedCar.branchId);
   
-    let detail_lat=detail?.lat;
-    let detail_lng=detail?.lng;
+    // let detail_lat=detail?.lat;
+    // let detail_lng=detail?.lng;
 
     if(!selectedCar) return <div>차량정보를 불러올 수 없습니다.</div>;
 
@@ -156,6 +156,26 @@ export default function DetailPage(){
       iconAnchor: [12, 41],
     });
 
+    // 지점명 따기
+            const branchName =
+              branch.find(
+                b => b.branchId === selectedCar.branchId
+            )?.location || '';
+
+            const lat =
+              branch.find(
+                b => b.branchId === selectedCar.branchId
+            )?.lat || '';
+
+            const lng =
+              branch.find(
+                b => b.branchId === selectedCar.branchId
+            )?.lng || '';
+
+            const address =
+              branch.find(
+                b => b.branchId === selectedCar.branchId
+            )?.address || '';
 
 
     return(
@@ -197,7 +217,7 @@ export default function DetailPage(){
                         <li>연비는 <strong>{selectedCar.kmPer}</strong>이에요.
                             <i className="bi bi-ev-front-fill"></i>
                         </li>
-                        <li><strong>{selectedCar.licenseType}</strong>부터 이용 가능해요.
+                        <li><strong>{selectedCar.licenseType}종 보통</strong>부터 이용 가능해요.
                             <i className="bi bi-person-fill-up"></i>
                         </li>
                         <li><strong>만 {selectedCar.driverMinAge}세 이상</strong> 이용 가능해요.
@@ -231,7 +251,7 @@ export default function DetailPage(){
                     <p>차량의 기본 대여 금액과 보험 금액은 차량 브랜드별로 가치를 가지며,</p>
                     <p>차량의 연식, 차량 크기, 연료, 옵션 유무에 따라 가격이 계산됩니다.</p>
                     <br/>
-                    <Link to={'/guide'}>상세보기 <i className="bi bi-arrow-right-circle-fill"></i></Link>
+                    <Link to={'/guide/pricing'}>상세보기 <i className="bi bi-arrow-right-circle-fill"></i></Link>
                 </div>
 
                 <hr />
@@ -239,24 +259,29 @@ export default function DetailPage(){
                 {/* 지도 */}
                 <div className="D_location">
                     <h4>대여 및 반납 장소</h4>
-                    <MapContainer center={[detail_lat, detail_lng]} zoom={20} style={{ height: "300px", width: "300px" }}> 
+                    <MapContainer
+                        key={`${lat}-${lng}`}    
+                        center={[lat, lng]}
+                        zoom={15}
+                        style={{ height: "300px", width: "300px" }}
+                    >
                         <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
                         />
                         {/* positions 배열을 map으로 돌면서 여러 Marker 렌더링 */}
-                        {positions.map((spot) => (
-                        <Marker key={spot.id} position={[spot.lat, spot.lng]}
+                        {branch.map((spot) => (
+                        <Marker key={spot.branchId} position={[spot.lat, spot.lng]}
                         icon={SelectedIcon}
                         >
                             <Popup>{spot.name}</Popup>
                         </Marker>
                         ))}
                     </MapContainer>
-                    <h5>{detail.name}</h5>
+                    <h5>{branchName}</h5>
                     <hr className="D_line"/>
                     <p className="D_detial_address_title">주소</p>
-                    <span className="D_detial_address">{detail.address}</span>
+                    <span className="D_detial_address">{address}</span>
                     
                     <hr className="D_line"/>
                     {/* 반납규정 */}
@@ -295,7 +320,7 @@ export default function DetailPage(){
                         <div key={idx} className="info_box">
                             <div className="info_item">
                                 <p className="label">지점</p>
-                                <h4 className="val">{detail.name}</h4>
+                                <h4 className="val">{branchName}</h4>
                             </div>
                             <hr />
                             <div className="info_item">

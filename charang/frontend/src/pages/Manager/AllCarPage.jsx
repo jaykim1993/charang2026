@@ -31,16 +31,16 @@ export default function AllCarPage(){
         const delCarCopy = [...delCar]; // 얕은 복사
 
     //해연씨 여기 오류요 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    //     // 체크되었으면(true) 
-    //     if(e.target.checked){
-    //         delCarCopy.push(carId);
-    //         setDelCar(delCarCopy);
-    //     }
-    //     // 다시 체크를 취소할 경우(false)
-    //     else{
-    //         delCarCopy = delCar.filter(id => id !== carId); // 해당 carId를 제외한 나머지 carId만 배열에 넣기
-    //         setDelCar(delCarCopy);
-    //     }
+        // 체크되었으면(true) 
+        if(e.target.checked){
+            delCarCopy.push(carId);
+            setDelCar(delCarCopy);
+        }
+        // 다시 체크를 취소할 경우(false)
+        else{
+            delCarCopy = delCar.filter(id => id !== carId); // 해당 carId를 제외한 나머지 carId만 배열에 넣기
+            setDelCar(delCarCopy);
+        }
     //해연씨 여기 오류요 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
      }
 

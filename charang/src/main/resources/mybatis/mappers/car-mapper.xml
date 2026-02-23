@@ -10,6 +10,12 @@
 		SELECT * FROM car
 	</select>
 	
+	<!-- 전체 차량 페이징 버전
+	public List<CarDTO> AllCarPage(); -->
+	<select id="AllCarPage" resultType="carDTO">
+		SELECT * FROM car ORDER BY carId DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+	
 	<!-- 전체 차량 개수 -->
 	<select id="getAllCount" resultType="int">
 		SELECT COUNT(*) FROM car
@@ -35,6 +41,22 @@
 			</choose>
 		</where>
 		ORDER BY carId DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	<!-- 검색 차량 개수
+	public int SearchCount(String searchType, String searchKeyWord); -->
+	<select id="SearchCount" resultType="int">
+		SELECT COUNT(*) FROM car
+		<where>
+			<choose>
+				<when test="searchType == 'carName'">
+					model LIKE CONCAT("%",#{searchKeyWord},"%")
+				</when>
+				<otherwise>
+					plateNumber LIKE CONCAT("%",#{searchKeyWord},"%")
+				</otherwise>
+			</choose>
+		</where>
 	</select>
 	
 	<!-- 차량 삭제 메서드
