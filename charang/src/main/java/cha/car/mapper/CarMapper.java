@@ -12,11 +12,14 @@ public interface CarMapper {
 
 	// 전체 차량 리스트 메서드
 	public List<CarDTO> getAllCar();
+	// 전체 차량 페이징 버전
+	public List<CarDTO> AllCarPage(
+			@Param("startRow") int startRow, 
+			@Param("pageSize") int pageSize
+			);
 	
 	// 차량 추가 메서드
 	public int insertCar(CarDTO cdto);
-	
-	// 차량 삭제 메서드
 	
 	// 차량 수정 메서드
 	
@@ -37,6 +40,11 @@ public interface CarMapper {
 			@Param("searchKeyWord") String searchKeyWord
 			);
 
-	// 
+	// 전체 차량 개수
 	public int getAllCount();
+	
+	// 검색 차량 개수
+	public int SearchCount(
+			@Param("searchType") String searchType, 
+			@Param("searchKeyWord") String searchKeyWord);
 }

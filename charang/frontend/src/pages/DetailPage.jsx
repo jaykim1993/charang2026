@@ -25,7 +25,6 @@ export default function DetailPage(){
     // 차 id 가져오기
     const selectedCarId = Number(useParams().id);
     // user id 가져오기
-    const { userid } = useContext(AuthContext);
     const { car,branch } = useContext(DataContext);
     
     const navigate = useNavigate();

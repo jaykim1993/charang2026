@@ -19,6 +19,12 @@ public class CarServiceImpl implements CarService {
 		System.out.println("차 서비스 : 전체 차량 출력 서비스");
 		return carmapper.getAllCar();
 	}
+	// 전체 차량 출력 페이징 버전
+	@Override
+	public List<CarDTO> getAllCarPage(int startRow, int pageSize) {
+		System.out.println("차 서비스 : 전체 차량 출력 서비스(페이징 버전)");
+		return carmapper.AllCarPage(startRow, pageSize);
+	}
 	
 //	@Override
 //	public List<CarDTO> getSearchCar(int startRow, int pageSize) {
@@ -70,10 +76,19 @@ public class CarServiceImpl implements CarService {
 		return carmapper.getAllCount();
 	}
 
+	// 검색 차량 출력
 	@Override
 	public List<CarDTO> getSearchCar(int startRow, int pageSize, String searchType, String searchKeyWord) {
 		System.out.println("차 서비스 : 검색 차량 출력 서비스");
 		return carmapper.getSearchCar(startRow, pageSize, searchType, searchKeyWord);
+	}
+
+	// 검색 차량 개수 출력
+	@Override
+	public int getSearchCount(String searchType, String searchKeyWord) {
+		System.out.println("차 서비스 : 검색 차량 개수 서비스");
+		int result = carmapper.SearchCount(searchType,searchKeyWord);
+		return 0;
 	}
 
 }
