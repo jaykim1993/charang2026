@@ -16,15 +16,15 @@ export default function CustomerServiceNotice(){
 
     // 페이지 이동 핸들러
     const pagesHandler = () => {
-      const pageNumbers = [];
-      // paging 가 있고, startPage와 endPage가 계산되었을 때만 작동
-      if(paging.startPage && paging.endPage){
-          for(let i = paging.startPage; i <= paging.endPage; i++){
-              pageNumbers.push(i);
-          }
-      }
-      // console.log("페이징 확인: ", pageNumbers);
-      return pageNumbers;
+        const pageNumbers = [];
+        // paging 가 있고, startPage와 endPage가 계산되었을 때만 작동
+        if(paging.startPage && paging.endPage){
+            for(let i = paging.startPage; i <= paging.endPage; i++){
+                pageNumbers.push(i);
+            }
+        }
+        // console.log("페이징 확인: ", pageNumbers);
+        return pageNumbers;
     }
 
     // 로그인 정보/유저 현재 로그인 유저 아이디 알아야됨

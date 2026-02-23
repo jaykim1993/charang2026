@@ -21,19 +21,7 @@ export default function DataProvider({children}){
       // console.log("페이징 확인: ", pageNumbers);
       return pageNumbers;
     }
-
-    // const pagesHandler = (now) => {
-    //   console.log("함수 내부 now 확인:", now);
-    //   const pageNumbers = [];
-    //   // 받은 now을 사용
-    //   if (now && now.startPage && now.endPage) {
-    //       for (let i = now.startPage; i <= now.endPage; i++) {
-    //           pageNumbers.push(i);
-    //       }
-    //   }
-    //   return pageNumbers;
-    // };
-  // ==============================================================================================================
+  // =============================================================================================================
 
   // 차량 전체 출력 
   const[car, setCar]=useState([]);

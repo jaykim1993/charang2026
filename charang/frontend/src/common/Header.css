@@ -194,7 +194,7 @@
 }
 .headerBtnCate{
     border: none;
-    padding: 8px 12px;
+    padding: 12px;
     border-radius: 5px;
     background-color: inherit;
     font-size: 25px;
@@ -434,7 +434,7 @@ Link {
 .header-manager-dropdown-menu {
     position: absolute;
     width: 100px;      
-    top: 56px;       
+    top: 52px;       
     left: 0;
     background-color: #333;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
@@ -448,8 +448,7 @@ Link {
     padding: 12px;
     color: #eee;
     cursor: pointer;
-
-    margin-left: 5px;
+    text-align: center;
 }
 
 .header-manager-dropdown-menu .item:hover {

@@ -28,9 +28,8 @@ export default function AllCarPage(){
     // 체크한 해당 차량의 carId만 가져오는 핸들러
     const checkHandler = (e, carId) => {
 
-        const delCarCopy = [...delCar]; // 얕은 복사
+        let delCarCopy = [...delCar]; // 얕은 복사
 
-    //해연씨 여기 오류요 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         // 체크되었으면(true) 
         if(e.target.checked){
             delCarCopy.push(carId);
@@ -41,7 +40,6 @@ export default function AllCarPage(){
             delCarCopy = delCar.filter(id => id !== carId); // 해당 carId를 제외한 나머지 carId만 배열에 넣기
             setDelCar(delCarCopy);
         }
-    //해연씨 여기 오류요 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
      }
 
     // ※ 차량 id만 보내면 되기때문에, 객체배열 방식이 아닌 그냥 배열 방식으로 보내도 sql에서 알아서 변환해줌( ex) 1,5,45 )
@@ -111,7 +109,7 @@ export default function AllCarPage(){
                             </tr>
                         ))
                     :
-                        <tr className="m_AllCar_tr_none" colspan={6}>
+                        <tr className="m_AllCar_tr_none" colSpan={6}>
                             <td className="m_AllCar_td_none">
                                 차량이 존재하지 않습니다.
                             </td>
