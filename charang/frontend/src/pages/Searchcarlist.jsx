@@ -1,4 +1,4 @@
-import { useState, useContext, useMemo } from "react";
+import { useState, useContext, useMemo, useEffect } from "react";
 // import { DataContext } from "../contexts/Datacontext"; // 안쓰면 제거
 import { CalendarContext } from "../contexts/Calendarcontext";
 import { AuthContext } from "../contexts/Authcontext";
@@ -62,12 +62,12 @@ export default function Recentcar() {
     const { 
         firstFilteredCar, setLocation, setBranchId, location, 
         startDate, endDate, startTime, endTime, 
-        setStartDate, setEndDate, setApply, 
+        setStartDate, setEndDate, 
         setIsLocation, setIsCalendar, isLocation, isCalendar, 
         startdayText, enddayText, DeleteYear, timeAMPM 
     } = useContext(CalendarContext);
 
-    const { calculatePrice } = useContext(BookingContext);
+    const { fetchBookedList, calculatePrice } = useContext(BookingContext);
     const { userid, setModal } = useContext(AuthContext);
     const { branch } = useContext(DataContext);
 
@@ -78,7 +78,9 @@ export default function Recentcar() {
         brand: [],
         option: []
     });
-
+     useEffect(() => {
+        fetchBookedList();
+      }, []);
     const [isDetail, setIsDetail] = useState(null); // 지점 상세 보기 ID
     const [tdOpen, setTdOpen] = useState(false); // 더보기 버튼
 
@@ -87,7 +89,7 @@ export default function Recentcar() {
     // => 화면 랜더링용 마지막 필터 적용 배열이며, 그룹화해서 랜더링 진행됨
     const secondFilteredCar = useMemo(() => {
         let cars = firstFilteredCar;
-
+        console.log('firstFilteredCar(cars), ', cars);
         // 메인페이지에서 모델을 선택해서 들어온 경우
         if (selectedModel) {
             cars = cars.filter(car => car.model === selectedModel);
@@ -155,9 +157,11 @@ export default function Recentcar() {
         setBranchId("");
         setStartDate(null);
         setEndDate(null);
-        setApply(false);
         resetFilters();
         alert("검색 조건이 초기화되었습니다.");
+        sessionStorage.removeItem("calendarFilters");
+        sessionStorage.removeItem("filteredInfoUser");
+        sessionStorage.removeItem("firstFilteredCar");
         // navigate는 필요 시 여기서 호출 (현재 로직상 불필요해 보임)
     };
 

@@ -16,10 +16,21 @@ export default function Header() {
 
     // logout 핸들러 함수
     const logoutHandler = () => {
+        sessionStorage.removeItem("calendarFilters");
+        sessionStorage.removeItem("filteredInfoUser");
+        sessionStorage.removeItem("firstFilteredCar");
+        sessionStorage.removeItem("totalPrice");
+        sessionStorage.removeItem("selectedCarId");
         logout();
         alert("로그아웃 되었습니다. 메인페이지로 이동합니다.");
     };
-
+    if(!userid){
+        sessionStorage.removeItem("calendarFilters");
+        sessionStorage.removeItem("filteredInfoUser");
+        sessionStorage.removeItem("firstFilteredCar");
+        sessionStorage.removeItem("totalPrice");
+        sessionStorage.removeItem("selectedCarId");
+    }
     // 로그인 & 회원가입 모달 상태 관리
     const { modal, setModal, loginNeeded } = useContext(AuthContext); // 값 : 'login' | 'joinA' | 'joinB' | 'joinC' | null
     const [joinData, setJoinData] = useState({ userid:'', userpw:'' });
@@ -67,7 +78,12 @@ export default function Header() {
                     </div>
                     
                     <Link to="/">
-                        <img className='headerLogo animate-logo' src='/charangcharang_logo_white.png'/>
+                        <div className='hLogoWrap'>
+                            <div className='hLogo animate-logo'><img className='headerLogo' src='/charangcharang_logo_white.png'/></div>
+                            
+                            <p className='hLogoP'>빠르고 편한 렌트는 차랑차랑!</p>
+                        </div>
+                        
                     </Link>
                     
                     <nav className="headerNavTop">
@@ -86,9 +102,9 @@ export default function Header() {
                                             관리자 메뉴
                                         </button>
                                         <div className="header-manager-dropdown-menu">
-                                            <Link to="/" className='item'>차량관리</Link>
-                                            <Link to="/" className='item'>회원관리</Link>
-                                            <Link to="/" className='item'>예약관리</Link>
+                                            <Link to="/manager/carlist" className='item'>차량관리</Link>
+                                            <Link to="/manager/userlist" className='item'>회원관리</Link>
+                                            <Link to="/manager/reservationlist" className='item'>예약관리</Link>
                                             <Link to="/" className='item'>공지사항</Link>
                                             <Link to="/" className='item'>1:1 문의</Link>
                                         </div>
@@ -221,6 +237,8 @@ export default function Header() {
                 <button className="headerBtnX" onClick={closeNav}>
                     <i className="bi bi-x"></i>
                 </button>
+                {/* 관리자 모드 업데이트. 26.02.23 성중 */}
+                {userid != "admin"?
                 <div className="headerNavContent">
                     <div className="headerNavAd">
                         <p className='headerNavH'>이달의 EVENT</p>
@@ -314,6 +332,20 @@ export default function Header() {
                         }      
                     </ul>
                 </div>
+                :
+                <>
+                    <div className="headerNavContent">
+                        <ul className="headerNavUl">
+                            <p className='headerNavH'>관리자 메뉴</p>
+                            <Link to={'/manager/carlist'} style={{textDecoration:'none'}}><li className='headerNavLi' onClick={() => window.scrollTo(0,0)}><div>차량관리</div> <div className='headerNavpointer'><i className="bi bi-chevron-right"></i></div></li><br /></Link>
+                            <Link to={'/manager/userlist'} style={{textDecoration:'none'}}><li className='headerNavLi' onClick={() => window.scrollTo(0,0)}><div>회원관리</div> <div className='headerNavpointer'><i className="bi bi-chevron-right"></i></div></li><br /></Link>
+                            <Link to={'/manager/reservationlist'} style={{textDecoration:'none'}}><li className='headerNavLi' onClick={() => window.scrollTo(0,0)}><div>예약관리</div> <div className='headerNavpointer'><i className="bi bi-chevron-right"></i></div></li><br /></Link>
+                            <Link to={'/customerservice/notice'} style={{textDecoration:'none'}}><li className='headerNavLi' onClick={() => window.scrollTo(0,0)}><div>공지사항</div> <div className='headerNavpointer'><i className="bi bi-chevron-right"></i></div></li><br /></Link>
+                            <Link to={'/customerservice/inquiry'} style={{textDecoration:'none'}}><li className='headerNavLi' onClick={() => window.scrollTo(0,0)}><div>1:1 문의</div> <div className='headerNavpointer'><i className="bi bi-chevron-right"></i></div></li><br /></Link>
+                        </ul>
+                    </div>
+                </>
+                }
             </nav>
         </div>
     );
