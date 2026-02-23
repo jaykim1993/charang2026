@@ -6,71 +6,75 @@ import './CarRegPage.css';
 
 export default function CarRegPage(){
 
+    // 모든 값 하나의 객체로 관리
+    const [regCar, setRegCar] = useState({
+        brand:'', // 브랜드 이름
+        model:'', // 모델 이름
+        color:'', // 색상
+        plateNumber:'', // 차량 번호
+        modelYear:'', // 년도
+        driverMinAge:'', // 최소 나이
+        kmPer:'', // 연비
+        priceValue:'', // 가격
+        seats:'', // 좌석
+        brandLogo:null, // 브랜드 이미지
+        carImg:null, // 차량 이미지
+        branchId:1, // 지점 아이디
+        licenseType:1, // 면허 종류
+        carSize:'경소형',
+        carType:'승용',
+        fuelType:'하이브리드',
+        navigation:1,
+        rearCamera:1,
+        heatSeat:1,
+        heatHandle:1,
+        bluetooth:1,
+        smartKey:1,
+        sunRoof:1,
+    })
+
     // 화면 이동 훅
     const navi = useNavigate();
 
-    // 차량 입력값 담는 상태변수
-    // 텍스트 및 숫자 입력값
-    const [brand, setBrand] = useState('');
-    const [model, setModel] = useState('');
-    const [color, setColor] = useState('');
-    const [plateNumber, setPlateNumber] = useState('');
-    const [modelYear, setModelYear] = useState('');
-    const [driverMinAge, setDriverMinAge] = useState('');
-    const [kmPer, setKmPer] = useState('');
-    const [priceValue, setPriceValue] = useState('');
-    const [seats, setSeats] = useState('');
-
-    // 파일 입력값
-    const [brandLogo, setBrandLogo] = useState(null);
-    const [carImg, setCarImg] = useState(null);
-
-    // 선택 입력값
-    const [branchId, setBranchId] = useState(1);
-    const [licenseType, setLicenseType] = useState(1);
-    const [carSize, setCarSize] = useState('경소형');
-    const [carType, setCarType] = useState('승용');
-    const [fuelType, setFuelType] = useState('하이브리드');
-
-    // 옵션 선택 (유: 1, 무: 0)
-    const [navigation, setNavigation] = useState(1);
-    const [rearCamera, setRearCamera] = useState(1);
-    const [heatSeat, setHeatSeat] = useState(1);
-    const [heatHandle, setHeatHandle] = useState(1);
-    const [bluetooth, setBluetooth] = useState(1);
-    const [smartKey, setSmartKey] = useState(1);
-    const [sunRoof, setSunRoof] = useState(1);
-
     // 차량 등록 핸들러
     const regHandler = () => {
-        axios.post("/api/addCar",
-            {
-            brand: brand,
-            model: model,
-            color: color,
-            plateNumber: plateNumber,
-            modelYear: modelYear,
-            branchId: branchId,
-            licenseType: licenseType,
-            driverMinAge: driverMinAge,
-            kmPer: kmPer,
-            priceValue: priceValue,
-            seats: seats,
-            carSize: carSize,
-            carType: carType,
-            fuelType: fuelType,
-            navigation: navigation,
-            rearCamera: rearCamera,
-            heatSeat: heatSeat,
-            heatHandle: heatHandle,
-            bluetooth: bluetooth,
-            smartKey: smartKey,
-            sunRoof: sunRoof 
-            })
+
+        // int로 값이 전달되어야하는 key
+        const intPart = [
+        'modelYear', 'seats', 'branchId', 'licenseType', 
+        'driverMinAge', 'navigation', 'rearCamera', 
+        'heatSeat', 'heatHandle', 'bluetooth', 'smartKey', 'sunRoof'
+        , 'priceValue'
+        ];
+
+        const formData = new FormData();
+
+        for(let key in regCar){
+            // 브랜드 로고 이미지
+            if(key === 'brandLogo'){
+                formData.append('brandLogoImg',regCar[key]);
+            }
+            // 차량 이미지
+            else if(key === 'carImg'){
+                formData.append('carImgImg',regCar[key]);
+            }
+            // int로 값이 전달되어야하는 것
+            else if(intPart.includes(key)){
+                formData.append(key,Number(regCar[key]));
+                console.log(typeof regCar.priceValue);
+            }
+            else{
+                formData.append(key,regCar[key]);
+            }
+        }
+
+        console.log(regCar);
+
+        axios.post("/api/addCar",formData)
         .then((res) => {
             console.log("등록 결과", res.data);
             // 등록 성공
-            if(res.data){
+            if(res.data === 1){
                 alert("차량 등록이 완료되었습니다.");
                 navi('/manager/carlist');
             }
@@ -83,6 +87,20 @@ export default function CarRegPage(){
             console.log("차량 등록 에러: ", error);
         })
     }
+
+    // 공통 입력 처리 함수
+    const inputHandler = (e) => {
+        // input의 name 값 가져오기
+        const inputName = e.target.name;
+
+        if(e.target.type === 'file' && e.target.name === 'brandLogo'){
+            setRegCar({...regCar,[inputName]:e.target.files[0]});
+        }else if(e.target.type === 'file' && e.target.name === 'carImg')
+            setRegCar({...regCar,[inputName]:e.target.files[0]});
+        else{
+            setRegCar({...regCar,[inputName]:e.target.value});
+        }
+    }
     
 
     return(
@@ -94,53 +112,53 @@ export default function CarRegPage(){
                         <td>브랜드</td>
                         <td>
                             <input type="text" name="brand" 
-                            placeholder='예) 제네러스' onChange={(e)=>setBrand(e.target.value)}/>
+                            placeholder='예) 제네러스' onChange={inputHandler}/>
                         </td>
                     </tr>
                     <tr>
                         <td>브랜드 로고 이미지</td>
                         <td>
-                            <input type="file" name="brandLogo" onChange={(e)=>setBrandLogo(e.target.value)}/>
+                            <input type="file" name="brandLogo" onChange={inputHandler}/>
                         </td>
                     </tr>
                     <tr>
                         <td>모델명</td>
                         <td>
                             <input type="text" name="model" 
-                            placeholder='예) GG80' onChange={(e)=>setModel(e.target.value)}/>
+                            placeholder='예) GG80' onChange={inputHandler}/>
                         </td>
                     </tr>
                     <tr>
                         <td>차량 이미지</td>
                         <td>
-                            <input type="file" name="carImg" onChange={(e)=>setCarImg(e.target.value)}/>
+                            <input type="file" name="carImg" onChange={inputHandler}/>
                         </td>
                     </tr>
                     <tr>
                         <td>색상</td>
                         <td>
                             <input type="text" name="color" 
-                            placeholder='예) white' onChange={(e)=>setColor(e.target.value)}/>
+                            placeholder='예) white' onChange={inputHandler}/>
                         </td>
                     </tr>
                     <tr>
                         <td>차량 번호</td>
                         <td>
                             <input type="text" name="plateNumber" 
-                            placeholder='예) 00호0000' onChange={(e)=>setPlateNumber(e.target.value)}/>
+                            placeholder='예) 00호0000' onChange={inputHandler}/>
                         </td>
                     </tr>
                     <tr>
                         <td>연식</td>
                         <td>
                             <input type="text" name="modelYear" 
-                            placeholder='예) 2026' onChange={(e)=>setModelYear(e.target.value)}/>
+                            placeholder='예) 2026' onChange={inputHandler}/>
                         </td>
                     </tr>
                     <tr>
                         <td>지점 코드</td>
                         <td>
-                            <select value={branchId} onChange={(e)=>setBranchId(e.target.value)}>
+                            <select name="branchId" onChange={inputHandler}>
                                 <option value={1}>인천공항 지점</option>
                                 <option value={2}>김포공항 지점</option>
                                 <option value={3}>서울동부 지점</option>
@@ -152,7 +170,7 @@ export default function CarRegPage(){
                     <tr>
                         <td>요구 면허종류</td>
                         <td>
-                            <select value={licenseType} onChange={(e)=>setLicenseType(e.target.value)}>
+                            <select name="licenseType" onChange={inputHandler}>
                                 <option value={1}>1종</option>
                                 <option value={2}>2종</option>
                             </select>
@@ -161,62 +179,62 @@ export default function CarRegPage(){
                     <tr>
                         <td>최소나이</td>
                         <td>
-                            <input type="number" name="driverMinAge" onChange={(e)=>setDriverMinAge(e.target.value)}/>
+                            <input type="number" name="driverMinAge" onChange={inputHandler}/>
                         </td>
                     </tr>
                     <tr>
                         <td>연비</td>
                         <td>
-                            <input type="text" name="kmPer" onChange={(e)=>setKmPer(e.target.value)}/>
+                            <input type="text" name="kmPer" onChange={inputHandler}/>
                         </td>
                     </tr>
                     <tr>
                         <td>브랜드 가중치</td>
                         <td>
-                            <input type="number" name="priceValue" onChange={(e)=>setPriceValue(e.target.value)}/>
+                            <input type="number" name="priceValue" onChange={inputHandler}/>
                         </td>
                     </tr>
                     <tr>
                         <td>좌석 수</td>
                         <td>
-                            <input type="number" name="seats" onChange={(e)=>setSeats(e.target.value)}/>
+                            <input type="number" name="seats" onChange={inputHandler}/>
                         </td>
                     </tr>
                     <tr>
                         <td>차량 크기</td>
                         <td>
-                            <select value={carSize} onChange={(e)=>setCarSize(e.target.value)}>
-                                <option value={"경소형"}>1종</option>
-                                <option value={"대형"}>1종 대형</option>
-                                <option value={"중형"}>2종</option>
+                            <select name="carSize" onChange={inputHandler}>
+                                <option value="경소형">1종</option>
+                                <option value="대형">1종 대형</option>
+                                <option value="중형">2종</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>차량 타입</td>
                         <td>
-                            <select value={carType} onChange={(e)=>setCarType(e.target.value)}>
-                                <option value={"승용"}>승용</option>
-                                <option value={"SUV"}>SUV</option>
-                                <option value={"RV"}>RV</option>
-                                <option value={"화물"}>화물</option>
+                            <select name="carType" onChange={inputHandler}>
+                                <option value="승용">승용</option>
+                                <option value="SUV">SUV</option>
+                                <option value="RV">RV</option>
+                                <option value="화물">화물</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>연료 타입</td>
                         <td>
-                            <select value={fuelType} onChange={(e)=>setFuelType(e.target.value)}>
-                                <option value={"하이브리드"}>하이브리드</option>
-                                <option value={"휘발유"}>휘발유</option>
-                                <option value={"경유"}>경유</option>
+                            <select name="fuelType" onChange={inputHandler}>
+                                <option value="하이브리드">하이브리드</option>
+                                <option value="휘발유">휘발유</option>
+                                <option value="경유">경유</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>네비게이션</td>
                         <td>
-                            <select value={navigation} onChange={(e)=>setNavigation(e.target.value)}>
+                            <select name="navigation" onChange={inputHandler}>
                                 <option value={1}>유</option>
                                 <option value={0}>무</option>
                             </select>
@@ -225,7 +243,7 @@ export default function CarRegPage(){
                     <tr>
                         <td>후방카메라</td>
                         <td>
-                            <select value={rearCamera} onChange={(e)=>setRearCamera(e.target.value)}>
+                            <select name="rearCamera" onChange={inputHandler}>
                                 <option value={1}>유</option>
                                 <option value={0}>무</option>
                             </select>
@@ -234,7 +252,7 @@ export default function CarRegPage(){
                     <tr>
                         <td>열선시트</td>
                         <td>
-                            <select value={heatSeat} onChange={(e)=>setHeatSeat(e.target.value)}>
+                            <select name="heatSeat" onChange={inputHandler}>
                                 <option value={1}>유</option>
                                 <option value={0}>무</option>
                             </select>
@@ -243,7 +261,7 @@ export default function CarRegPage(){
                     <tr>
                         <td>핸들열선</td>
                         <td>
-                            <select value={heatHandle} onChange={(e)=>setHeatHandle(e.target.value)}>
+                            <select name="heatHandle" onChange={inputHandler}>
                                 <option value={1}>유</option>
                                 <option value={0}>무</option>
                             </select>
@@ -252,7 +270,7 @@ export default function CarRegPage(){
                     <tr>
                         <td>블루투스</td>
                         <td>
-                            <select value={bluetooth} onChange={(e)=>setBluetooth(e.target.value)}>
+                            <select name="bluetooth" onChange={inputHandler}>
                                 <option value={1}>유</option>
                                 <option value={0}>무</option>
                             </select>
@@ -261,7 +279,7 @@ export default function CarRegPage(){
                     <tr>
                         <td>스마트키</td>
                         <td>
-                            <select value={smartKey} onChange={(e)=>setSmartKey(e.target.value)}>
+                            <select name="smartKey" onChange={inputHandler}>
                                 <option value={1}>유</option>
                                 <option value={0}>무</option>
                             </select>
@@ -270,7 +288,7 @@ export default function CarRegPage(){
                     <tr>
                         <td>썬루프</td>
                         <td>
-                            <select value={sunRoof} onChange={(e)=>setSunRoof(e.target.value)}>
+                            <select name="sunRoof" onChange={inputHandler}>
                                 <option value={1}>유</option>
                                 <option value={0}>무</option>
                             </select>

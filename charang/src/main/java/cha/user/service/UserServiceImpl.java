@@ -13,10 +13,30 @@ import cha.user.mapper.UserMapper;
 public class UserServiceImpl implements UserService {
    // 전체 회원 출력
 	@Override
-	public List<UserDTO> getAllUser() {
+	public List<UserDTO> getAllUser(int startRow, int pageSize) {
 		System.out.println("전체 회원 출력 서비스");
-		return usermapper.selectAllUser();
+		return usermapper.selectAllUser(startRow, pageSize);
 	}
+	// 전체 회원 개수
+   @Override
+   public int getAllCount() {
+	   System.out.println("전체 회원 개수 서비스");
+		return usermapper.getAllCnt();
+   }
+	
+	// 검색 회원 출력
+   @Override
+   public List<UserDTO> getSearchUser(String search,int startRow, int pageSize) {
+	   System.out.println("검색 회원 출력 서비스");
+	   return usermapper.getUserSearch(search,startRow,pageSize);
+   }
+   // 검색 회원 개수 
+   @Override
+   public int getSearchCount(String search) {
+	   System.out.println("검색 회원 개수 서비스");
+	   return usermapper.getUserSearchCount(search);
+   }
+   
 
    // ȸ        ߺ 
    public final static int user_duplicate = 0;
@@ -100,4 +120,6 @@ public class UserServiceImpl implements UserService {
       System.out.println("MemberService existUserId() ޼ҵ  Ȯ  ");
        return usermapper.existUserId(userId);
    }
+
+
 }

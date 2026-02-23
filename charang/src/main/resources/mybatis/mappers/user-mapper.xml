@@ -8,8 +8,26 @@
    <!-- 전체 회원 출력
 	List<UserDTO> selectAllUser(); -->
 	<select id="selectAllUser" resultType="userDTO">
-		SELECT * FROM user
+		SELECT * FROM user LIMIT #{startRow}, #{pageSize}
 	</select>
+	
+	<!-- 전체 회원 개수
+	public int getAllCnt(); -->
+	<select id="getAllCnt" resultType="int">
+		SELECT COUNT(*) FROM user
+	</select>
+	
+	<!-- 검색 회원 출력
+   public List<UserDTO> getUserSearch(String search); -->
+   <select id="getUserSearch" resultType="userDTO">
+   		SELECT * FROM user WHERE name LIKE CONCAT("%",#{search},"%") LIMIT #{startRow}, #{pageSize}
+   </select>
+   
+   <!-- 검색 회원 개수
+   public int getUserSearchCount(String search); -->
+   <select id="getUserSearchCount" resultType="int">
+   		SELECT COUNT(*) FROM user WHERE name LIKE CONCAT("%",#{search},"%")
+   </select>
 
    <!-- 회원 가입 INSERT -->
    <insert id="insertUser" parameterType="userDTO">

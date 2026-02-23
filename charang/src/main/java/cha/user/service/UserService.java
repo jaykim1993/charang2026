@@ -6,7 +6,14 @@ import cha.user.dto.UserDTO;
 
 public interface UserService {
    // 전체 회원 출력 메서드
-	public List<UserDTO> getAllUser();
+	public List<UserDTO> getAllUser(int startRow, int pageSize);
+   // 전체 회원 개수
+   public int getAllCount();
+   
+   // 검색 회원 출력
+   public List<UserDTO> getSearchUser(String search, int startRow, int pageSize);
+   // 검색 회원 개수 
+   public int getSearchCount(String search);
    
    //ȸ    Ƶ     ߺ üũ
    public boolean existUserId(String userId);
@@ -31,4 +38,5 @@ public interface UserService {
    
    // α   
    public UserDTO loginConfirm(UserDTO udto);
+
 }

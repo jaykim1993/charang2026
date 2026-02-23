@@ -86,9 +86,9 @@ export default function Header() {
                                             관리자 메뉴
                                         </button>
                                         <div className="header-manager-dropdown-menu">
-                                            <Link to="/" className='item'>차량관리</Link>
-                                            <Link to="/" className='item'>회원관리</Link>
-                                            <Link to="/" className='item'>예약관리</Link>
+                                            <Link to="/manager/carlist" className='item'>차량관리</Link>
+                                            <Link to="/manager/userlist" className='item'>회원관리</Link>
+                                            <Link to="/manager/reservationlist" className='item'>예약관리</Link>
                                             <Link to="/" className='item'>공지사항</Link>
                                             <Link to="/" className='item'>1:1 문의</Link>
                                         </div>

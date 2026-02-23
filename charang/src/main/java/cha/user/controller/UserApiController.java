@@ -1,6 +1,8 @@
 package cha.user.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cha.PageHandler;
 import cha.user.dto.UserDTO;
 import cha.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -22,10 +26,42 @@ public class UserApiController {
 	@Autowired
 	UserService userservice;
 	
-	@GetMapping("/alluser")
-	public List<UserDTO> getAllUserList(){
-		System.out.println("회원 전체 출력 컨트롤러");
-		return userservice.getAllUser();
+	// 전체 회원 출력
+//	@GetMapping("/alluser")
+//	public List<UserDTO> getAllUserList(){
+//		System.out.println("회원 전체 출력 컨트롤러");
+//		return userservice.getAllUser();
+//	}
+	
+	// 검색 회원 출력
+	@GetMapping("/searchUser")
+	public Map<String, Object> getSearchUserList(
+			@RequestParam(value="search", required=false) String search, // 검색어
+			@RequestParam( value="page", defaultValue = "1") int page, // 페이지 번호
+			@RequestParam( value="pageSize", defaultValue = "5") int pageSize // 한 화면에 보여지는 user개수
+			){
+		System.out.println("검색한 회원 출력 컨트롤러");
+		
+		List<UserDTO> userList;
+		PageHandler ph;
+		
+		Map<String, Object> result = new HashMap<>(); // userList, ph를 Map에 담아서 return할 예정
+		
+		// 검색어 존재 O
+		if(search != null && !search.trim().isEmpty()) {
+			int totalCnt = userservice.getSearchCount(search);
+			ph = new PageHandler(totalCnt, page, pageSize); // 페이징 핸들러
+			userList = userservice.getSearchUser(search, ph.getStartRow(), pageSize); // 데이터
+		}
+		// 검색어 존재 X
+		else {
+			int totalCnt = userservice.getAllCount();
+			ph = new PageHandler(totalCnt, page, pageSize); // 페이징 핸들러
+			userList = userservice.getAllUser(ph.getStartRow(), pageSize);
+		}
+		result.put("list", userList);
+		result.put("ph", ph);
+		return result;
 	}
 	
 	//아이디 중복만 체크하는거

@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -107,42 +109,67 @@ public class CarApiController {
 	
 	// 차량 추가 컨트롤러
 	@PostMapping("/addCar")
-	public boolean addCarList(
+	public int addCarList(
 			// ★ 파일(이미지)와 dto를 동시에 받아야할 땐 FormData 사용, @RequestBody X 없애야함
-			@RequestBody CarDTO cdto, // RequestBody는 post만 가능(dto로 값을 받을 때)
+			@ModelAttribute CarDTO cdto, // RequestBody는 post만 가능(dto로 값을 받을 때)
 			// 이미지 받기(name이랑 동일해야함)
-			@RequestParam("brandLogoImg") MultipartFile brandLogoImg,
-			@RequestParam("carImg") MultipartFile carImg
+			@RequestParam(value="brandLogoImg",required=false) MultipartFile brandLogoImg,
+			@RequestParam(value="carImgImg",required=false) MultipartFile carImgImg
 			) throws IllegalStateException, IOException {
 		
 		System.out.println("차 컨트롤러 - 차량 추가 컨트롤러");
 		
 		// 01. 이미지 파일을 저장할 실제 하드디스크 위치 지정(webConfig에서 설정한 경로와 일치)
-		String savePath = "";
+		String savePath = "C:/rentcar2026/charang/frontend/public/images/cars/";
 		
 		// 02. 해당 폴더가 존재하지 않을 경우 자동생성
 		File saveDir = new File(savePath);
 		if(!saveDir.exists()) {
-			saveDir.mkdir();
+			saveDir.mkdirs();
 		}
 		
 		// 03. 이미지 업로드 처리
 		// 예외처리?
+		String fileName01 = "";
+		String fileName02 = "";
+		
 		if(!brandLogoImg.isEmpty()) {
+			// 사용자가 올린 파일명 가져옴
 			String originalName = brandLogoImg.getOriginalFilename();
 			
-			File file = new File(savePath+originalName); // 전체 파일명
+			// 파일명 중복해서 입력되지 않도록 UUID 클래스 이용
+			fileName01 = UUID.randomUUID().toString().substring(0,4)+"_"+originalName;
+			
+			// 파일
+			File file = new File(savePath+fileName01);
 			
 			// 서버에만 존재하던 파일이 실제 하드디스크에 생성됨
 			brandLogoImg.transferTo(file); // 자동으로 throws IllegalStateException, IOException 생김
 			
 			// DB에 저장
-			cdto.setBrandLogo(originalName);
+			cdto.setBrandLogo(fileName01);
+		}
+		
+		if(!carImgImg.isEmpty()) {
+			// 사용자가 올린 파일명 가져옴
+			String originalName = carImgImg.getOriginalFilename();
+			
+			// 파일명 중복해서 입력되지 않도록 UUID 클래스 이용
+			fileName02 = UUID.randomUUID().toString().substring(0,4)+"_"+originalName;
+			
+			// 파일
+			File file = new File(savePath+fileName02);
+			
+			// 서버에만 존재하던 파일이 실제 하드디스크에 생성됨
+			carImgImg.transferTo(file); // 자동으로 throws IllegalStateException, IOException 생김
+			
+			// DB에 저장
+			cdto.setCarImg(fileName02);
 		}
 		
 		// 이미지까지 들어간 최종 cdto로 DB로 접근
-		boolean result = carservice.addCar(cdto);
-		return result;
+		carservice.addCar(cdto);
+		return 1;
 		
 
 	}

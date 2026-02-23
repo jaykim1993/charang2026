@@ -4,6 +4,24 @@
 
 <mapper namespace="cha.car.mapper.CarMapper">
 
+	<!-- 차량 추가 메서드
+	public int insertCar(CarDTO cdto); -->
+	<insert id="insertCar" parameterType="carDTO">
+		INSERT INTO car (
+	        carImg, brandLogo, brand, model, color, 
+	        plateNumber, modelYear, seats, carSize, carType, 
+	        fuelType, branchId, licenseType, driverMinAge, kmPer, 
+	        priceValue, navigation, rearCamera, heatSeat, heatHandle, 
+	        bluetooth, smartKey, sunRoof
+    	) VALUES (
+	        #{carImg}, #{brandLogo}, #{brand}, #{model}, #{color}, 
+	        #{plateNumber}, #{modelYear}, #{seats}, #{carSize}, #{carType}, 
+	        #{fuelType}, #{branchId}, #{licenseType}, #{driverMinAge}, #{kmPer}, 
+	        #{priceValue}, #{navigation}, #{rearCamera}, #{heatSeat}, #{heatHandle}, 
+	        #{bluetooth}, #{smartKey}, #{sunRoof}
+    	)
+	</insert>
+
     <!-- 전체 차량 리스트 메서드
 	public List<CarDTO> getAllCar(); -->
 	<select id="getAllCar" resultType="carDTO">

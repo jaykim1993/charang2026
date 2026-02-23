@@ -3,6 +3,7 @@ package cha.user.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import cha.user.dto.UserDTO;
 
@@ -17,7 +18,21 @@ public interface UserMapper {
    public final static int userid_fail = -1;
    */
   	// 전체 회원 출력
-	public List<UserDTO> selectAllUser();
+	public List<UserDTO> selectAllUser(
+		   @Param("startRow") int startRow,
+		   @Param("pageSize") int pageSize
+			);
+	// 전체 회원 개수
+	public int getAllCnt();
+	
+   // 검색 회원 출력
+   public List<UserDTO> getUserSearch(
+		   @Param("search") String search,
+		   @Param("startRow") int startRow,
+		   @Param("pageSize") int pageSize
+		   );
+   // 검색 회원 개수
+   public int getUserSearchCount(String search);
    
    //ȸ        ߰ 
    public int insertUser(UserDTO udto);
