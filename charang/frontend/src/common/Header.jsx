@@ -81,7 +81,7 @@ export default function Header() {
                         <div className='hLogoWrap'>
                             <div className='hLogo animate-logo'><img className='headerLogo' src='/charangcharang_logo_white.png'/></div>
                             
-                            <p className='hLogoP'>빠르고 편한 렌트는 차랑차랑!</p>
+                            <p className='hLogoP'>당신의 출발을 더 가볍게, 차랑차랑</p>
                         </div>
                         
                     </Link>
@@ -233,10 +233,21 @@ export default function Header() {
 
             {/* 사이드 네비 */}
             {isNavOpen && <div className='sideNavOverlay' onClick={closeNav}></div>}
-            <nav className={`headerNavSide ${isNavOpen ? "on" : ""}`}>
-                <button className="headerBtnX" onClick={closeNav}>
+            <nav
+            className={`headerNavSide ${isNavOpen ? "on" : ""}`}
+            onClick={closeNav}
+            >
+                <button
+                    className="headerBtnX"
+                    onClick={(e) => {
+                    e.stopPropagation();
+                    closeNav();
+                    }}
+                >
                     <i className="bi bi-x"></i>
                 </button>
+
+
                 {/* 관리자 모드 업데이트. 26.02.23 성중 */}
                 {userid != "admin"?
                 <div className="headerNavContent">
@@ -336,7 +347,8 @@ export default function Header() {
                 <>
                     <div className="headerNavContent">
                         <ul className="headerNavUl">
-                            <p className='headerNavH'>관리자 메뉴</p>
+                            <br/>
+                            <h3 className='headerNavH'>관리자 메뉴</h3>
                             <Link to={'/manager/carlist'} style={{textDecoration:'none'}}><li className='headerNavLi' onClick={() => window.scrollTo(0,0)}><div>차량관리</div> <div className='headerNavpointer'><i className="bi bi-chevron-right"></i></div></li><br /></Link>
                             <Link to={'/manager/userlist'} style={{textDecoration:'none'}}><li className='headerNavLi' onClick={() => window.scrollTo(0,0)}><div>회원관리</div> <div className='headerNavpointer'><i className="bi bi-chevron-right"></i></div></li><br /></Link>
                             <Link to={'/manager/reservationlist'} style={{textDecoration:'none'}}><li className='headerNavLi' onClick={() => window.scrollTo(0,0)}><div>예약관리</div> <div className='headerNavpointer'><i className="bi bi-chevron-right"></i></div></li><br /></Link>

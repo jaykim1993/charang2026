@@ -18,7 +18,10 @@ public interface BookingMapper {
 	// 예약 추가 메서드
 	public int insertBooking(BookingDTO bdto);
 	
-	// 예약 삭제 메서드
+	// 예약 삭제 메서드(회원용)
 	public int deleteBooking(String bookingId);
+	
+	// 선택 예약 다수 삭제 메서드(관리자용)
+	public int deleteSelectedBookings(List<String> bookingId);
 	
 }

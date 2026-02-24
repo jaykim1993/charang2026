@@ -14,15 +14,22 @@
 		WHERE userId = #{userId}
 	</select>
 	
-	<!-- 선택 예약 목록 출력 -->
+	<!-- 예약 추가 -->
 	<insert id="insertBooking" parameterType="bookingDTO">
-		INSERT INTO booking(bookingId, userId, carId, bookedDate, startDate, startTime, endDate, endTime, carPrice, insurancePrice, totalPrice)
-		VALUES(#{bookingId}, #{userId}, #{carId}, #{bookedDate}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{carPrice}, #{insurancePrice}, #{totalPrice})
+		INSERT INTO booking(bookingId, userId, carId, bookedDate, startDate, startTime, endDate, endTime, carPrice, insurancePrice, totalPrice, paymentMethod)
+		VALUES(#{bookingId}, #{userId}, #{carId}, #{bookedDate}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{carPrice}, #{insurancePrice}, #{totalPrice}, #{paymentMethod})
 	</insert>
 
-	<!-- 선택 예약 삭제 -->
+	<!-- 예약 삭제 단일(회원용)-->
 	<delete id="deleteBooking" parameterType="String">
 		DELETE FROM booking WHERE bookingId = #{bookingId}
 	</delete>
 	
+	<!-- 선택 예약 삭제(관리자용) -->
+	<delete id="deleteSelectedBookings" parameterType="String">
+		DELETE FROM booking WHERE bookingId IN
+		<foreach item="id" collection="list" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
 </mapper>

@@ -84,7 +84,7 @@ export default function DataProvider({children}){
     <>
       <DataContext.Provider 
       value={{car, branch, find, setSearchType, setSearchWord,
-       searchCar, pageNum, setPageNum, pagesHandler, paging}}>
+       searchCar, pageNum, setPageNum, pagesHandler, paging, setPaging}}>
         {children}
       </DataContext.Provider>
     </>
