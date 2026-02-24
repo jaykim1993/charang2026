@@ -87,9 +87,9 @@ public class UserServiceImpl implements UserService {
    }
    
    @Override
-   public boolean delUser(String userId) {
+   public boolean delUser(List<String> delIdList) {
       System.out.println("User      ȸ      /Ż  ");
-      return usermapper.delUser(userId) == 1;
+      return usermapper.delUser(delIdList) == 1;
    }
 
    @Override

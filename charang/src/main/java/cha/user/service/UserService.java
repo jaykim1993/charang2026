@@ -28,7 +28,7 @@ public interface UserService {
    public boolean modUser(UserDTO udto);
    
    //ȸ   Ż  
-   public boolean delUser(String userId);
+   public boolean delUser(List<String> delIdList);
    
    // ѻ          ȸ
    public UserDTO oneUser(String userId);

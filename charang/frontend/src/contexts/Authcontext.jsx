@@ -125,11 +125,12 @@ export default function AuthProvider({children}){
     }
 
     const delHandler = () => {
-        axios.post("/api/userDelete",delUser)
+        axios.delete("/api/delete",{data:delUser})
         .then((res)=>{
             console.log("삭제 결과: ", res.data);
-            if(res.data){
+            if(res.data == 1){
                 alert("삭제되었습니다");
+                find();
             }else{
                 alert("다시 시도해주세요.");
             }
@@ -161,7 +162,8 @@ export default function AuthProvider({children}){
             paging,
             delHandler,
             checkHandler,
-            setPageNum
+            setPageNum,
+            pageNum
             }}>
             {children}
         </AuthContext.Provider>

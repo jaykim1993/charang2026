@@ -1,12 +1,34 @@
 import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/Datacontext";
+import { useNavigate } from "react-router-dom";
 
 import './AllCarPage.css';
 import axios from "axios";
 
 export default function AllCarPage(){
 
-    const {car, find, setSearchType, setSearchWord, searchCar, pageNum, setPageNum, pagesHandler, paging} = useContext(DataContext);
+    const {pageNum, setPageNum, pagesHandler, paging, setPaging} = useContext(DataContext);
+
+    // 검색 onclick()
+    //  검색 차량 출력(검색값 보내기)
+    const [searchType, setSearchType] = useState('carName');
+    const [searchWord, setSearchWord] = useState('');
+    const [searchCar, setSearchCar] = useState([]);
+
+    const find = () => {
+        // http://api/searchcar/searchType=검색타입&&searchWord="검색단어"
+        axios.get("/api/searchCar",{params:{searchType:searchType, searchWord:searchWord, page:pageNum}})
+        .then((res)=>{
+            console.log("확인" , res.data.list);
+            setPaging(res.data.ph); // 페이징
+            setSearchCar(res.data.list); // 가져온 데이터
+        })
+        .catch((error)=>{
+            console.log("검색 차량 출력 에러: ", error);
+        })
+    }
+
+    const navigate = useNavigate();
 
     // 처음 실행할때 find실행하여 전체 출력
     useEffect(()=>{
@@ -17,10 +39,6 @@ export default function AllCarPage(){
     useEffect(()=>{
         find();
     },[pageNum]);
-
-    useEffect(() => {
-        console.log("paging 상태가 변경됨!! : ", paging);
-    }, [paging]); // paging 값이 바뀔 때마다 실행됨
 
     // 삭제 차량의 id를 담는 상태변수
     const [delCar, setDelCar] = useState([]);
@@ -56,6 +74,7 @@ export default function AllCarPage(){
                 console.log("삭제 결과: ", res.data);
                 if(res.data){
                     alert("삭제되었습니다.");
+                    find();
                 }else{
                     alert("다시 시도해주세요.");
                 }
@@ -64,6 +83,11 @@ export default function AllCarPage(){
                 console.log("받아온 삭제 결과 에러: ", error);
             })
         }
+    }
+
+    // 해당 차량 상세보기
+    const detailHandler = (carId) => {
+        navigate(`/manager/carDetail/${carId}`);
     }
 
     return(
@@ -77,7 +101,7 @@ export default function AllCarPage(){
             </select>
             {/* 검색 */}
             <input type="text" name="searchWord" onChange={(e)=> setSearchWord(e.target.value)}/>
-            <button type="button" onClick={find}>검색</button>
+            <button className="acp_btn" type="button" onClick={find}>검색</button>
 
             <table className="m_AllCar_table">
                 <thead className="m_AllCar_th">
@@ -94,8 +118,8 @@ export default function AllCarPage(){
                     {searchCar && searchCar.length > 0 ?
                         searchCar.map((item,index)=>(
                             <tr className="m_AllCar_tr" key={index}>
-                                <td className="m_AllCar_tableNum">{item.carId}</td>
-                                <td className="m_AllCar_tableCarImg">
+                                <td className="m_AllCar_tableNum">{index+1}</td>
+                                <td className="m_AllCar_tableCarImg" onClick={()=>detailHandler(item.carId)}>
                                     <img src={`/images/cars/${item.carImg}`} alt={item.carImg}/>
                                 </td>
                                 <td className="m_AllCar_tableCar">{item.brand} / {item.model}</td>
@@ -142,7 +166,7 @@ export default function AllCarPage(){
                     )}
                 </div>
             <div className="btn_part">
-                <button className="del_btn" onClick={delHandler}>삭제하기</button>
+                <button className="acp_btn" onClick={delHandler}>삭제하기</button>
             </div>
         </div>
     )

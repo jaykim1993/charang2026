@@ -1,5 +1,6 @@
 package cha.user.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +43,8 @@ public class UserApiController {
 			@RequestParam( value="pageSize", defaultValue = "5") int pageSize // 한 화면에 보여지는 user개수
 			){
 		System.out.println("검색한 회원 출력 컨트롤러");
+		
+		System.out.println(page);
 		
 		List<UserDTO> userList;
 		PageHandler ph;
@@ -101,27 +105,61 @@ public class UserApiController {
 		}
 	
 	// 유저개인정보
-	@GetMapping("/userinfo")
-	public UserDTO myInfo(HttpSession session) {
-			System.out.println("api��Ʈ�ѷ� myinfo ��û��");
+	@GetMapping("/userinfo/{userId}")
+	public UserDTO myInfo(
+			HttpSession session,
+			@PathVariable("userId") String userId
+			) {
+			System.out.println("유저 개인 정보 컨트롤러");
 			String loginId = (String) session.getAttribute("loginUser");
+			System.out.println("유저 개인: "+userId);
+			
 			if(loginId == null) {
 				return null;
 			}
-			return userservice.oneUser(loginId);
-		}
+			
+			// 관리자일 경우
+			if(loginId.equals("admin")) {
+				return userservice.oneUser(userId);
+			}
+			// 개인 유저일 경우
+			else {
+				return userservice.oneUser(loginId);
+			}
+	}
 	
 	
 	//유저삭제
 	@DeleteMapping("/delete")
-	public int delete(HttpSession session) {
+	public int delete(
+			HttpSession session,
+			@RequestBody List<String> userId
+			) {
+		System.out.println("회원 삭제 컨트롤러");
 		String loginId = (String) session.getAttribute("loginUser");
 		if(loginId == null) {
 			return 0;
 		}
-		boolean result = userservice.delUser(loginId);
+		
+		// 삭제할 아이디를 담을 list 생성
+		List<String> delIdList = new ArrayList<String>();
+		
+		// 관리자일 경우
+		if(loginId.equals("admin")) {
+			delIdList = userId; // 가져온 리스트배열 그대로 넣음
+		}
+		// 개인일 경우
+		else {
+			delIdList.add(loginId); // 본인 id만 넣음
+		}
+		
+		boolean result = userservice.delUser(delIdList);
+		
 		if(result) {
-			session.invalidate();
+			// 관리자가 아닐 경우에만 세션에서 삭제
+			if (!loginId.equals("admin")) {
+	            session.invalidate();
+	        }
 			return 1;
 		}else {
 			return 0;

@@ -86,5 +86,26 @@
 		</foreach>
 	</delete>
 	
+	<!-- 차량 상세보기 
+	public int oneCar(int carId); -->
+	<select id="oneCar" parameterType="int" resultType="carDTO">
+		SELECT * FROM car c
+		INNER JOIN branch b
+		ON c.branchId = b.branchId
+		WHERE carId=#{carId}
+	</select>
+	
+	<!-- 차량 수정하기
+	public int modCar(CarDTO carData); -->
+	<update id="modCar" parameterType="carDTO">
+		UPDATE car SET 
+		brand=#{brand}, model=#{model}, color=#{color}, 
+        plateNumber=#{plateNumber}, modelYear=#{modelYear}, seats=#{seats}, carSize=#{carSize}, carType=#{carType}, 
+        fuelType=#{fuelType}, branchId=#{branchId}, licenseType=#{licenseType}, driverMinAge=#{driverMinAge}, kmPer=#{kmPer}, 
+        priceValue=#{priceValue}, navigation=#{navigation}, rearCamera=#{rearCamera}, heatSeat=#{heatSeat}, heatHandle=#{heatHandle}, 
+        bluetooth=#{bluetooth}, smartKey=#{smartKey}, sunRoof=#{sunRoof}
+        WHERE carId=#{carId}
+	</update>
+	
 	
 </mapper>

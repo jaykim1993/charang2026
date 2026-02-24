@@ -39,36 +39,40 @@ export default function CarRegPage(){
     // 차량 등록 핸들러
     const regHandler = () => {
 
-        // int로 값이 전달되어야하는 key
-        const intPart = [
-        'modelYear', 'seats', 'branchId', 'licenseType', 
-        'driverMinAge', 'navigation', 'rearCamera', 
-        'heatSeat', 'heatHandle', 'bluetooth', 'smartKey', 'sunRoof'
-        , 'priceValue'
-        ];
-
         const formData = new FormData();
 
-        for(let key in regCar){
-            // 브랜드 로고 이미지
-            if(key === 'brandLogo'){
-                formData.append('brandLogoImg',regCar[key]);
-            }
-            // 차량 이미지
-            else if(key === 'carImg'){
-                formData.append('carImgImg',regCar[key]);
-            }
-            // int로 값이 전달되어야하는 것
-            else if(intPart.includes(key)){
-                formData.append(key,Number(regCar[key]));
-                console.log(typeof regCar.priceValue);
-            }
-            else{
-                formData.append(key,regCar[key]);
-            }
-        }
+      /// 파일만 별도로 추가
+       formData.append('brandLogoImg', regCar.brandLogo);
+       formData.append('carImgImg', regCar.carImg);
 
-        console.log(regCar);
+    const textData = {
+        brand: regCar.brand,
+        model: regCar.model,
+        color: regCar.color,
+        plateNumber: regCar.plateNumber,
+        modelYear: Number(regCar.modelYear),
+        driverMinAge: Number(regCar.driverMinAge),
+        kmPer: regCar.kmPer,
+        priceValue: Number(regCar.priceValue),
+        seats: Number(regCar.seats),
+        branchId: Number(regCar.branchId), 
+        licenseType: Number(regCar.licenseType),
+        carSize: regCar.carSize,
+        carType: regCar.carType,
+        fuelType: regCar.fuelType,
+        navigation: Number(regCar.navigation),
+        rearCamera: Number(regCar.rearCamera),
+        heatSeat: Number(regCar.heatSeat),
+        heatHandle: Number(regCar.heatHandle),
+        bluetooth: Number(regCar.bluetooth),
+        smartKey: Number(regCar.smartKey),
+        sunRoof: Number(regCar.sunRoof)
+    };
+
+    console.log("보낼 데이터: ",textData);
+
+    // JSON 문자열로 변환해서 testData 하나로 묶기
+    formData.append('carDTOData', JSON.stringify(textData));
 
         axios.post("/api/addCar",formData)
         .then((res) => {

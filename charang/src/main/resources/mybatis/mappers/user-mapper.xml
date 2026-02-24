@@ -47,8 +47,11 @@
    </update>
    
    <!-- 회원탈퇴 -->
-   <delete id="delUser" parameterType="String">
-      DELETE FROM user WHERE userId=#{userId}
+   <delete id="delUser" parameterType="userDTO">
+      DELETE FROM user WHERE userId IN
+      <foreach item="id" collection="list" open="(" separator="," close=")">
+      		#{id}
+      </foreach>
    </delete>
    
    <!-- 비밀번호 반환 -->

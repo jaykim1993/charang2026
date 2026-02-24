@@ -1,7 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/Authcontext";
+import { useNavigate } from "react-router-dom";
 
 import './AllUserPage.css';
+import axios from "axios";
 
 export default function AllUserPage(){
 
@@ -14,6 +16,13 @@ export default function AllUserPage(){
     useEffect(()=>{
         find();
     },[pageNum]);
+
+    // 해당 정보 상세보기 핸들러
+    const navigate = useNavigate();
+
+    const oneInfoClick = (userId) => {
+        navigate(`/manager/userDetail/${userId}`); // 주소창에 ID를 실어서 페이지 자체를 이동
+    }
 
     return(
         <div className="ManagerAllUser">
@@ -28,7 +37,7 @@ export default function AllUserPage(){
             <table className="managerAllUser_table" border={1}>
                 <thead className="managerAllUser_table_th">
                     <tr className="managerAllUser_tr">
-                        <th className="managerAllUser_num">번호</th>
+                        {/* <th className="managerAllUser_num">번호</th> */}
                         <th className="managerAllUser_userId">회원아이디</th>
                         <th className="managerAllUser_userName">회원이름</th>
                         <th className="managerAllUser_userEmail">이메일</th>
@@ -42,9 +51,15 @@ export default function AllUserPage(){
                     <tbody className="managerAllUser_table_tb">
                         {user.map((user,index) => (
                             <tr className="managerAllUser_tr" key={index}>
-                                <td>{index+1}</td>
-                                <td>{user.userId}</td>
-                                <td>{user.name}</td>
+                                {/* <td>{index+1}</td> */}
+                                <td>
+                                    <p>{user.userId}</p>
+                                </td>
+                                <td>
+                                    <div className="mau_name" onClick={()=>oneInfoClick(user.userId)}>
+                                        {user.name}
+                                    </div>
+                                </td>
                                 <td>{user.mail}</td>
                                 <td>{user.resistNum}</td>
                                 <td>{user.phone}</td>

@@ -47,4 +47,10 @@ public interface CarMapper {
 	public int SearchCount(
 			@Param("searchType") String searchType, 
 			@Param("searchKeyWord") String searchKeyWord);
+	
+	// 차량 상세보기 
+	public CarDTO oneCar(int carId);
+	
+	// 차량 수정하기
+	public int modCar(CarDTO carData);
 }

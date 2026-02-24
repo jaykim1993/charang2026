@@ -44,7 +44,7 @@ public interface UserMapper {
    public int modUser(UserDTO udto);
    
    //ȸ   Ż  
-   public int delUser(String userId);
+   public int delUser(List<String> delIdList);
    
    // ѻ          ȸ
    public UserDTO oneUser(String userId);

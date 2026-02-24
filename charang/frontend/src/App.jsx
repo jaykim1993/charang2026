@@ -14,10 +14,14 @@ import MypageDetail from './pages/MypageDetail'
 import MypageInquiry from './pages/MypageInquiry'
 import MypageMyinfo from './pages/MypageMyinfo'
 import MypageBooked from './pages/MypageBooked'
+
 import AllCarPage from './pages/Manager/AllCarPage';
 import AllReservationPage from './pages/Manager/AllReservationPage';
 import CarRegPage from './pages/Manager/CarRegPage';
 import AllUserPage from './pages/Manager/AllUserPage';
+import UserDetailPage from './pages/Manager/UserDetailPage';
+import CarDetailPage from './pages/Manager/CarDetailPage';
+import CarModPage from './pages/Manager/CarModPage';
 
 
 import AuthProvider from './contexts/Authcontext';
@@ -93,6 +97,9 @@ function App() {
                 <Route path="/manager/reservationlist" element={<AllReservationPage/>}/>
                 <Route path="/manager/carregister" element={<CarRegPage/>}/>
                 <Route path="/manager/userlist" element={<AllUserPage/>}/>
+                <Route path="/manager/userDetail/:userId" element={<UserDetailPage/>}/>
+                <Route path="/manager/carDetail/:carId" element={<CarDetailPage/>}/>
+                <Route path="/manager/modPage/:carId" element={<CarModPage/>}/>
               </Routes>
               <Footer />
             </BrowserRouter>
