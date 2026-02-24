@@ -144,6 +144,7 @@ export default function MypageDetail(){
                         {/* </div> */}
                         {/* <div> */}
                                 <p className='mypageDetailP'>결제</p>
+                                <h4>{bookedThis.paymentMethod}</h4>
                         <div style={{marginTop:'20px'}}>
                                 <div className='mybookDetailPriceBox'>
                                     <span className='DetailSpans'>차량 금액</span>
@@ -161,7 +162,7 @@ export default function MypageDetail(){
                         {/* </div> */}
                     </div>
                     <div className='mypageDetailBackBox' >
-                        <button className='mypageDetailBack' onClick={()=>{navigate(-1);window.scrollTo(0,0);}} >뒤로가기</button> 
+                        <button className='mypageDetailBack' onClick={()=>{navigate('/mypage/booked');}} >예약목록보기</button> 
                     </div>
                 </div>
         </>

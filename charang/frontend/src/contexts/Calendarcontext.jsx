@@ -22,7 +22,7 @@ useEffect(() => {
     setStartTime(parsed.startTime ?? "10:00");
     setEndTime(parsed.endTime ?? "10:00");
 
-    // ⭐ 이게 빠져 있었음
+    
     setBranchId(parsed.branchId ?? "");
     setLocation(parsed.location ?? "");
   }
@@ -107,7 +107,7 @@ const [branchId, setBranchId] = useState(
       .map((book) => book.carId);
   }, [bookedlistAll, startDate, endDate, startTime, endTime]);
 
-  console.log("이용 불가능한 차량 리스트", blockedCarIds);
+  // console.log("이용 불가능한 차량 리스트", blockedCarIds);
 
 
 

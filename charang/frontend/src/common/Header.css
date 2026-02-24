@@ -281,10 +281,10 @@
     overflow-x: hidden;
 }
 .headerNavSide::-webkit-scrollbar {
-  width: 5px;
+  width: 2px;
 }
 .headerNavSide::-webkit-scrollbar-thumb {
-  background:  #777;
+  background:  #065d8f98;
   border-radius: 3px;
 }
 .headerNavSide.on {

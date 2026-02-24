@@ -68,7 +68,6 @@ export default function Recentcar() {
     } = useContext(CalendarContext);
 
     const { fetchBookedList, calculatePrice } = useContext(BookingContext);
-    const { userid, setModal } = useContext(AuthContext);
     const { branch } = useContext(DataContext);
 
     // ================= 3. State (필요한 상태만 남김) =================
@@ -153,6 +152,8 @@ export default function Recentcar() {
     };
 
     const handleResetAll = () => {
+        setIsCalendar(false);
+        setIsLocation(false);
         setLocation("");
         setBranchId("");
         setStartDate(null);
@@ -368,7 +369,7 @@ export default function Recentcar() {
                 {/* 지점 모달 */}
                 {isLocation && (
                     <div className="R_location">
-                        <span className="R_close01" onClick={detailCloseHandler}><i className="bi bi-x-lg"></i></span>
+                        <div className="R_close01"><i className="bi bi-x-lg"  onClick={detailCloseHandler}></i></div>
                         {isDetail && detailSpot ? (
                             <div className="R_selectLocation_detail">
                                 <MapContainer center={[detailSpot.lat, detailSpot.lng]} zoom={15} style={{ height: "300px", width: "394px" }}>
@@ -385,60 +386,90 @@ export default function Recentcar() {
                             </div>
                         ) : (
                             <>
-                            <h3>지점을 선택하세요</h3>
-                            <div className="H_selectLocation">
-                                <span>서울</span>
-                                <div className="H_seoul">
-                                <div className="H_gu">
-                                    <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                                    <p className="searchCarP" onClick={()=>{setLocation("서울북부"); setBranchId(5);}}>
-                                        서울 북부 <span>노원구</span>
-                                    </p>
+                                <h3>지점을 선택하세요</h3>
+                                <div className="R_selectLocation">
+                                    <span>서울</span>
+                                    <div className="R_seoul">
+                                    <div className="R_gu">
+                                        <div className="R_Click">
+                                        <p
+                                            onClick={() => {
+                                                setLocation("서울북부");
+                                                setBranchId(5);
+                                                setIsLocation(false);
+                                            }}
+                                            >
+                                            서울 북부 <span>노원구</span>
+                                        </p>
+                                        </div>
+                                        <button className="R_detail" onClick={()=>setIsDetail(5)}>상세</button>
                                     </div>
-                                    <button className="H_detail" onClick={()=>setIsDetail(5)}>상세</button>
-                                </div>
 
-                                <div className="H_gu">
-                                    <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                                    <p className="searchCarP" onClick={()=>{setLocation("서울남부"); setBranchId(4);}}>
-                                        서울 남부 <span>서초구</span>
-                                    </p>
+                                    <div className="R_gu">
+                                        <div className="R_Click">
+                                        <p
+                                            onClick={() => {
+                                                setLocation("서울남부");
+                                                setBranchId(4);
+                                                setIsLocation(false);
+                                            }}
+                                            >
+                                            서울 남부 <span>서초구</span>
+                                        </p>
+                                        </div>
+                                        <button className="R_detail" onClick={()=>setIsDetail(4)}>상세</button>
                                     </div>
-                                    <button className="H_detail" onClick={()=>setIsDetail(4)}>상세</button>
-                                </div>
 
-                                <div className="H_gu">
-                                    <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                                    <p className="searchCarP" onClick={()=>{setLocation("서울동부"); setBranchId(3);}}>
-                                        서울 동부 <span>동대문구</span>
-                                    </p>
+                                    <div className="R_gu">
+                                        <div className="R_Click">
+                                        <p
+                                            onClick={() => {
+                                                setLocation("서울동부");
+                                                setBranchId(3);
+                                                setIsLocation(false);
+                                            }}
+                                            >
+                                            서울 동부 <span>동대문구</span>
+                                        </p>
+                                        </div>
+                                        <button className="R_detail" onClick={()=>setIsDetail(3)}>상세</button>
                                     </div>
-                                    <button className="H_detail" onClick={()=>setIsDetail(3)}>상세</button>
-                                </div>
-                                </div>
-
-                                <span>김포</span>
-                                <div className="H_gimpo">
-                                <div className="H_gu">
-                                    <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                                    <p className="searchCarP" onClick={()=>{setLocation("김포공항"); setBranchId(2)}}>
-                                        김포공항 <span>강서구</span>
-                                    </p>
                                     </div>
-                                    <button className="H_detail" onClick={()=>setIsDetail(2)}>상세</button>
-                                </div>
-                                </div>
 
-                                <span>인천</span>
-                                <div className="H_gu">
-                                <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                                    <p className="searchCarP" onClick={()=>{setLocation("인천공항"); setBranchId(1)}}>
-                                    인천공항 <span>인천</span>
-                                    </p>
+                                    <span>김포</span>
+                                    <div className="R_gimpo">
+                                    <div className="R_gu">
+                                        <div className="R_Click">
+                                        <p
+                                            onClick={() => {
+                                                setLocation("김포공항");
+                                                setBranchId(2);
+                                                setIsLocation(false);
+                                            }}
+                                            >
+                                            김포공항 <span>강서구</span>
+                                        </p>
+                                        </div>
+                                        <button className="R_detail" onClick={()=>setIsDetail(2)}>상세</button>
+                                    </div>
+                                    </div>
+
+                                    <span>인천</span>
+                                    <div className="R_gu">
+                                    <div className="R_Click">
+                                        <p
+                                            onClick={() => {
+                                                setLocation("인천공항");
+                                                setBranchId(1);
+                                                setIsLocation(false);
+                                            }}
+                                            >
+                                        인천공항 <span>인천</span>
+                                        </p>
+                                    </div>
+                                    <button className="R_detail" onClick={()=>setIsDetail(1)}>상세</button>
+                                    </div>
                                 </div>
-                                <button className="H_detail" onClick={()=>setIsDetail(1)}>상세</button>
-                                </div>
-                            </div>
                             </>
                         )}
                     </div>
@@ -447,7 +478,7 @@ export default function Recentcar() {
                 {/* 달력 모달 */}
                 {isCalendar && (
                     <div className={`calendar-slide ${isCalendar ? "open" : ""}`}>
-                        <span className="R_close02" onClick={() => setIsCalendar(false)}><i className="bi bi-x-lg"></i></span>
+                        <div className="R_close02"><i className="bi bi-x-lg" onClick={() => setIsCalendar(false)}></i></div>
                         <Calendar />
                     </div>
                 )}

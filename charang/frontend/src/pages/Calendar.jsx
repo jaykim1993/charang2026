@@ -18,7 +18,6 @@ export default function RentalCalendar() {
     setStartTime,
     endTime,
     setEndTime,
-    timeInfoArrHandler,
     handleDateFilter,
     isDisabledEndTime,
     isDisabledStartTime
@@ -116,24 +115,7 @@ export default function RentalCalendar() {
     return times;
   }, []);
 
-  // const backgroundEvents = useMemo(() => {
-  //   if (!startDate || !endDate) return [];
 
-  //   const events = [];
-  //   let current = new Date(startDate);
-  //   const end = new Date(endDate);
-
-  //   while (current <= end) {
-  //     events.push({
-  //       start: current.toISOString().split("T")[0],
-  //       display: "background",
-  //       className: "selected-range-bg",
-  //     });
-  //     current.setDate(current.getDate() + 1);
-  //   }
-
-  //   return events;
-  // }, [startDate, endDate]);
 
   // 시작인, 종료일 class
   const backgroundEvents = useMemo(() => {

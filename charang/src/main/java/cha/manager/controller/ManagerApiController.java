@@ -1,12 +1,16 @@
 package cha.manager.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cha.PageHandler;
 import cha.manager.dto.ManagerDTO;
 import cha.manager.service.ManagerService;
 import jakarta.servlet.http.HttpSession;
@@ -19,8 +23,35 @@ public class ManagerApiController {
 	ManagerService managerservice;
 	
 	@GetMapping("/bookcarlist")
-	public List<ManagerDTO> getAllBookCar(){
-		return managerservice.getAllBookCar();
+	public Map<String, Object> getAllBookCar(
+			@RequestParam("searchType") String searchType,
+		    @RequestParam("searchWord") String searchKeyWord,
+//			1. 페이지 번호 - 1부터 시작이므로 초기값 1로 정의
+			@RequestParam(value="page", defaultValue = "1") int page,
+//			2. 페이지 사이즈 - 한 화면에 보여지는 게시글 개수를 5로 초기화
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize
+			){
+		System.out.println("매니져 컨트롤러 - 검색 예약 출력 컨트롤러");
+		List<ManagerDTO> bookList;
+		PageHandler ph;
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		// 검색 O -> 검색 결과 존재 -> (검색 예약만 출력)
+				if(searchType != null && !searchKeyWord.trim().isEmpty()) {
+					int totalCnt = managerservice.AllSearchBookCarCount(searchType, searchKeyWord); // 검색 차량 개수
+					ph = new PageHandler(totalCnt, page, pageSize);
+					bookList = managerservice.GetAllSearchBookCar(ph.getStartRow(), pageSize, searchType, searchKeyWord);
+				}
+				// 검색 X -> 전체 예약 출력
+				else {
+					int totalCnt = managerservice.AllBookCarCount(); // 전체 차량 개수
+					ph = new PageHandler(totalCnt, page, pageSize);
+					bookList = managerservice.GetAllBookCar(ph.getStartRow(), pageSize);
+				}
+				result.put("list", bookList);
+				result.put("ph", ph);
+		return result;
 	}
 	
 	@GetMapping("/onebookcar")

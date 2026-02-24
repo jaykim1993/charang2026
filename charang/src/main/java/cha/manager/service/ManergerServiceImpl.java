@@ -15,14 +15,40 @@ public class ManergerServiceImpl implements ManagerService{
 	ManagerMapper managermapper;
 	
 	@Override
-	public List<ManagerDTO> getAllBookCar() {
-		// TODO Auto-generated method stub
-		return managermapper.getAllBookCar();
+	public List<ManagerDTO> GetAllSearchBookCar(int startRow, int pageSize, String searchType, String searchKeyWord) {
+		
+		return managermapper.GetAllSearchBookCar(startRow, pageSize, searchType, searchKeyWord);
 	}
+
+
+
+	@Override
+	public int AllBookCarCount() {
+		
+		return managermapper.AllBookCarCount();
+	}
+
+
+
+	@Override
+	public List<ManagerDTO> GetAllBookCar(int startRow, int pageSize) {
+		
+		return managermapper.GetAllBookCar(startRow, pageSize);
+	}
+
+
+
+	@Override
+	public int AllSearchBookCarCount(String searchType, String searchKeyWord) {
+		
+		return managermapper.AllSearchBookCarCount(searchType, searchKeyWord);
+	}
+
+
 
 	@Override
 	public List<ManagerDTO> getOneBookCar(String userId) {
-		// TODO Auto-generated method stub
+		
 		return managermapper.getOneBookCar(userId);
 	}
 

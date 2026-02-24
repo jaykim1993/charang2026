@@ -147,6 +147,7 @@ export default function Reservation() {
             carPrice,
             insurancePrice,
             totalPrice: finalTotalPrice,
+            paymentMethod: payment,
             });
     const addBookInfo = () => {
         if (!payment) {
@@ -170,14 +171,17 @@ export default function Reservation() {
             endTime: endTime,
             carPrice: carPrice,
             insurancePrice: insurancePrice,
-            totalPrice: finalTotalPrice
+            totalPrice: finalTotalPrice,
+            paymentMethod: payment
         })
         .then((res)=>{
             if(res.data == 1){
 
-                alert("예약이 완료되었습니다.");
+                const confirmCancel = window.confirm('결제를 진행하시겠습니까?');
+                if (!confirmCancel) return;
+                alert("결제가 완료되었습니다. 예약 정보 페이지로 이동합니다.");
                 fetchBookedList();
-                navigate("/mypage/booked");
+                navigate(`/mypage/detail/${bookingId}`);
             }
         })
         .catch((error)=>{
@@ -368,8 +372,8 @@ export default function Reservation() {
                                         <input
                                         type="checkbox"
                                         id="payment01"
-                                        checked={payment === "bank"}
-                                        onChange={() => payChange("bank")}
+                                        checked={payment === "무통장입금"}
+                                        onChange={() => payChange("무통장입금")}
                                         />
                                         <label htmlFor="payment01">무통장입금</label>
                                     </li>
@@ -377,8 +381,8 @@ export default function Reservation() {
                                         <input
                                         type="checkbox"
                                         id="payment02"
-                                        checked={payment === "kakao"}
-                                        onChange={() => payChange("kakao")}
+                                        checked={payment === "카카오페이"}
+                                        onChange={() => payChange("카카오페이")}
                                         />
                                         <label htmlFor="payment02">카카오페이</label>
                                         <img src="kakao_pay.png" alt="카카오페이" className="kakao_pay" />
@@ -387,8 +391,8 @@ export default function Reservation() {
                                         <input
                                         type="checkbox"
                                         id="payment03"
-                                        checked={payment === "naver"}
-                                        onChange={() => payChange("naver")}
+                                        checked={payment === "네이버페이"}
+                                        onChange={() => payChange("네이버페이")}
                                         />
                                         <label htmlFor="payment03">네이버페이</label>
                                         <img src="naver_pay.png" alt="네이버페이" className="naver_pay" />

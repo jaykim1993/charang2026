@@ -46,7 +46,9 @@ export default function AuthProvider({children}){
 
     // 미로그인 상태에서 로그인 필요한 페이지 링크 클릭 시 함수
     const loginNeeded =() => {
-        alert('로그인 후 이용 가능합니다.')
+        // alert('로그인 후 이용 가능합니다.')
+        const confirmCancel = window.confirm('로그인 후 이용 가능합니다.');
+        if (!confirmCancel) return;
         setModal('login')
     }
 

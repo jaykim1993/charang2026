@@ -14,7 +14,7 @@ import 'leaflet/dist/leaflet.css';
 import './DetailPage.css'
 
 export default function DetailPage(){
-    const { userid, setModal } = useContext(AuthContext);
+    const { setModal } = useContext(AuthContext);
     const { calculatePrice } = useContext(BookingContext);
     const { startDate,
             endDate,
@@ -26,7 +26,9 @@ export default function DetailPage(){
     // console.log('calculatePrice');
     // console.log(calculatePrice);
     const storedFilteredInfoUser = JSON.parse(sessionStorage.getItem("filteredInfoUser")) || [];
-    
+    const sessionUser = sessionStorage.getItem("userid");
+    const userId = sessionUser ? JSON.parse(sessionUser).userId : null;
+    console.log(userId);
     // 차 id 가져오기
     const selectedCarId = Number(useParams().id);
     // user id 가져오기
@@ -55,7 +57,7 @@ export default function DetailPage(){
 
     // 최근 본 차량 추가(sessionStorage)
     useEffect(() => {
-        if (!selectedCar || !userid) return;
+        if (!selectedCar || !userId) return;
 
             const raw = sessionStorage.getItem("recentView");
             const prev = raw ? JSON.parse(raw) : []; // 방어코드 , 22일 성중 수정
@@ -64,14 +66,14 @@ export default function DetailPage(){
             const filtered = prev.filter(
                 (item) =>
                 !(
-                    item.userid === userid &&
+                    item.userId === userId &&
                     item.carId === selectedCar.carId
                 )
             );
 
             const newRecentView = {
-                id: `${Date.now()}_${userid}`,
-                userid: userid,
+                id: `${Date.now()}_${userId}`,
+                userid: userId,
                 carId: selectedCar.carId,
                 model: selectedCar.model,
                 carImg: selectedCar.carImg,
@@ -84,7 +86,7 @@ export default function DetailPage(){
         const updated = [newRecentView, ...filtered];
 
         sessionStorage.setItem("recentView", JSON.stringify(updated));
-    }, [selectedCar?.carId, userid]);
+    }, [selectedCar?.carId, userId]);
 
     // true인 옵션만 필터링
     const getActiveOptions = (car) => {
@@ -129,8 +131,10 @@ export default function DetailPage(){
 
     // ===================== Reservation으로 값 넘기기 ========================
     const toReservation = () => {
-        if (!userid) {
-            alert("로그인 후 이용 가능합니다.");
+        if (!userId) {
+            // alert("로그인 후 이용 가능합니다.");
+            const confirmCancel = window.confirm('로그인 후 이용 가능합니다.');
+            if (!confirmCancel) return;
             setModal('login');
             return;
         }
@@ -139,13 +143,15 @@ export default function DetailPage(){
             alert("예약 정보를 다시 선택해주세요");
             return;
         }
-        navigate('/reservation', {
-            state : {selectedCarId}
-        });
-        sessionStorage.setItem(
-        "selectedCarId",
-        JSON.stringify(selectedCarId)
-        );
+        if(userId){
+            navigate('/reservation', {
+                state : {selectedCarId}
+            });
+            sessionStorage.setItem(
+            "selectedCarId",
+            JSON.stringify(selectedCarId)
+            );
+        }
     };
 
        const SelectedIcon = new L.Icon({

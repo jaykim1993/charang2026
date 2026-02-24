@@ -12,8 +12,15 @@ public class BookingDTO {
 	private int carPrice;
 	private int insurancePrice;
 	private int totalPrice;
+	private String paymentMethod;
 	
 	
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
 	public String getBookingId() {
 		return bookingId;
 	}
