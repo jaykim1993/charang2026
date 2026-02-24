@@ -5,9 +5,9 @@ import { AuthContext } from "../../contexts/Authcontext"
 import { useNavigate } from "react-router-dom"
 import axios from "axios";
 
-import './CustomerServiceInquiry.css'
+import './InquiryForm.css'
 
-export default function CustomerServiceInquiry(){
+export default function InquiryForm(){
     const navigate = useNavigate();
 
     const { userid, username } = useContext(AuthContext);
@@ -33,39 +33,13 @@ export default function CustomerServiceInquiry(){
             if(res.data === "success"){
                 console.log("문의 - res.data : ", res.data);
                 alert('등록되었습니다.');
-                navigate('/mypage/inquiry');
+                navigate(-1);
             }else{
                 alert("문의 등록 실패 - 데이터 오류");
             }
         })
         .catch((error) => console.log("error : ", error))
     }
-
-    // 상세 페이지 예시
-    // const InquiryDetail = ({ inquiry }) => {
-    //     // 답변 완료 상태면 버튼을 아예 안 보여주거나 비활성화
-    //     const isAnswered = inquiry.status === 1; 
-
-    //     return (
-    //         <div>
-    //             {/* 답변 전일 때만 수정/삭제 버튼 노출 */}
-    //             {!isAnswered && (
-    //                 <div className="user-btns">
-    //                     <button onClick={handleUpdate}>수정</button>
-    //                     <button onClick={handleDelete}>삭제</button>
-    //                 </div>
-    //             )}
-                
-    //             {/* 관리자(admin)이고 답변 전일 때만 답변 폼 노출 */}
-    //             {userid === 'admin' && !isAnswered && (
-    //                 <div className="admin-answer-form">
-    //                     <textarea name="answer_content" />
-    //                     <button onClick={submitAnswer}>답변등록</button>
-    //                 </div>
-    //             )}
-    //         </div>
-    //     );
-    // };
 
     return(
         <div className="inquiry">

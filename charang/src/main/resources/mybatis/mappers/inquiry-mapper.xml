@@ -6,12 +6,12 @@
 	<!-- public void insertInquiry(InquiryDTO rdto); -->
 	<insert id="insertInquiry" parameterType="InquiryDTO">
         INSERT INTO inquiry(inquiryId, userId, title, password, content, regDate) 
-        VALUES (CONCAT(DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')),
+        VALUES (CONCAT(DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'), "_", #{userId}),
          #{userId}, #{title}, #{password}, #{content}, NOW())
     </insert>
 	
 	<!-- public void updateAnswer(InquiryDTO idto, String inquiryId); -->
-	<update id="updateAnswer">
+	<update id="updateAnswer" parameterType="InquiryDTO">
 		UPDATE inquiry 
 		SET answer = #{answer}, modDate = NOW() 
 		WHERE inquiryId = #{inquiryId}
@@ -19,24 +19,40 @@
 	
 	<!-- public List<InquiryDTO> inquiryList(); -->
 	<select id="inquiryList" resultType="InquiryDTO">
-		SELECT * FROM inquiry ORDER BY modDate ASC
+		SELECT i.*, u.name 
+		FROM inquiry i INNER JOIN user u 
+		ON i.userId = u.userId
+		ORDER BY modDate ASC
+	</select>
+	
+	<!-- public int getCountByUserId(String userId); -->
+	<select id="getCountByUserId" resultType="int">
+	    SELECT COUNT(*) FROM inquiry
+	    <where>
+	        <if test="userId != null and userId != ''">
+	            AND userId = #{userId}
+	        </if>
+	    </where>
 	</select>
 	
 	<!-- public InquiryDTO getInquiryDetail(String inquiryId); -->
 	<select id="getInquiryDetail" resultType="InquiryDTO" parameterType="String">
-		SELECT * FROM inquiry WHERE inquiryId=#{inquiryId}
+		SELECT i.*, u.name 
+	    FROM inquiry i 
+	    INNER JOIN user u ON i.userId = u.userId 
+	    WHERE i.inquiryId = #{inquiryId}
 	</select>
 	
-	<!-- public void reWriteInsert(InquiryDTO idto); -->
-	<!-- <insert id="reWriteInsert" parameterType="InquiryDTO">
-		INSERT INTO inquiry(userId, title, password, ref, re_step, re_level, content) 
-		VALUES(#{userId}, #{title}, #{password}, #{ref}, #{re_step} + 1, #{re_level} + 1, #{content})
-	</insert> -->
-
-	<!-- public void reSqUpdate(InquiryDTO idto); -->
-	<!-- <update id="reSqUpdate" parameterType="InquiryDTO">
-		UPDATE inquiry SET re_step = re_step + 1 WHERE ref=#{ref} AND re_step > #{re_step}
-	</update> -->
+	<!-- public void updateInquiry(InquiryDTO idto); -->
+	<update id="updateInquiry" parameterType="InquiryDTO">
+		UPDATE inquiry SET title = #{title}, content = #{content}, password = #{password}, modDate = NOW() 
+		WHERE inquiryId = #{inquiryId} AND userId = #{userId}
+	</update>
+	
+	<!-- public int deleteInquiry(String inquiryId); -->
+	<delete id="deleteInquiry" parameterType="InquiryDTO">
+		DELETE FROM inquiry WHERE inquiryId = #{inquiryId}
+	</delete>
 	
 	<!-- ======================= 페이징 ======================= -->
 
@@ -47,6 +63,15 @@
 
 	<!-- 공지 전체 목록 -->
 	<select id="getPageList" resultType="InquiryDTO">
-		SELECT * FROM inquiry ORDER BY inquiryId DESC LIMIT #{startRow}, #{pageSize}
+	    SELECT i.*, u.name 
+	    FROM inquiry i 
+	    INNER JOIN user u ON i.userId = u.userId
+	    <where>
+	        <if test="userId != null and userId != ''">
+	            AND i.userId = #{userId}
+	        </if>
+	    </where>
+	    ORDER BY i.modDate DESC
+	    LIMIT #{startRow}, #{pageSize}
 	</select>
 </mapper>

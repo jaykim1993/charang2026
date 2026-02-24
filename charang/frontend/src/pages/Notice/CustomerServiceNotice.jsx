@@ -92,7 +92,7 @@ export default function CustomerServiceNotice(){
                     </tbody>
                 </table>
                 {/* 페이징 */}
-                <div className="notice_paging">
+                <div className="paging">
                     {/* 이전 버튼 */}
                     {/* 5페이지 넘어가야 화살표 나옴 */}
                     {paging.prev && (

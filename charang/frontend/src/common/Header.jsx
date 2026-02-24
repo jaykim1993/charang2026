@@ -90,7 +90,7 @@ export default function Header() {
                                                 <Link to="/manager/userlist" className='item'>회원관리</Link>
                                                 <Link to="/" className='item'>예약관리</Link>
                                                 <Link to="/" className='item'>공지사항</Link>
-                                                <Link to="/manager/inquiry/list" className='item'>문의하기</Link>
+                                                <Link to="/customerservice/inquiry/list" className='item'>문의하기</Link>
                                             </div>
                                         </div>
                                         <Link to="/">
@@ -241,7 +241,7 @@ export default function Header() {
                         </Link>
                         {/* <li className='headerNavLi'><div>차량별 예약</div> <div className='headerNavpointer'>→</div></li><br /> */}
                         <p className='headerNavH'>고객 가이드</p>
-                        <Link to={'/customerservice/inquiry/write'} style={{ textDecoration: 'none' }}>
+                        <Link to={'/customerservice/inquiry/list'} style={{ textDecoration: 'none' }}>
                             <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
                                 <div>문의하기</div>
                                 <div className='headerNavpointer'>
@@ -315,7 +315,6 @@ export default function Header() {
                                         <i className="bi bi-chevron-right"></i>
                                     </div>
                                 </li>
-                                <br />
                             </Link>
                             :
                             <>
@@ -325,7 +324,6 @@ export default function Header() {
                                         <i className="bi bi-chevron-right"></i>
                                     </div>
                                 </li>
-                                <br />
                             </>
                         }
                         {userid ?
@@ -336,7 +334,6 @@ export default function Header() {
                                         <i className="bi bi-chevron-right"></i>
                                     </div>
                                 </li>
-                                <br />
                             </Link>
                             :
                             <>
@@ -346,7 +343,6 @@ export default function Header() {
                                         <i className="bi bi-chevron-right"></i>
                                     </div>
                                 </li>
-                                <br />
                             </>
                         }
                         {userid ?
@@ -357,7 +353,6 @@ export default function Header() {
                                         <i className="bi bi-chevron-right"></i>
                                     </div>
                                 </li>
-                                <br />
                             </Link>
                             :
                             <>
@@ -378,7 +373,6 @@ export default function Header() {
                                         <i className="bi bi-chevron-right"></i>
                                     </div>
                                 </li>
-                                <br />
                             </Link>
                             :
                             <>
@@ -388,7 +382,6 @@ export default function Header() {
                                         <i className="bi bi-chevron-right"></i>
                                     </div>
                                 </li>
-                                <br />
                             </>
                         }
                     </ul>

@@ -20,9 +20,10 @@ import AllCarPage from './pages/Manager/AllCarPage';
 import AllReservationPage from './pages/Manager/AllReservationPage';
 import CarRegPage from './pages/Manager/CarRegPage';
 import AllUserPage from './pages/Manager/AllUserPage';
-import AllInquiry from './pages/Manager/AllInquiry';
-import AllInquiryDetail from './pages/Manager/AllInquiryDetail';
-import Inquiry_answer from './pages/Manager/Inquiry_answer';
+import AllInquiry from './pages/Inquiry/AllInquiry';
+import InquiryDetail from './pages/Inquiry/InquiryDetail';
+import InquiryAnswer from './pages/Inquiry/InquiryAnswer';
+import InquiryUpdate from './pages/Inquiry/InquiryUpdate';
 
 import AuthProvider from './contexts/Authcontext';
 import CalendarProvider from './contexts/Calendarcontext';
@@ -32,11 +33,11 @@ import BookingProvider from './contexts/Bookingcontext';
 import Footer from './common/Footer';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import CustomerServiceInquiry from './pages/Inquiry/CustomerServiceInquiry';
+import InquiryForm from './pages/Inquiry/InquiryForm';
 import CustomerServiceFAQ from './pages/CustomerServiceFAQ';
 
 import CustomerServiceNotice from './pages/Notice/CustomerServiceNotice';
-import CustomerServiceNoticeInfo from './pages/Notice/CustomerServiceNoticeInfo';
+import CustomerServiceNoticeDetail from './pages/Notice/CustomerServiceNoticeDetail';
 import CustomerServiceNoticeWrite from './pages/Notice/CustomerServiceNoticeWrite';
 import CustomerServiceNoticeModfiy from './pages/Notice/CustomerServiceNoticeModfiy';
 
@@ -74,14 +75,18 @@ function App() {
 
                 {/* 고객 가이드 */}
                 <Route path="/customerservice" element={<CustomerService />}>
-                  <Route path="/customerservice/inquiry/write" element={<CustomerServiceInquiry />} />                       {/* 1:1문의 */}
+                  <Route path="/customerservice/inquiry/list/info/update/:inquiryId" element={<InquiryUpdate />} />                     {/* 문의수정 */}
+                  <Route path="/customerservice/inquiry/write" element={<InquiryForm />} />                                  {/* 1:1문의 */}
                   <Route path="FAQ" element={<CustomerServiceFAQ />} />                                                      {/* 자주 찾는 질문 */}
                   <Route path="notice" element={<CustomerServiceNotice />} />                                                {/* 공지사항 */}
-                  <Route path="/customerservice/notice/Info/:noticeId" element={<CustomerServiceNoticeInfo />} />            {/* 공지사항 상세*/}
+                  <Route path="/customerservice/notice/Info/:noticeId" element={<CustomerServiceNoticeDetail />} />          {/* 공지사항 상세*/}
+                  <Route path="/customerservice/inquiry/list" element={<AllInquiry />} />                                    {/* 문의목록 */}
                 </Route>
                 <Route path="/customerservice/notice/manager/write" element={<CustomerServiceNoticeWrite />} />              {/* 공지사항 작성*/}
                 <Route path="/customerservice/notice/manager/modify/:noticeId" element={<CustomerServiceNoticeModfiy />} />  {/* 공지사항 수정*/}
 
+                <Route path="/customerservice/inquiry/list/info/:inquiryId" element={<InquiryDetail />} />                   {/* 문의상세 */}
+                <Route path="/manager/inquiry/answer/:inquiryId" element={<InquiryAnswer />} />                              {/* 문의답변 */}
                 <Route path="/location" element={<LocationPage />} />
                 <Route path="/recent" element={<Recentcarlist />} />
 
@@ -99,9 +104,6 @@ function App() {
                 <Route path="/manager/reservationlist" element={<AllReservationPage />} />
                 <Route path="/manager/carregister" element={<CarRegPage />} />
                 <Route path="/manager/userlist" element={<AllUserPage />} />
-                <Route path="/manager/inquiry/list" element={<AllInquiry />} />                         {/* 문의목록 */}
-                <Route path="/manager/inquiry/list/info/:inquiryId" element={<AllInquiryDetail />} />   {/* 문의상세 */}
-                <Route path="/manager/inquiry/answer/:inquiryId" element={<Inquiry_answer />} />        {/* 문의답변 */}
               </Routes>
               <Footer />
             </BrowserRouter>

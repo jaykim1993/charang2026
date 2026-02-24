@@ -4,9 +4,9 @@ import { AuthContext } from "../../contexts/Authcontext"
 import { useNavigate } from "react-router-dom"
 import axios from "axios";
 
-import './Inquiry_answer.css'
+import './InquiryAnswer.css'
 
-export default function Inquiry_answer() {
+export default function InquiryAnswer() {
     const navigate = useNavigate();
 
     const { inquiryId } = useParams();
@@ -15,10 +15,10 @@ export default function Inquiry_answer() {
     const [answer, setAnswer] = useState('');
 
     useEffect(() => {
-        axios.get(`/api/manager/inquiry/list/info/${inquiryId}`)
+        axios.get(`/api/customerservice/inquiry/list/info/${inquiryId}`)
             .then((res) => {
                 setInquiry(res.data);
-                console.log("문의 상세 - res.data : ", res.data);
+                console.log("문의 답변 - res.data : ", res.data);
             })
             .catch(error => console.log("error : ", error));
     }, [inquiryId]);
@@ -29,14 +29,14 @@ export default function Inquiry_answer() {
             return;
         }
 
-        axios.post('/api/manager/inquiry/answerPro', {
+        axios.put('/api/manager/inquiry/answerPro', {
             inquiryId: inquiryId, answer: answer
         })
             .then((res) => {
                 if (res.data === "success") {
-                    console.log("답변하기 - res.data : ", res.data);
+                    console.log("답변등록 - res.data : ", res.data);
                     alert('답변 등록 완료!')
-                    navigate(`/api/manager/inquiry/list/info/${inquiryId}`);
+                    navigate(-1);
                 } else {
                     alert("답변 등록 실패 - 데이터 오류");
                 }

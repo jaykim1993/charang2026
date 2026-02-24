@@ -1,10 +1,11 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"; // useParams 추가
 import { AuthContext } from "../../contexts/Authcontext";
-import './CustomerServiceNoticeInfo.css';
 import axios from "axios";
 
-export default function CustomerServiceNoticeInfo() {
+import './CustomerServiceNoticeDetail.css';
+
+export default function CustomerServiceNoticeDetail() {
     const navigate = useNavigate();
     
     // 주소창에서 :noticeId 자리에 있는 값을 바로 뽑아옴
