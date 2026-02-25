@@ -75,8 +75,22 @@
   font-size: 14px;
   box-sizing: border-box;
 }
+.loginInputDif {
+  display: block;
+  width: 80%;
+  margin-left: 50px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
 
 .loginInput:focus {
+  outline: none;
+  border-color: #2591cf;
+}
+.loginInputDif:focus {
   outline: none;
   border-color: #2591cf;
 }
@@ -112,4 +126,110 @@
     background-color: inherit;
     transition: 0.2s;
     cursor: pointer;
+}
+
+.verificationInput {
+  width: 65%;
+  font-size: 32px;
+  letter-spacing: 25px;
+  border: none;
+  border-bottom: 3px solid #ccc;
+  text-align: center;
+  outline: none;
+  padding-left: 25px;
+}
+.verificationInput::placeholder{
+  padding-right: 20px;
+  font-size: 20px;
+  letter-spacing: 5px;
+}
+.verInputBox{
+  margin: 80px auto;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.verTime{
+  color:#2591cf;
+  font-weight: 500;
+  margin: 0 auto;
+}
+.verP{
+  padding-left: 150px;
+}
+.verPDif{
+  padding: 0 20px;
+  text-align: center;
+  color: #858585;
+  font-size: 15px;
+}
+.verPDif2box{
+  margin-top: 40px;
+}
+.verPDif2{
+  font-size: 18px;
+  padding-top: 3px;
+  text-align: center;
+  color: #065d8f;
+  font-weight: 500;
+}
+.loginWrap .joinLabelB{
+  padding-left: 0;
+}
+.loginBtnDif{
+    width: 48%;
+    padding: 12px 0;
+    border: none;
+    background: #0b79b7;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+}
+.loginBtnDif:hover {
+    background: #065d8f;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+.loginBtnWrapDif{
+  margin-top: 64px;
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+}
+/* 버퍼링 오버레이 */
+.verOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+}
+.verOverlay p {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+.IDresultP{
+  font-size: 18px;
+  margin: 0 auto;
+}
+.IDresultSpan{
+  color: #0b79b7;
+  margin: 0 10px;
+  font-size: 20px;
+}
+.loginContentDif{
+    display: flex;
+    width: 550px;
+    flex-direction: column;
+    padding-top: 30px;
 }

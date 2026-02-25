@@ -18,7 +18,7 @@
 }
 
 /* 관리자 버튼 */
-.notice_adminBtn button{
+.adminBtn button{
     background-color: #444;
     color: white;
     padding: 5px 16px;
@@ -27,7 +27,7 @@
     cursor: pointer;
     margin: 0 5px;
 }
-.notice_adminBtn button:hover{
+.adminBtn button:hover{
     background-color: #666;
 }
 
@@ -88,25 +88,25 @@
 }
 
 /* 페이징 */
-.notice .notice_table .notice_paging{
+.paging{
     text-align: center;
 }
-.notice .notice_table .notice_paging button{
+.paging button{
     border: none;
     background-color: transparent;
     padding: 10px;
     color: #666;
 }
-.notice .notice_table .notice_paging button:hover{
+.paging button:hover{
     color: #333;
 }
-.notice .notice_table .notice_paging button i{
+.paging button i{
     color: #666;
 }
-.notice .notice_table .notice_paging button i:hover{
+.paging button i:hover{
     color: #333;
 }
-.notice_paging button.active{
+.paging button.active{
     font-weight: bold;
     color: #333;
 }

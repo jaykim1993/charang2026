@@ -13,6 +13,7 @@
 		<typeAlias alias="noticeDTO" type="cha.notice.dto.NoticeDTO" />
 		<typeAlias alias="managerDTO" type="cha.manager.dto.ManagerDTO" />
 		<typeAlias alias="InquiryDTO" type="cha.inquiry.dto.InquiryDTO" />
+		<typeAlias alias="verificationDTO" type="cha.verification.dto.VerificationDTO" />
 	</typeAliases>
 </configuration>
 

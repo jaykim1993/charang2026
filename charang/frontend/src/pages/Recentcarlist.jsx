@@ -14,33 +14,16 @@ export default function Recentcarlist() {
 
   // 화면에 출력되는 차량의 수
   const [viewMore, setViewMore] = useState(8);
-  // 더보기 toggle
-  // const [isMore, setIsMore] = useState(true);
-  // // 숨기기 toggle
-  // const [isHidden, setIsHidden] = useState(false);
-  
-  // const moreHandler = () => {
-  //   if(recentViews.length > viewMore){
-  //     setViewMore(prev => prev+8);
-  //     setIsHidden(true);
-  //   }else if(viewMore > recentViews.length){
-  //     setViewMore(false);
-  //     setIsHidden(true);
-  //   }else{
-  //     setIsMore(true);
-  //     setIsHidden(false);
-  //   }
-  // };
+
 
   const moreHandler = () => {
-    setViewMore(prev => prev + 8);
+    setViewMore(prev => prev + 6);
   };
 
   const hiddenHandler = () => {
-    setViewMore(8); // 기본 8개로 접기
+    setViewMore(6); // 기본 8개로 접기
   };
   
-  const recentViews = myRecentlist(userid);
 
   // 해당 차량 브랜드 searchcarlist로 넘기기 12.23 성중
   const goToSearchcarlist = (model) => {
@@ -53,29 +36,25 @@ export default function Recentcarlist() {
   window.scrollTo(0, 0);
   }, []);
 
-const [recentView, setRecentView] = useState([]);
+const [recentView, setRecentView] = useState(myRecentlist(userid));
 
-  useEffect(() => {
-  const raw = localStorage.getItem("recentView");
-  if (raw) {
-    setRecentView(JSON.parse(raw));
-  }
-  }, []);
-
-  //삭제
   const removeRecentView = (carId) => {
-  setRecentView(prev => {
-    const filtered = prev.filter(
-      item => !(item.userid === userid && item.carId === carId)
-    );
-
-    localStorage.setItem("recentView", JSON.stringify(filtered));
-    return filtered;
-  });
-  };
-//
+  const raw = localStorage.getItem("recentView");
+  if (!raw) return;
+  const parsed = JSON.parse(raw);
+  const filtered = parsed.filter(
+    item => !(item.userid === userid && item.carId === carId)
+  );
+  localStorage.setItem("recentView", JSON.stringify(filtered));
+  setRecentView(filtered);
+};
 
   return (
+    <>
+  
+    <div className="myinfo-header">
+      <h2 className="guideMainText">최근 본 차량</h2>
+    </div>
     <div className="Recent_car_list">
 
       <div className="Recent_Head">
@@ -84,10 +63,10 @@ const [recentView, setRecentView] = useState([]);
           <span>최근 본 차량</span>
       </div>
 
-      <p>총&nbsp;<strong>{recentViews.length}</strong>&nbsp;대</p>
-      {recentViews.length > 0?
+      <p>총&nbsp;<strong>{recentView.length}</strong>&nbsp;대</p>
+      {recentView.length > 0?
       <ul className="Recent_ByDate">
-        {recentViews.slice(0,viewMore).map(item => (
+        {recentView.slice(0,viewMore).map(item => (
           // 해당 차량 브랜드 searchcarlist로 넘기기 12.23 성중
           <div className="hihihihi" key={item.carId}>
             <div className="RecentDelBox">
@@ -95,12 +74,12 @@ const [recentView, setRecentView] = useState([]);
             </div>
             <li className="Recent_ByDate"  >
             <div className="Recent_car_item" onClick={()=>goToSearchcarlist(item.model)}>
-              <img className="Recent_logo" src={`/images/brands/${item.brand}.png`}/>
+              <img className="Recent_logo" src={`/images/brands/${item.brandLogo}`}/>
               <img
                 src={`/images/cars/${item.carImg}`}
                 alt={item.model}
                 className="Recent_car_img" />
-              <p className="Recent_car_p"> {item.model} <span className="Recent_car_span">{item.fuelYype}</span></p>
+              <p className="Recent_car_p"> {item.model} <span className="Recent_car_span">{item.fuelType}</span></p>
               <p className="RecentCar_viewDate">최근 본 날짜 : {item.viewDate.replaceAll('-','.')}</p>
             </div>
           </li>
@@ -115,14 +94,15 @@ const [recentView, setRecentView] = useState([]);
       
       {/* 버튼 영역 8개보다 많으면 생기게 */}
       <div className="Recent_buttons">
-        {viewMore < recentViews.length && (
+        {viewMore < recentView.length && (
           <button onClick={moreHandler} ><i className="bi bi-chevron-down"></i></button>
         )}
-        {viewMore > 8 && (
+        {viewMore > 6 && (
           <button onClick={hiddenHandler}><i className="bi bi-chevron-up"></i></button>
         )}
       </div>
 
     </div>
+      </>
   );
 }

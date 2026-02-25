@@ -12,7 +12,7 @@ export default function AuthProvider({children}){
     const[userid, setUserid]=useState(null);
     const[username, setUsername]=useState(null);
 
-    // 컴포넌트 마운트 될 때 localStorage에서 사용자 정보 불러오기
+    // 컴포넌트 마운트 될 때 sessionStorage에서 사용자 정보 불러오기
 
     useEffect(() => {
     const saveUser = sessionStorage.getItem("userid");
@@ -46,7 +46,9 @@ export default function AuthProvider({children}){
 
     // 미로그인 상태에서 로그인 필요한 페이지 링크 클릭 시 함수
     const loginNeeded =() => {
-        alert('로그인 후 이용 가능합니다.')
+        // alert('로그인 후 이용 가능합니다.')
+        const confirmCancel = window.confirm('로그인 후 이용 가능합니다.');
+        if (!confirmCancel) return;
         setModal('login')
     }
 

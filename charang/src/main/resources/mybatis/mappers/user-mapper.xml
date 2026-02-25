@@ -71,4 +71,22 @@
        WHERE userId = #{userId}
    </select>
    
+  	<select id="findUserId" resultType="String">
+    	SELECT userId FROM user WHERE name = #{name} AND mail = #{mail}
+	</select>
+ 
+ 	<!-- 회원 존재 확인하기 아이디, 이름, 이메일 일치하면  -->
+ 	<!--  //회원 아이디, 이름, 메일 체크 비밀번호 찾기  
+   public boolean findUserPw(@Param("userId")String userId, @Param("name")String name, @Param("mail")String mail); -->
+   <select id="findUserPw" resultType="boolean">
+   		SELECT COUNT(*) FROM user WHERE userId=#{userId} AND name=#{name} AND mail=#{mail}
+   </select>
+ 	
+ 	<!-- 회원 이메일로 인증번호 발송 / 비밀번호 재설정? 찾기? 업데이트문 업데이트 비밀번호 where 메일이 같으면 -->
+ 	<update id="updatePassword">
+ 		UPDATE user SET userPw=#{newPw} WHERE userId=#{userId}
+ 	</update>
+ 	
+ 	
+   
 </mapper>

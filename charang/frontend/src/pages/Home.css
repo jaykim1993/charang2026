@@ -404,15 +404,7 @@ input:checked + .checkmark {
 .calendar-slide {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
-    position: absolute;
-    top: 120px;
-    z-index: 100;
-    width: 1060px;
-   height: 820px;
-   background-color: #fff;
-   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-   border-radius: 15px;
+
 }
 .calendar-slide .Home_isCalendar_top{
     display: flex;
@@ -425,12 +417,14 @@ input:checked + .checkmark {
     font-size: 18px;
     font-weight: 500;
 }
+.calendar-slide .H_close02{
+    margin-bottom: 20px;
+    padding-left: 635px;
+}
 .calendar-slide .H_close02 > i{
-    display: flex;
-    justify-content: flex-end;
+    width: 15px;
     cursor: pointer;
     color: #999;
-    padding-right: 25px;
 }
 
 #root .Home .calendar-slide.open {
@@ -439,25 +433,20 @@ input:checked + .checkmark {
     top: 120px;
     left: 210px;
     z-index: 100;
-    width: 660px;
+    width: 680px;
     height: 585px;
     background-color: #fff;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     border-radius: 15px;
     padding: 25px 5px 0 0;
 }
-/* .calendar-slide.open .H_close02 > i{
-    display: flex;
-    justify-content: flex-end;
-    cursor: pointer;
-    color: #999;
-    margin-bottom: 20px;
-} */
 
 /* 지점 선택 목록 */
+#root .Home .H_location .H_close01{
+    padding-left: 375px;
+}
 #root .Home .H_location .H_close01 > i{
-    display: flex;
-    justify-content: flex-end;
+    width: 15px;
     cursor: pointer;
     color: #999;
 }

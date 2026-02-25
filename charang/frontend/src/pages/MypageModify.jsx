@@ -23,7 +23,7 @@ export default function MypageModify() {
   const [zipcode, setZipcode] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  // 내 정보 불러오기
+  // 내 정보 불러오기 ~~>
 useEffect(() => {
   axios.get("/api/userinfo")
     .then(res => {
@@ -37,7 +37,7 @@ useEffect(() => {
       }
     });
 }, []);
-
+  //
   // 입력 변경
   const handleChange = (e) => {
     setUser({
@@ -71,7 +71,10 @@ useEffect(() => {
     axios.put("/api/modify", updatedUser)
       .then(res => {
         if(res.data === 1){
-          alert("회원정보 수정 완료");
+           if(!window.confirm('회원정보를 수정하시겠습니까?')){
+            return;
+            }
+          // alert("회원정보 수정 완료");
           navigate(-1);
         }else{
           alert("비밀번호를 확인해주세요.");

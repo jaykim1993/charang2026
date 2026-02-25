@@ -47,7 +47,7 @@ useEffect(() => {
 }, []);
 
     const gotoRecentsideBtn=()=>{
-        navigate('/recent');
+        navigate('/mypage/recent');
     }
 
 

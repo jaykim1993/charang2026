@@ -40,6 +40,18 @@ public class BookingApiController {
 	
 	@DeleteMapping("/deleteBook")
 	public boolean deleteBooking(@RequestParam("bookingId") String bookingId) {
-	    return bookingservice.deleteBooking(bookingId);
+		System.out.println("예약 컨트롤러 - 예약 삭제 컨트롤러(회원)");
+		boolean result = bookingservice.deleteBooking(bookingId);
+		return result;
+	}
+	
+	@DeleteMapping("/deleteSelectBooks")
+	public boolean deleteSelectedBookings(
+			@RequestBody List<String> bookingId
+			) {
+		System.out.println("예약 컨트롤러 - 선택 예약 삭제 컨트롤러(관리자)");
+		System.out.println(bookingId);
+		boolean result = bookingservice.deleteSelectedBookings(bookingId);
+		return result;
 	}
 }

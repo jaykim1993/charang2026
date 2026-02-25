@@ -1,6 +1,6 @@
 .myPageDetailWrap{
     width: 900px;
-    height: 1100px;
+    height: 1300px;
 }
 
 #root .myPageDetailWrap .myPageDetail01{
@@ -135,13 +135,13 @@
     padding: 15px;
     margin-bottom: 80px;
     border-radius: 10px;
-    color: white;
     font-size: 20px;
-    background-color: black;
-    border: none;
+    border: 1px solid #9c9c9c;
+    /* background-color:#f9fafc;; */
+    background-color: #fff;
 }
 .mypageDetailBack:hover{
-    background-color: rgb(46, 46, 46);
+    background-color: rgb(237, 235, 235);
 }
 .mypageDetailP{
     font-size: 18px;

@@ -1,0 +1,45 @@
+.InquiryAnswer{
+    color: #333;
+    width: 1300px;
+    min-height: 800px;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.InquiryAnswer h1 {
+    text-align: center;
+    margin: 50px 0;
+}
+.InquiryAnswer table {
+    width: 80%;
+    margin-bottom: 20px;
+    border-top: 1px solid #d3d3d3;
+}
+.InquiryAnswer table th {
+    background-color: #f2f3f5;
+    font-weight: bold;
+}
+.InquiryAnswer table tr th {
+    text-align: center;
+    width: 10%;
+}
+.InquiryAnswer table tr td{
+    width: 25%;
+}
+.InquiryAnswer table tr th, 
+.InquiryAnswer table tr td {
+    border-bottom: 1px solid #d3d3d3;
+    padding: 10px 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.InquiryAnswer table tr td textarea{
+    width: 100%;
+    border: none;
+    outline: none;
+    white-space: pre-wrap;
+    resize: none;
+}

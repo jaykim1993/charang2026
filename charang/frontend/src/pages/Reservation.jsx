@@ -13,25 +13,30 @@ export default function Reservation() {
     const navigate = useNavigate();
 
     const { state } = useLocation();
+
+    const selectedCarId =
+    state?.selectedCarId ||
+    JSON.parse(sessionStorage.getItem("selectedCarId"));
+
     console.log(state.selectedCarId);
     const id = state.selectedCarId;
     console.log(id);
     /* ===================== context ===================== */
     const { fetchBookedList } = useContext(BookingContext);
     const { startdayText, enddayText, DeleteYear } = useContext(CalendarContext);
-    const { branch } = useContext(DataContext);
+    const { car, branch } = useContext(DataContext);
     const { loginNeeded }=useContext(AuthContext);
 
 
-    /* ===================== localStorage ===================== */
+    /* ===================== sessionStorage ===================== */
     const filteredInfoUser =
-        JSON.parse(localStorage.getItem("filteredInfoUser")) || [];
+        JSON.parse(sessionStorage.getItem("filteredInfoUser")) || [];
     const firstFilteredCar =
-        JSON.parse(localStorage.getItem("firstFilteredCar")) || [];
-    const calendarFilters =
-        JSON.parse(localStorage.getItem("calendarFilters")) || [];
+        JSON.parse(sessionStorage.getItem("firstFilteredCar")) || [];
+    const searchFilters =
+        JSON.parse(sessionStorage.getItem("searchFilters")) || [];
     const totalPrice = 
-        JSON.parse(localStorage.getItem("totalPrice")) || [];
+        JSON.parse(sessionStorage.getItem("totalPrice")) || [];
     /* ===================== user ===================== */
     const [userid,setUserid]=useState(null);
 
@@ -81,22 +86,33 @@ export default function Reservation() {
 
     /* ===================== 데이터 가공 ===================== */
     const selectedCar =
-        firstFilteredCar.find((car) => car.carId === Number(id)) ||
-        firstFilteredCar[0];
-    console.log(selectedCar);
-    const filterCar =
-        filteredInfoUser.find((car) => car.carId === Number(id)) ||
-        filteredInfoUser[0];
+    firstFilteredCar.find(car => car.carId === Number(selectedCarId)) ||
+    car.find(car => car.carId === Number(selectedCarId)) ||
+    null;
 
+    const filterCar =
+    filteredInfoUser.find(car => car.carId === Number(selectedCarId)) ||
+    {
+        filterStartDate: searchFilters.startDate,
+        filterEndDate: searchFilters.endDate,
+        filterStartTime: searchFilters.startTime,
+        filterEndTime: searchFilters.endTime,
+    };
     const branchName =
-    branch.find(b => b.branchId === selectedCar.branchId)?.name || '';
+    selectedCar && branch.length > 0
+        ? branch.find(b => b.branchId === selectedCar.branchId)?.name || ''
+        : '';
     /* ===================== 예외 처리 (Hook 이후) ===================== */
-    if (!userid) {
-        return <div>로딩중 ....</div>;
+    if (!selectedCarId) {
+    return <div>잘못된 접근입니다.</div>;
     }
 
-    if (!selectedCar || !filterCar) {
-        return <div>차량 정보를 불러오는 중입니다...</div>;
+    if (!userid) {
+    return <div>로딩중...</div>;
+    }
+
+    if (!selectedCar) {
+    return <div>차량 정보를 불러올 수 없습니다.</div>;
     }
 
     /* ===================== 날짜 계산 ===================== */
@@ -112,18 +128,36 @@ export default function Reservation() {
     const bookingId = `${Date.now()}_${userId}`;
     const carId = state.selectedCarId;
     const bookedDate = new Date().toISOString().slice(0, 10);
-    const startDate = calendarFilters.startDate;
-    const startTime = calendarFilters.startTime;
-    const endDate = calendarFilters.endDate;
-    const endTime = calendarFilters.endTime;
+    const startDate = searchFilters.startDate;
+    const startTime = searchFilters.startTime;
+    const endDate = searchFilters.endDate;
+    const endTime = searchFilters.endTime;
     const carPrice = totalPrice; 
     const insurancePrice = date * selectedCar.priceValue * 200;
     const finalTotalPrice = totalPrice + insurancePrice;
-
+        console.log({
+            bookingId,
+            userId,
+            carId,
+            bookedDate,
+            startDate,
+            startTime,
+            endDate,
+            endTime,
+            carPrice,
+            insurancePrice,
+            totalPrice: finalTotalPrice,
+            paymentMethod: payment,
+            });
     const addBookInfo = () => {
         if (!payment) {
-        alert("결제수단을 선택해주세요.");
-        return;
+            alert("결제수단을 선택해주세요.");
+            return;
+        }
+        // 관리자 예약 방어코드 26.02.23 성중
+        if (userId ==="admin") {
+            alert("관리자는 예약이 불가합니다.");
+            return;
         }
 
         axios.post('/api/insertBook', {    
@@ -137,14 +171,17 @@ export default function Reservation() {
             endTime: endTime,
             carPrice: carPrice,
             insurancePrice: insurancePrice,
-            totalPrice: finalTotalPrice
+            totalPrice: finalTotalPrice,
+            paymentMethod: payment
         })
         .then((res)=>{
             if(res.data == 1){
 
-                alert("예약이 완료되었습니다.");
+                const confirmCancel = window.confirm('결제를 진행하시겠습니까?');
+                if (!confirmCancel) return;
+                alert("결제가 완료되었습니다. 예약 정보 페이지로 이동합니다.");
                 fetchBookedList();
-                navigate("/mypage/booked");
+                navigate(`/mypage/detail/${bookingId}`);
             }
         })
         .catch((error)=>{
@@ -335,8 +372,8 @@ export default function Reservation() {
                                         <input
                                         type="checkbox"
                                         id="payment01"
-                                        checked={payment === "bank"}
-                                        onChange={() => payChange("bank")}
+                                        checked={payment === "무통장입금"}
+                                        onChange={() => payChange("무통장입금")}
                                         />
                                         <label htmlFor="payment01">무통장입금</label>
                                     </li>
@@ -344,8 +381,8 @@ export default function Reservation() {
                                         <input
                                         type="checkbox"
                                         id="payment02"
-                                        checked={payment === "kakao"}
-                                        onChange={() => payChange("kakao")}
+                                        checked={payment === "카카오페이"}
+                                        onChange={() => payChange("카카오페이")}
                                         />
                                         <label htmlFor="payment02">카카오페이</label>
                                         <img src="kakao_pay.png" alt="카카오페이" className="kakao_pay" />
@@ -354,8 +391,8 @@ export default function Reservation() {
                                         <input
                                         type="checkbox"
                                         id="payment03"
-                                        checked={payment === "naver"}
-                                        onChange={() => payChange("naver")}
+                                        checked={payment === "네이버페이"}
+                                        onChange={() => payChange("네이버페이")}
                                         />
                                         <label htmlFor="payment03">네이버페이</label>
                                         <img src="naver_pay.png" alt="네이버페이" className="naver_pay" />

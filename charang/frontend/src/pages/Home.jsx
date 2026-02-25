@@ -17,7 +17,7 @@ import 'leaflet/dist/leaflet.css';
 
 export default function Home(){
   const navigate = useNavigate();
-  const {branchId, setBranchId, setLocation, location, startDate, endDate ,startTime, endTime, apply, setApply,
+  const {setBranchId, setLocation, location, startDate, endDate ,startTime, endTime, 
          handleSearchBtn, setIsLocation,setIsCalendar,isLocation, isCalendar,startdayText, 
          enddayText, DeleteYear, timeAMPM} = useContext(CalendarContext);
   const {myRecentlist} = useContext(BookingContext);
@@ -93,9 +93,11 @@ export default function Home(){
   let detail_lng=detail?.lng;
     
 
-  useEffect(()=>{
-    setIsDetail(null);
-  },[isLocation]);
+  useEffect(() => {
+    if (!isLocation) {
+      setIsDetail(null);
+    }
+  }, [isLocation]);
       
   // 상세보기 close 버튼 핸들러함수
   const detailCloseHandler=()=>{
@@ -210,7 +212,7 @@ export default function Home(){
       iconAnchor: [12, 41],
     });
 
-    // console.log(userid+"유저아이디");
+
   return(
     <div className="Home">
         {/* 예약 섹션 */}
@@ -221,18 +223,15 @@ export default function Home(){
           <p>언제 필요하세요?</p>
           <div className="H_dateTitle" onClick={calendarHandler}>
             {/* 날짜를 선택하세요 출력 조건 수정 12.26 */}
-            {startDate? 
-            <p>
-              {startDate && endDate && (
-                <>
-                  {DeleteYear(startDate)} ({startdayText}){timeAMPM(startTime)}
-                  {" ~ "}
-                  {DeleteYear(endDate)} ({enddayText}){timeAMPM(endTime)}
-                </>
-              )}
-            </p>
-            :
-            <p>날짜를 선택하세요</p>}
+            {startDate && endDate ? (
+              <p>
+                {DeleteYear(startDate)} ({startdayText}) {timeAMPM(startTime)}
+                {" ~ "}
+                {DeleteYear(endDate)} ({enddayText}) {timeAMPM(endTime)}
+              </p>
+            ) : (
+              <p>날짜를 선택하세요</p>
+            )}
           </div>
         </div>
 
@@ -248,7 +247,6 @@ export default function Home(){
               className="H_searchButton"
               type="submit"
               onClick={() => {
-                setApply(true);
                 handleSearchBtn(navigate);
                 CloseHandler();
               }}
@@ -262,7 +260,7 @@ export default function Home(){
       {/* 지점 모달 파트 */}
       {isLocation && (
         <div className="H_location">
-          <span className="H_close01" onClick={detailCloseHandler}><i className="bi bi-x-lg"></i></span>
+          <div className="H_close01"><i className="bi bi-x-lg" onClick={detailCloseHandler}></i></div>
           {/* 상세 위치 (지도.) */}
           {isDetail ? (
             <>
@@ -296,8 +294,14 @@ export default function Home(){
                 <span>서울</span>
                 <div className="H_seoul">
                   <div className="H_gu">
-                    <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                      <p onClick={()=>{setLocation("서울북부"); setBranchId(5);}}>
+                    <div className="H_Click">
+                      <p
+                          onClick={() => {
+                            setLocation("서울북부");
+                            setBranchId(5);
+                            setIsLocation(false);
+                          }}
+                        >
                         서울 북부 <span>노원구</span>
                       </p>
                     </div>
@@ -305,8 +309,14 @@ export default function Home(){
                   </div>
 
                   <div className="H_gu">
-                    <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                      <p onClick={()=>{setLocation("서울남부"); setBranchId(4);}}>
+                    <div className="H_Click">
+                      <p
+                          onClick={() => {
+                            setLocation("서울남부");
+                            setBranchId(4);
+                            setIsLocation(false);
+                          }}
+                        >
                         서울 남부 <span>서초구</span>
                       </p>
                     </div>
@@ -314,8 +324,14 @@ export default function Home(){
                   </div>
 
                   <div className="H_gu">
-                    <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                      <p onClick={()=>{setLocation("서울동부"); setBranchId(3);}}>
+                    <div className="H_Click">
+                      <p
+                          onClick={() => {
+                            setLocation("서울동부");
+                            setBranchId(3);
+                            setIsLocation(false);
+                          }}
+                        >
                         서울 동부 <span>동대문구</span>
                       </p>
                     </div>
@@ -326,8 +342,14 @@ export default function Home(){
                 <span>김포</span>
                 <div className="H_gimpo">
                   <div className="H_gu">
-                    <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                      <p onClick={()=>{setLocation("김포공항"); setBranchId(2)}}>
+                    <div className="H_Click">
+                      <p
+                          onClick={() => {
+                            setLocation("김포공항");
+                            setBranchId(2);
+                            setIsLocation(false);
+                          }}
+                        >
                         김포공항 <span>강서구</span>
                       </p>
                     </div>
@@ -337,8 +359,14 @@ export default function Home(){
 
                 <span>인천</span>
                 <div className="H_gu">
-                  <div className="H_Click" onClick={()=>setIsLocation(false)}>
-                    <p onClick={()=>{setLocation("인천공항"); setBranchId(1)}}>
+                  <div className="H_Click">
+                      <p
+                          onClick={() => {
+                            setLocation("인천공항");
+                            setBranchId(1);
+                            setIsLocation(false);
+                          }}
+                        >
                       인천공항 <span>인천</span>
                     </p>
                   </div>
@@ -352,8 +380,7 @@ export default function Home(){
 
       {isCalendar && <div className={`calendar-slide ${isCalendar ? "open" : ""}`}>
         <div className="Home_isCalendar_top">
-          <p className="Home_isCalendar_p">언제 필요하세요?</p>
-          <span className="H_close02" onClick={()=>setIsCalendar(false)}><i className="bi bi-x-lg"></i></span>
+          <div className="H_close02"><i className="bi bi-x-lg" onClick={()=>setIsCalendar(false)}></i></div>
         </div>
         <Calendar />
       </div>}
@@ -479,7 +506,7 @@ export default function Home(){
         <div className="H_sec_history">
           <div className="H_sec_history_block">
               <h4><span className="joinColorText">{username}</span>님의 최근 본 차량</h4>
-              <Link to={'/recent'} className="H_more">
+              <Link to={'/mypage/recent'} className="H_more">
                 <span>더보기</span>
               </Link>
           </div>
@@ -494,7 +521,7 @@ export default function Home(){
           :
           <>
            <div className="H_sec_noRecentcars">
-              <p>아직 최근 본 차량이 없습니다.</p>
+              <p>최근 본 차량이 없습니다.</p>
               <div>
                   <span>!</span>
               </div>

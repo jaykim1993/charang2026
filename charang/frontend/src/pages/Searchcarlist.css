@@ -395,51 +395,40 @@ a, p, h4, h3, h2, h1{
 .calendar-slide {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
     position: absolute;
     margin-top: 30px;
     top: 140px;
     z-index: 100;
-    width: 1060px;
-   height: 620px;
-   background-color: #fff;
-   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-   border-radius: 15px;
-}
-.calendar-slide .R_close02 > i{
-    display: flex;
-    justify-content: flex-end;
-    cursor: pointer;
-    color: #999;
-    padding-right: 25px;
 }
 
 .calendar-slide.open {
-  max-height: 800px; /* 캘린더 높이 예상값 */
   position: absolute;
   top: 140px;
   right: 0;
   z-index: 100;
    width: 665px;
-   height: 620px;
+   min-height: 620px;
    background-color: #fff;
    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
    border-radius: 15px;
    padding: 25px 5px 0 0;
 }
+.calendar-slide.open .R_close02{
+    padding-left: 640px;
+    margin-bottom: 20px;
+}
 .calendar-slide.open .R_close02 > i{
-    display: flex;
-    justify-content: flex-end;
+    width: 15px;
     cursor: pointer;
     color: #999;
-    /* padding-right: 25px; */
-    margin-bottom: 20px;
 }
 
 /* 지점 선택 목록 */
+#root .R_carlist .R_location .R_close01{
+    padding-left: 380px;
+}
 #root .R_carlist .R_location .R_close01 > i{
-    display: flex;
-    justify-content: flex-end;
+    width: 15px;
     cursor: pointer;
     color: #999;
 }
@@ -540,7 +529,7 @@ a, p, h4, h3, h2, h1{
     cursor: pointer;
 }
 
-/* .GrounpedCarsWrap{
+.GrounpedCarsWrap{
     max-height: 880px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -554,4 +543,4 @@ a, p, h4, h3, h2, h1{
 }
 .GrounpedCarsWrap::-webkit-scrollbar-thumb {
   background:  #2591cf;
-} */
+}

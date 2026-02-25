@@ -1,10 +1,11 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"; // useParams 추가
 import { AuthContext } from "../../contexts/Authcontext";
-import './CustomerServiceNoticeInfo.css';
 import axios from "axios";
 
-export default function CustomerServiceNoticeInfo() {
+import './CustomerServiceNoticeDetail.css';
+
+export default function CustomerServiceNoticeDetail() {
     const navigate = useNavigate();
     
     // 주소창에서 :noticeId 자리에 있는 값을 바로 뽑아옴
@@ -16,7 +17,7 @@ export default function CustomerServiceNoticeInfo() {
         axios.get(`/api/customerservice/notice/Info/${noticeId}`)
         .then((res) => {
             setNotice(res.data);
-            console.log("res.data : ", res.data);
+            console.log("공지 상세 - res.data : ", res.data);
         })
         .catch(error => console.log("error : ", error));
     }, [noticeId]);
@@ -60,7 +61,7 @@ export default function CustomerServiceNoticeInfo() {
                 <button onClick={() => navigate("/customerservice/notice")}>목록으로 돌아가기</button>
                 
                 {userid === 'admin' && (
-                    <div className="notice_adminBtn">
+                    <div className="adminBtn">
                         <button onClick={() => navigate(`/customerservice/notice/manager/modify/${noticeId}`)}>
                             수정하기
                         </button>

@@ -220,12 +220,12 @@
     z-index: 50;
 }
 .submitinqu{
-    width: 535px;
-    margin: 0 auto;
+    width: 648px;
+    /* margin: 0 auto; */
     text-align: center;
 }
 .submitinqu button{
-    width: 535px;
+    width: 100%;
     font-size: 19px;
     padding: 10px;
     border: none;
@@ -245,4 +245,112 @@
     margin: 70px 0;
     font-size: 22px;
     font-weight: 500;
+}
+.guideMainTextp{
+    margin: 10px 0;
+}
+/* 전체 배경 */
+.CusFAQ {
+  padding: 30px;
+  margin-bottom: 50px;
+  border-top: 2px solid #a0a0a0;
+  
+}
+
+/* 채팅 영역 */
+.chat-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-left: 80px;
+}
+
+/* 한 질문 세트 */
+.chat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 공통 말풍선 */
+.chat-bubble {
+  max-width: 70%;
+  padding: 18px 32px;
+  border-radius: 20px;
+  font-size: 16px;
+  line-height: 1.8;
+  animation: fadeIn 0.3s ease;
+}
+
+/* 질문 (오른쪽) */
+.chat-bubble.question {
+  align-self: flex-end;
+  background:#2591cf;
+  color: white;
+  border-radius: 35px 35px 5px 35px;
+  cursor: pointer;
+  transition: 0.2s;
+  position: relative;
+  margin: 20px 0;
+}
+.chat-bubble.question::after {
+    content: "Q";
+    color: #2591cf;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    position: absolute;
+    top:-90px;
+    right: -5px;
+    font-size: 60px;
+}
+
+.chat-bubble.question:hover {
+  transform: translateY(-2px);
+}
+.Alogo{
+    position: absolute;
+    bottom: -35px;
+    left: -90px;
+    max-width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 답변 (왼쪽) */
+.chat-bubble.answer {
+  align-self: flex-start;
+  background: white;
+  color: #333;
+  border-radius: 35px 35px 35px 5px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  position: relative;
+}
+.chat-bubble.answer::after {
+    content: "A";
+    color: #2591cf;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    position: absolute;
+    top:-120px;
+    left: -25px;
+    font-size: 100px;
+}
+
+/* 텍스트 정리 */
+.chat-text {
+  white-space: pre-line; /* 줄바꿈 유지 */
+  color: white;
+}
+.chat-text2 {
+  white-space: pre-line; /* 줄바꿈 유지 */
+  color: rgb(49, 49, 49);
+}
+
+/* 등장 애니메이션 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }

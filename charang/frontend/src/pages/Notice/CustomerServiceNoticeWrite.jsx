@@ -26,7 +26,9 @@ export default function CustomerServiceNoticeWrite(){
             return;
         }
 
-        axios.post('/api/customerservice/notice/manager/writePro', {userId: userid, title: title, content: content})
+        axios.post('/api/customerservice/notice/manager/writePro', {
+            userId: userid, title: title, content: content
+        })
         .then((res) => {
             if(res.data === 1){
                 console.log("res.data : ", res.data);
@@ -55,14 +57,12 @@ export default function CustomerServiceNoticeWrite(){
                         <th>내용</th>
                         <td>
                             <textarea type="text" name="content" rows="15"
-                            onChange={(e) => setContent(e.target.value)} placeholder="내용을 입력하세요.">
-                                <c:out value="${content}" />
-                            </textarea>
+                            onChange={(e) => setContent(e.target.value)} placeholder="내용을 입력하세요." />
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <div className="notice_adminBtn">
+            <div className="adminBtn">
                 <button onClick={noticeChk}>작성완료</button>
             </div>
         </div>

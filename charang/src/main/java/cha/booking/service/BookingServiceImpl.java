@@ -35,11 +35,34 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public boolean deleteBooking(String bookingId) {
-	    return bookingmapper.deleteBooking(bookingId) > 0;
+		System.out.println("예약 서비스 : 예약 삭제 서비스(회원용)");
+		int result = bookingmapper.deleteBooking(bookingId);
+		// 삭제 성공
+		if(result > 0) {
+			return true;
+		}
+		// 삭제 실패
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean deleteSelectedBookings(List<String> bookingId) {
+		System.out.println("예약 서비스 : 예약 삭제 서비스(관리자용)");
+		int result = bookingmapper.deleteSelectedBookings(bookingId);
+		// 삭제 성공
+		if(result > 0) {
+			return true;
+		}
+		// 삭제 실패
+		else {
+			return false;
+		}
 	}
 
 
-
+	
 
 
 }

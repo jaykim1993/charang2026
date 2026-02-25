@@ -1,0 +1,30 @@
+.inquiry{
+    width: 90%;
+    min-height: 800px;
+}
+
+.inquiry .inquiry_form{
+    margin-top: 10px;
+}
+.inquiry .inquiry_form p{
+    font-size: 18px;
+    font-weight: 500;
+}
+.inquiry .inquiry_form p .userName{
+    color: #0b79b7;
+}
+.inquiry .inquiry_form table{
+    width: 100%;
+    margin-top: 20px;
+}
+.inquiry .inquiry_form table tr td input,
+.inquiry .inquiry_form table tr td textarea{
+    width: 80%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #999;
+}
+.inquiry .inquiry_form table tr td textarea{
+    white-space: pre-wrap;
+    resize: none;
+}
