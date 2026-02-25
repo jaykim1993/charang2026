@@ -1,15 +1,15 @@
-.header{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 65px;
-    /* background-color: #f9fafc; */
-    background-color: #333;
-    width: 100%;
-    z-index: 99;
-    margin: 0 auto;
-    padding: 20px;
-    /* border-bottom: 1px solid #e2e4e9; */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 65px;
+  /* background-color: #f9fafc; */
+  background-color: #333;
+  width: 100%;
+  z-index: 99;
+  margin: 0 auto;
+  padding: 20px;
+  /* border-bottom: 1px solid #e2e4e9; */
 }
 .headerflex{
     display: flex;
@@ -146,261 +146,326 @@
     cursor: pointer;
     color: #ececec;
 }
-.headerBtnCate:hover, .headerBrand:hover, .headerBtnX:hover {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 1);
-    color: #2591cf;
+
+.bi-house-door-fill {
+  color: #ececec;
 }
+
+.headerBrand {
+  display: inline-block;
+  width: fit-content;
+  height: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+  transition: 0.3s;
+  color: #0b79b7;
+  transform: translateY(-12px);
+}
+
+.headerNavRighttop {
+  display: flex;
+  gap: 20px;
+}
+
+.headerBtnCate {
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  background-color: inherit;
+  font-size: 25px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.headerBtn {
+  border: none;
+  padding: 16px;
+  border-radius: 5px;
+  background-color: inherit;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: 0.3s;
+  cursor: pointer;
+  color: #ececec;
+}
+
+.headerBtnCate:hover,
+.headerBrand:hover,
+.headerBtnX:hover {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  color: #2591cf;
+}
+
 .headerUserBookedModal {
-    position: absolute;
-    max-height: 0px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    transform: translateY(-30px);
-    width: 340px;
-    top: 75px;
-    right: 30px;
-    z-index: 30;
-    display: none;
-    transition: transform 0.5s ease;
+  position: absolute;
+  max-height: 0px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-30px);
+  width: 340px;
+  top: 75px;
+  right: 30px;
+  z-index: 30;
+  display: none;
+  transition: transform 0.5s ease;
 }
-.headerUserBookedModal.open{
-    position: absolute;
-    max-height: 500px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    width: 340px;
-    top: 75px;
-    right: 30px;
-    z-index: 30;
-    display: block;
-    transform: translateY(0);
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
+
+.headerUserBookedModal.open {
+  position: absolute;
+  max-height: 500px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 340px;
+  top: 75px;
+  right: 30px;
+  z-index: 30;
+  display: block;
+  transform: translateY(0);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
 }
-.headerModalH{
-    height: 40px;
+
+.headerModalH {
+  height: 40px;
 }
-.headerUserBookModalContext{   
-    max-height: 250px;
-    width: 310px;
-    overflow-y: auto;
+
+.headerUserBookModalContext {
+  max-height: 250px;
+  width: 310px;
+  overflow-y: auto;
 }
+
 .headerUserBookModalContext::-webkit-scrollbar {
-    width: 3px;
+  width: 3px;
 }
+
 .headerUserBookModalContext::-webkit-scrollbar-thumb {
-  background:  #2591cf80;
+  background: #2591cf80;
   border-radius: 3px;
 }
-.headermodalText{
-    font-size: 15px;
-    margin-left: 25px;
-    font-weight: 500;
-    color: rgb(70, 70, 70);
+
+.headermodalText {
+  font-size: 15px;
+  margin-left: 25px;
+  font-weight: 500;
+  color: rgb(70, 70, 70);
 }
-.headerModalInfo{
-    display: flex;
-    width: 95%;
-    padding: 10px 5px;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+
+.headerModalInfo {
+  display: flex;
+  width: 95%;
+  padding: 10px 5px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 }
-.headerModalDate{
-    display: inline-block;
-    width: 90%;
-    font-size: 13px;
-    margin-top: 5px;
-    margin-left: 30px;
+
+.headerModalDate {
+  display: inline-block;
+  width: 90%;
+  font-size: 13px;
+  margin-top: 5px;
+  margin-left: 30px;
 }
+
 .headerModalImg {
-    margin-top: 20px;
-    width: 300px;
-    border-radius: 5px;
-    transition: 0.3s;
-    cursor: pointer;
+  margin-top: 20px;
+  width: 300px;
+  border-radius: 5px;
+  transition: 0.3s;
+  cursor: pointer;
 }
+
 .headerModalBtnX {
-    border: 0;
-    position: absolute;
-    background: none;
-    top: 0;
-    right: 10px;
-    font-size: 28px;
-    transition: 0.3s;
-    cursor: pointer;
+  border: 0;
+  position: absolute;
+  background: none;
+  top: 0;
+  right: 10px;
+  font-size: 28px;
+  transition: 0.3s;
+  cursor: pointer;
 }
+
 .headerModalBtn {
-    border: none;
-    width: 100%;
-    margin-top: 20px;
-    padding: 12px 0;
-    background: #0b79b7;
-    color: white;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.2s;
+  border: none;
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px 0;
+  background: #0b79b7;
+  color: white;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
 }
+
 .headerModalBtn:hover {
-    background: #065d8f;
-    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  background: #065d8f;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
+
 .headerNavRighttop a {
-    text-decoration: none;
-    font-size: 1rem;
+  text-decoration: none;
+  font-size: 1rem;
 }
-.headerBannerImgWrap{
-    text-align: center;
-    width: 277px;
-    height: 277px;
+
+.headerBannerImgWrap {
+  text-align: center;
+  width: 277px;
+  height: 277px;
 }
 
 /* ---------------------------------- */
 
 
-.headerBannerImg{
-    width: 230px;
-    height: 230px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    border-radius: 10px;
-    cursor: pointer;
-    margin-bottom: 30px;
+.headerBannerImg {
+  width: 230px;
+  height: 230px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 30px;
 }
+
 .headerNavSide {
-    position: fixed;
-    top: 0; 
-    left: 0;
-    width: 295px;
-    height: 100vh;
-    transform: translateX(-100%);
-    transition: transform 0.5s;
-    background-color: white;
-    z-index: 100;
-    padding: 10px 30px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    overflow-y: auto;
-    overflow-x: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 295px;
+  height: 100vh;
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+  background-color: white;
+  z-index: 100;
+  padding: 10px 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
 .headerNavSide::-webkit-scrollbar {
   width: 2px;
 }
+
 .headerNavSide::-webkit-scrollbar-thumb {
   background:  #065d8f98;
   border-radius: 3px;
 }
+
 .headerNavSide.on {
-    transform: translateX(0);
+  transform: translateX(0);
 }
+
 .headerBtnX {
-    height: fit-content;
-    border: 0;
-    background: none;
-    margin-top: 10px;
-    font-size: 28px;
-    transition: 0.3s;
-    cursor: pointer;
+  height: fit-content;
+  border: 0;
+  background: none;
+  margin-top: 10px;
+  font-size: 28px;
+  transition: 0.3s;
+  cursor: pointer;
 }
-.headerNavHtop{
-     border-left: 3px solid #065d8f;
-    display: inline-block;
-    width: fit-content;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    padding-left: 10px;
-    cursor: pointer;
-    position: relative;
+
+.headerNavHtop {
+  border-left: 3px solid #065d8f;
+  display: inline-block;
+  width: fit-content;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  cursor: pointer;
+  position: relative;
 }
+
 .headerNavH {
-    border-left: 3px solid #065d8f;
-    display: inline-block;
-    width: fit-content;
-    font-weight: bold;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    padding-left: 10px;
-    cursor: pointer;
-    position: relative;
+  border-left: 3px solid #065d8f;
+  display: inline-block;
+  width: fit-content;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  cursor: pointer;
+  position: relative;
 }
+
 .headerNavpointer i {
-    color: #0b79b7;
+  color: #0b79b7;
 }
+
 .headerNavLi {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px;
-    padding-left: 15px;
-    border-bottom: 1px solid #eee;
-    font-size: 17px;
-    transition: 0.3s;
-    border-radius: 7px;
-    cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  padding-left: 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 17px;
+  transition: 0.3s;
+  border-radius: 7px;
+  cursor: pointer;
 }
+
 .headerNavLi:hover {
-    background-color: #2591cf;
-    transform: scale(1.02);
-    color: #f4f4f4;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  background-color: #2591cf;
+  transform: scale(1.02);
+  color: #f4f4f4;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-.headerNavLi:hover .headerNavpointer i{
-    color: white;
+
+.headerNavLi:hover .headerNavpointer i {
+  color: white;
 }
+
 .headerNavLi:hover div {
-    color: #f4f4f4;
+  color: #f4f4f4;
 }
+
 Link {
-    text-decoration: none;
+  text-decoration: none;
 }
-.sideNavOverlay{
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    background: rgba(0,0,0,0.15);
+
+.sideNavOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.15);
 
 }
 
 
 .header-managerBtn-wrap {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .header-manager-dropdown-menu {
-    position: absolute;
-    width: 100px;      
-    top: 52px;       
-    left: 0;
-    background-color: #333;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    opacity: 0;
-    transform: translateY(-250px);
+  position: absolute;
+  width: 100px;
+  top: 56px;
+  left: 0;
+  background-color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(-250px);
 }
 
 .header-manager-dropdown-menu .item {
-    display: inline-block;
-    width: 100%;
-    padding: 12px;
-    color: #eee;
-    cursor: pointer;
-    text-align: center;
+  display: inline-block;
+  width: 100%;
+  padding: 12px;
+  color: #eee;
+  cursor: pointer;
+  text-align: center;
 }
 
 .header-manager-dropdown-menu .item:hover {
-    text-decoration: underline;
-
-    /* margin-left: 5px; */
-    text-align: center;
-}
-
-.header-manager-dropdown-menu .item:hover {
-    /* text-decoration: underline; */
-    background-color: #555;
+  background-color: #555;
 
 }
 
 .header-managerBtn-wrap:hover .header-manager-dropdown-menu {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
-
-

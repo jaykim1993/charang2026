@@ -28,4 +28,6 @@
     width: 100%;
     border: none;
     outline: none;
+    white-space: pre-wrap;
+    resize: none;
 }
