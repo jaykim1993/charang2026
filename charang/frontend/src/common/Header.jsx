@@ -22,7 +22,6 @@ export default function Header() {
         sessionStorage.removeItem("totalPrice");
         sessionStorage.removeItem("selectedCarId");
         logout();
-        alert("로그아웃 되었습니다. 메인페이지로 이동합니다.");
     };
     if (!userid) {
         sessionStorage.removeItem("calendarFilters");

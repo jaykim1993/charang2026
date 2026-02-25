@@ -89,15 +89,16 @@ function App() {
                 <Route path="/customerservice/inquiry/list/info/:inquiryId" element={<InquiryDetail />} />                   {/* 문의상세 */}
                 <Route path="/manager/inquiry/answer/:inquiryId" element={<InquiryAnswer />} />                              {/* 문의답변 */}
                 <Route path="/location" element={<LocationPage />} />
-                <Route path="/recent" element={<Recentcarlist />} />
+                
 
                 {/* 마이페이지 */}
                 <Route path="/mypage" element={<Mypage />}>
-                  <Route path="booked" element={<MypageBooked />} />
-                  <Route path="detail/:bookingId" element={<MypageDetail />} />
-                  <Route path="inquiry" element={<MypageInquiry />} />
-                  <Route path="myinfo" element={<MypageMyinfo />} />
-                  <Route path="modify" element={<MypageModify />} />
+                    <Route path="booked" element={<MypageBooked/>} />
+                    <Route path="detail/:bookingId" element={<MypageDetail />} />
+                    <Route path="inquiry" element={<MypageInquiry />} />
+                    <Route path="myinfo" element={<MypageMyinfo />} />
+                    <Route path="modify" element={<MypageModify />} />
+                    <Route path="recent" element={<Recentcarlist />} />
                 </Route>
                 {/* 관리자 페이지 */}
                 <Route path="/manager/carlist" element={<AllCarPage/>}/>

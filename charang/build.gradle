@@ -39,6 +39,14 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-thymeleaf-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	// 메일 전송 설정
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	
+	//final 필드 생성자 자동 생성
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {

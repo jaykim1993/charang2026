@@ -17,11 +17,11 @@ export default function Recentcarlist() {
 
 
   const moreHandler = () => {
-    setViewMore(prev => prev + 8);
+    setViewMore(prev => prev + 6);
   };
 
   const hiddenHandler = () => {
-    setViewMore(8); // 기본 8개로 접기
+    setViewMore(6); // 기본 8개로 접기
   };
   
 
@@ -38,21 +38,23 @@ export default function Recentcarlist() {
 
 const [recentView, setRecentView] = useState(myRecentlist(userid));
 
-  //삭제
   const removeRecentView = (carId) => {
-  setRecentView(prev => {
-    const filtered = prev.filter(
-      item => !(item.userid === userid && item.carId === carId)
-    );
-    const confirmCancel = window.confirm('리스트에서 삭제하시겠습니까?');
-    if (!confirmCancel) return;
-    sessionStorage.setItem("recentView", JSON.stringify(filtered));
-    return filtered;
-  });
-  };
-//
+  const raw = localStorage.getItem("recentView");
+  if (!raw) return;
+  const parsed = JSON.parse(raw);
+  const filtered = parsed.filter(
+    item => !(item.userid === userid && item.carId === carId)
+  );
+  localStorage.setItem("recentView", JSON.stringify(filtered));
+  setRecentView(filtered);
+};
 
   return (
+    <>
+  
+    <div className="myinfo-header">
+      <h2 className="guideMainText">최근 본 차량</h2>
+    </div>
     <div className="Recent_car_list">
 
       <div className="Recent_Head">
@@ -72,12 +74,12 @@ const [recentView, setRecentView] = useState(myRecentlist(userid));
             </div>
             <li className="Recent_ByDate"  >
             <div className="Recent_car_item" onClick={()=>goToSearchcarlist(item.model)}>
-              <img className="Recent_logo" src={`/images/brands/${item.brand}.png`}/>
+              <img className="Recent_logo" src={`/images/brands/${item.brandLogo}`}/>
               <img
                 src={`/images/cars/${item.carImg}`}
                 alt={item.model}
                 className="Recent_car_img" />
-              <p className="Recent_car_p"> {item.model} <span className="Recent_car_span">{item.fuelYype}</span></p>
+              <p className="Recent_car_p"> {item.model} <span className="Recent_car_span">{item.fuelType}</span></p>
               <p className="RecentCar_viewDate">최근 본 날짜 : {item.viewDate.replaceAll('-','.')}</p>
             </div>
           </li>
@@ -95,11 +97,12 @@ const [recentView, setRecentView] = useState(myRecentlist(userid));
         {viewMore < recentView.length && (
           <button onClick={moreHandler} ><i className="bi bi-chevron-down"></i></button>
         )}
-        {viewMore > 8 && (
+        {viewMore > 6 && (
           <button onClick={hiddenHandler}><i className="bi bi-chevron-up"></i></button>
         )}
       </div>
 
     </div>
+      </>
   );
 }

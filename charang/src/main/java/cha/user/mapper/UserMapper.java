@@ -3,41 +3,53 @@ package cha.user.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import cha.user.dto.UserDTO;
 
 
 @Mapper
 public interface UserMapper {
-   /*   //ȸ        ߺ     
+   /*   //회        揷     
    public final static int userid_alreday_exit = 0;
-   // ȸ               
+   // 회               
    public final static int userid_success = 1;
-   // ȸ               
+   // 회               
    public final static int userid_fail = -1;
    */
-  	// 전체 회원 출력
+  	// �쟾泥� �쉶�썝 異쒕젰
 	public List<UserDTO> selectAllUser();
    
-   //ȸ        ߰ 
+   //회        煞 
    public int insertUser(UserDTO udto);
    
-   // α             DB    ִ       ̵   ߺ üũ
+   // 慣             DB    獵       絹   揷 체크
    public boolean isUser(String userId);
    
-   //ȸ       
+   //회       
    public int modUser(UserDTO udto);
    
-   //ȸ   Ż  
+   //회   탈  
    public int delUser(String userId);
    
-   // ѻ          ȸ
+   // 綺          회
    public UserDTO oneUser(String userId);
    
-   // ѻ    н        ȯ
+   // 綺    戟        환
    public String getPass(String userId);
    
-   //ȸ    Ƶ     ߺ üũ
+   //회    틉     揷 체크
    public boolean existUserId(String userId);
+   
+//   2026/02/23 찬하 추가 
+   
+   //회원 아이디, 메일 체크  아이디 찾기
+   public String findUserId(@Param("name")String name, @Param("mail")String mail);
+ 
+   //회원 아이디, 이름, 메일 체크 비밀번호 찾기  
+   public boolean findUserPw(@Param("userId")String userId, @Param("name")String name, @Param("mail")String mail);
+   
+   //회원 비번찾기 재설정
+   public boolean updatePassword(@Param("userId")String userId, @Param("newPw")String newPw);
    
 }

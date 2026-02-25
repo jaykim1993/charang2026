@@ -506,7 +506,7 @@ export default function Home(){
         <div className="H_sec_history">
           <div className="H_sec_history_block">
               <h4><span className="joinColorText">{username}</span>님의 최근 본 차량</h4>
-              <Link to={'/recent'} className="H_more">
+              <Link to={'/mypage/recent'} className="H_more">
                 <span>더보기</span>
               </Link>
           </div>
