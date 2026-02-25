@@ -55,7 +55,9 @@ import MypageModify from './pages/MypageModify';
 
 // 폰트어썸
 import 'bootstrap-icons/font/bootstrap-icons.css';
+
 function App() {
+  
   return (
     <AuthProvider>
       <DataProvider>
@@ -77,19 +79,18 @@ function App() {
                   <Route path="rental" element={<GuideRental />} />            {/* 대여안내 */}
                   <Route path="pricing" element={<GuidePricing />} />          {/* 요금안내 */}
                 </Route>
-
                 {/* 고객 가이드 */}
                 <Route path="/customerservice" element={<CustomerService />}>
-                  <Route path="/customerservice/inquiry/list/info/update/:inquiryId" element={<InquiryUpdate />} />                     {/* 문의수정 */}
-                  <Route path="/customerservice/inquiry/write" element={<InquiryForm />} />                                  {/* 1:1문의 */}
-                  <Route path="FAQ" element={<CustomerServiceFAQ />} />                                                      {/* 자주 찾는 질문 */}
-                  <Route path="notice" element={<CustomerServiceNotice />} />                                                {/* 공지사항 */}
-                  <Route path="/customerservice/notice/Info/:noticeId" element={<CustomerServiceNoticeDetail />} />          {/* 공지사항 상세*/}
-                  <Route path="/customerservice/inquiry/list" element={<AllInquiry />} />                                    {/* 문의목록 */}
+                  <Route path="inquiry/list/info/update/:inquiryId" element={<InquiryUpdate />} />          {/* 문의수정 */}
+                  <Route path="inquiry/write" element={<InquiryForm />} />                                  {/* 1:1문의 */}
+                  <Route path="FAQ" element={<CustomerServiceFAQ />} />                                     {/* 자주 찾는 질문 */}
+                  <Route path="notice" element={<CustomerServiceNotice />} />                               {/* 공지사항  @@@@@@@@@@@@@@@@@@@@*/}
+                  <Route path="notice/Info/:noticeId" element={<CustomerServiceNoticeDetail />} />          {/* 공지사항 상세*/}
+                  <Route path="inquiry/list" element={<AllInquiry />} />                                    {/* 문의목록 @@@@@@@@@@@@@@@@@@@@*/}        
                 </Route>
+
                 <Route path="/customerservice/notice/manager/write" element={<CustomerServiceNoticeWrite />} />              {/* 공지사항 작성*/}
                 <Route path="/customerservice/notice/manager/modify/:noticeId" element={<CustomerServiceNoticeModfiy />} />  {/* 공지사항 수정*/}
-
                 <Route path="/customerservice/inquiry/list/info/:inquiryId" element={<InquiryDetail />} />                   {/* 문의상세 */}
                 <Route path="/manager/inquiry/answer/:inquiryId" element={<InquiryAnswer />} />                              {/* 문의답변 */}
                 <Route path="/location" element={<LocationPage />} />
@@ -104,6 +105,7 @@ function App() {
                     <Route path="modify" element={<MypageModify />} />
                     <Route path="recent" element={<Recentcarlist />} />
                 </Route>
+
                 {/* 관리자 페이지 */}
                 <Route path="/manager/carlist" element={<AllCarPage/>}/>
                 <Route path="/manager/reservationlist" element={<AllReservationPage/>}/>

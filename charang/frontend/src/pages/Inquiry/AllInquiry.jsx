@@ -95,7 +95,9 @@ export default function AllInquiry() {
     };
 
     return (
-        <div className="AllInquiry">
+        <div className="AllInquiry" style={{
+            width: userid === 'admin' ? '1300px' : '900px', 
+            margin: userid === 'admin' ?'150px auto' : '0'}}>
             <div className="Inquiry_head">
                 <h4>문의하기</h4>
                 {userid === 'admin' ?

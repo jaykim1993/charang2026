@@ -451,7 +451,7 @@ export default function Header() {
                                         </div>
                                     </li>
                                 </Link>
-                                <Link to={'/customerservice/inquiry'} style={{ textDecoration: 'none' }}>
+                                <Link to={'/customerservice/inquiry/list'} style={{ textDecoration: 'none' }}>
                                     <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
                                         <div>문의하기</div>
                                         <div className='headerNavpointer'>

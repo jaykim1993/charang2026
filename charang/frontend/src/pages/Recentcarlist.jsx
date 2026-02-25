@@ -36,17 +36,24 @@ export default function Recentcarlist() {
   window.scrollTo(0, 0);
   }, []);
 
-const [recentView, setRecentView] = useState(myRecentlist(userid));
+const [recentView, setRecentView] = useState([]);
 
-  const removeRecentView = (carId) => {
-  const raw = sessionStorage.getItem("recentView");
+useEffect(() => {
+  setRecentView(myRecentlist(userid));
+  }, [userid, myRecentlist]);
+
+const removeRecentView = (carId) => {
+  const raw = localStorage.getItem("recentView");
   if (!raw) return;
+
   const parsed = JSON.parse(raw);
+
   const filtered = parsed.filter(
     item => !(item.userid === userid && item.carId === carId)
   );
-  sessionStorage.setItem("recentView", JSON.stringify(filtered));
-  setRecentView(filtered);
+
+  localStorage.setItem("recentView", JSON.stringify(filtered));
+  setRecentView(myRecentlist(userid));
 };
 
   return (
@@ -80,7 +87,7 @@ const [recentView, setRecentView] = useState(myRecentlist(userid));
                 alt={item.model}
                 className="Recent_car_img" />
               <p className="Recent_car_p"> {item.model} <span className="Recent_car_span">{item.fuelType}</span></p>
-              <p className="RecentCar_viewDate">최근 본 날짜 : {item.viewDate.replaceAll('-','.')}</p>
+              <p className="RecentCar_viewDate">최근 본 날짜 : {new Date(item.viewed_at).toLocaleDateString('ko-KR')}</p>
             </div>
           </li>
           </div>

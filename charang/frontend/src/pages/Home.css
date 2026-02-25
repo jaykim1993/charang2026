@@ -536,6 +536,9 @@ input:checked + .checkmark {
 .H_sec04_H {
     margin-bottom: 30px;
 }
+.H_sec04_H_span {
+    color: #0b79b7;
+}
 
 .H_sec04_list {
     width: 1300px;
@@ -571,7 +574,7 @@ input:checked + .checkmark {
 .H_sec04_img {
     /* width: 100%;
     height: 100%; */
-    height: 100px;
+    height: 150px;
 }
 
 .H_sec04_card h3 {

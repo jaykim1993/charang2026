@@ -7,9 +7,18 @@ import { AuthContext } from "../contexts/Authcontext"
 import { useNavigate } from "react-router-dom"
 
 export default function CustomerService() {
+    const { userid } = useContext(AuthContext);
+
+    //관리자일 경우 outlet으로 콘텐츠관리 X => 그냥 부모라우트 안타고 바로 콘텐츠 
+    if(userid === 'admin'){
+        return <Outlet/>;
+    }
+
+
+
     return (
         <>
-            <div className="guideWrap">
+         <div className="guideWrap">
                 <div className="guideTop">
                     <div>
                         <Link to={'/'} className="guideGoToHome">홈</Link>
@@ -32,12 +41,12 @@ export default function CustomerService() {
                         </Link>
                     </div>
                     <div className="guideRight">
-                        <main>
+                        <main >
                             <Outlet />
                         </main>
                     </div>
                 </div>
-            </div>
+         </div>   
         </>
     )
 }
