@@ -91,7 +91,7 @@ export default function CustomerServiceFAQ(){
 return(
 <>
 <h2 className="guideMainText">자주 찾는 질문 FAQ</h2> 
-<p className="guideMainTextp">더 궁금한 사항은 1:1 문의를 이용해주세요</p>
+<p className="guideMainTextp">더 궁금한 사항은 문의하기를 이용해주세요</p>
 <div className="CusFAQ">
     <div className="chat-container">
   {faqList.map((item, index) => (

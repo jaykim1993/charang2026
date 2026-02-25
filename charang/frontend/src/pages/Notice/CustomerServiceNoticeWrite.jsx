@@ -32,7 +32,7 @@ export default function CustomerServiceNoticeWrite(){
         .then((res) => {
             if(res.data === 1){
                 console.log("res.data : ", res.data);
-                alert('공지사항 등록 완료!')
+                alert('공지사항이 등록되었습니다.')
                 navigate('/customerservice/notice');
             }else{
                 alert("공지사항 등록 실패 - 권한이 없거나 데이터 오류");

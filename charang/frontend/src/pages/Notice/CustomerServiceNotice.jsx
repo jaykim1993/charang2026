@@ -61,14 +61,14 @@ export default function CustomerServiceNotice(){
             </div>
             <div className="notice_table">
                 <table>
-                    {/* <thead>
+                    <thead>
                         <tr>
                             <th>글번호</th>
                             <th>제목</th>
                             <th>등록일</th>
                             <th>조회수</th>
                         </tr>
-                    </thead> */}
+                    </thead>
                     <tbody>
                         {notice.length > 0 ? (
                             notice.map((item) => (

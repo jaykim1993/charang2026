@@ -39,13 +39,13 @@ export default function Recentcarlist() {
 const [recentView, setRecentView] = useState(myRecentlist(userid));
 
   const removeRecentView = (carId) => {
-  const raw = localStorage.getItem("recentView");
+  const raw = sessionStorage.getItem("recentView");
   if (!raw) return;
   const parsed = JSON.parse(raw);
   const filtered = parsed.filter(
     item => !(item.userid === userid && item.carId === carId)
   );
-  localStorage.setItem("recentView", JSON.stringify(filtered));
+  sessionStorage.setItem("recentView", JSON.stringify(filtered));
   setRecentView(filtered);
 };
 

@@ -29,14 +29,6 @@ public class UserApiController {
 	@Autowired
 	UserService userservice;
 	
-<<<<<<< HEAD
-	// 전체 회원 출력
-//	@GetMapping("/alluser")
-//	public List<UserDTO> getAllUserList(){
-//		System.out.println("회원 전체 출력 컨트롤러");
-//		return userservice.getAllUser();
-//	}
-	
 	// 검색 회원 출력
 	@GetMapping("/searchUser")
 	public Map<String, Object> getSearchUserList(
@@ -68,30 +60,24 @@ public class UserApiController {
 		result.put("list", userList);
 		result.put("ph", ph);
 		return result;
-=======
-	@GetMapping("/alluser")
-	public List<UserDTO> getAllUserList(){
-		System.out.println("�쉶�썝 �쟾泥� 異쒕젰 而⑦듃濡ㅻ윭");
-		return userservice.getAllUser();
->>>>>>> main
 	}
 	
-	//�븘�씠�뵒 以묐났留� 泥댄겕�븯�뒗嫄�
+	// 아이디 중복 체크
 	@PostMapping("/checkid")
 	public boolean checkId(@RequestBody UserDTO udto) {
-	    System.out.println("諛쏆� 媛�: " + udto.getUserId());
+	    System.out.println("아이디 중복 체크 컨트롤러: " + udto.getUserId());
 	    boolean exist = userservice.existUserId(udto.getUserId());
 	    return exist; 
 	}
 	
-	//�쉶�썝媛��엯
+	// 회원가입
 	@PostMapping("/signup")
 	public int signup(@RequestBody UserDTO udto) {
 		System.out.println("占쏙옙 占쏙옙트占싼뤄옙 signup 占쏙옙청占쏙옙");
 		return userservice.insertUser(udto);
 	}
 	
-	//濡쒓렇�씤
+	// 로그인
 	@PostMapping("/login")
 	public UserDTO login(@RequestBody UserDTO udto, HttpSession session) {
 			System.out.println("api占쏙옙트占싼뤄옙 login 占쏙옙청占쏙옙");
@@ -104,7 +90,7 @@ public class UserApiController {
 			return loginUser;
 		}
 	
-	//濡쒓렇�븘�썐
+	// 로그아웃
 	@GetMapping("/logout")
 	public int logout(HttpSession session) {
 			System.out.println("api占쏙옙트占싼뤄옙 logout 占쏙옙청占쏙옙");
@@ -112,7 +98,6 @@ public class UserApiController {
 			return 1;
 		}
 	
-<<<<<<< HEAD
 	// 유저개인정보
 	@GetMapping("/userinfo/{userId}")
 	public UserDTO myInfo(
@@ -133,28 +118,16 @@ public class UserApiController {
 			}
 			// 개인 유저일 경우
 			else {
-				return userservice.oneUser(loginId);
+				 UserDTO user = userservice.oneUser(loginId);
+				if(user.getResistNum() != null && user.getResistNum().length() == 14){ // - 포함해서 14자리니까 앞+'-'+첫자리 이후 별표
+					String masked = user.getResistNum().substring(0, 8) + "******";
+					user.setResistNum(masked);
+	    		}
+	    		return user;
 			}
-=======
-	//마이페이지 내정보
-	@GetMapping("/userinfo")
-	public UserDTO myInfo(HttpSession session) {
-	    String loginId = (String) session.getAttribute("loginUser");
-	    //로그인 안되어잇으면
-	    if(loginId == null) {
-	        return null;
-	    }
-	    //로그인되어잇으면
-	    UserDTO user = userservice.oneUser(loginId);
-	    if(user.getResistNum() != null && user.getResistNum().length() == 14){ // - 포함해서 14자리니까 앞+'-'+첫자리 이후 별표
-	        String masked = user.getResistNum().substring(0, 8) + "******";
-	        user.setResistNum(masked);
-	    }
-	    return user;
->>>>>>> main
 	}
 	
-	//�쑀���궘�젣
+	// 회원 삭제
 	@DeleteMapping("/delete")
 	public int delete(
 			HttpSession session,

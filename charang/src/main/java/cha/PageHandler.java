@@ -5,7 +5,7 @@ public class PageHandler {
 	private int totalCnt; // 전체 게시글 개수
 	private int pageNum; // 현재 페이지 번호
 	private int pageSize; // 한 페이지에 보여줄 레코드(= 행) 개수
-	private int pageBlock = 3;  // 한 화면의 페이지 묶음 (1~3)
+	private int pageBlock = 5;  // 한 화면의 페이지 묶음 (1~3)
 	
 //	2. DB 조회용 변수
 	private int startRow; // DB 시작위치

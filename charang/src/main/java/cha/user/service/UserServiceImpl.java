@@ -13,15 +13,9 @@ import cha.user.mapper.UserMapper;
 public class UserServiceImpl implements UserService {
    // �쟾泥� �쉶�썝 異쒕젰
 	@Override
-<<<<<<< HEAD
 	public List<UserDTO> getAllUser(int startRow, int pageSize) {
 		System.out.println("전체 회원 출력 서비스");
 		return usermapper.selectAllUser(startRow, pageSize);
-=======
-	public List<UserDTO> getAllUser() {
-		System.out.println("User serviceImpl 전체 회원 출력");
-		return usermapper.selectAllUser();
->>>>>>> main
 	}
 	// 전체 회원 개수
    @Override
@@ -93,15 +87,9 @@ public class UserServiceImpl implements UserService {
    }
    
    @Override
-<<<<<<< HEAD
    public boolean delUser(List<String> delIdList) {
       System.out.println("User      ȸ      /Ż  ");
       return usermapper.delUser(delIdList) == 1;
-=======
-   public boolean delUser(String userId) {
-      System.out.println("User      회      /탈  ");
-      return usermapper.delUser(userId) == 1;
->>>>>>> main
    }
 
    @Override
@@ -134,8 +122,6 @@ public class UserServiceImpl implements UserService {
    }
 
 
-<<<<<<< HEAD
-=======
    @Override
    public String findUserId(String name, String mail) {
 	   System.out.println("UserService findUserId() 유저 아이디찾기  ");
@@ -161,5 +147,4 @@ public class UserServiceImpl implements UserService {
    
    
    
->>>>>>> main
 }

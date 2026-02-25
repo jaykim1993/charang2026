@@ -41,7 +41,7 @@ export default function Reservation() {
     const [userid,setUserid]=useState(null);
 
     useEffect(()=>{
-    axios.get('/api/userinfo')
+    axios.get(`/api/userinfo/${userid}`,{userId:userid})
     .then((res)=>{
         if(!res.data){
         loginNeeded();
