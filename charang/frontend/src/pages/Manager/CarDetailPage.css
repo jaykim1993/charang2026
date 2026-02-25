@@ -81,6 +81,10 @@
 }
 
 
+.carDetailPage .carDetail_container .carDetail_table .carDetail_table_body .carDetail_tr .carDetail_data .carDetial_img1{
+    width: 60px;
+}
+
 .carDetailPage .carDetail_container .carDetail_table .carDetail_table_body .carDetail_tr .carDetail_data {
     width: 75%;
     padding: 18px 25px;
@@ -88,4 +92,8 @@
     font-size: 15px;
     font-weight: 400;
     text-align: left; 
+}
+
+.carDetailPage .carDetail_container .carDetail_table .carDetail_table_body .carDetail_tr .carDetail_data .carDetial_img{
+    width: 100px;
 }

@@ -56,7 +56,9 @@ export default function CarDetailPage(){
                         </tr>
                         <tr className="carDetail_tr">
                             <td className="carDetail_td">차량 브랜드 이미지</td>
-                            <th className="carDetail_data">{oneCar.brandLogo}</th>
+                            <th className="carDetail_data">
+                                <img src={`/images/brands/${oneCar.brandLogo}`} alt={oneCar.carImg} className="carDetial_img1"/>
+                            </th>
                         </tr>
                         <tr className="carDetail_tr">
                             <td className="carDetail_td">차량 모델명</td>
@@ -64,7 +66,9 @@ export default function CarDetailPage(){
                         </tr>
                         <tr className="carDetail_tr">
                             <td className="carDetail_td">차량 모델 이미지</td>
-                            <th className="carDetail_data">{oneCar.carImg}</th>
+                            <th className="carDetail_data">
+                                <img src={`/images/cars/${oneCar.carImg}`} alt={oneCar.carImg} className="carDetial_img"/>
+                            </th>
                         </tr>
                         <tr className="carDetail_tr">
                             <td className="carDetail_td">차량 번호</td>
