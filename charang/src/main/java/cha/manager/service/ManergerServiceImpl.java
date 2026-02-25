@@ -44,13 +44,21 @@ public class ManergerServiceImpl implements ManagerService{
 		return managermapper.AllSearchBookCarCount(searchType, searchKeyWord);
 	}
 
-
+	@Override
+	public ManagerDTO getoneBookManager(String bookingId) {
+		
+		return managermapper.getoneBookManager(bookingId);
+	}
 
 	@Override
 	public List<ManagerDTO> getOneBookCar(String userId) {
 		
 		return managermapper.getOneBookCar(userId);
 	}
+
+
+
+
 
 
 

@@ -14,7 +14,7 @@
     background-color: #ffffff;
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); */
 }
 
 
@@ -86,7 +86,7 @@
 }
 
 .carDetailPage .carDetail_container .carDetail_table .carDetail_table_body .carDetail_tr .carDetail_data {
-    width: 75%;
+    width: 25%;
     padding: 18px 25px;
     color: #333;
     font-size: 15px;

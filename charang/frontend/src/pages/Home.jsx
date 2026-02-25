@@ -108,6 +108,37 @@ export default function Home(){
     }
   };
 
+  // 모달 바깥쪽 클릭 시 모달 자동 닫히기
+    const calendarRef = useRef(null);
+    const locationRef = useRef(null);
+
+    useEffect(()=>{
+        if(!isLocation) return;
+        const handleClickOutside =(e)=>{
+            if(locationRef.current && !locationRef.current.contains(e.target)) {
+            setIsLocation(false);
+            }
+        }
+        document.addEventListener("click", handleClickOutside);
+        return ()=> {
+            document.removeEventListener("click", handleClickOutside);
+        }
+
+    }, [isLocation])
+    useEffect(()=>{
+        if(!isCalendar) return;
+        const handleClickOutside =(e)=>{
+            if(calendarRef.current && !calendarRef.current.contains(e.target)) {
+            setIsCalendar(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return ()=> {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+    }, [isCalendar])
+
   // 최근 본 차량
   const recentViewList = myRecentlist(userid);
 
@@ -191,7 +222,7 @@ export default function Home(){
       title: "24시간 실시간 응답",
       desc: "전문 상담원 항시 대기",
       icon: "/images/banner/inquiry.png",
-      link: "/customerservice/inquiry",
+      link: "/customerservice/inquiry/list",
     },
     ];
 
@@ -219,25 +250,38 @@ export default function Home(){
         <div className="H_secone">
       <div className="H_reservation">
 
-        <div className={`H_dateTable ${isCalendar ? "open" : ""}`}>
-          <p>언제 필요하세요?</p>
-          <div className="H_dateTitle" onClick={calendarHandler}>
-            {/* 날짜를 선택하세요 출력 조건 수정 12.26 */}
-            {startDate && endDate ? (
-              <p>
-                {DeleteYear(startDate)} ({startdayText}) {timeAMPM(startTime)}
-                {" ~ "}
-                {DeleteYear(endDate)} ({enddayText}) {timeAMPM(endTime)}
-              </p>
-            ) : (
-              <p>날짜를 선택하세요</p>
-            )}
+        <div ref={calendarRef} className="calendar-wrapper">
+          <div className={`H_dateTable ${isCalendar ? "open" : ""}`}>
+            <p>언제 필요하세요?</p>
+            <div className="H_dateTitle" onClick={calendarHandler}>
+              {startDate && endDate ? (
+                <p>
+                  {DeleteYear(startDate)} ({startdayText}) {timeAMPM(startTime)}
+                  {" ~ "}
+                  {DeleteYear(endDate)} ({enddayText}) {timeAMPM(endTime)}
+                </p>
+              ) : (
+                <p>날짜를 선택하세요</p>
+              )}
+            </div>
           </div>
+
+          {isCalendar && (
+            <div className="calendar-slide open">
+              <div className="Home_isCalendar_top">
+                <div className="H_close02">
+                  <i className="bi bi-x-lg" onClick={() => setIsCalendar(false)}></i>
+                </div>
+              </div>
+              <Calendar />
+            </div>
+          )}
         </div>
 
         {/* 지점 선택 파트 */}
         <div className="H_spotTable">
-          <div className={`spot_choice ${isLocation ? "open" : ""}`}>
+          <div ref={locationRef}
+            className={`spot_choice ${ isLocation? "open" : ""}`}>
             <p>어디서 출발할까요?</p>
             <div className="H_spotTitle" onClick={locationHandler}>{location? <p>{location}</p> 
             :<p>지점을 선택하세요</p>}
@@ -254,137 +298,133 @@ export default function Home(){
             예약할 차량 찾기&nbsp;
             <i className="bi bi-arrow-right"></i>
           </button>
+
+                {/* 지점 모달 파트 */}
+                {isLocation && (
+                  <div className="H_location">
+                    <div className="H_close01"><i className="bi bi-x-lg" onClick={detailCloseHandler}></i></div>
+                    {/* 상세 위치 (지도.) */}
+                    {isDetail ? (
+                      <>
+                        <div className="H_selectLocation_detail">
+
+                          <MapContainer center={[detail_lat, detail_lng]} zoom={20} style={{ height: "300px", width: "394px"}}> 
+                            <TileLayer
+                              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+                            />
+                            {/* positions 배열을 map으로 돌면서 여러 Marker 렌더링 */}
+                            {branch.map((spot) => (
+                              <Marker key={spot.branchId} position={[spot.lat, spot.lng]}
+                              icon={SelectedIcon}
+                              >
+                                <Popup>{spot.name}</Popup>
+                              </Marker>
+                            ))}
+                          </MapContainer>
+                          <h5>{detail.name}</h5>
+                          <p className="H_detial_address_title">주소</p>
+                          <span className="H_detial_address">{detail.address}</span>
+                        </div>
+                        
+                      </>
+                    ) : (
+                      // 지점 목록 
+                      <>
+                        <h3>지점을 선택하세요</h3>
+                        <div className="H_selectLocation">
+                          <span>서울</span>
+                          <div className="H_seoul">
+                            <div className="H_gu">
+                              <div className="H_Click">
+                                <p
+                                    onClick={() => {
+                                      setLocation("서울북부");
+                                      setBranchId(5);
+                                      setIsLocation(false);
+                                    }}
+                                  >
+                                  서울 북부 <span>노원구</span>
+                                </p>
+                              </div>
+                              <button className="H_detail" onClick={()=>setIsDetail(5)}>상세</button>
+                            </div>
+
+                            <div className="H_gu">
+                              <div className="H_Click">
+                                <p
+                                    onClick={() => {
+                                      setLocation("서울남부");
+                                      setBranchId(4);
+                                      setIsLocation(false);
+                                    }}
+                                  >
+                                  서울 남부 <span>서초구</span>
+                                </p>
+                              </div>
+                              <button className="H_detail" onClick={()=>setIsDetail(4)}>상세</button>
+                            </div>
+
+                            <div className="H_gu">
+                              <div className="H_Click">
+                                <p
+                                    onClick={() => {
+                                      setLocation("서울동부");
+                                      setBranchId(3);
+                                      setIsLocation(false);
+                                    }}
+                                  >
+                                  서울 동부 <span>동대문구</span>
+                                </p>
+                              </div>
+                              <button className="H_detail" onClick={()=>setIsDetail(3)}>상세</button>
+                            </div>
+                          </div>
+
+                          <span>김포</span>
+                          <div className="H_gimpo">
+                            <div className="H_gu">
+                              <div className="H_Click">
+                                <p
+                                    onClick={() => {
+                                      setLocation("김포공항");
+                                      setBranchId(2);
+                                      setIsLocation(false);
+                                    }}
+                                  >
+                                  김포공항 <span>강서구</span>
+                                </p>
+                              </div>
+                              <button className="H_detail" onClick={()=>setIsDetail(2)}>상세</button>
+                            </div>
+                          </div>
+
+                          <span>인천</span>
+                          <div className="H_gu">
+                            <div className="H_Click">
+                                <p
+                                    onClick={() => {
+                                      setLocation("인천공항");
+                                      setBranchId(1);
+                                      setIsLocation(false);
+                                    }}
+                                  >
+                                인천공항 <span>인천</span>
+                              </p>
+                            </div>
+                            <button className="H_detail" onClick={()=>setIsDetail(1)}>상세</button>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
         </div>
       </div>
 </div>
-      {/* 지점 모달 파트 */}
-      {isLocation && (
-        <div className="H_location">
-          <div className="H_close01"><i className="bi bi-x-lg" onClick={detailCloseHandler}></i></div>
-          {/* 상세 위치 (지도.) */}
-          {isDetail ? (
-            <>
-              <div className="H_selectLocation_detail">
 
-                <MapContainer center={[detail_lat, detail_lng]} zoom={20} style={{ height: "300px", width: "394px"}}> 
-                  <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
-                  />
-                  {/* positions 배열을 map으로 돌면서 여러 Marker 렌더링 */}
-                  {branch.map((spot) => (
-                    <Marker key={spot.branchId} position={[spot.lat, spot.lng]}
-                    icon={SelectedIcon}
-                    >
-                      <Popup>{spot.name}</Popup>
-                    </Marker>
-                  ))}
-                </MapContainer>
-                <h5>{detail.name}</h5>
-                <p className="H_detial_address_title">주소</p>
-                <span className="H_detial_address">{detail.address}</span>
-              </div>
-              
-            </>
-          ) : (
-            // 지점 목록 
-            <>
-              <h3>지점을 선택하세요</h3>
-              <div className="H_selectLocation">
-                <span>서울</span>
-                <div className="H_seoul">
-                  <div className="H_gu">
-                    <div className="H_Click">
-                      <p
-                          onClick={() => {
-                            setLocation("서울북부");
-                            setBranchId(5);
-                            setIsLocation(false);
-                          }}
-                        >
-                        서울 북부 <span>노원구</span>
-                      </p>
-                    </div>
-                    <button className="H_detail" onClick={()=>setIsDetail(5)}>상세</button>
-                  </div>
 
-                  <div className="H_gu">
-                    <div className="H_Click">
-                      <p
-                          onClick={() => {
-                            setLocation("서울남부");
-                            setBranchId(4);
-                            setIsLocation(false);
-                          }}
-                        >
-                        서울 남부 <span>서초구</span>
-                      </p>
-                    </div>
-                    <button className="H_detail" onClick={()=>setIsDetail(4)}>상세</button>
-                  </div>
-
-                  <div className="H_gu">
-                    <div className="H_Click">
-                      <p
-                          onClick={() => {
-                            setLocation("서울동부");
-                            setBranchId(3);
-                            setIsLocation(false);
-                          }}
-                        >
-                        서울 동부 <span>동대문구</span>
-                      </p>
-                    </div>
-                    <button className="H_detail" onClick={()=>setIsDetail(3)}>상세</button>
-                  </div>
-                </div>
-
-                <span>김포</span>
-                <div className="H_gimpo">
-                  <div className="H_gu">
-                    <div className="H_Click">
-                      <p
-                          onClick={() => {
-                            setLocation("김포공항");
-                            setBranchId(2);
-                            setIsLocation(false);
-                          }}
-                        >
-                        김포공항 <span>강서구</span>
-                      </p>
-                    </div>
-                    <button className="H_detail" onClick={()=>setIsDetail(2)}>상세</button>
-                  </div>
-                </div>
-
-                <span>인천</span>
-                <div className="H_gu">
-                  <div className="H_Click">
-                      <p
-                          onClick={() => {
-                            setLocation("인천공항");
-                            setBranchId(1);
-                            setIsLocation(false);
-                          }}
-                        >
-                      인천공항 <span>인천</span>
-                    </p>
-                  </div>
-                  <button className="H_detail" onClick={()=>setIsDetail(1)}>상세</button>
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-      )}
-
-      {isCalendar && <div className={`calendar-slide ${isCalendar ? "open" : ""}`}>
-        <div className="Home_isCalendar_top">
-          <div className="H_close02"><i className="bi bi-x-lg" onClick={()=>setIsCalendar(false)}></i></div>
-        </div>
-        <Calendar />
-      </div>}
-
+      
       {/* sec01 - 배너 슬라이드 */}
       <div className="H_sec01"
         style={{
