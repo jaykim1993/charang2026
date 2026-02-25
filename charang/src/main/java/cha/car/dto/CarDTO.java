@@ -2,6 +2,8 @@ package cha.car.dto;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class CarDTO {
 	private int carId;
 	private String carImg;  // 차 아이디
@@ -27,9 +29,18 @@ public class CarDTO {
 	private int bluetooth;
 	private int smartKey;
 	private int sunRoof;
+	 @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date regDate;
+	 @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date modDate;
+	private String name;
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getCarId() {
 		return carId;
 	}

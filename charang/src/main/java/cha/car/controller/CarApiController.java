@@ -5,19 +5,34 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.service.annotation.PutExchange;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cha.PageHandler;
 import cha.car.dto.CarDTO;
 import cha.car.service.CarService;
+import jakarta.servlet.annotation.MultipartConfig;
+
+@MultipartConfig(
+	    maxFileSize = 10 * 1024 * 1024,        // 파일 1개 최대 10MB
+	    maxRequestSize = 100 * 1024 * 1024,    // 전체 요청 최대 100MB
+	    fileSizeThreshold = 1024 * 1024        // 1MB 초과시 디스크에 저장
+	)
 
 @RestController
 @RequestMapping("/api")
@@ -107,43 +122,110 @@ public class CarApiController {
 	
 	// 차량 추가 컨트롤러
 	@PostMapping("/addCar")
-	public boolean addCarList(
+	public int addCarList(
 			// ★ 파일(이미지)와 dto를 동시에 받아야할 땐 FormData 사용, @RequestBody X 없애야함
-			@RequestBody CarDTO cdto, // RequestBody는 post만 가능(dto로 값을 받을 때)
+//			@ModelAttribute CarDTO cdto, // RequestBody는 post만 가능(dto로 값을 받을 때)
+			 @RequestParam("carDTOData") String carDTOData,
 			// 이미지 받기(name이랑 동일해야함)
-			@RequestParam("brandLogoImg") MultipartFile brandLogoImg,
-			@RequestParam("carImg") MultipartFile carImg
+			@RequestParam(value="brandLogoImg",required=false) MultipartFile brandLogoImg,
+			@RequestParam(value="carImgImg",required=false) MultipartFile carImgImg
 			) throws IllegalStateException, IOException {
 		
 		System.out.println("차 컨트롤러 - 차량 추가 컨트롤러");
 		
+		// JSON 문자열 → TestImgDTO 변환
+        ObjectMapper mapper = new ObjectMapper();
+        
+        CarDTO carData = mapper.readValue(carDTOData, CarDTO.class);
+		
 		// 01. 이미지 파일을 저장할 실제 하드디스크 위치 지정(webConfig에서 설정한 경로와 일치)
-		String savePath = "";
+		String savePath = "C:/rentcar2026/charang/frontend/public/images/cars/";
 		
 		// 02. 해당 폴더가 존재하지 않을 경우 자동생성
 		File saveDir = new File(savePath);
 		if(!saveDir.exists()) {
-			saveDir.mkdir();
+			saveDir.mkdirs();
 		}
 		
 		// 03. 이미지 업로드 처리
 		// 예외처리?
+		String fileName01 = "";
+		String fileName02 = "";
+		
 		if(!brandLogoImg.isEmpty()) {
+			// 사용자가 올린 파일명 가져옴
 			String originalName = brandLogoImg.getOriginalFilename();
 			
-			File file = new File(savePath+originalName); // 전체 파일명
+			// 파일명 중복해서 입력되지 않도록 UUID 클래스 이용
+			fileName01 = UUID.randomUUID().toString().substring(0,4)+"_"+originalName;
+			
+			// 파일
+			File file = new File(savePath+fileName01);
 			
 			// 서버에만 존재하던 파일이 실제 하드디스크에 생성됨
 			brandLogoImg.transferTo(file); // 자동으로 throws IllegalStateException, IOException 생김
 			
 			// DB에 저장
-			cdto.setBrandLogo(originalName);
+			carData.setBrandLogo(fileName01);
+		}
+		
+		if(!carImgImg.isEmpty()) {
+			// 사용자가 올린 파일명 가져옴
+			String originalName = carImgImg.getOriginalFilename();
+			
+			// 파일명 중복해서 입력되지 않도록 UUID 클래스 이용
+			fileName02 = UUID.randomUUID().toString().substring(0,4)+"_"+originalName;
+			
+			// 파일
+			File file = new File(savePath+fileName02);
+			
+			// 서버에만 존재하던 파일이 실제 하드디스크에 생성됨
+			carImgImg.transferTo(file); // 자동으로 throws IllegalStateException, IOException 생김
+			
+			// DB에 저장
+			carData.setCarImg(fileName02);
 		}
 		
 		// 이미지까지 들어간 최종 cdto로 DB로 접근
-		boolean result = carservice.addCar(cdto);
+		carservice.addCar(carData);
+		return 1;
+	}
+	
+	// 상세 차량 출력 컨트롤러
+	@GetMapping("/carinfo/{carId}")
+	public CarDTO carDetail(
+			@PathVariable("carId") int carId
+			) {
+		System.out.println("차 컨트롤러 - 차량 상세 정보 출력 컨트롤러");
+		
+		CarDTO result = carservice.getOneCar(carId);
+		
+		System.out.println(result);
+		
+		return result;
+	}
+	
+	// 차량 수정 컨트롤러
+	@PutMapping("/modifyCar")
+	public int modifyCar(
+			@RequestParam("carDTOData") String carDTOData
+
+			) throws IllegalStateException, IOException {
+		
+		System.out.println("차 컨트롤러 - 차량 수정 컨트롤러");
+		
+		// JSON 문자열 → TestImgDTO 변환
+        ObjectMapper mapper = new ObjectMapper();
+        
+        CarDTO carData = mapper.readValue(carDTOData, CarDTO.class);
+		
+		
+		// 이미지까지 들어간 최종 cdto로 DB로 접근
+		int result = carservice.updateCar(carData);
+		
 		return result;
 		
-
 	}
 }
+
+

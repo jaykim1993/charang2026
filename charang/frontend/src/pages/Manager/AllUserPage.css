@@ -1,0 +1,82 @@
+/* 전체 레이아웃 */
+.ManagerAllUser {
+    padding: 30px;
+    background-color: #f9f9fb;
+    min-height: 100vh;
+}
+
+.ManagerAllUser h1 {
+    font-size: 24px;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* 검색바 영역 */
+.ManagerAllUser input[type="text"] {
+    padding: 10px 15px;
+    width: 300px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px 0 0 8px; /* 왼쪽만 둥글게 */
+    outline: none;
+    transition: border 0.2s;
+}
+
+.ManagerAllUser input[type="text"]:focus {
+    border-color: #4a90e2;
+}
+
+.ManagerAllUser button {
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 0 8px 8px 0; /* 오른쪽만 둥글게 */
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.ManagerAllUser button:hover {
+    background-color: #357abd;
+}
+
+/* 테이블 스타일 */
+.managerAllUser_table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.managerAllUser_table th {
+    background-color: #f1f3f5;
+    color: #495057;
+    padding: 15px;
+    font-size: 14px;
+    border-bottom: 2px solid #dee2e6;
+    text-align: center;
+}
+
+.managerAllUser_table td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #f1f3f5;
+    color: #333;
+    font-size: 14px;
+}
+
+/* 행 하이라이트 */
+.managerAllUser_table_tb tr:hover {
+    background-color: #f8fbff;
+}
+
+/* 데이터 없을 때 */
+.managerAllUser_table_td_none {
+    padding: 60px 0 !important;
+    color: #adb5bd;
+    font-style: italic;
+}

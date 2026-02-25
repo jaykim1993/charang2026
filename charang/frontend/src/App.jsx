@@ -21,6 +21,10 @@ import AllReservationPage from './pages/Manager/AllReservationPage';
 import ReservationDetailPage from './pages/Manager/ReservationDetailPage';
 import CarRegPage from './pages/Manager/CarRegPage';
 import AllUserPage from './pages/Manager/AllUserPage';
+import UserDetailPage from './pages/Manager/UserDetailPage';
+import CarDetailPage from './pages/Manager/CarDetailPage';
+import CarModPage from './pages/Manager/CarModPage';
+
 import AllInquiry from './pages/Inquiry/AllInquiry';
 import InquiryDetail from './pages/Inquiry/InquiryDetail';
 import InquiryAnswer from './pages/Inquiry/InquiryAnswer';
@@ -106,6 +110,9 @@ function App() {
                 <Route path="/manager/reservationDetail/:bookingId" element={<ReservationDetailPage/>}/>
                 <Route path="/manager/carregister" element={<CarRegPage/>}/>
                 <Route path="/manager/userlist" element={<AllUserPage/>}/>
+                <Route path="/manager/userDetail/:userId" element={<UserDetailPage/>}/>
+                <Route path="/manager/carDetail/:carId" element={<CarDetailPage/>}/>
+                <Route path="/manager/modPage/:carId" element={<CarModPage/>}/>
               </Routes>
               <Footer />
             </BrowserRouter>

@@ -1,5 +1,7 @@
 package cha.user.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cha.PageHandler;
 import cha.user.dto.UserDTO;
 import cha.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -24,10 +29,51 @@ public class UserApiController {
 	@Autowired
 	UserService userservice;
 	
+<<<<<<< HEAD
+	// 전체 회원 출력
+//	@GetMapping("/alluser")
+//	public List<UserDTO> getAllUserList(){
+//		System.out.println("회원 전체 출력 컨트롤러");
+//		return userservice.getAllUser();
+//	}
+	
+	// 검색 회원 출력
+	@GetMapping("/searchUser")
+	public Map<String, Object> getSearchUserList(
+			@RequestParam(value="search", required=false) String search, // 검색어
+			@RequestParam( value="page", defaultValue = "1") int page, // 페이지 번호
+			@RequestParam( value="pageSize", defaultValue = "5") int pageSize // 한 화면에 보여지는 user개수
+			){
+		System.out.println("검색한 회원 출력 컨트롤러");
+		
+		System.out.println(page);
+		
+		List<UserDTO> userList;
+		PageHandler ph;
+		
+		Map<String, Object> result = new HashMap<>(); // userList, ph를 Map에 담아서 return할 예정
+		
+		// 검색어 존재 O
+		if(search != null && !search.trim().isEmpty()) {
+			int totalCnt = userservice.getSearchCount(search);
+			ph = new PageHandler(totalCnt, page, pageSize); // 페이징 핸들러
+			userList = userservice.getSearchUser(search, ph.getStartRow(), pageSize); // 데이터
+		}
+		// 검색어 존재 X
+		else {
+			int totalCnt = userservice.getAllCount();
+			ph = new PageHandler(totalCnt, page, pageSize); // 페이징 핸들러
+			userList = userservice.getAllUser(ph.getStartRow(), pageSize);
+		}
+		result.put("list", userList);
+		result.put("ph", ph);
+		return result;
+=======
 	@GetMapping("/alluser")
 	public List<UserDTO> getAllUserList(){
 		System.out.println("�쉶�썝 �쟾泥� 異쒕젰 而⑦듃濡ㅻ윭");
 		return userservice.getAllUser();
+>>>>>>> main
 	}
 	
 	//�븘�씠�뵒 以묐났留� 泥댄겕�븯�뒗嫄�
@@ -66,6 +112,30 @@ public class UserApiController {
 			return 1;
 		}
 	
+<<<<<<< HEAD
+	// 유저개인정보
+	@GetMapping("/userinfo/{userId}")
+	public UserDTO myInfo(
+			HttpSession session,
+			@PathVariable("userId") String userId
+			) {
+			System.out.println("유저 개인 정보 컨트롤러");
+			String loginId = (String) session.getAttribute("loginUser");
+			System.out.println("유저 개인: "+userId);
+			
+			if(loginId == null) {
+				return null;
+			}
+			
+			// 관리자일 경우
+			if(loginId.equals("admin")) {
+				return userservice.oneUser(userId);
+			}
+			// 개인 유저일 경우
+			else {
+				return userservice.oneUser(loginId);
+			}
+=======
 	//마이페이지 내정보
 	@GetMapping("/userinfo")
 	public UserDTO myInfo(HttpSession session) {
@@ -81,18 +151,40 @@ public class UserApiController {
 	        user.setResistNum(masked);
 	    }
 	    return user;
+>>>>>>> main
 	}
 	
 	//�쑀���궘�젣
 	@DeleteMapping("/delete")
-	public int delete(HttpSession session) {
+	public int delete(
+			HttpSession session,
+			@RequestBody List<String> userId
+			) {
+		System.out.println("회원 삭제 컨트롤러");
 		String loginId = (String) session.getAttribute("loginUser");
 		if(loginId == null) {
 			return 0;
 		}
-		boolean result = userservice.delUser(loginId);
+		
+		// 삭제할 아이디를 담을 list 생성
+		List<String> delIdList = new ArrayList<String>();
+		
+		// 관리자일 경우
+		if(loginId.equals("admin")) {
+			delIdList = userId; // 가져온 리스트배열 그대로 넣음
+		}
+		// 개인일 경우
+		else {
+			delIdList.add(loginId); // 본인 id만 넣음
+		}
+		
+		boolean result = userservice.delUser(delIdList);
+		
 		if(result) {
-			session.invalidate();
+			// 관리자가 아닐 경우에만 세션에서 삭제
+			if (!loginId.equals("admin")) {
+	            session.invalidate();
+	        }
 			return 1;
 		}else {
 			return 0;

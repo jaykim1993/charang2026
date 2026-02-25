@@ -88,7 +88,21 @@ public class CarServiceImpl implements CarService {
 	public int getSearchCount(String searchType, String searchKeyWord) {
 		System.out.println("차 서비스 : 검색 차량 개수 서비스");
 		int result = carmapper.SearchCount(searchType,searchKeyWord);
-		return 0;
+		return result;
+	}
+	
+	// 차량 상세보기
+	@Override
+	public CarDTO getOneCar(int carId) {
+		System.out.println("차 서비스 : 차량 상세보기 서비스");
+		return carmapper.oneCar(carId);
+	}
+	
+	// 차량 수정하기
+	@Override
+	public int updateCar(CarDTO carData) {
+		System.out.println("차 서비스 : 차량 수정하기 서비스");
+		return carmapper.modCar(carData);
 	}
 
 }

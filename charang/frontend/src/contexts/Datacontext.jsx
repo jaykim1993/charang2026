@@ -39,30 +39,6 @@ export default function DataProvider({children}){
         })
       },[])
 
-  // 검색 onclick()
-  //  검색 차량 출력(검색값 보내기)
-  const [searchType, setSearchType] = useState('carName');
-  const [searchWord, setSearchWord] = useState('');
-  const [searchCar, setSearchCar] = useState([]);
-
-  const find = () => {
-    // console.log("검색 타입:", searchType); 
-    // console.log("검색 단어:", searchWord);
-
-    // http://api/searchcar/searchType=검색타입&&searchWord="검색단어"
-      axios.get("/api/searchCar",{params:{searchType:searchType, searchWord:searchWord, page:pageNum}})
-      .then((res)=>{
-          console.log("확인" , res.data.list);
-          setPaging(res.data.ph); // 페이징
-          setSearchCar(res.data.list); // 가져온 데이터
-      })
-      .catch((error)=>{
-        console.log("검색 차량 출력 에러: ", error);
-      })
-   }
-
-  // 차량 등록 
-
   // 지점 전체 출력 
   // 111
   const[branch,setBranch]=useState([]);
@@ -83,8 +59,7 @@ export default function DataProvider({children}){
   return(
     <>
       <DataContext.Provider 
-      value={{car, branch, find, setSearchType, setSearchWord,
-       searchCar, pageNum, setPageNum, pagesHandler, paging, setPaging}}>
+      value={{car, branch, pageNum, setPageNum, pagesHandler, paging, setPaging}}>
         {children}
       </DataContext.Provider>
     </>

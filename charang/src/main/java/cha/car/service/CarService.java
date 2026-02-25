@@ -34,5 +34,11 @@ public interface CarService {
 
 	// 검색 차량 개수 
 	public int getSearchCount(String searchType, String searchKeyWord);
+	
+	// 차량 상세보기
+	public CarDTO getOneCar(int carId);
+	
+	// 차량 수정하기
+	public int updateCar(CarDTO carData);
 
 }
