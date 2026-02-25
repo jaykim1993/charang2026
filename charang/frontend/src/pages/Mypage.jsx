@@ -28,7 +28,7 @@ export default function Mypage(){
           <h2 className="guideSideText">안녕하세요!</h2>
           <Link to='myinfo'><span className='MyPageSideMenus'>내 정보</span></Link>
           <Link to='booked'><span className='MyPageSideMenus'>예약내역</span></Link>
-          <Link to=''><span className='MyPageSideMenus'>최근 본 차량</span></Link>
+          <Link to='recent'><span className='MyPageSideMenus'>최근 본 차량</span></Link>
           <Link to='inquiry'><span className='MyPageSideMenus'>1:1 문의내역</span></Link>
         </div>
         <div className="guideRight">

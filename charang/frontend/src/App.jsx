@@ -78,7 +78,7 @@ function App() {
                                 <Route path="/customerservice/notice/manager/modify/:noticeId" element={<CustomerServiceNoticeModfiy />} />  {/* 공지사항 수정*/}
                 
                 <Route path="/location" element={<LocationPage />} />
-                <Route path="/recent" element={<Recentcarlist />} />
+                
 
                 {/* 마이페이지 */}
                 <Route path="/mypage" element={<Mypage />}>
@@ -87,6 +87,7 @@ function App() {
                     <Route path="inquiry" element={<MypageInquiry />} />
                     <Route path="myinfo" element={<MypageMyinfo />} />
                     <Route path="modify" element={<MypageModify />} />
+                    <Route path="recent" element={<Recentcarlist />} />
                 </Route>
 
                 <Route path="/manager/carlist" element={<AllCarPage/>}/>

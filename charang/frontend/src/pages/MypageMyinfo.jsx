@@ -3,11 +3,20 @@ import { useContext, useState ,useEffect} from "react"
 import { AuthContext } from '../contexts/Authcontext';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { BookingContext } from '../contexts/Bookingcontext';
 
 export default function MypageMyinfo(){
     const [userid,setUserid]=useState(null);
+    const [unregiOverlay,setUnregiOverlay]=useState(false);
+    const [unregiInput,setUnregiInput]=useState('');
     const {logout,loginNeeded}=useContext(AuthContext);
+    const {myBooking}=useContext(BookingContext);
     const navigate = useNavigate();
+
+    //회원탈퇴핸들러
+    const unregistHandler=()=>{
+
+    }
 
     //개인회원 정보 불러오기
     useEffect(()=>{
@@ -29,28 +38,66 @@ export default function MypageMyinfo(){
     }
 
 
-    //회원 탈퇴하기 // 예약내역 가져올수 있으면 조건문 추가해야함  // 예약내역이 존재해서 탈퇴가 불가능하다~ 
-    const deleteHandler=()=>{
-        if(!window.confirm('정말 삭제하시겠습니까? 삭제된 데이터는 복구가 불가능합니다.')){
-            return;
-            }
-            axios.delete('/api/delete')
-            .then((res)=>{
-            if(res.data === 1){
+    //회원 탈퇴하기
+   const deleteHandler = (e) => {
+    e.preventDefault();
+    if (myBooking.length > 0) {
+        alert("예약 내역이 존재해 탈퇴가 불가능합니다.");
+        return;
+    }
+    if (unregiInput !== `${userid.name}탈퇴`) {
+        alert("입력 문구가 올바르지 않습니다.");
+        return;
+    }
+    axios.delete('/api/delete')
+        .then((res) => {
+            if (res.data === 1) {
                 alert('회원 탈퇴 처리 완료');
                 logout();
                 navigate("/");
-            }else{
-                alert('삭제 실패')
+            } else {
+                alert('회원 탈퇴 실패.');
             }
-            })
-            .catch((error)=>{
-            console.log(error)
-            })
-        }
-
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
 
     return(
+        <>
+        {unregiOverlay &&
+        <div className='unreOverlay'>
+            <div className='loginOverlay' >
+            <div className="loginWrap" >
+                 <button className="loginBtnX" onClick={()=>setUnregiOverlay(false)}>
+                    <i className="bi bi-x"></i>
+                </button>
+                <h2 className='loginH'><div className='loginColor'>회원 탈퇴</div> 확인</h2>
+                <form onSubmit={deleteHandler}>
+                    <div className='verInputBox'>
+                        <input className='loginInputDif' type='text' placeholder="회원이름 + '탈퇴'를 입력하세요 (예: 홍길동탈퇴) 공백제외"
+                         value={unregiInput} onChange={(e) => setUnregiInput(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <p className='verPDif'>회원 탈퇴를 희망하신다면 체크박스와 회원이름+탈퇴를 입력해주세요.</p>
+                        <p className='verPDif'>회원명:홍길동 → 홍길동탈퇴</p>
+                        <p className='verPDif'>차량 예약 내역이 존재하면 탈퇴가 불가능합니다.</p>
+                    </div>
+                    <div className='verPDif2box' >
+                        <p className='verPDif2'>탈퇴 시 모든 데이터는 복구할 수 없습니다.</p>
+                        <p className='verPDif2'>정말 진행하시겠습니까?</p>
+                    </div>
+                    <div className="loginBtnWrapDif">
+                        <button className='loginBtnDif' type="button" onClick={()=>setUnregiOverlay(false)}>취소하기</button>
+                        <button className='loginBtnDif' type="submit">탈퇴하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+        }
         <div className="myinfo-Wrap">
             <div className="myinfo-header">
                 {/* <h1 className="guideMainText">마이페이지</h1> */}
@@ -101,8 +148,9 @@ export default function MypageMyinfo(){
             </table>
             <div className="myinfo-btn-wrap">
                 <button className="myinfo-btn" onClick={() => navigate('/mypage/modify')}>정보 수정</button>
-                <button className='myinfo-btn' type='button' onClick={deleteHandler}>회원 탈퇴</button>
+                <button className='myinfo-btn' type='button' onClick={()=>setUnregiOverlay(true)}>회원 탈퇴</button>
             </div>
         </div>
+        </>
     )
 }

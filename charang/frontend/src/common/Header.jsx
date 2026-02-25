@@ -17,7 +17,6 @@ export default function Header() {
     // logout 핸들러 함수
     const logoutHandler = () => {
         logout();
-        alert("로그아웃 되었습니다. 메인페이지로 이동합니다.");
     };
 
     // 로그인 & 회원가입 모달 상태 관리
@@ -279,7 +278,7 @@ export default function Header() {
                             </>
                         }
                         { userid?
-                            <Link to={'/recent'} style={{textDecoration:'none'}}>
+                            <Link to={'/mypage/recent'} style={{textDecoration:'none'}}>
                                 <li className='headerNavLi' onClick={() => window.scrollTo(0,0)}>
                                     <div>최근 본 차량</div> 
                                     <div className='headerNavpointer'><i className="bi bi-chevron-right"></i></div>

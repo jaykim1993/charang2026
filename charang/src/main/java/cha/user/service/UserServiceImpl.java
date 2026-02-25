@@ -11,18 +11,18 @@ import cha.user.mapper.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService {
-   // 전체 회원 출력
+   // �쟾泥� �쉶�썝 異쒕젰
 	@Override
 	public List<UserDTO> getAllUser() {
-		System.out.println("전체 회원 출력 서비스");
+		System.out.println("User serviceImpl 전체 회원 출력");
 		return usermapper.selectAllUser();
 	}
 
-   // ȸ        ߺ 
+   // 회        揷 
    public final static int user_duplicate = 0;
-   // ȸ           
+   // 회           
    public final static int user_success = 1;
-   // ȸ           
+   // 회           
    public final static int user_fail = -1;
    
    @Autowired
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
    
    @Override
    public int insertUser(UserDTO udto) {
-      System.out.println("User      ȸ   ߰ ");
+	   System.out.println("User serviceImpl 회원 추가 출력");
       boolean isUser = usermapper.isUser(udto.getUserId());
       if(isUser == false) {
          String encodepw = passwordEncoder.encode(udto.getUserPw());
@@ -68,27 +68,27 @@ public class UserServiceImpl implements UserService {
    
    @Override
    public boolean delUser(String userId) {
-      System.out.println("User      ȸ      /Ż  ");
+      System.out.println("User      회      /탈  ");
       return usermapper.delUser(userId) == 1;
    }
 
    @Override
    public UserDTO oneUser(String userId) {
-      System.out.println("User       Ѹ    ȸ     ȸ");
+      System.out.println("User       祺    회     회");
       return usermapper.oneUser(userId);
    }
 
    @Override
    public String getPass(String userId) {
-      System.out.println("User      ȸ       й ȣ   ȯ ");
+      System.out.println("User getPass 유저 비밀번호 반환 ");
       return usermapper.getPass(userId);
    }
    
    public UserDTO loginConfirm(UserDTO udto) {
-      System.out.println("MemberService loginConfirm() ޼ҵ  Ȯ  ");
+      System.out.println("UserService loginConfirm() 로그인성공확인  ");
       UserDTO dbUser = usermapper.oneUser(udto.getUserId());
       if(dbUser != null && dbUser.getUserPw() != null) {
-         if(passwordEncoder.matches(udto.getUserPw(), dbUser.getUserPw())) { //  ȣȭ ϱ 
+         if(passwordEncoder.matches(udto.getUserPw(), dbUser.getUserPw())) { //  호화 歐 
             return dbUser;
          }
       }
@@ -97,7 +97,34 @@ public class UserServiceImpl implements UserService {
 
    @Override
    public boolean existUserId(String userId) {
-      System.out.println("MemberService existUserId() ޼ҵ  Ȯ  ");
+      System.out.println("UserService existUserId() 유저존재확인  ");
        return usermapper.existUserId(userId);
    }
+
+
+   @Override
+   public String findUserId(String name, String mail) {
+	   System.out.println("UserService findUserId() 유저 아이디찾기  ");
+       String dbUser = usermapper.findUserId(name, mail);
+       if (dbUser == null) {
+           return null;
+       }
+	   return dbUser;
+   }
+
+   @Override
+   public boolean findUserPw(String userId, String name, String mail) {
+	   System.out.println("MemberService findUserPw() 유저 비밀번호찾기  ");
+	   return usermapper.findUserPw(userId, name, mail);
+   }
+
+   @Override
+   public boolean updatePassword(String userId, String newPw) {
+	   System.out.println("MemberService updatePassword() 유저 비밀번호찾기 / 비번변경  ");
+	   String encodePw = passwordEncoder.encode(newPw);
+	   return usermapper.updatePassword(userId, encodePw);
+   }
+   
+   
+   
 }

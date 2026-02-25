@@ -50,14 +50,6 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
 
     // 9. 내/외국인 체크박스
     const [user_iskorean, setUser_iskorean] = useState(0)
-    // 내/외국인 판별 함수
-    // const toggle = () => {
-    //     setUser_iskorean(prev => {
-    //     const newValue = !prev;
-    //     return newValue;
-    //     });
-    //     console.log(user_iskorean)
-    // };
     
     // 10. 운전면허번호 (licenseFront - licenseBack)
     const [licenseFront, setLicenseFront] = useState("");
@@ -104,7 +96,7 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
             }
         })
         .catch((error)=>{
-            alert("서버 에러 발생");
+            alert("중복된 값이 존재합니다.");
             console.log(error);
         })
     }

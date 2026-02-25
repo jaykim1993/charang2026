@@ -555,3 +555,87 @@ a, p, h4, h3, h2, h1{
 .GrounpedCarsWrap::-webkit-scrollbar-thumb {
   background:  #2591cf;
 } */
+
+/* 지점 선택 목록 */
+#root .Recentcar .R_location .H_close01 > i{
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    color: #999;
+}
+#root .Recentcar .R_location .H_close01:hover > i{
+    color: #333;
+}
+#root .Recentcar .R_location .H_selectLocation{
+    /* border: 1px solid red; */
+    position: relative;
+    padding-top: 20px;
+}
+#root .Recentcar .R_location .H_selectLocation > span{
+    display: inline-block;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+#root .Recentcar .R_location .H_selectLocation p{
+    font-size: 16px;
+    margin-bottom: 37px;
+    display: flex;
+    align-items: center;
+}
+#root .Recentcar .R_location .H_selectLocation p > span{
+    font-size: 12px;
+    color: rgb(157, 156, 156);
+    margin-left: 10px;
+}
+#root .Recentcar .R_location .H_selectLocation .H_detail{
+    width: 40px;
+    height: 30px;
+    border: none;
+    font-size: 14px;
+    border-radius: 3px;
+}
+#root .Recentcar .R_location .H_selectLocation .H_detail:hover{
+   background-color: rgb(225, 225, 225);
+}
+#root .Recentcar .R_location .H_selectLocation .H_gu{
+    display: flex;
+    justify-content: space-between;
+}
+#root .Recentcar .R_location .H_selectLocation .H_gu .H_Click> p{
+    cursor: pointer;
+}
+#root .Recentcar .R_location .H_selectLocation .H_seoul::before{
+    content: '';
+    width: 100%;
+    border-bottom: 1px solid rgb(227, 227, 227);
+    position: absolute;
+    top:215px;
+}
+#root .Recentcar .R_location .H_selectLocation .H_gimpo::before{
+    content: '';
+    width: 100%;
+    border-bottom: 1px solid rgb(227, 227, 227);
+    position: absolute;
+    top:310px;
+}
+
+/* 지점 위치 상세보기 (지도) */
+#root .Recentcar .R_location .H_selectLocation_detail{
+    padding: 25px 0 25px 0;
+    width: 444px;
+}
+#root .Recentcar .R_location .H_selectLocation_detail > h5{
+    padding: 20px 0;
+}
+#root .Recentcar .R_location .H_selectLocation_detail > h5::before{
+    content: '';
+    width: 394px;
+    border-bottom: 1px solid rgb(227, 227, 227);
+    position: absolute;
+    top:710px;
+}
+#root .Recentcar .R_location .H_selectLocation_detail .H_detial_address_title{
+    color: rgb(190, 190, 190) ;
+    font-size: 15px;
+    padding: 10px 0;
+}
