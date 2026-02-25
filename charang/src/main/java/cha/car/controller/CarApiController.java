@@ -17,16 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.service.annotation.PutExchange;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cha.PageHandler;
 import cha.car.dto.CarDTO;
 import cha.car.service.CarService;
 import jakarta.servlet.annotation.MultipartConfig;
+import tools.jackson.databind.ObjectMapper;
 
 @MultipartConfig(
 	    maxFileSize = 10 * 1024 * 1024,        // 파일 1개 최대 10MB

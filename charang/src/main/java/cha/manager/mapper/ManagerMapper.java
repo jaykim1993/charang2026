@@ -31,11 +31,11 @@ public interface ManagerMapper {
 			);
 	
 	
+	// 예약 아이디로 예약(차량조인) 하나 조회하기
+	public ManagerDTO getoneBookManager(String bookingId);
 	
 	
-	
-	
-	// 개인 예약 + 예약 내 차량 데이터 조인 메서드
+	// 유저 아이디로 예약(차량조인) 하나 조회하기
 	public List<ManagerDTO> getOneBookCar(String userId);
 
 	

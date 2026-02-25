@@ -1,0 +1,99 @@
+
+.reservationDetailPage {
+    /* border: 1px solid red; */
+    margin-top: 70px;
+    padding: 60px 0;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+}
+
+
+.reservationDetailPage .reservationDetail_container {
+    width: 950px;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); */
+}
+
+
+.reservationDetailPage .reservationDetail_container .reservationDetail_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #222;
+}
+
+.reservationDetailPage .reservationDetail_container .reservationDetail_header .reservationDetail_title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #333;
+}
+
+
+.reservationDetailPage .reservationDetail_container .reservationDetail_header .reservationDetail_btnBox {
+    display: flex;
+    gap: 10px;
+}
+
+
+.reservationDetailPage .reservationDetail_container .reservationDetail_header .reservationDetail_btnBox .reservationDetail_listBtn {
+    padding: 10px 20px;
+    background-color: #222; 
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fbfbfb;
+    cursor: pointer;
+}
+
+.reservationDetailPage .reservationDetail_container .reservationDetail_header .reservationDetail_btnBox .reservationDetail_listBtn:hover {
+    background-color: #414141;
+}
+
+
+.reservationDetailPage .reservationDetail_container .reservationDetail_table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+.reservationDetailPage .reservationDetail_container .reservationDetail_table .reservationDetail_table_body .reservationDetail_tr {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.reservationDetailPage .reservationDetail_container .reservationDetail_table .reservationDetail_table_body .reservationDetail_tr:last-child {
+    border-bottom: none;
+}
+
+
+.reservationDetailPage .reservationDetail_container .reservationDetail_table .reservationDetail_table_body .reservationDetail_tr .reservationDetail_td {
+    width: 25%;
+    padding: 18px 25px;
+    background-color: #fbfbfc;
+    color: #555;
+    font-weight: 700;
+    font-size: 15px;
+    border-right: 1px solid #f0f0f0;
+}
+
+
+.reservationDetailPage .reservationDetail_container .reservationDetail_table .reservationDetail_table_body .reservationDetail_tr .reservationDetail_data .carDetial_img1{
+    width: 60px;
+}
+
+.reservationDetailPage .reservationDetail_container .reservationDetail_table .reservationDetail_table_body .reservationDetail_tr .reservationDetail_data {
+    width: 25%;
+    padding: 18px 25px;
+    color: #333;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: left; 
+}
+
+.reservationDetailPage .reservationDetail_container .reservationDetail_table .reservationDetail_table_body .reservationDetail_tr .reservationDetail_data .carDetial_img{
+    width: 100px;
+}

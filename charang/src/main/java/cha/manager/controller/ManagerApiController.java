@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,6 +55,17 @@ public class ManagerApiController {
 		return result;
 	}
 	
+	// bookingId로 예약 하나 가져오기
+	@GetMapping("/onebookcar/{bookingId}")
+	public ManagerDTO onebookcarmanager(
+			@PathVariable("bookingId") String bookingId
+			){
+		ManagerDTO result = managerservice.getoneBookManager(bookingId);
+		return result;
+	}
+	
+	
+	// userId로 한명 예약 가져오기
 	@GetMapping("/onebookcar")
 	public List<ManagerDTO> oneBookCar(HttpSession session) {
 	    String loginId = (String) session.getAttribute("loginUser");
