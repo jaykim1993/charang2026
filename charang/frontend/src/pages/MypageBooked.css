@@ -1,20 +1,19 @@
 #root .MypageBooked {
-    width: 900px;
-    margin: 0 auto; /* 가운데 정렬 */
-    min-height: 1100px;
+    width: 100%;
+    min-height: 800px;
 }
 
 .mypageBookTable {
-    width: 900px;
-    border-collapse: collapse; 
+    /* border-collapse: collapse;  */
     margin: 30px 0;
-    background-color: #f9fafc;
-    /* border: 1px solid #dee2e6; */
+    /* background-color: #f6f7f8; */
+    border-top: 2px solid #333;
 }
 
 /* 헤더 스타일 */
 .mypageBookThead tr {
-    background-color: #e4edf2;
+    /* background-color: #e9ecee; */
+    border-bottom: 1px solid #d3d3d3;
 }
 
 .mypageBookThead tr th {
@@ -58,9 +57,10 @@
 
 .mapCarDays {
     display: inline-block;
-    background-color: #e8e8e8;
-    color: #2f2f2f;
-    padding: 5px 15px;
+    /* background-color: #0b79b7; */
+    color: #333;
+    padding: 4px 15px;
+    border: 1px solid #333;
     border-radius: 20px;
     font-size: 14px;
     font-weight: bold;
@@ -84,7 +84,7 @@
     padding: 10px;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 15px;
     transition: background 0.3s;
 }
 
@@ -148,12 +148,11 @@
   position: relative;
   width: 200px;
   margin-left: auto;
-  margin-bottom: ;
 }
 
 .dropdownToggle {
   width: 100%;
-  padding: 10px 14px;
+  padding: 7px 10px;
   background: #fff;
   border: 1px solid #ccc;
   cursor: pointer;

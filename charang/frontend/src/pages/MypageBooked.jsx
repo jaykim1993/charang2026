@@ -12,7 +12,7 @@ export default function MypageBooked() {
   const { branch } = useContext(DataContext);
 
   // 드랍다운 버튼 만들기 26.02.23 성중
-  const [isOpen, setIsOpen] = useState (false);
+  const [isOpen, setIsOpen] = useState(false);
 
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function MypageBooked() {
 
   return (
     <div className="MypageBooked">
-      <h2 className="guideMainText">예약내역</h2>
+      <h4>예약내역</h4>
       {myBooking.length === 0 ? (
         <div>
           <div className="mypageBookCard">
@@ -60,48 +60,46 @@ export default function MypageBooked() {
       ) : (
         <div>
           {/* 예약 상태 드롭다운 */}
-            <div className="bookingStatusDropdown">
-              <button
-                className="dropdownToggle"
-                onClick={() => setIsOpen(prev => !prev)}
-              >
-                {selectedStatus === "ONGOING"
-                  ? "진행중인 예약"
-                  : selectedStatus === "UPCOMING"
+          <div className="bookingStatusDropdown">
+            <button
+              className="dropdownToggle"
+              onClick={() => setIsOpen(prev => !prev)}>
+              {selectedStatus === "ONGOING"
+                ? "진행중인 예약"
+                : selectedStatus === "UPCOMING"
                   ? "다가오는 예약"
                   : "지난 예약"}
-                <span className="arrow">▼</span>
-              </button>
+                <i className="bi bi-caret-down-fill"></i>
+            </button>
 
-              {isOpen && (
-                <ul className="dropdownMenu">
-                  {["ONGOING", "UPCOMING", "PAST"].map(status => (
-                    <li
-                      key={status}
-                      className={selectedStatus === status ? "active" : ""}
-                      onClick={() => {
-                        setSelectedStatus(status);
-                        setIsOpen(false);
-                      }}
-                    >
-                      {status === "ONGOING"
-                        ? "진행중인 예약"
-                        : status === "UPCOMING"
+            {isOpen && (
+              <ul className="dropdownMenu">
+                {["ONGOING", "UPCOMING", "PAST"].map(status => (
+                  <li
+                    key={status}
+                    className={selectedStatus === status ? "active" : ""}
+                    onClick={() => {
+                      setSelectedStatus(status);
+                      setIsOpen(false);
+                    }}
+                  >
+                    {status === "ONGOING"
+                      ? "진행중인 예약"
+                      : status === "UPCOMING"
                         ? "다가오는 예약"
                         : "지난 예약"}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
           <table className="mypageBookTable">
             <thead className="mypageBookThead">
               <tr>
                 <th>차량 이미지</th>
-                <th style={{width:'200px'}}>차량 정보</th>
-                <th>예약 정보</th>
-                <th></th>
+                <th style={{ width: '200px' }}>차량 정보</th>
+                <th colSpan={2}>예약 정보</th>
               </tr>
             </thead>
 
@@ -125,8 +123,7 @@ export default function MypageBooked() {
               return (
                 <tbody
                   className={selectedStatus === "PAST" ? "mypage_tbodypast" : "mypage_tbody"}
-                  key={book.bookingId}
-                >
+                  key={book.bookingId}>
                   <tr>
                     <td>
                       <img src={`/images/cars/${book.carImg}`} alt={book.model} />
@@ -152,8 +149,7 @@ export default function MypageBooked() {
                         <Link
                           to={`/mypage/detail/${book.bookingId}`}
                           className="mapGoToDetail"
-                          onClick={() => window.scrollTo(0, 0)}
-                        >
+                          onClick={() => window.scrollTo(0, 0)}>
                           예약 상세보기
                         </Link>
                       </div>

@@ -41,6 +41,11 @@ export default function CustomerServiceNoticeWrite(){
         .catch((error) => console.log("error : ", error))
     }
 
+    // const backHandler() => {
+    //     alert('저장되지 않습니다. ');
+    //     navigate(-1);
+    // }
+
     return(
         <div className="notice_write">
             <h4>공지사항 작성하기</h4>
@@ -64,6 +69,7 @@ export default function CustomerServiceNoticeWrite(){
             </table>
             <div className="adminBtn">
                 <button onClick={noticeChk}>작성완료</button>
+                {/* <button onClick={backHandler()}>뒤로가기</button> */}
             </div>
         </div>
     )

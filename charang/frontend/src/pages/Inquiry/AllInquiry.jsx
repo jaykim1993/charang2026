@@ -98,7 +98,7 @@ export default function AllInquiry() {
         <div className="AllInquiry">
             <div className="Inquiry_head">
                 <h4>문의하기</h4>
-                {userid === 'admin' ?
+                {userid === 'admin' || !userid ? 
                     <></>
                     : <button onClick={() => navigate("/customerservice/inquiry/write")}>
                         문의하기

@@ -4,6 +4,7 @@
     min-height: 800px;
     /* margin: 50px auto; */
     color: #333;
+    margin-bottom: 100px;
 }
 
 /* 공지사항 타이틀 */
@@ -35,18 +36,18 @@
 .notice .notice_table table{
     width: 100%;
     border-collapse: collapse;
-    border-top: 1px solid #dee2e6;
-    /* border-top: 2px solid #333; */
+    border-top: 2px solid #333;
+    margin-bottom: 20px;
 }
 
-/* .notice .notice_table table th{
-    background-color: #f8f9fa;
+.notice .notice_table table th{
+    /* background-color: #f8f9fa; */
     padding: 12px;
     border-bottom: 1px solid #dee2e6;
     font-weight: 600;
     color: #495057;
     text-align: center;
-} */
+}
 
 .notice .notice_table table td{
     padding: 20px;
