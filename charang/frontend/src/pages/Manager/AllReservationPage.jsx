@@ -1,13 +1,16 @@
 import { useState, useContext, useEffect } from "react";
-import { BookingContext } from "../../contexts/Bookingcontext";
 import { DataContext } from "../../contexts/Datacontext";
 import './AllReservationPage.css';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export default function AllReservationPage(){
 
     const { pageNum, setPageNum, pagesHandler, paging, setPaging } = useContext(DataContext);
     const [allBookCar, setAllBookCar] = useState([]);
+
+    // 화면 이동 훅
+    const navi = useNavigate();
 
     // 예약정보+차량정보 불러오기 from ManagerDTO
     useEffect(()=>{
@@ -117,22 +120,22 @@ export default function AllReservationPage(){
                 <tbody className="managerAllReservation_table_tb">
                     {allBookCar && allBookCar.length>0?
                         allBookCar.map((item,index)=>(
-                            <tr key={index}>
-                                <td>{index+1}</td>
-                                <td>{item.bookingId}</td>
-                                <td>{item.bookedDate}</td>
-                                <td>{item.userId}</td>
-                                <td>{item.model}</td>
-                                <td>{item.startDate}</td>
-                                <td>{item.startTime}</td>
-                                <td>{item.endDate}</td>
-                                <td>{item.endTime}</td>
-                                <td className="m_AllCar_tableDel">
-                                    {/* 체크한 차량의 carId만 값을 들고옴 */}
-                                    <input type="checkbox" name="delcheck" 
-                                    className="AllCar_del" onChange={(e)=>{checkHandler(e, item.bookingId)}}></input>
-                                </td>
-                            </tr>
+                                <tr key={index} onClick={()=>navi(`/manager/reservationDetail/${item.bookingId}`)}>
+                                    <td>{index+1}</td>
+                                    <td>{item.bookingId}</td>
+                                    <td>{item.bookedDate}</td>
+                                    <td>{item.userId}</td>
+                                    <td>{item.model}</td>
+                                    <td>{item.startDate}</td>
+                                    <td>{item.startTime}</td>
+                                    <td>{item.endDate}</td>
+                                    <td>{item.endTime}</td>
+                                    <td className="m_AllCar_tableDel">
+                                        {/* 체크한 차량의 carId만 값을 들고옴 */}
+                                        <input type="checkbox" name="delcheck" 
+                                        className="AllCar_del" onChange={(e)=>{checkHandler(e, item.bookingId)}}></input>
+                                    </td>
+                                </tr>
                         ))
 
                         :
