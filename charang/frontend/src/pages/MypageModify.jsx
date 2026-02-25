@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "../contexts/Authcontext";
 import { Link } from "react-router-dom";
 import DaumPostCode from "react-daum-postcode";
 import "./MypageModify.css";
@@ -7,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function MypageModify() {
     const navigate=useNavigate();
+    const {userid} = useContext(AuthContext);
     const [phoneFront, setPhoneFront] = useState("");
     const [phoneMiddle, setPhoneMiddle] = useState("");
     const [phoneBack, setPhoneBack] = useState("");
@@ -25,7 +27,7 @@ export default function MypageModify() {
 
   // 내 정보 불러오기 ~~>
 useEffect(() => {
-  axios.get("/api/userinfo")
+  axios.get(`/api/userinfo/${userid}`)
     .then(res => {
       if(res.data){
         setUser(res.data);
@@ -74,7 +76,7 @@ useEffect(() => {
            if(!window.confirm('회원정보를 수정하시겠습니까?')){
             return;
             }
-          // alert("회원정보 수정 완료");
+          alert("회원정보 수정이 완료되었습니다.");
           navigate(-1);
         }else{
           alert("비밀번호를 확인해주세요.");
@@ -219,7 +221,7 @@ useEffect(() => {
             name="userPw"
             onChange={handleChange}
             placeholder="현재 비밀번호 입력"
-          />
+            />
         </div>
 
         {/* 버튼 영역 */}

@@ -43,7 +43,7 @@ export default function CustomerServiceNoticeModfiy(){
         .then((res) => {
             if(res.data === 1){
                 console.log("res.data : ", res.data);
-                alert('공지사항 수정 완료!')
+                alert('공지사항이 수정되었습니다.')
                 navigate(`/customerservice/notice/Info/${noticeId}`);
             }else{
                 alert("공지사항 수정 실패 - 권한이 없거나 데이터 오류");

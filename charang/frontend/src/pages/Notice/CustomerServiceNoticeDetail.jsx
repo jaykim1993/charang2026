@@ -28,10 +28,10 @@ export default function CustomerServiceNoticeDetail() {
             axios.delete("/api/customerservice/notice/manager/delete", { params: { noticeId: noticeId } })
             .then((res) => {
                 if(res.data === 1){
-                    alert("삭제되었습니다.");
+                    alert("공지사항이 삭제되었습니다.");
                     navigate("/customerservice/notice");
                 }else{
-                    alert("삭제실패");
+                    alert("공지사항 삭제실패하였습니다? 코드고치세요");
                 }
             })
             .catch(error => console.log("error : ", error));

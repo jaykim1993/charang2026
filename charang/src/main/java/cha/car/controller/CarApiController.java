@@ -47,32 +47,6 @@ public class CarApiController {
 		return carservice.getAllCar();
 	}
 	
-//	@GetMapping("/")
-//	public Map<String, Object> getAllCarList(
-////			1. 페이지 번호 - 1부터 시작이므로 초기값 1로 정의
-//			@RequestParam(value="page", defaultValue = "1") int page,
-////			2. 페이지 사이즈 - 한 화면에 보여지는 게시글 개수를 5로 초기화
-//			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize
-//			){
-//		
-//		System.out.println("차 컨트롤러 - 차량 전체 출력 컨트롤러");
-//		
-//		int totalCnt = carservice.getAllCount();
-//		
-////		PageHandler 클래스 접근하기 위해 인스턴스화
-//		PageHandler ph = new PageHandler(totalCnt, page, pageSize);
-//		
-////		List<NoticeDTO> noticeList = noticeService.getPageList(totalCnt, pageSize);
-//		List<CarDTO> carList = carservice.getSearchCar(ph.getStartRow(), pageSize);
-//		
-//		Map<String, Object> result = new HashMap<>();
-//		
-//        result.put("list", carList);
-//        result.put("ph", ph);
-//		System.out.println(result);
-//		return result;  // JSON 형태로 받아가야해서 
-//	}
-	
 	// 검색 차량 출력 컨트롤러
 	@GetMapping("/searchCar")
 	public Map<String, Object> getSearchCarList(

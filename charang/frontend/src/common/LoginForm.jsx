@@ -96,7 +96,7 @@ export default function LoginForm({ onClose, onJoin }) {
         axios.post('/api/findpw',{userId:userid,name:name,email:mail})
         .then((res)=>{
             if(res.data){
-                alert("인증번호가 발송되었습니다.")
+                alert("인증번호가 메일로 발송되었습니다.")
                 setFormView(5)
             }
         

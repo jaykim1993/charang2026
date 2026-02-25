@@ -10,14 +10,7 @@ import cha.user.dto.UserDTO;
 
 @Mapper
 public interface UserMapper {
-   /*   //회        揷     
-   public final static int userid_alreday_exit = 0;
-   // 회               
-   public final static int userid_success = 1;
-   // 회               
-   public final static int userid_fail = -1;
-   */
-<<<<<<< HEAD
+
   	// 전체 회원 출력
 	public List<UserDTO> selectAllUser(
 		   @Param("startRow") int startRow,
@@ -34,10 +27,6 @@ public interface UserMapper {
 		   );
    // 검색 회원 개수
    public int getUserSearchCount(String search);
-=======
-  	// �쟾泥� �쉶�썝 異쒕젰
-	public List<UserDTO> selectAllUser();
->>>>>>> main
    
    //회        煞 
    public int insertUser(UserDTO udto);
@@ -48,13 +37,8 @@ public interface UserMapper {
    //회       
    public int modUser(UserDTO udto);
    
-<<<<<<< HEAD
    //ȸ   Ż  
    public int delUser(List<String> delIdList);
-=======
-   //회   탈  
-   public int delUser(String userId);
->>>>>>> main
    
    // 綺          회
    public UserDTO oneUser(String userId);

@@ -20,7 +20,7 @@ export default function MypageMyinfo(){
 
     //개인회원 정보 불러오기
     useEffect(()=>{
-    axios.get('/api/userinfo')
+    axios.get(`/api/userinfo/${userid}`,{userId:userid})
     .then((res)=>{
         if(!res.data){
         loginNeeded();

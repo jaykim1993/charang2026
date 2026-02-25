@@ -5,7 +5,6 @@ import java.util.List;
 import cha.user.dto.UserDTO;
 
 public interface UserService {
-<<<<<<< HEAD
    // 전체 회원 출력 메서드
 	public List<UserDTO> getAllUser(int startRow, int pageSize);
    // 전체 회원 개수
@@ -15,10 +14,6 @@ public interface UserService {
    public List<UserDTO> getSearchUser(String search, int startRow, int pageSize);
    // 검색 회원 개수 
    public int getSearchCount(String search);
-=======
-   // �쟾泥� �쉶�썝 異쒕젰 硫붿꽌�뱶
-	public List<UserDTO> getAllUser();
->>>>>>> main
    
    //회    틉     揷 체크
    public boolean existUserId(String userId);
@@ -32,13 +27,8 @@ public interface UserService {
    //회       
    public boolean modUser(UserDTO udto);
    
-<<<<<<< HEAD
    //ȸ   Ż  
    public boolean delUser(List<String> delIdList);
-=======
-   //회   탈  
-   public boolean delUser(String userId);
->>>>>>> main
    
    // 綺          회
    public UserDTO oneUser(String userId);
@@ -48,9 +38,6 @@ public interface UserService {
    
    // 慣   
    public UserDTO loginConfirm(UserDTO udto);
-<<<<<<< HEAD
-
-=======
    
 // 2026/02/23 찬하 추가 
    
@@ -62,7 +49,6 @@ public interface UserService {
  
  //회원 비밀번호 재설정
  public boolean updatePassword(String userId, String newPw);
->>>>>>> main
 }
 
 

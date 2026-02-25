@@ -35,7 +35,7 @@ export default function InquiryAnswer() {
             .then((res) => {
                 if (res.data === "success") {
                     console.log("답변등록 - res.data : ", res.data);
-                    alert('답변 등록 완료!')
+                    alert('답변이 등록되었습니다.')
                     navigate(-1);
                 } else {
                     alert("답변 등록 실패 - 데이터 오류");
