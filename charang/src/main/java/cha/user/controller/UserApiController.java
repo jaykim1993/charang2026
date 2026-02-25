@@ -34,7 +34,7 @@ public class UserApiController {
 	public Map<String, Object> getSearchUserList(
 			@RequestParam(value="search", required=false) String search, // 검색어
 			@RequestParam( value="page", defaultValue = "1") int page, // 페이지 번호
-			@RequestParam( value="pageSize", defaultValue = "5") int pageSize // 한 화면에 보여지는 user개수
+			@RequestParam( value="pageSize", defaultValue = "10") int pageSize // 한 화면에 보여지는 user개수
 			){
 		System.out.println("검색한 회원 출력 컨트롤러");
 		

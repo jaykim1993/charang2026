@@ -1,11 +1,16 @@
 /* 전체 레이아웃 */
 .ManagerAllUser {
+    max-width: 1300px;
+    margin: 120px auto;
     padding: 30px;
-    background-color: #f9f9fb;
-    min-height: 100vh;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    font-family: sans-serif;
 }
 
 .ManagerAllUser h1 {
+    text-align: center;
     font-size: 24px;
     color: #1a1a1a;
     margin-bottom: 25px;
@@ -13,31 +18,32 @@
 }
 
 /* 검색바 영역 */
-.ManagerAllUser input[type="text"] {
-    padding: 10px 15px;
-    width: 300px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px 0 0 8px; /* 왼쪽만 둥글게 */
-    outline: none;
-    transition: border 0.2s;
+.ManagerAllUser .mau_find{
+    display: flex;
+    vertical-align: middle;
 }
 
-.ManagerAllUser input[type="text"]:focus {
-    border-color: #4a90e2;
+.ManagerAllUser .mau_find .mau_input{
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 5px;
+    vertical-align: middle;
 }
 
-.ManagerAllUser button {
-    padding: 10px 20px;
-    background-color: #4a90e2;
+.ManagerAllUser .mau_find .mau_btn,.del_btn{
+    height: 40px;
+    padding: 0 20px;
+    background-color: #333;
     color: white;
     border: none;
-    border-radius: 0 8px 8px 0; /* 오른쪽만 둥글게 */
+    border-radius: 5px;
     cursor: pointer;
-    font-weight: 600;
 }
 
-.ManagerAllUser button:hover {
-    background-color: #357abd;
+.ManagerAllUser .mau_find .mau_btn:hover {
+    background-color: #555;
 }
 
 /* 테이블 스타일 */
@@ -47,31 +53,40 @@
     border-spacing: 0;
     margin-top: 20px;
     background-color: white;
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgb(221, 221, 221);
 }
 
 .managerAllUser_table th {
     background-color: #f1f3f5;
-    color: #495057;
-    padding: 15px;
-    font-size: 14px;
-    border-bottom: 2px solid #dee2e6;
+    color: #555;
+    padding: 15px 10px;
+    font-size: 16px;
+    border-bottom: 1px solid #d8d8d8;
     text-align: center;
 }
 
 .managerAllUser_table td {
     padding: 15px;
     text-align: center;
-    border-bottom: 1px solid #f1f3f5;
+    border-bottom: 1px solid #d8d8d8;
     color: #333;
-    font-size: 14px;
+    font-size: 15px;
 }
 
-/* 행 하이라이트 */
 .managerAllUser_table_tb tr:hover {
     background-color: #f8fbff;
+}
+
+.managerAllUser_table_tb tr .mau_name{
+    cursor: pointer;
+}
+
+.managerAllUser_table_tb tr .mau_name:hover{
+    color: 222;
+    font-weight: 600;
 }
 
 /* 데이터 없을 때 */

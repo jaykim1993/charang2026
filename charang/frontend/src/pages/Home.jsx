@@ -191,7 +191,7 @@ export default function Home(){
       title: "24시간 실시간 응답",
       desc: "전문 상담원 항시 대기",
       icon: "/images/banner/inquiry.png",
-      link: "/customerservice/inquiry",
+      link: "/customerservice/inquiry/list",
     },
     ];
 

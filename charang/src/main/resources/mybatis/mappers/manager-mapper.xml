@@ -172,4 +172,16 @@
 	  ]]>
 	</select>
 	
+	<!-- 현재예약, 미래예약이 존재하지 않는 회원id 출력
+	public List<String> selectIsRes(List<String> userIds); -->
+	<select id="selectIsRes" resultType="string">
+	    SELECT userId
+	    FROM booking
+	    WHERE userId NOT IN (
+	        SELECT DISTINCT userId
+	        FROM booking
+	        WHERE STR_TO_DATE(CONCAT(endDate, ' ', endTime), '%Y-%m-%d %H:%i') >= NOW()
+	    )
+	</select>
+	
 </mapper>

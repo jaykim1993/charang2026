@@ -10,23 +10,29 @@
 }
 
 .ManagerAllCar h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 25px;
     text-align: center;
+    font-size: 24px;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    font-weight: 700;
 }
 
-.ManagerAllCar select, 
-.ManagerAllCar > input {
+.ManagerAllCar .mac_find{
+    display: flex;
+    vertical-align: middle;
+}
+
+.ManagerAllCar .mac_find .mac_type, .mac_word{
     height: 40px;
     padding: 0 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-right: 5px;
     vertical-align: middle;
+    outline: none;
 }
 
-.ManagerAllCar .acp_btn {
+.ManagerAllCar .acp_btn, .acp_Regbtn{
     height: 40px;
     padding: 0 20px;
     background-color: #333;
@@ -36,16 +42,29 @@
     cursor: pointer;
 }
 
+.ManagerAllCar .acp_Regbtn{
+    margin-left: auto
+}
+
 .ManagerAllCar button:hover {
     background-color: #555;
 }
 
 /* 테이블*/
 .m_AllCar_table {
-    width: 100%;
+    /* width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    border-top: 2px solid #333;
+    border-top: 2px solid #333; */
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgb(221, 221, 221);
 }
 
 .m_AllCar_th .m_AllCar_tr {
@@ -60,13 +79,26 @@
     border-bottom: 1px solid #c0c0c0;
 }
 
-.m_AllCar_tb td {
-    padding: 15px 10px;
-    font-size: 16px;
-    color: #666;
+.m_AllCar_tb .m_AllCar_tr > td {
+    padding: 12px 0px;
+    font-size: 15px;
+    color: #333;
     text-align: center;
-    border-bottom: 1px solid #c1c1c1;
+    border-bottom: 1px solid #d8d8d8;
     text-align: center;
+}
+
+.m_AllCar_tb .m_AllCar_tr .m_AllCar_tableNum{
+    width: 10%;
+}
+.m_AllCar_tb .m_AllCar_tr .m_AllCar_tableCarImg{
+    width: 15%;
+}
+.m_AllCar_tb .m_AllCar_tr .m_AllCar_tableBrand{
+    width: 15%;
+}
+.m_AllCar_tb .m_AllCar_tr .m_AllCar_tableModel{
+    width: 15%;
 }
 
 /* 이미지 처리 */
@@ -129,11 +161,17 @@
 }
 
 .del_btn {
-    font-weight: bold;
+    height: 40px;
+    padding: 0 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .del_btn:hover {
-    background-color: #c82333 !important;
+    background-color: #555;
 }
 
 .AllCar_del {

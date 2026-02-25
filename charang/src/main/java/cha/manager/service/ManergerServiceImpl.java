@@ -54,6 +54,15 @@ public class ManergerServiceImpl implements ManagerService{
 
 
 
+	// 현재예약, 미래예약이 존재하지 않는 회원id 출력
+	@Override
+	public List<String> getIsRes() {
+		System.out.println("현재예약, 미래예약이 존재하지 않는 회원id 출력");
+		return managermapper.selectIsRes();
+	}
+
+
+
 	
 
 	
