@@ -10,13 +10,15 @@ export default function BookingProvider({ children }) {
 
 
     // ======================
-    // 예약 목록 전체 불러오기 (Home.jsx, AllReservationPage.jsx 용)
+    // 예약 목록 전체 불러오기 (Home.jsx, Searchcarlist.jsx)
     // ======================
+    // Home이나 Seachcarlist에서 이용 가능 차량 뽑기 위해 사용
     const [bookedlistAll, setBookedlistAll] = useState([]);
     const fetchBookedList = async () => {
       try {
         const res = await axios.get("/api/booklist");
         if (Array.isArray(res.data)) {
+          // console.log("전체예약목록", res.data);
           setBookedlistAll(res.data);
         }
       } catch (err) {
@@ -36,7 +38,7 @@ export default function BookingProvider({ children }) {
         const res = await axios.get("/api/onebookcar", {
           withCredentials: true 
         });
-        console.log("개인 예약 (+카 정보 조인)", res.data);
+        // console.log("개인 예약 (+카 정보 조인)", res.data);
         setMyBooking(res.data);
       };
       useEffect(() => {
@@ -51,7 +53,7 @@ export default function BookingProvider({ children }) {
     
 
     // ======================
-    // 예약 취소 (MypageBooked.jsx, AllReservationPage.jsx)
+    // 예약 취소 (MypageDetail.jsx, AllReservationPage.jsx)
     // ======================
       // 해당 예약의 bookingId로 접근해서 삭제한다.
       // 두 페이지에 필요하므로 함수화해서 페이지마다 import
@@ -64,7 +66,7 @@ export default function BookingProvider({ children }) {
             params: { bookingId }
           });
 
-          console.log(res.data);
+          // console.log(res.data);
 
           if (res.data) {
             alert('예약이 취소되었습니다.');
@@ -81,16 +83,15 @@ export default function BookingProvider({ children }) {
     // ======================
     // 최근 본 차량 목록 (Home.jsx, Recentcarlist.jsx)
     // ======================
-      // 목록은 DB나 배열로 실존하지 않으며 local storage에만 존재한다.
-      // localStorage 내에서 해당 userid에 부합하는 내용만 찾기
+      // 목록은 DB나 배열로 실존하지 않으며 sessionStorage에만 존재한다.
+      // sessionStorage 내에서 해당 userid에 부합하는 내용만 찾기
       const myRecentlist = (userid) => {
         if (!userid) return [];
-        const data = JSON.parse(localStorage.getItem("recentView")) || [];
+        const data = JSON.parse(sessionStorage.getItem("recentView")) || [];
         return data
           .filter(item => item.userid === userid)
           .sort((a, b) => b.viewed_at - a.viewed_at)
       };
-
 
 
   // ================= 금액 =================

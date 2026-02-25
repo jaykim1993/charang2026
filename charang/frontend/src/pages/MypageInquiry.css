@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 /* #root .mypage-inquries{
     min-height: 900px;
     margin-left: 50px;
+=======
+#root .mypage-inquries{
+    min-height: 1100px;
+    width: 900px;
+    margin: 0 auto; /* 가운데 정렬 */
+>>>>>>> main
 }
 .mypage-inquiries-table{
     width: 100%;

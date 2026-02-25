@@ -15,6 +15,7 @@ public class ManagerDTO {
 	private int carPrice;
 	private int insurancePrice;
 	private int totalPrice;
+	private String paymentMethod;
 	// 차량 테이블
 	private String carImg; 
 	private String brandLogo;
@@ -110,6 +111,12 @@ public class ManagerDTO {
 	}
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 	public String getCarImg() {
 		return carImg;

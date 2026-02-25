@@ -11,7 +11,22 @@ export default function CalendarProvider({ children }) {
   const { userid } = useContext(AuthContext);
   const { car } = useContext(DataContext);
   const { bookedlistAll } = useContext(BookingContext);
+useEffect(() => {
+  const saved = sessionStorage.getItem("searchFilters");
 
+  if (saved) {
+    const parsed = JSON.parse(saved);
+
+    setStartDate(parsed.startDate ?? null);
+    setEndDate(parsed.endDate ?? null);
+    setStartTime(parsed.startTime ?? "10:00");
+    setEndTime(parsed.endTime ?? "10:00");
+
+    
+    setBranchId(parsed.branchId ?? "");
+    setLocation(parsed.location ?? "");
+  }
+}, []);
   //시작 달력 초기값 정하기 13시2분이면 13시30분부터 
   const canRentStart = new Date();
 
@@ -44,7 +59,7 @@ export default function CalendarProvider({ children }) {
 
 
   /* ================= UI 상태 ================= */
-  const savedCalendar = JSON.parse(localStorage.getItem("calendarFilters"));
+  const savedCalendar = JSON.parse(sessionStorage.getItem("searchFilters"));
 const [startDate, setStartDate] = useState(
   savedCalendar?.startDate ?? null
 );
@@ -59,9 +74,15 @@ const [endTime, setEndTime] = useState(
 );
 
   // 사용자 입력 차량 위치 정보, 홈에서 공유받아야 하며 지금은 임시
-  const [location, setLocation] = useState("");
-  const [branchId, setBranchId] = useState(""); //db
-  const [apply, setApply] = useState(false);
+const savedFilters = JSON.parse(sessionStorage.getItem("searchFilters"));
+
+const [location, setLocation] = useState(
+  savedFilters?.location ?? ""
+);
+
+const [branchId, setBranchId] = useState(
+  savedFilters?.branchId ?? ""
+);
   /* ================= 시간 필터 ================= */
   const blockedCarIds = useMemo(() => {
     if (!startDate || !endDate || !startTime || !endTime) return [];
@@ -94,17 +115,18 @@ const [endTime, setEndTime] = useState(
 /* ================= 예약 가능 차량 ================= */
 const firstFilteredCar = useMemo(() => {
   return car.filter((car) => {
-    if (blockedCarIds.includes(car.id)) return false;
+    if (blockedCarIds.includes(car.carId)) return false;
     if (branchId && car.branchId !== branchId) return false;
     return true;
   });
 }, [car, blockedCarIds, branchId]);
 
-// 새로고침 대비 LocalStorage
+// 새로고침 대비 sessionStorage
 useEffect(() => {
-  if (firstFilteredCar.length > 0) {
-    localStorage.setItem("firstFilteredCar", JSON.stringify(firstFilteredCar));
-  }
+  sessionStorage.setItem(
+    "firstFilteredCar",
+    JSON.stringify(firstFilteredCar)
+  );
 }, [firstFilteredCar]);
 
 /* ================= 검색 결과 가공 ================= */
@@ -121,19 +143,26 @@ const filteredInfoUser = useMemo(() => {
     fuelType: car.fuelType,
   }));
 }, [firstFilteredCar, userid, startDate, endDate, startTime, endTime]);
-
-// 새로고침 대비 LocalStorage에 날짜 포함
 useEffect(() => {
-  if (filteredInfoUser.length > 0) {
-    localStorage.setItem("filteredInfoUser", JSON.stringify(filteredInfoUser));
-    localStorage.setItem("calendarFilters", JSON.stringify({
+  sessionStorage.setItem(
+    "searchFilters",
+    JSON.stringify({
       startDate,
       endDate,
       startTime,
-      endTime
-    }));
+      endTime,
+      location,
+      branchId
+    })
+  );
+}, [startDate, endDate, startTime, endTime, location, branchId]);
+// 새로고침 대비 sessionStorage 날짜 포함
+useEffect(() => {
+  if (filteredInfoUser.length > 0) {
+    sessionStorage.setItem("filteredInfoUser", JSON.stringify(filteredInfoUser));
   }
-}, [filteredInfoUser, startDate, endDate, startTime, endTime]);
+}, [filteredInfoUser]);
+
 
   /* ================= UI 트리거 ================= */
   // 날짜 선정 확인 함수
@@ -142,7 +171,6 @@ useEffect(() => {
       alert("대여 날짜를 선택해주세요.");
       return;
     }
-    setApply(true);
   };
   // 예약 가능한 차량 검색 버튼
   const handleSearchBtn = (navigate) => {
@@ -174,38 +202,38 @@ useEffect(() => {
   };
 
   //다음예약가능 시간 30분으로 쪼개서 ex) 현재시간 오후 4시52분 => 4시30분 && 이전 블럭될수있게
-// 현재 시각 기준 → 다음 예약 가능한 30분 단위 시간
-const getNextAvailableTime = () => {
-  const now = new Date();
+  // 현재 시각 기준 → 다음 예약 가능한 30분 단위 시간
+  const getNextAvailableTime = () => {
+    const now = new Date();
 
-  const minutes = now.getMinutes();
-  const roundedMinutes = Math.ceil(minutes / 30) * 30;
+    const minutes = now.getMinutes();
+    const roundedMinutes = Math.ceil(minutes / 30) * 30;
 
-  if (roundedMinutes === 60) {
-    now.setHours(now.getHours() + 1);
-    now.setMinutes(0);
-  } else {
-    now.setMinutes(roundedMinutes);
-  }
-  now.setSeconds(0);
-  now.setMilliseconds(0);
+    if (roundedMinutes === 60) {
+      now.setHours(now.getHours() + 1);
+      now.setMinutes(0);
+    } else {
+      now.setMinutes(roundedMinutes);
+    }
+    now.setSeconds(0);
+    now.setMilliseconds(0);
 
-  return now;
-};
+    return now;
+  };
   //예약가능여부
-const isDisabledStartTime = (date, time) => {
-  if (!date || !time) return false;
+  const isDisabledStartTime = (date, time) => {
+    if (!date || !time) return false;
 
-  const now = new Date();
-  const todayStr = now.toISOString().split("T")[0];
+    const now = new Date();
+    const todayStr = now.toISOString().split("T")[0];
 
-  if (date !== todayStr) return false;
+    if (date !== todayStr) return false;
 
-  const selected = toDateTime(date, time);
-  const limit = getNextAvailableTime();
+    const selected = toDateTime(date, time);
+    const limit = getNextAvailableTime();
 
-  return selected < limit;
-};
+    return selected < limit;
+  };
 
 const isDisabledEndTime = (dateStr, startDateStr, startTime, endTime) => {
   if (!dateStr || !startDateStr || !endTime) return false;
@@ -261,10 +289,6 @@ const isDisabledEndTime = (dateStr, startDateStr, startTime, endTime) => {
         location,
         setLocation,
         branchId, setBranchId,
-
-        /* 상태 */
-        apply,
-        setApply,
 
         /* 데이터 */
         bookedlistAll,

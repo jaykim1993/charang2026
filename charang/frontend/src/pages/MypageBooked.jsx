@@ -1,6 +1,5 @@
-import { useContext } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { CalendarContext } from "../contexts/Calendarcontext";
 import { BookingContext } from "../contexts/Bookingcontext";
 import { DataContext } from "../contexts/Datacontext";
@@ -8,111 +7,164 @@ import { DataContext } from "../contexts/Datacontext";
 import "./MypageBooked.css";
 
 export default function MypageBooked() {
-  const { DeleteYear, timeAMPM, days } = useContext(CalendarContext);  // 연도 삭제
-  const { myBooking, fetchBookedList, fetchOneBookCar } = useContext(BookingContext); // 예약내역 보기 함수 호출
-  const { branch } = useContext(DataContext); // 지점 정보 호출
+  const { DeleteYear, timeAMPM, days } = useContext(CalendarContext);
+  const { myBooking, fetchBookedList, fetchOneBookCar } = useContext(BookingContext);
+  const { branch } = useContext(DataContext);
+
+  // 드랍다운 버튼 만들기 26.02.23 성중
+  const [isOpen, setIsOpen] = useState (false);
+
 
   useEffect(() => {
     fetchBookedList();
     fetchOneBookCar();
   }, []);
 
-  // 다가오는 예약 / 진행중인 예약건 / 지난 예약건 나누기
-  const upcoming = myBooking.filter(b => b.bookingStatus === 'UPCOMING');
-  const ongoing  = myBooking.filter(b => b.bookingStatus === 'ONGOING');
-  const past     = myBooking.filter(b => b.bookingStatus === 'PAST');
-
-  // 다가오는 예약 => 예약날짜 가까운 순서대로 정렬
-  const upcomingByLatest = [...upcoming].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-  const ongoingByLatest = [...upcoming].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-  const pastByLatest = [...upcoming].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-
+  // 상태별 배열
+  const bookingsByStatus = {
+    UPCOMING: myBooking.filter(b => b.bookingStatus === "UPCOMING"),
+    ONGOING: myBooking.filter(b => b.bookingStatus === "ONGOING"),
+    PAST: myBooking.filter(b => b.bookingStatus === "PAST"),
+  };
+  const [selectedStatus, setSelectedStatus] = useState(
+    bookingsByStatus["ONGOING"]?.length !== 0 ? "ONGOING" : "UPCOMING"
+  );
+  // 상태별 정렬 (시작일 기준)
+  Object.keys(bookingsByStatus).forEach(status => {
+    bookingsByStatus[status].sort(
+      (a, b) => new Date(a.startDate) - new Date(b.startDate)
+    );
+  });
 
   useEffect(() => {
-  window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   }, []);
 
   return (
     <div className="MypageBooked">
       <h2 className="guideMainText">예약내역</h2>
-      <div className="myPageBookWarp">
-        {myBooking.length === 0?
+      {myBooking.length === 0 ? (
         <div>
           <div className="mypageBookCard">
-            <i className="bi bi-exclamation-lg warningIcon"></i>
-            <p className="noBookedP">아직 예약 내역이 없습니다.</p>
+            <div className="myBooked_noBook">
+              <p>아직 예약내역이 없습니다.</p>
+              <div>
+                <span>!</span>
+              </div>
+            </div>
           </div>
-          <Link to={'/searchcarlist'} className="noBookedGoToBook">예약하러가기</Link>
+          <Link to={"/searchcarlist"}>
+            <button className="noBookedGoToBook">예약하러가기</button>
+          </Link>
         </div>
-        :
+      ) : (
         <div>
+          {/* 예약 상태 드롭다운 */}
+            <div className="bookingStatusDropdown">
+              <button
+                className="dropdownToggle"
+                onClick={() => setIsOpen(prev => !prev)}
+              >
+                {selectedStatus === "ONGOING"
+                  ? "진행중인 예약"
+                  : selectedStatus === "UPCOMING"
+                  ? "다가오는 예약"
+                  : "지난 예약"}
+                <span className="arrow">▼</span>
+              </button>
+
+              {isOpen && (
+                <ul className="dropdownMenu">
+                  {["ONGOING", "UPCOMING", "PAST"].map(status => (
+                    <li
+                      key={status}
+                      className={selectedStatus === status ? "active" : ""}
+                      onClick={() => {
+                        setSelectedStatus(status);
+                        setIsOpen(false);
+                      }}
+                    >
+                      {status === "ONGOING"
+                        ? "진행중인 예약"
+                        : status === "UPCOMING"
+                        ? "다가오는 예약"
+                        : "지난 예약"}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
           <table className="mypageBookTable">
             <thead className="mypageBookThead">
               <tr>
                 <th>차량 이미지</th>
-                <th>차량 정보</th>
+                <th style={{width:'200px'}}>차량 정보</th>
                 <th>예약 정보</th>
                 <th></th>
               </tr>
             </thead>
 
-          {upcomingByLatest.map(book => {
-            // 지점명 따기
-            const branchName =
-              branch.find(
-                b => b.branchId === book.branchId
-            )?.name || '';
-            // 요일
-            const sDate = new Date(book.startDate);
-            const eDate = new Date(book.endDate);
-            const sDay = days[sDate.getDay()]; // 시작일 요일
-            const eDay = days[eDate.getDay()]; // 종료일 요일
+            {bookingsByStatus[selectedStatus].map(book => {
+              const branchName = branch.find(b => b.branchId === book.branchId)?.name || "";
+              const sDate = new Date(book.startDate);
+              const eDate = new Date(book.endDate);
+              const sDay = days[sDate.getDay()];
+              const eDay = days[eDate.getDay()];
 
-            // 오늘 (날짜 기준)
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const [y, m, d] = book.startDate.split('-');
-            const startDate = new Date(y, m - 1, d);
-            const diffDays = Math.ceil(
-              (startDate - today) / (1000 * 60 * 60 * 24)
-            );
-            let dText;
-            if (diffDays > 0) dText = `D-${diffDays}`;
-            else if (diffDays === 0) dText = 'D-Day';
-            else dText = `D+${Math.abs(diffDays)}`;
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+              const [y, m, d] = book.startDate.split("-");
+              const startDate = new Date(y, m - 1, d);
+              const diffDays = Math.ceil((startDate - today) / (1000 * 60 * 60 * 24));
+              let dText;
+              if (diffDays > 0) dText = `D-${diffDays}`;
+              else if (diffDays === 0) dText = "D-Day";
+              else dText = `D+${Math.abs(diffDays)}`;
 
-            return(
-                <tbody className="mypage_tbody"  key={book.bookingId}>
+              return (
+                <tbody
+                  className={selectedStatus === "PAST" ? "mypage_tbodypast" : "mypage_tbody"}
+                  key={book.bookingId}
+                >
                   <tr>
                     <td>
-                      <img src={`/images/cars/${book.carImg}`} alt={book.model}/>
+                      <img src={`/images/cars/${book.carImg}`} alt={book.model} />
                     </td>
                     <td>
-                      <h3 className="mapCarname">{book.brand} {book.model}</h3>
-                      <p className="mapCarBooknum" >{branchName}</p>
+                      <h3 className="mapCarname">
+                        {book.brand} {book.model}
+                      </h3>
+                      <p className="mapCarBooknum">{branchName}</p>
                     </td>
                     <td>
-                      <h3 className="mapCarDays">{dText}</h3>
+                      {selectedStatus === "ONGOING" && <p className="mapCarDaysOnGoing">진행중</p>}
+                      {selectedStatus === "UPCOMING" && <p className="mapCarDays">{dText}</p>}
+                      {selectedStatus === "PAST" && <p className="mapCarDays">완료</p>}
+
                       <p className="mapCarDate">
-                        {DeleteYear(book.startDate)} ({sDay}) {timeAMPM(book.startTime)}
-                        {" ~ "}
+                        {DeleteYear(book.startDate)} ({sDay}) {timeAMPM(book.startTime)} ~{" "}
                         {DeleteYear(book.endDate)} ({eDay}) {timeAMPM(book.endTime)}
                       </p>
                     </td>
-                    <td >
+                    <td>
                       <div className="GoToDetailBoxmap">
-                        <Link to={`/mypage/detail/${book.bookingId}`} className="mapGoToDetail" onClick={() => window.scrollTo(0,0)}>예약 상세보기</Link>
+                        <Link
+                          to={`/mypage/detail/${book.bookingId}`}
+                          className="mapGoToDetail"
+                          onClick={() => window.scrollTo(0, 0)}
+                        >
+                          예약 상세보기
+                        </Link>
                       </div>
                     </td>
                   </tr>
                 </tbody>
-              
-            );
-          })}
+              );
+            })}
           </table>
-        </div>   
-        }
-      </div>
+        </div>
+      )}
     </div>
   );
 }

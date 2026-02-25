@@ -4,13 +4,99 @@
 
 <mapper namespace="cha.manager.mapper.ManagerMapper">
 
-	<!-- 전체 예약 목록 + 차량 데이터 출력 -->
-	<select id="getAllBookCar" resultType="managerDTO">
-		SELECT *
+	<!-- 전체 예약 수 -->
+	<select id="AllBookCarCount" resultType="int">
+		SELECT COUNT(*) FROM booking
+	</select>
+	
+	
+	<!-- 전체 예약 페이징 메서드 -->
+	<select id="GetAllBookCar" resultType="managerDTO">
+	<![CDATA[
+		SELECT *,
+		
+	    CASE
+	      WHEN NOW() < STR_TO_DATE(
+	        CONCAT(b.startDate, ' ', b.startTime),
+	        '%Y-%m-%d %H:%i'
+	      )
+	        THEN 'UPCOMING'
+	
+	      WHEN NOW() BETWEEN
+	        STR_TO_DATE(
+	          CONCAT(b.startDate, ' ', b.startTime),
+	          '%Y-%m-%d %H:%i'
+	        )
+	        AND
+	        STR_TO_DATE(
+	          CONCAT(b.endDate, ' ', b.endTime),
+	          '%Y-%m-%d %H:%i'
+	        )
+	        THEN 'ONGOING'
+	      ELSE 'PAST'
+	    END AS bookingStatus
+	    
 		FROM booking b
 		INNER JOIN car c
-		ON b.carId = c.carId;
+		ON b.carId = c.carId
+		ORDER BY b.bookedDate ASC
+		LIMIT #{startRow}, #{pageSize}
+		]]>
 	</select>
+	
+	<!-- 검색 예약 메서드 -->
+	<select id="GetAllSearchBookCar" resultType="managerDTO">
+	  SELECT *,
+	  <![CDATA[
+	    CASE
+	      WHEN NOW() < STR_TO_DATE(
+	        CONCAT(b.startDate, ' ', b.startTime),
+	        '%Y-%m-%d %H:%i'
+	      ) THEN 'UPCOMING'
+	      WHEN NOW() BETWEEN
+	        STR_TO_DATE(CONCAT(b.startDate, ' ', b.startTime), '%Y-%m-%d %H:%i')
+	        AND
+	        STR_TO_DATE(CONCAT(b.endDate, ' ', b.endTime), '%Y-%m-%d %H:%i')
+	      THEN 'ONGOING'
+	      ELSE 'PAST'
+	    END AS bookingStatus
+	  ]]>
+	  FROM booking b
+	  INNER JOIN car c ON b.carId = c.carId
+
+	  <where>
+	    <choose>
+	      <when test="searchType == 'userId'">
+	        b.userId LIKE CONCAT('%', #{searchKeyWord}, '%')
+	      </when>
+	      <otherwise>
+	        c.model LIKE CONCAT('%', #{searchKeyWord}, '%')
+	      </otherwise>
+	    </choose>
+	  </where>
+
+  	ORDER BY b.bookedDate ASC
+	LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	<!-- 검색 예약 수 -->
+	<select id="AllSearchBookCarCount" resultType="int">
+	  SELECT COUNT(*)
+	  FROM booking b
+	  INNER JOIN car c ON b.carId = c.carId
+	  <where>
+	    <choose>
+	      <when test="searchType == 'userId'">
+	        b.userId LIKE CONCAT('%', #{searchKeyWord}, '%')
+	      </when>
+	      <otherwise>
+	        c.model LIKE CONCAT('%', #{searchKeyWord}, '%')
+	      </otherwise>
+	    </choose>
+	  </where>
+	</select>
+	
+	
 	
 	<!-- 개인 예약 목록 + 차량 데이터 출력 -->
 	<select id="getOneBookCar" resultType="managerDTO">
@@ -27,6 +113,7 @@
 	    b.carPrice,
 	    b.insurancePrice,
 	    b.totalPrice,
+	    b.paymentMethod,
 	
 	    c.carImg,
 	    c.brandLogo,
@@ -72,7 +159,6 @@
 	          '%Y-%m-%d %H:%i'
 	        )
 	        THEN 'ONGOING'
-	
 	      ELSE 'PAST'
 	    END AS bookingStatus
 	

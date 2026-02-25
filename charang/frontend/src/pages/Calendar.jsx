@@ -18,9 +18,6 @@ export default function RentalCalendar() {
     setStartTime,
     endTime,
     setEndTime,
-    timeInfoArrHandler,
-    apply,
-    setApply,
     handleDateFilter,
     isDisabledEndTime,
     isDisabledStartTime
@@ -89,7 +86,6 @@ export default function RentalCalendar() {
       alert("날짜를 선택해주세요.");
       return;
     }else{
-      setApply(true);
       setIsCalendar(false);
     }
 
@@ -105,7 +101,6 @@ export default function RentalCalendar() {
     const allCancleHandler=()=>{
       setStartDate(null);
       setEndDate(null);
-      setApply(false);
     }
 
   const renderDay = (arg) =>
@@ -120,24 +115,7 @@ export default function RentalCalendar() {
     return times;
   }, []);
 
-  // const backgroundEvents = useMemo(() => {
-  //   if (!startDate || !endDate) return [];
 
-  //   const events = [];
-  //   let current = new Date(startDate);
-  //   const end = new Date(endDate);
-
-  //   while (current <= end) {
-  //     events.push({
-  //       start: current.toISOString().split("T")[0],
-  //       display: "background",
-  //       className: "selected-range-bg",
-  //     });
-  //     current.setDate(current.getDate() + 1);
-  //   }
-
-  //   return events;
-  // }, [startDate, endDate]);
 
   // 시작인, 종료일 class
   const backgroundEvents = useMemo(() => {

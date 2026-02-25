@@ -18,6 +18,7 @@ import MypageBooked from './pages/MypageBooked'
 
 import AllCarPage from './pages/Manager/AllCarPage';
 import AllReservationPage from './pages/Manager/AllReservationPage';
+import ReservationDetailPage from './pages/Manager/ReservationDetailPage';
 import CarRegPage from './pages/Manager/CarRegPage';
 import AllUserPage from './pages/Manager/AllUserPage';
 import AllInquiry from './pages/Inquiry/AllInquiry';
@@ -98,12 +99,12 @@ function App() {
                   <Route path="myinfo" element={<MypageMyinfo />} />
                   <Route path="modify" element={<MypageModify />} />
                 </Route>
-
-                {/* 관리자 */}
-                <Route path="/manager/carlist" element={<AllCarPage />} />
-                <Route path="/manager/reservationlist" element={<AllReservationPage />} />
-                <Route path="/manager/carregister" element={<CarRegPage />} />
-                <Route path="/manager/userlist" element={<AllUserPage />} />
+                {/* 관리자 페이지 */}
+                <Route path="/manager/carlist" element={<AllCarPage/>}/>
+                <Route path="/manager/reservationlist" element={<AllReservationPage/>}/>
+                <Route path="/manager/reservationDetail/:bookingId" element={<ReservationDetailPage/>}/>
+                <Route path="/manager/carregister" element={<CarRegPage/>}/>
+                <Route path="/manager/userlist" element={<AllUserPage/>}/>
               </Routes>
               <Footer />
             </BrowserRouter>

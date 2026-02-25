@@ -14,56 +14,66 @@ import 'leaflet/dist/leaflet.css';
 import './DetailPage.css'
 
 export default function DetailPage(){
-    const { userid, setModal } = useContext(AuthContext);
+    const { setModal } = useContext(AuthContext);
     const { calculatePrice } = useContext(BookingContext);
-    const {  DeleteYear, startdayText, enddayText} = useContext(CalendarContext);
+    const { startDate,
+            endDate,
+            startTime,
+            endTime,
+            DeleteYear,
+            startdayText,
+            enddayText } = useContext(CalendarContext);
     // console.log('calculatePrice');
     // console.log(calculatePrice);
-    const storedFilteredInfoUser = JSON.parse(localStorage.getItem("filteredInfoUser")) || [];
-    const storedCalendarFilters = JSON.parse(localStorage.getItem("calendarFilters")) || {};
-    
+    const storedFilteredInfoUser = JSON.parse(sessionStorage.getItem("filteredInfoUser")) || [];
+    const sessionUser = sessionStorage.getItem("userid");
+    const userId = sessionUser ? JSON.parse(sessionUser).userId : null;
+    console.log(userId);
     // 차 id 가져오기
     const selectedCarId = Number(useParams().id);
     // user id 가져오기
     const { car,branch } = useContext(DataContext);
-    
+    const selectedCar = car.find(
+        c => c.carId === selectedCarId
+        ) || null;
     const navigate = useNavigate();
 
-    // console.log(selectedCarId);
-    // 선택 차량
-    const selectedCar = JSON.parse(localStorage.getItem("firstFilteredCar") || "[]")
-    .find(car => car.carId === selectedCarId) || null;
+    console.log(selectedCarId);
 
+     const isReady =
+  selectedCar &&
+  branch.length > 0;  
     // 사용자 필터
-        const filterCar = storedFilteredInfoUser.find(car => car.carId === selectedCarId) || {
-        filterStartDate: storedCalendarFilters.startDate,
-        filterEndDate: storedCalendarFilters.endDate,
-        filterStartTime: storedCalendarFilters.startTime,
-        filterEndTime: storedCalendarFilters.endTime,
-        carId: selectedCar?.carId,
-        branchId: selectedCar?.branchId,
-        fuelType: selectedCar?.fuelType,
+        const filterCar =
+            storedFilteredInfoUser.find(car => car.carId === selectedCarId) || {
+                filterStartDate: startDate,
+                filterEndDate: endDate,
+                filterStartTime: startTime,
+                filterEndTime: endTime,
+                carId: selectedCar?.carId,
+                branchId: selectedCar?.branchId,
+                fuelType: selectedCar?.fuelType,
         };
 
-    // 최근 본 차량 추가(Local Storage)
+    // 최근 본 차량 추가(sessionStorage)
     useEffect(() => {
-        if (!selectedCar || !userid) return;
+        if (!selectedCar || !userId) return;
 
-            const raw = localStorage.getItem("recentView");
+            const raw = sessionStorage.getItem("recentView");
             const prev = raw ? JSON.parse(raw) : []; // 방어코드 , 22일 성중 수정
 
             // 같은 유저 + 같은 차량 제거
             const filtered = prev.filter(
                 (item) =>
                 !(
-                    item.userid === userid &&
+                    item.userId === userId &&
                     item.carId === selectedCar.carId
                 )
             );
 
             const newRecentView = {
-                id: `${Date.now()}_${userid}`,
-                userid: userid,
+                id: `${Date.now()}_${userId}`,
+                userid: userId,
                 carId: selectedCar.carId,
                 model: selectedCar.model,
                 carImg: selectedCar.carImg,
@@ -75,11 +85,12 @@ export default function DetailPage(){
 
         const updated = [newRecentView, ...filtered];
 
-        localStorage.setItem("recentView", JSON.stringify(updated));
-    }, [selectedCar?.id, userid]);
+        sessionStorage.setItem("recentView", JSON.stringify(updated));
+    }, [selectedCar?.carId, userId]);
 
     // true인 옵션만 필터링
     const getActiveOptions = (car) => {
+        if (!car) return [];
         const optionsMap = {
             navigation: { name: '내비게이션', icon: 'bi-map' },
             rearCamera: { name: '후방카메라', icon: 'bi-webcam-fill' },
@@ -99,7 +110,7 @@ export default function DetailPage(){
 
     const activeOptions = getActiveOptions(selectedCar);
 
-    if(!selectedCar) return <div>차량정보를 불러올 수 없습니다.</div>;
+
 
     // 가격 계산
     let date = (new Date(`${filterCar.filterEndDate}T${filterCar.filterEndTime}`)-new Date(`${filterCar.filterStartDate}T${filterCar.filterStartTime}`))/ (1000 * 60 * 30);
@@ -115,13 +126,15 @@ export default function DetailPage(){
     setTotalPrice(price);
 
     // 새로고침 대비 저장
-    localStorage.setItem("totalPrice", JSON.stringify(price));
+    sessionStorage.setItem("totalPrice", JSON.stringify(price));
     }, [date, selectedCar, calculatePrice]);
 
     // ===================== Reservation으로 값 넘기기 ========================
     const toReservation = () => {
-        if (!userid) {
-            alert("로그인 후 이용 가능합니다.");
+        if (!userId) {
+            // alert("로그인 후 이용 가능합니다.");
+            const confirmCancel = window.confirm('로그인 후 이용 가능합니다.');
+            if (!confirmCancel) return;
             setModal('login');
             return;
         }
@@ -130,9 +143,15 @@ export default function DetailPage(){
             alert("예약 정보를 다시 선택해주세요");
             return;
         }
-        navigate('/reservation', {
-            state : {selectedCarId}
-        });
+        if(userId){
+            navigate('/reservation', {
+                state : {selectedCarId}
+            });
+            sessionStorage.setItem(
+            "selectedCarId",
+            JSON.stringify(selectedCarId)
+            );
+        }
     };
 
        const SelectedIcon = new L.Icon({
@@ -143,28 +162,23 @@ export default function DetailPage(){
     });
 
     // 지점명 따기
-            const branchName =
-              branch.find(
-                b => b.branchId === selectedCar.branchId
-            )?.location || '';
+    const selectedBranch = selectedCar
+  ? branch.find(b => b.branchId === selectedCar.branchId)
+  : null;
 
-            const lat =
-              branch.find(
-                b => b.branchId === selectedCar.branchId
-            )?.lat || '';
-
-            const lng =
-              branch.find(
-                b => b.branchId === selectedCar.branchId
-            )?.lng || '';
-
-            const address =
-              branch.find(
-                b => b.branchId === selectedCar.branchId
-            )?.address || '';
+    const branchName = selectedBranch?.location || '';
+    const lat = selectedBranch?.lat || 0;
+    const lng = selectedBranch?.lng || 0;
+    const address = selectedBranch?.address || '';
 
 
-    return(
+    
+    return (
+  <div className="DetailPage">
+    {!isReady ? (
+      <div>차량 정보를 불러오는 중입니다...</div>
+    ) : (
+      <>
         <div className="DetailPage">
             {/* 좌측 - 상세 전체 */}
             <div className="detailContent">
@@ -245,25 +259,27 @@ export default function DetailPage(){
                 {/* 지도 */}
                 <div className="D_location">
                     <h4>대여 및 반납 장소</h4>
+                  {selectedBranch && (
                     <MapContainer
-                        key={`${lat}-${lng}`}    
+                        key={`${lat}-${lng}`}
                         center={[lat, lng]}
                         zoom={15}
                         style={{ height: "300px", width: "300px" }}
                     >
                         <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
                         />
-                        {/* positions 배열을 map으로 돌면서 여러 Marker 렌더링 */}
                         {branch.map((spot) => (
-                        <Marker key={spot.branchId} position={[spot.lat, spot.lng]}
-                        icon={SelectedIcon}
+                        <Marker
+                            key={spot.branchId}
+                            position={[spot.lat, spot.lng]}
+                            icon={SelectedIcon}
                         >
                             <Popup>{spot.name}</Popup>
                         </Marker>
                         ))}
                     </MapContainer>
+                    )}
                     <h5>{branchName}</h5>
                     <hr className="D_line"/>
                     <p className="D_detial_address_title">주소</p>
@@ -330,5 +346,9 @@ export default function DetailPage(){
                 </div>
             </div>
         </div>
-    )
+      </>
+    )}
+  </div>
+);
+
 }

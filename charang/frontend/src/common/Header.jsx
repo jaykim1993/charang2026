@@ -16,10 +16,21 @@ export default function Header() {
 
     // logout 핸들러 함수
     const logoutHandler = () => {
+        sessionStorage.removeItem("calendarFilters");
+        sessionStorage.removeItem("filteredInfoUser");
+        sessionStorage.removeItem("firstFilteredCar");
+        sessionStorage.removeItem("totalPrice");
+        sessionStorage.removeItem("selectedCarId");
         logout();
         alert("로그아웃 되었습니다. 메인페이지로 이동합니다.");
     };
-
+    if (!userid) {
+        sessionStorage.removeItem("calendarFilters");
+        sessionStorage.removeItem("filteredInfoUser");
+        sessionStorage.removeItem("firstFilteredCar");
+        sessionStorage.removeItem("totalPrice");
+        sessionStorage.removeItem("selectedCarId");
+    }
     // 로그인 & 회원가입 모달 상태 관리
     const { modal, setModal, loginNeeded } = useContext(AuthContext); // 값 : 'login' | 'joinA' | 'joinB' | 'joinC' | null
     const [joinData, setJoinData] = useState({ userid: '', userpw: '' });
@@ -67,7 +78,12 @@ export default function Header() {
                     </div>
 
                     <Link to="/">
-                        <img className='headerLogo animate-logo' src='/charangcharang_logo_white.png' />
+                        <div className='hLogoWrap'>
+                            <div className='hLogo animate-logo'><img className='headerLogo' src='/charangcharang_logo_white.png' /></div>
+
+                            <p className='hLogoP'>당신의 출발을 더 가볍게, 차랑차랑</p>
+                        </div>
+
                     </Link>
 
                     <nav className="headerNavTop">
@@ -217,175 +233,237 @@ export default function Header() {
 
             {/* 사이드 네비 */}
             {isNavOpen && <div className='sideNavOverlay' onClick={closeNav}></div>}
-            <nav className={`headerNavSide ${isNavOpen ? "on" : ""}`}>
-                <button className="headerBtnX" onClick={closeNav}>
+            <nav
+                className={`headerNavSide ${isNavOpen ? "on" : ""}`}
+                onClick={closeNav}
+            >
+                <button
+                    className="headerBtnX"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        closeNav();
+                    }}
+                >
                     <i className="bi bi-x"></i>
                 </button>
-                <div className="headerNavContent">
-                    <div className="headerNavAd">
-                        <p className='headerNavH'>이달의 EVENT</p>
-                        <div className='headerBannerImgWrap'>
-                            <img className='headerBannerImg' src='/images/banner/sideNavAD.png' alt='sindNavAD' />
+
+
+                {/* 관리자 모드 업데이트. 26.02.23 성중 */}
+                {userid != "admin" ?
+                    <div className="headerNavContent">
+                        <div className="headerNavAd">
+                            <p className='headerNavH'>이달의 EVENT</p>
+                            <div className='headerBannerImgWrap'>
+                                <img className='headerBannerImg' src='/images/banner/sideNavAD.png' alt='sindNavAD' />
+                            </div>
+                            {/* → */}
                         </div>
-                        {/* → */}
+                        <ul className="headerNavUl">
+                            <p className='headerNavH'>차량 렌트</p>
+                            <Link to={'/searchcarlist'}>
+                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                    <div>예약하기</div>
+                                    <div className='headerNavpointer'>
+                                        <i className="bi bi-chevron-right"></i>
+                                    </div>
+                                </li>
+                            </Link>
+                            {/* <li className='headerNavLi'><div>차량별 예약</div> <div className='headerNavpointer'>→</div></li><br /> */}
+                            <p className='headerNavH'>고객 가이드</p>
+                            <Link to={'/customerservice/inquiry/list'} style={{ textDecoration: 'none' }}>
+                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                    <div>문의하기</div>
+                                    <div className='headerNavpointer'>
+                                        <i className="bi bi-chevron-right"></i>
+                                    </div>
+                                </li>
+                            </Link>
+                            <Link to={'/customerservice/FAQ'} style={{ textDecoration: 'none' }}>
+                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                    <div>자주 찾는 질문</div>
+                                    <div className='headerNavpointer'>
+                                        <i className="bi bi-chevron-right"></i>
+                                    </div>
+                                </li>
+                            </Link>
+                            <Link to={'/customerservice/notice'} style={{ textDecoration: 'none' }}>
+                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                    <div>공지사항</div>
+                                    <div className='headerNavpointer'>
+                                        <i className="bi bi-chevron-right"></i>
+                                    </div>
+                                </li>
+                            </Link>
+                            <p className='headerNavH'>이용 가이드</p>
+                            <Link to={'/guide/branch'} style={{ textDecoration: 'none' }}>
+                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                    <div>지점 안내</div>
+                                    <div className='headerNavpointer'>
+                                        <i className="bi bi-chevron-right"></i>
+                                    </div>
+                                </li>
+                            </Link>
+                            <Link to={'/guide/inventory'} style={{ textDecoration: 'none' }}>
+                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                    <div>차량 보유 현황</div>
+                                    <div className='headerNavpointer'>
+                                        <i className="bi bi-chevron-right"></i>
+                                    </div>
+                                </li>
+                            </Link>
+                            <Link to={'/guide/return'} style={{ textDecoration: 'none' }}>
+                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                    <div>차량 반납 안내</div>
+                                    <div className='headerNavpointer'>
+                                        <i className="bi bi-chevron-right"></i>
+                                    </div>
+                                </li>
+                            </Link>
+                            <Link to={'/guide/rental'} style={{ textDecoration: 'none' }}>
+                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                    <div>대여 안내</div>
+                                    <div className='headerNavpointer'>
+                                        <i className="bi bi-chevron-right"></i>
+                                    </div>
+                                </li>
+                            </Link>
+                            <Link to={'/guide/pricing'} style={{ textDecoration: 'none' }}>
+                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                    <div>요금 안내</div>
+                                    <div className='headerNavpointer'>
+                                        <i className="bi bi-chevron-right"></i>
+                                    </div>
+                                </li>
+                            </Link>
+                            <p className='headerNavH'>마이페이지</p>
+                            {userid ?
+                                <Link to={'/mypage/myinfo'} style={{ textDecoration: 'none' }}>
+                                    <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                        <div>내 정보</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </Link>
+                                :
+                                <>
+                                    <li className='headerNavLi' onClick={loginNeeded}>
+                                        <div>내 정보</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </>
+                            }
+                            {userid ?
+                                <Link to={'/mypage/booked'} style={{ textDecoration: 'none' }}>
+                                    <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                        <div>예약 내역</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </Link>
+                                :
+                                <>
+                                    <li className='headerNavLi' onClick={loginNeeded}>
+                                        <div>예약 내역</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </>
+                            }
+                            {userid ?
+                                <Link to={'/recent'} style={{ textDecoration: 'none' }}>
+                                    <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                        <div>최근 본 차량</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </Link>
+                                :
+                                <>
+                                    <li className='headerNavLi' onClick={loginNeeded}>
+                                        <div>최근 본 차량</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </>
+                            }
+                            {userid ?
+                                <Link to={'/mypage/inquiry'} style={{ textDecoration: 'none' }}>
+                                    <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                        <div>1:1 문의 내역</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </Link>
+                                :
+                                <>
+                                    <li className='headerNavLi' onClick={loginNeeded}>
+                                        <div>1:1 문의 내역</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </>
+                            }
+                        </ul>
                     </div>
-                    <ul className="headerNavUl">
-                        <p className='headerNavH'>차량 렌트</p>
-                        <Link to={'/searchcarlist'}>
-                            <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                <div>예약하기</div>
-                                <div className='headerNavpointer'>
-                                    <i className="bi bi-chevron-right"></i>
-                                </div>
-                            </li>
-                        </Link>
-                        {/* <li className='headerNavLi'><div>차량별 예약</div> <div className='headerNavpointer'>→</div></li><br /> */}
-                        <p className='headerNavH'>고객 가이드</p>
-                        <Link to={'/customerservice/inquiry/list'} style={{ textDecoration: 'none' }}>
-                            <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                <div>문의하기</div>
-                                <div className='headerNavpointer'>
-                                    <i className="bi bi-chevron-right"></i>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to={'/customerservice/FAQ'} style={{ textDecoration: 'none' }}>
-                            <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                <div>자주 찾는 질문</div>
-                                <div className='headerNavpointer'>
-                                    <i className="bi bi-chevron-right"></i>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to={'/customerservice/notice'} style={{ textDecoration: 'none' }}>
-                            <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                <div>공지사항</div>
-                                <div className='headerNavpointer'>
-                                    <i className="bi bi-chevron-right"></i>
-                                </div>
-                            </li>
-                        </Link>
-                        <p className='headerNavH'>이용 가이드</p>
-                        <Link to={'/guide/branch'} style={{ textDecoration: 'none' }}>
-                            <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                <div>지점 안내</div>
-                                <div className='headerNavpointer'>
-                                    <i className="bi bi-chevron-right"></i>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to={'/guide/inventory'} style={{ textDecoration: 'none' }}>
-                            <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                <div>차량 보유 현황</div>
-                                <div className='headerNavpointer'>
-                                    <i className="bi bi-chevron-right"></i>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to={'/guide/return'} style={{ textDecoration: 'none' }}>
-                            <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                <div>차량 반납 안내</div>
-                                <div className='headerNavpointer'>
-                                    <i className="bi bi-chevron-right"></i>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to={'/guide/rental'} style={{ textDecoration: 'none' }}>
-                            <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                <div>대여 안내</div>
-                                <div className='headerNavpointer'>
-                                    <i className="bi bi-chevron-right"></i>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to={'/guide/pricing'} style={{ textDecoration: 'none' }}>
-                            <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                <div>요금 안내</div>
-                                <div className='headerNavpointer'>
-                                    <i className="bi bi-chevron-right"></i>
-                                </div>
-                            </li>
-                        </Link>
-                        <p className='headerNavH'>마이페이지</p>
-                        {userid ?
-                            <Link to={'/mypage/myinfo'} style={{ textDecoration: 'none' }}>
-                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                    <div>내 정보</div>
-                                    <div className='headerNavpointer'>
-                                        <i className="bi bi-chevron-right"></i>
-                                    </div>
-                                </li>
-                            </Link>
-                            :
-                            <>
-                                <li className='headerNavLi' onClick={loginNeeded}>
-                                    <div>내 정보</div>
-                                    <div className='headerNavpointer'>
-                                        <i className="bi bi-chevron-right"></i>
-                                    </div>
-                                </li>
-                            </>
-                        }
-                        {userid ?
-                            <Link to={'/mypage/booked'} style={{ textDecoration: 'none' }}>
-                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                    <div>예약 내역</div>
-                                    <div className='headerNavpointer'>
-                                        <i className="bi bi-chevron-right"></i>
-                                    </div>
-                                </li>
-                            </Link>
-                            :
-                            <>
-                                <li className='headerNavLi' onClick={loginNeeded}>
-                                    <div>예약 내역</div>
-                                    <div className='headerNavpointer'>
-                                        <i className="bi bi-chevron-right"></i>
-                                    </div>
-                                </li>
-                            </>
-                        }
-                        {userid ?
-                            <Link to={'/recent'} style={{ textDecoration: 'none' }}>
-                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                    <div>최근 본 차량</div>
-                                    <div className='headerNavpointer'>
-                                        <i className="bi bi-chevron-right"></i>
-                                    </div>
-                                </li>
-                            </Link>
-                            :
-                            <>
-                                <li className='headerNavLi' onClick={loginNeeded}>
-                                    <div>최근 본 차량</div>
-                                    <div className='headerNavpointer'>
-                                        <i className="bi bi-chevron-right"></i>
-                                    </div>
-                                </li>
+                    :
+                    <>
+                        <div className="headerNavContent">
+                            <ul className="headerNavUl">
                                 <br />
-                            </>
-                        }
-                        {userid ?
-                            <Link to={'/mypage/inquiry'} style={{ textDecoration: 'none' }}>
-                                <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                    <div>1:1 문의 내역</div>
-                                    <div className='headerNavpointer'>
-                                        <i className="bi bi-chevron-right"></i>
-                                    </div>
-                                </li>
-                            </Link>
-                            :
-                            <>
-                                <li className='headerNavLi' onClick={loginNeeded}>
-                                    <div>1:1 문의 내역</div>
-                                    <div className='headerNavpointer'>
-                                        <i className="bi bi-chevron-right"></i>
-                                    </div>
-                                </li>
-                            </>
-                        }
-                    </ul>
-                </div>
+                                <h3 className='headerNavH'>관리자 메뉴</h3>
+                                <Link to={'/manager/carlist'} style={{ textDecoration: 'none' }}>
+                                    <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                        <div>차량관리</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </Link>
+                                <Link to={'/manager/userlist'} style={{ textDecoration: 'none' }}>
+                                    <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                        <div>회원관리</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </Link>
+                                <Link to={'/manager/reservationlist'} style={{ textDecoration: 'none' }}>
+                                    <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                        <div>예약관리</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </Link>
+                                <Link to={'/customerservice/notice'} style={{ textDecoration: 'none' }}>
+                                    <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                        <div>공지사항</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </Link>
+                                <Link to={'/customerservice/inquiry'} style={{ textDecoration: 'none' }}>
+                                    <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                        <div>1:1 문의</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </Link>
+                            </ul>
+                        </div>
+                    </>
+                }
             </nav>
         </div>
     );
