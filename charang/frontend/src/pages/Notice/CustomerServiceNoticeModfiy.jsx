@@ -73,7 +73,7 @@ export default function CustomerServiceNoticeModfiy(){
                     </tr>
                 </tbody>
             </table>
-            <div className="notice_adminBtn">
+            <div className="adminBtn">
                 <button onClick={noticeMod}>수정완료</button>
                 <button onClick={() => navigate("/customerservice/notice")}>목록으로 돌아가기</button>
             </div>

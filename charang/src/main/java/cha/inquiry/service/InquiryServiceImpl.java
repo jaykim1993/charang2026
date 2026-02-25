@@ -16,26 +16,52 @@ public class InquiryServiceImpl implements InquiryService {
 	@Override
 	public void insertInquiry(InquiryDTO rdto) {
 		System.out.println("InquiryServiceImpl - 문의등록");
+		
+		inquirymapper.insertInquiry(rdto);
 	}
 
 	@Override
 	public void updateAnswer(InquiryDTO rdto) {
 		System.out.println("InquiryServiceImpl - 문의 답변완료 업데이트");
+		
+		inquirymapper.updateAnswer(rdto);
 	}
 
 	@Override
 	public List<InquiryDTO> inquiryList() {
 		System.out.println("InquiryServiceImpl - 문의목록");
 		
-		return null;
+		return inquirymapper.inquiryList();
 	}
 
 	@Override
-	public InquiryDTO getInquiryDetail(int inquiryId) {
+	public int getCountByUserId(String userId) {
+		System.out.println("InquiryServiceImpl - 문의목록 - 로그인 유저");
+		return inquirymapper.getCountByUserId(userId);
+	}
+
+	@Override
+	public InquiryDTO getInquiryDetail(String inquiryId) {
 		System.out.println("InquiryServiceImpl - 문의 상세");
 		
-		return null;
+		return inquirymapper.getInquiryDetail(inquiryId);
 	}
+
+	@Override
+	public void updateInquiry(InquiryDTO idto) {
+		System.out.println("InquiryServiceImpl - 문의 수정");
+		
+		inquirymapper.updateInquiry(idto);
+	}
+
+	@Override
+	public int deleteInquiry(String inquiryId) {
+		System.out.println("InquiryServiceImpl - 문의 삭제");
+		
+		return inquirymapper.deleteInquiry(inquiryId);
+	}
+	
+//  ======================= 페이징 =======================
 
 	@Override
 	public int getAllCount() {
@@ -43,8 +69,7 @@ public class InquiryServiceImpl implements InquiryService {
 	}
 
 	@Override
-	public List<InquiryDTO> getPageList(int startRow, int pageSize) {
-		return inquirymapper.getPageList(startRow, pageSize);
+	public List<InquiryDTO> getPageList(int startRow, int pageSize, String userId) {
+		return inquirymapper.getPageList(startRow, pageSize, userId);
 	}
-	
 }

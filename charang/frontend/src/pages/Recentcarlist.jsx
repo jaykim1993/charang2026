@@ -13,24 +13,8 @@ export default function Recentcarlist() {
   const navigate = useNavigate(); // 차량 클릭시 serchcarlist 12.23 성중
 
   // 화면에 출력되는 차량의 수
-  const [viewMore, setViewMore] = useState(6);
-  // 더보기 toggle
-  // const [isMore, setIsMore] = useState(true);
-  // // 숨기기 toggle
-  // const [isHidden, setIsHidden] = useState(false);
-  
-  // const moreHandler = () => {
-  //   if(recentViews.length > viewMore){
-  //     setViewMore(prev => prev+8);
-  //     setIsHidden(true);
-  //   }else if(viewMore > recentViews.length){
-  //     setViewMore(false);
-  //     setIsHidden(true);
-  //   }else{
-  //     setIsMore(true);
-  //     setIsHidden(false);
-  //   }
-  // };
+  const [viewMore, setViewMore] = useState(8);
+
 
   const moreHandler = () => {
     setViewMore(prev => prev + 6);
@@ -40,7 +24,6 @@ export default function Recentcarlist() {
     setViewMore(6); // 기본 8개로 접기
   };
   
-  const recentViews = myRecentlist(userid);
 
   // 해당 차량 브랜드 searchcarlist로 넘기기 12.23 성중
   const goToSearchcarlist = (model) => {
@@ -53,14 +36,7 @@ export default function Recentcarlist() {
   window.scrollTo(0, 0);
   }, []);
 
-const [recentView, setRecentView] = useState([]);
-
-  useEffect(() => {
-  const raw = localStorage.getItem("recentView");
-  if (raw) {
-    setRecentView(JSON.parse(raw));
-  }
-  }, []);
+const [recentView, setRecentView] = useState(myRecentlist(userid));
 
   const removeRecentView = (carId) => {
   const raw = localStorage.getItem("recentView");
@@ -80,10 +56,17 @@ const [recentView, setRecentView] = useState([]);
       <h2 className="guideMainText">최근 본 차량</h2>
     </div>
     <div className="Recent_car_list">
-      <p>총&nbsp;<strong>{recentViews.length}</strong>&nbsp;대</p>
-      {recentViews.length > 0?
+
+      <div className="Recent_Head">
+          <Link to={'/'}><span style={{color:'rgb(160, 160, 160)'}}>홈</span></Link>
+          <i className="bi bi-caret-right-fill"></i>
+          <span>최근 본 차량</span>
+      </div>
+
+      <p>총&nbsp;<strong>{recentView.length}</strong>&nbsp;대</p>
+      {recentView.length > 0?
       <ul className="Recent_ByDate">
-        {recentViews.slice(0,viewMore).map(item => (
+        {recentView.slice(0,viewMore).map(item => (
           // 해당 차량 브랜드 searchcarlist로 넘기기 12.23 성중
           <div className="hihihihi" key={item.carId}>
             <div className="RecentDelBox">
@@ -111,7 +94,7 @@ const [recentView, setRecentView] = useState([]);
       
       {/* 버튼 영역 8개보다 많으면 생기게 */}
       <div className="Recent_buttons">
-        {viewMore < recentViews.length && (
+        {viewMore < recentView.length && (
           <button onClick={moreHandler} ><i className="bi bi-chevron-down"></i></button>
         )}
         {viewMore > 6 && (
