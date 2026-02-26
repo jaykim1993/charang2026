@@ -15,10 +15,8 @@ public class InquiryDTO {
    @JsonFormat(pattern = "yyyy-MM-dd")
    private String regDate;
    @JsonFormat(pattern = "yyyy-MM-dd")
-   private Date modDate;
+   private String modDate;
    private String answer;
    private String password;
    private String name;
-   
-   
 }

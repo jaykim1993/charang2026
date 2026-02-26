@@ -11,7 +11,7 @@
     font-weight: 500;
 }
 
-.inquiryUpdate .inquiryUpdateform table{
+/* .inquiryUpdate .inquiryUpdateform table{
     width: 100%;
     margin-top: 20px;
 }
@@ -21,6 +21,34 @@
     padding: 10px;
     border: none;
     border-bottom: 1px solid #999;
+}
+.inquiryUpdate .inquiryUpdateform table tr td textarea{
+    white-space: pre-wrap;
+    resize: none;
+} */
+
+.inquiryUpdate .inquiryUpdateform table{
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-top: 2px solid #333;
+}
+.inquiryUpdate .inquiryUpdateform table tr{
+    border-bottom: 1px solid #dee2e6;
+}
+.inquiryUpdate .inquiryUpdateform table tr th{
+    padding: 15px;
+    width: 90px;
+    text-align: center;
+}
+.inquiryUpdate .inquiryUpdateform table tr td input, 
+.inquiryUpdate .inquiryUpdateform table tr td textarea{
+    padding: 10px;
+    width: 100%;
+    border: none;
+    outline: none;
+    white-space: pre-wrap;
+    resize: none;
 }
 .inquiryUpdate .inquiryUpdateform table tr td textarea{
     white-space: pre-wrap;

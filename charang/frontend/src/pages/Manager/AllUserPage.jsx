@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/Datacontext";
-import { BookingContext } from "../../contexts/Bookingcontext";
 import { useNavigate } from "react-router-dom";
 
 import './AllUserPage.css';
@@ -8,9 +7,9 @@ import axios from "axios";
 
 export default function AllUserPage(){
 
-    const {pagesHandler, paging, pageNum, setPageNum, setPaging, allBookCar, setAllBookCar,  user, setUser, 
-        userFind, setSearchType, setSearchWord, searchType, searchWord, bookFind} = useContext(DataContext);
-    const {myBooking}=useContext(BookingContext);
+    const {pagesHandler, paging, pageNum, setPageNum, allBookCar, user, 
+        userFind, setSearchType, setSearchWord, searchWord, bookFind} = useContext(DataContext);
+
 
 
     console.log(allBookCar);

@@ -1,17 +1,19 @@
 .AllInquiry {
-    min-height: 800px;
+    width: 100%;
+    min-height: 900px;
 }
 
 /* .AllInquiry .Inquiry_head h4 {
     font-size: 24px;
 } */
-.AllInquiry .Inquiry_head{
+.AllInquiry .Inquiry_head {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 20px;
- }
- .AllInquiry .Inquiry_head > button{
+}
+
+.AllInquiry .Inquiry_head>button {
     background-color: #444;
     color: white;
     padding: 5px 16px;
@@ -21,31 +23,33 @@
     margin: 0 5px;
 }
 
+.AllInquiry .Inquiry_head>button:hover {
+    background-color: #222;
+}
+
 .AllInquiry table {
     width: 100%;
-    margin-top: 20px;
-    font-size: 15px;
-    /* table-layout: fixed; */
-}
-
-.AllInquiry table thead {
-    background-color: #dee2e6;
-    /* font-weight: bold; */
-}
-
-.AllInquiry table tbody tr {
-    cursor: pointer;
-}
-
-.AllInquiry table tbody tr:hover{
-    background-color: #f2f4f7;
-}
-
-.AllInquiry table td {
-    border-bottom: 1px solid #d3d3d3;
-    padding: 7px;
     text-align: center;
-    white-space: nowrap;
+    margin-top: 20px;
+    border-top: 2px solid #333;
+}
+
+.AllInquiry table thead tr td{
+    padding: 10px 0;
+}
+
+.AllInquiry table tr {
+    cursor: pointer;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.AllInquiry table tbody tr:hover {
+    background-color: #f7f8fa;
+}
+
+.AllInquiry table tbody td {
+    padding: 20px 0;
+    white-space:nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -55,7 +59,7 @@
 }
 
 /* 모달 */
-.AllInquiry .isModalOpen{
+.isModalOpen_pwChk {
     content: '';
     position: absolute;
     top: 30%;
@@ -70,33 +74,40 @@
     align-items: center;
     gap: 20px
 }
-.AllInquiry .isModalOpen input{
+
+.isModalOpen_pwChk input {
     border: none;
     border-bottom: 1px solid #777;
     width: 100%;
     padding: 10px;
+    outline: none;
 }
-.AllInquiry .isModalOpen button{
+
+.isModalOpen_pwChk button {
     padding: 5px 15px;
     margin: 0 5px;
     border: none;
     border-radius: 5px;
 }
-.AllInquiry .isModalOpen button.pwBtnYes{
+
+.isModalOpen_pwChk button.pwBtnYes {
     background-color: #0b79b7;
     color: #fff;
 }
-.AllInquiry .isModalOpen button.pwBtnYes:hover{
+
+.isModalOpen_pwChk button.pwBtnYes:hover {
     background-color: #065d8f;
 }
-.AllInquiry .isModalOpen button.pwBtnNo{
+
+.isModalOpen_pwChk button.pwBtnNo {
     background-color: #dee2e6;
 }
-.AllInquiry .isModalOpen button.pwBtnNo:hover{
+
+.isModalOpen_pwChk button.pwBtnNo:hover {
     background-color: #ced4da;
 }
 
-.pwOverlay{
+.pwOverlay {
     position: fixed;
     top: 0;
     left: 0;

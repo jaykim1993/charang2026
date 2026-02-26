@@ -213,7 +213,7 @@ export default function Header() {
                         <Link to={'/mypage/booked'}>
                             <button className='headerModalBtn' onClick={() => setOpenUserBookedModal(false)}> 더보기 </button>
                         </Link>
-                        <Link to={'/customerservice'} onClick={() => window.scrollTo(0, 0)}>
+                        <Link to={'/customerservice/inquiry/list'} onClick={() => window.scrollTo(0, 0)}>
                             <img className='headerModalImg' src='/images/bookedModal.jpg' />
                         </Link>
                     </div>
@@ -279,7 +279,7 @@ export default function Header() {
                             {/* → */}
                         </div>
                         <ul className="headerNavUl">
-                            <p className='headerNavH'>차량 렌트</p>
+                            <p className='headerNavH'>차량렌트</p>
                             <Link to={'/searchcarlist'}>
                                 <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
                                     <div>예약하기</div>
@@ -289,7 +289,7 @@ export default function Header() {
                                 </li>
                             </Link>
                             {/* <li className='headerNavLi'><div>차량별 예약</div> <div className='headerNavpointer'>→</div></li><br /> */}
-                            <p className='headerNavH'>고객 가이드</p>
+                            <p className='headerNavH'>고객가이드</p>
                             <Link to={'/customerservice/inquiry/list'} style={{ textDecoration: 'none' }}>
                                 <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
                                     <div>문의하기</div>
@@ -300,7 +300,7 @@ export default function Header() {
                             </Link>
                             <Link to={'/customerservice/FAQ'} style={{ textDecoration: 'none' }}>
                                 <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                    <div>자주 찾는 질문</div>
+                                    <div>자주찾는질문</div>
                                     <div className='headerNavpointer'>
                                         <i className="bi bi-chevron-right"></i>
                                     </div>
@@ -314,7 +314,7 @@ export default function Header() {
                                     </div>
                                 </li>
                             </Link>
-                            <p className='headerNavH'>이용 가이드</p>
+                            <p className='headerNavH'>이용가이드</p>
                             <Link to={'/guide/branch'} style={{ textDecoration: 'none' }}>
                                 <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
                                     <div>지점 안내</div>
@@ -325,7 +325,7 @@ export default function Header() {
                             </Link>
                             <Link to={'/guide/inventory'} style={{ textDecoration: 'none' }}>
                                 <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                    <div>차량 보유 현황</div>
+                                    <div>차량보유현황</div>
                                     <div className='headerNavpointer'>
                                         <i className="bi bi-chevron-right"></i>
                                     </div>
@@ -333,7 +333,7 @@ export default function Header() {
                             </Link>
                             <Link to={'/guide/return'} style={{ textDecoration: 'none' }}>
                                 <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                    <div>차량 반납 안내</div>
+                                    <div>차량반납안내</div>
                                     <div className='headerNavpointer'>
                                         <i className="bi bi-chevron-right"></i>
                                     </div>
@@ -341,7 +341,7 @@ export default function Header() {
                             </Link>
                             <Link to={'/guide/rental'} style={{ textDecoration: 'none' }}>
                                 <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                    <div>대여 안내</div>
+                                    <div>대여안내</div>
                                     <div className='headerNavpointer'>
                                         <i className="bi bi-chevron-right"></i>
                                     </div>
@@ -349,7 +349,7 @@ export default function Header() {
                             </Link>
                             <Link to={'/guide/pricing'} style={{ textDecoration: 'none' }}>
                                 <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                    <div>요금 안내</div>
+                                    <div>요금안내</div>
                                     <div className='headerNavpointer'>
                                         <i className="bi bi-chevron-right"></i>
                                     </div>
@@ -359,7 +359,7 @@ export default function Header() {
                             {userid ?
                                 <Link to={'/mypage/myinfo'} style={{ textDecoration: 'none' }}>
                                     <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                        <div>내 정보</div>
+                                        <div>내정보</div>
                                         <div className='headerNavpointer'>
                                             <i className="bi bi-chevron-right"></i>
                                         </div>
@@ -368,7 +368,7 @@ export default function Header() {
                                 :
                                 <>
                                     <li className='headerNavLi' onClick={loginNeeded}>
-                                        <div>내 정보</div>
+                                        <div>내정보</div>
                                         <div className='headerNavpointer'>
                                             <i className="bi bi-chevron-right"></i>
                                         </div>
@@ -378,7 +378,7 @@ export default function Header() {
                             {userid ?
                                 <Link to={'/mypage/booked'} style={{ textDecoration: 'none' }}>
                                     <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                        <div>예약 내역</div>
+                                        <div>예약내역</div>
                                         <div className='headerNavpointer'>
                                             <i className="bi bi-chevron-right"></i>
                                         </div>
@@ -387,7 +387,7 @@ export default function Header() {
                                 :
                                 <>
                                     <li className='headerNavLi' onClick={loginNeeded}>
-                                        <div>예약 내역</div>
+                                        <div>예약내역</div>
                                         <div className='headerNavpointer'>
                                             <i className="bi bi-chevron-right"></i>
                                         </div>
@@ -397,7 +397,7 @@ export default function Header() {
                             {userid ?
                                 <Link to={'/mypage/recent'} style={{ textDecoration: 'none' }}>
                                     <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                        <div>최근 본 차량</div>
+                                        <div>최근본차량</div>
                                         <div className='headerNavpointer'>
                                             <i className="bi bi-chevron-right"></i>
                                         </div>
@@ -406,7 +406,7 @@ export default function Header() {
                                 :
                                 <>
                                     <li className='headerNavLi' onClick={loginNeeded}>
-                                        <div>최근 본 차량</div>
+                                        <div>최근본차량</div>
                                         <div className='headerNavpointer'>
                                             <i className="bi bi-chevron-right"></i>
                                         </div>
@@ -414,9 +414,9 @@ export default function Header() {
                                 </>
                             }
                             {userid ?
-                                <Link to={'/customerservice/inquiry/list'} style={{ textDecoration: 'none' }}>
+                                <Link to='/mypage/inquiry' style={{ textDecoration: 'none' }}>
                                     <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                        <div>문의내역</div>
+                                        <div>개인문의내역</div>
                                         <div className='headerNavpointer'>
                                             <i className="bi bi-chevron-right"></i>
                                         </div>
@@ -425,7 +425,7 @@ export default function Header() {
                                 :
                                 <>
                                     <li className='headerNavLi' onClick={loginNeeded}>
-                                        <div>문의내역</div>
+                                        <div>개인문의내역</div>
                                         <div className='headerNavpointer'>
                                             <i className="bi bi-chevron-right"></i>
                                         </div>

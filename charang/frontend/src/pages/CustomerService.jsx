@@ -1,7 +1,9 @@
 import { Outlet, NavLink } from "react-router-dom";
-import { useContext } from "react";
 import { AuthContext } from "../contexts/Authcontext";
+import { useContext } from "react";
 import './CustomerService.css'
+import { AuthContext } from "../contexts/Authcontext";
+import { useContext } from "react";
 
 export default function CustomerService() {
     const { userid } = useContext(AuthContext);
@@ -21,10 +23,10 @@ export default function CustomerService() {
                         <span className='MyPageSideMenus'>문의하기</span>
                     </NavLink>
                     <NavLink to='FAQ'>
-                        <span className='MyPageSideMenus'>자주 찾는 질문</span>
+                        <span className='MyPageSideMenus'>자주찾는질문</span>
                     </NavLink>
                     <NavLink to='notice'>
-                        <span className='MyPageSideMenus'>공지 사항</span>
+                        <span className='MyPageSideMenus'>공지사항</span>
                     </NavLink>
                 </div>
                 <div className="guideRight">

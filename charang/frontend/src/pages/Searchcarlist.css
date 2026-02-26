@@ -50,8 +50,8 @@ a, p, h4, h3, h2, h1{
     gap: 10px;
 }
 #root .Recentcar .R_category ul li .cateBtn .active{
-    color: #0b79b7;
-    border: 1px solid #0b79b7;
+    color: #1e75f5;
+    border: 1px solid #1e75f5;
     background-color: #f9fafc;
     font-weight: 600;
 }
@@ -75,7 +75,8 @@ a, p, h4, h3, h2, h1{
 }
 #root .Recentcar .R_category ul li button:hover{
     /* background-color: #f7f7f7; */
-    border: 1px solid #0b79b7 ;
+    border: 1px solid #1763D1;
+    transition: 0.3s;
 }
 #root .Recentcar .R_category ul li h4{
     color: #6c6c6c;
@@ -155,7 +156,7 @@ a, p, h4, h3, h2, h1{
     font-size: 20px;
 }
 #root .Recentcar .R_carlist .cate_choice .delBtn > button i:hover{
-    color: #2591cf;
+    color: #1763D1;
 }
 
 /* 총 n대 */
@@ -266,7 +267,7 @@ a, p, h4, h3, h2, h1{
 #root .Recentcar .R_carlist .car_list_ul .car_variant_info:hover strong,
 #root .Recentcar .R_carlist .car_list_ul .car_variant_info:hover span,
 #root .Recentcar .R_carlist .car_list_ul .car_variant_info:hover i{
-    color: #0b79b7;
+    color: #1e75f5;
 }
 
 #root .Recentcar .R_carlist .car_list_ul .car_variant_info .bi-chevron-right{
@@ -368,7 +369,7 @@ a, p, h4, h3, h2, h1{
     font-size: 16px;
     font-weight: bold;
     color: #fff;
-    background-color: #0b79b7 ;
+    background-color:#1e75f5;
     border: none;
 }
 #root .R_carlist .R_dateReservation .R_spotTable .searchButton i{
@@ -380,15 +381,15 @@ a, p, h4, h3, h2, h1{
 #root .R_carlist .R_location{
     width: 444px;
     margin: 0 auto;
-    padding: 25px;
+    padding: 15px 25px 25px 25px;
     padding-bottom: 0;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
     position: absolute;
-    margin-top: 30px;
+    margin-top: 15px;
     left: -460px;
-    z-index: 100;
+    z-index:  30;
 }
 
 /* 달력 */
@@ -396,26 +397,23 @@ a, p, h4, h3, h2, h1{
     max-height: 0;
     overflow: hidden;
     position: absolute;
-    margin-top: 30px;
-    top: 140px;
-    z-index: 100;
+    z-index: 30;
 }
 
 .R_calendar-slide.open {
   position: absolute;
-  top: 140px;
+  top: 100px;
   right: 0;
-  z-index: 100;
-   width: 665px;
-   min-height: 620px;
+  z-index: 30;
+   width: 680px;
+   min-height: 532px;
    background-color: #fff;
    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
    border-radius: 15px;
-   padding: 25px 5px 0 0;
+   padding: 25px 5px 0;
 }
 .R_calendar-slide.open .R_close02{
     padding-left: 640px;
-    margin-bottom: 20px;
 }
 .R_calendar-slide.open .R_close02 > i{
     width: 15px;

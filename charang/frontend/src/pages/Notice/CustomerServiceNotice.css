@@ -4,7 +4,6 @@
     min-height: 800px;
     /* margin: 50px auto; */
     color: #333;
-    margin-bottom: 100px;
 }
 
 /* 공지사항 타이틀 */
@@ -20,16 +19,24 @@
 
 /* 관리자 버튼 */
 .adminBtn button{
-    background-color: #444;
     color: white;
-    padding: 5px 16px;
+    padding: 7px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     margin: 0 5px;
 }
-.adminBtn button:hover{
-    background-color: #666;
+.adminBtn .adminBtn_1{
+    background-color: #1e75f5;
+}
+.adminBtn .adminBtn_1:hover{
+    background-color: #1763D1;
+}
+.adminBtn .adminBtn_2{
+    background-color: #999;
+}
+.adminBtn .adminBtn_2:hover{
+    background-color: #777;
 }
 
 /* 테이블 */
@@ -91,6 +98,7 @@
 /* 페이징 */
 .paging{
     text-align: center;
+    margin-bottom: 100px;
 }
 .paging button{
     border: none;

@@ -1,41 +1,25 @@
 import { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom"
 import { AuthContext } from "../../contexts/Authcontext"
+import { DataContext } from "../../contexts/Datacontext";
 import { useNavigate } from "react-router-dom"
 import axios from "axios";
 
 import './AllInquiry.css'
 
 export default function AllInquiry() {
+    const { pageNum, setPageNum, pagesHandler, paging, setPaging } = useContext(DataContext);
     const navigate = useNavigate();
 
     const { userid, username } = useContext(AuthContext);
 
     // 문의 목록
     const [inquiry, setInquiry] = useState([]);
-    // 서버에서 받은 ph
-    const [paging, setPaging] = useState({});
-    // 현재 페이지 번호 (기본값 1)
-    const [pageNum, setPageNum] = useState(1);
     // 선택한 문의 비밀번호 확인
     const [selectedInquiry, setSelectedInquiry] = useState(null);
     // 모달
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen_pwChk, setIsModalOpen_pwChk] = useState(false);
     // 비밀번호
     const [inputPw, setInputPw] = useState("");
-
-    // 페이지 이동 핸들러
-    const pagesHandler = () => {
-        const pageNumbers = [];
-        // paging 가 있고, startPage와 endPage가 계산되었을 때만 작동
-        if (paging.startPage && paging.endPage) {
-            for (let i = paging.startPage; i <= paging.endPage; i++) {
-                pageNumbers.push(i);
-            }
-        }
-        // console.log("페이징 확인: ", pageNumbers);
-        return pageNumbers;
-    }
 
     useEffect(() => {
         axios.get(`/api/customerservice/inquiry/list?page=${pageNum}`)
@@ -62,7 +46,7 @@ export default function AllInquiry() {
             if (userid === item.userId) {
                 // 본인이면 비밀번호 입력 모달 띄우기
                 setSelectedInquiry(item);
-                setIsModalOpen(true);
+                setIsModalOpen_pwChk(true);
             } else {
                 // 본인이 아니면 경고창 띄우고 차단
                 alert("본인이 작성한 비밀글만 열람할 수 있습니다.");
@@ -75,7 +59,7 @@ export default function AllInquiry() {
     // 비밀번호 확인 함수
     const passwordChk = () => {
         if (inputPw === selectedInquiry.password) {
-            setIsModalOpen(false);
+            setIsModalOpen_pwChk(false);
             setInputPw(""); // 비밀번호 초기화
             navigate(`/customerservice/inquiry/list/info/${selectedInquiry.inquiryId}`);
         } else {
@@ -96,11 +80,12 @@ export default function AllInquiry() {
 
     return (
         <div className="AllInquiry" style={{
-            width: userid === 'admin' ? '1300px' : '900px', 
-            margin: userid === 'admin' ?'150px auto' : '0'}}>
+            width: userid === 'admin' ? '1300px' : '900px',
+            margin: userid === 'admin' ? '150px auto' : '0'
+        }}>
             <div className="Inquiry_head">
                 <h4>문의하기</h4>
-                {userid === 'admin' || !userid ? 
+                {userid === 'admin' || !userid ?
                     <></>
                     : <button onClick={() => navigate("/customerservice/inquiry/write")}>
                         문의하기
@@ -124,7 +109,8 @@ export default function AllInquiry() {
                                 {/* 상세 페이지 이동 */}
                                 {userid === 'admin' ? <td>{item.inquiryId}</td>
                                     : <td>{paging.totalCnt - ((pageNum - 1) * paging.pageSize) - index}</td>}
-                                <td>{maskName(item.name)}</td>
+                                {item.name === null ? <td>(알수없음)</td>
+                                    : <td>{maskName(item.name)}</td>}
                                 <td>
                                     {item.password && <i className="bi bi-lock-fill"></i>}
                                     &nbsp;{item.title}
@@ -140,9 +126,9 @@ export default function AllInquiry() {
                     )}
                 </tbody>
             </table>
-            {isModalOpen && (
+            {isModalOpen_pwChk && (
                 <>
-                    <div className="isModalOpen">
+                    <div className="isModalOpen_pwChk">
                         <h4>비밀번호 입력</h4>
                         <p>비밀글입니다. 비밀번호를 입력해주세요.</p>
                         <input type="password" value={inputPw}
@@ -150,7 +136,7 @@ export default function AllInquiry() {
                             placeholder="비밀번호" autoFocus /> {/* autoFocus : 모달 열리면 바로 입력 가능 */}
                         <div className="modal_btn">
                             <button onClick={passwordChk} className="pwBtnYes">확인</button>
-                            <button onClick={() => setIsModalOpen(false)} className="pwBtnNo">취소</button>
+                            <button onClick={() => setIsModalOpen_pwChk(false)} className="pwBtnNo">취소</button>
                         </div>
                     </div>
                     <div className="pwOverlay"></div>

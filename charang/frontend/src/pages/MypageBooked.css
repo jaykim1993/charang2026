@@ -2,7 +2,6 @@
     width: 100%;
     min-height: 800px;
 }
-
 .mypageBookTable {
     /* border-collapse: collapse;  */
     margin: 30px 0;
@@ -10,6 +9,9 @@
     border-top: 2px solid #333;
 }
 
+.MypageBooked table{
+    width: 100%;
+}
 /* 헤더 스타일 */
 .mypageBookThead tr {
     /* background-color: #e9ecee; */
@@ -17,7 +19,7 @@
 }
 
 .mypageBookThead tr th {
-    padding: 15px;
+    padding: 10px 0;
     color: #333;
     text-align: center;
     font-size: 18px;
@@ -30,6 +32,10 @@
     text-align: center;
     vertical-align: middle;
     position: relative; /* D-Day 위치용 */
+}
+.mypageBook_non{
+    text-align: center;
+    padding: 50px 0;
 }
 
 .mypageBookTable img {
@@ -68,9 +74,12 @@
 }
 .mapCarDaysOnGoing{
     display: inline-block;
-    background-color: #0b79b7;
+    background-color: #1e75f5;
     color: #e8e8e8;
-    padding: 5px 15px;
+    padding: 5px 15px; 
+    color: #333;
+    padding: 4px 15px;
+    border: 1px solid #333;
     border-radius: 20px;
     font-size: 14px;
     font-weight: bold;
@@ -79,27 +88,27 @@
 .mapGoToDetail {
     width: 120px;
     display: block;
-    background-color: #0b79b7;
+    background-color: #1e75f5;
     color: white;
     padding: 10px;
     border-radius: 5px;
     text-decoration: none;
     font-size: 15px;
-    transition: background 0.3s;
+    transition: 0.3s;
 }
 
 .mapGoToDetail:hover {
-    background-color: #065d8f;
+    background-color: #1763D1;
 }
 .myBooked_noBook{
     width: 100%;
     margin-top: 70px;
-    background-color: rgb(233, 233, 233);
-    border-radius: 10px;
+    background-color: #f2f2f2;
+    border-radius: 7px;
+    /* border: 1px solid #555; */
     height: 150px;
     padding: 30px;
     text-align: center;
-
 }
 .myBooked_noBook p{
     margin-bottom: 20px;
@@ -108,20 +117,19 @@
 }
 .myBooked_noBook div{
     margin: 0 auto;
-    background-color: rgb(189, 189, 189);
+    background-color: #ffffff;
     width: 40px;
     height: 40px;
     border-radius: 50%;
     font-weight: 600;
     font-size: 25px;
-    color: #777777;
     padding-bottom: 1px;
 }
 .noBookedGoToBook{
     margin-top: 20px;
     width: 100%;
     height: 48px;
-    border-radius: 10px;
+    border-radius: 7px;
     border: none;
     background-color: #0b79b7;
     color: #fff;

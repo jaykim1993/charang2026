@@ -161,7 +161,7 @@
   font-weight: bold;
   margin: 0;
   transition: 0.3s;
-  color: #0b79b7;
+  color: #1e75f5 ;
   transform: translateY(-12px);
 }
 
@@ -196,7 +196,7 @@
 .headerBrand:hover,
 .headerBtnX:hover {
   text-shadow: 0 0 20px rgba(255, 255, 255, 1);
-  color: #2591cf;
+  color: #1e75f5 ;
 }
 
 .headerUserBookedModal {
@@ -242,7 +242,7 @@
 }
 
 .headerUserBookModalContext::-webkit-scrollbar-thumb {
-  background: #2591cf80;
+  background: #1e75f5 ;
   border-radius: 3px;
 }
 
@@ -293,7 +293,7 @@
   width: 100%;
   margin-top: 20px;
   padding: 12px 0;
-  background: #0b79b7;
+  background: #1e75f5 ;
   color: white;
   border-radius: 6px;
   font-size: 16px;
@@ -302,7 +302,7 @@
 }
 
 .headerModalBtn:hover {
-  background: #065d8f;
+  background:#1763D1;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
@@ -351,7 +351,7 @@
 }
 
 .headerNavSide::-webkit-scrollbar-thumb {
-  background:  #065d8f98;
+  background:  #1e75f5 98;
   border-radius: 3px;
 }
 
@@ -370,7 +370,7 @@
 }
 
 .headerNavHtop {
-  border-left: 3px solid #065d8f;
+  border-left: 3px solid #1e75f5 ;
   display: inline-block;
   width: fit-content;
   font-weight: bold;
@@ -382,7 +382,7 @@
 }
 
 .headerNavH {
-  border-left: 3px solid #065d8f;
+  border-left: 3px solid #1e75f5 ;
   display: inline-block;
   width: fit-content;
   font-weight: bold;
@@ -394,7 +394,7 @@
 }
 
 .headerNavpointer i {
-  color: #0b79b7;
+  color: #1e75f5;
 }
 
 .headerNavLi {
@@ -410,7 +410,7 @@
 }
 
 .headerNavLi:hover {
-  background-color: #2591cf;
+  background-color: #1e75f5;
   transform: scale(1.02);
   color: #f4f4f4;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
