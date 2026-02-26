@@ -1,6 +1,6 @@
 import './ReservationDetailPage.css'
 import { useState, useContext, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams  } from "react-router-dom";
 import { DataContext } from "../../contexts/Datacontext";
 import { CalendarContext } from "../../contexts/Calendarcontext";
 
@@ -14,7 +14,9 @@ export default function ReservationDetailPage(){
     
     // useParams 예약번호 받기
     const selectedBookingId = useParams().bookingId;
-    console.log("현재 useParams로 가져온 bookingId: ", selectedBookingId);
+    // console.log("현재 useParams로 가져온 bookingId: ", selectedBookingId);
+    const [ searchParams ] = useSearchParams();
+    const userName = searchParams.get("userName");
 
     const [ selectedBooking, setSelectedBooking ] = useState({});
     // 해당 예약 정보 불러오기
@@ -87,8 +89,8 @@ export default function ReservationDetailPage(){
                             <th className="reservationDetail_data">{selectedBooking.bookingId}</th>
                         </tr>
                         <tr className="reservationDetail_tr">
-                            <td className="reservationDetail_td">예약자</td>
-                            <th className="reservationDetail_data">{selectedBooking.userId}</th>
+                            <td className="reservationDetail_td">예약자이름</td>
+                            <th className="reservationDetail_data">{userName}</th>
                         </tr>
                         <tr className="reservationDetail_tr">
                             <td className="reservationDetail_td">차량아이디</td>
@@ -99,23 +101,23 @@ export default function ReservationDetailPage(){
                             <th className="reservationDetail_data">{selectedBooking.plateNumber}</th>
                         </tr>
                         <tr className="reservationDetail_tr">
-                            <td className="reservationDetail_td">차량 모델명</td>
+                            <td className="reservationDetail_td">차량모델명</td>
                             <th className="reservationDetail_data">{selectedBooking.brand}- {selectedBooking.model}</th>
                         </tr>
                         <tr className="reservationDetail_tr">
-                            <td className="reservationDetail_td">지점</td>
+                            <td className="reservationDetail_td">차량지점</td>
                             <th className="reservationDetail_data">{branchName}점</th>
                         </tr>
                         <tr className="reservationDetail_tr">
-                            <td className="reservationDetail_td">예약 일자</td>
+                            <td className="reservationDetail_td">예약일자</td>
                             <th className="reservationDetail_data">{selectedBooking.bookedDate}</th>
                         </tr>
                         <tr className="reservationDetail_tr">
-                            <td className="reservationDetail_td">대여 일자</td>
+                            <td className="reservationDetail_td">대여일자</td>
                             <th className="reservationDetail_data">{selectedBooking.startDate} ({startdayText}) {selectedBooking.startTime.slice(0,8)}</th>
                         </tr>
                         <tr className="reservationDetail_tr">
-                            <td className="reservationDetail_td">반납 일자</td>
+                            <td className="reservationDetail_td">반납일자</td>
                             <th className="reservationDetail_data">{selectedBooking.endDate} ({enddayText}) {selectedBooking.endTime.slice(0,8)}</th>
                         </tr>
                         <tr className="reservationDetail_tr">
@@ -135,7 +137,7 @@ export default function ReservationDetailPage(){
                             <th className="reservationDetail_data">{selectedBooking.totalPrice.toLocaleString()}원</th>
                         </tr>
                         <tr className="reservationDetail_tr">
-                            <td className="reservationDetail_td">진행상황</td>
+                            <td className="reservationDetail_td">진행상태</td>
                             <th className="reservationDetail_data">{dText}</th>
                         </tr>
                     </tbody>

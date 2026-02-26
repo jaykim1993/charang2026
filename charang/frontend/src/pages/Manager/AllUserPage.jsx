@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../contexts/Authcontext";
+import { DataContext } from "../../contexts/Datacontext";
 import { BookingContext } from "../../contexts/Bookingcontext";
 import { useNavigate } from "react-router-dom";
 
@@ -8,26 +8,18 @@ import axios from "axios";
 
 export default function AllUserPage(){
 
-    const {pagesHandler, paging, pageNum, setPageNum, setPaging} = useContext(AuthContext);
+    const {pagesHandler, paging, pageNum, setPageNum, setPaging, allBookCar, setAllBookCar,  user, setUser, 
+        userFind, setSearchType, setSearchWord, searchType, searchWord, bookFind} = useContext(DataContext);
     const {myBooking}=useContext(BookingContext);
 
-    // 검색 회원 출력
-    // const [searchValue, setSearchValue] = useState('');
-    const [search, setSearch] = useState(''); // 검색어 담는 상태변수
-    const [ user, setUser] = useState([]);
 
-    const find = () => {
-        axios.get("/api/searchUser",{params:{search:search,page:pageNum}})
-        .then((res)=>{
-            console.log("검색 회원: ",res.data);
-            setPaging(res.data.ph); // 페이징
-            setUser(res.data.list); // 검색 회원 가져온 데이터
-            setSearch('');
-        })
-        .catch((error)=>{
-            console.log("검색 회원 출력 에러: ",error);
-        })
-    }
+    console.log(allBookCar);
+
+    // 전체 예약, 전체 회원 출력 함수 호출
+     useEffect(()=>{
+        userFind();
+        bookFind();
+    },[pageNum]);
 
     // 회원 삭제
     const [delUser, setDelUser] = useState([]);
@@ -48,56 +40,34 @@ export default function AllUserPage(){
         }
     }
 
-    // [해당 회원들의 예약 유무 불러오기]
-    const [allRes, setAllRes] = useState([]); // 현재,미래에 예약이 없는 회원id(탈퇴가능한 회원)를 담는 변수
-
-    useEffect(()=>{
-        axios.get('/api/isReservation')
-        .then((res)=>{
-            console.log("예약없는 회원id: ",res.data);
-            setAllRes(res.data);
-            console.log(allRes);
-        })
-        .catch((error)=>{
-            console.log("예약없는 회원id 데이터 오류: ", error);
-        })
-    },[delUser]);
-
     const delHandler = () => {
-        // 예약내역이 존재하는 회원인지 확인
-        if(myBooking.length > 0){
-            alert("예약 내역이 존재해 탈퇴가 불가능합니다.");
+        if(delUser.length == 0){
+            alert("삭제할 예약을 선택해주세요.");
             return;
+        }else{
+            axios.delete("/api/delete",{data:delUser})
+            .then((res)=>{
+                console.log("삭제 결과: ", res.data);
+                if(res.data == 1){
+                    alert("삭제되었습니다");
+                    find();
+                }else{
+                    alert("다시 시도해주세요.");
+                }
+            })
+            .catch((error)=>{
+                console.log("받아온 삭제 결과 에러: ", error);
+            })
         }
-        axios.delete("/api/delete",{data:delUser})
-        .then((res)=>{
-            console.log("삭제 결과: ", res.data);
-            if(res.data == 1){
-                alert("삭제되었습니다");
-                find();
-            }else{
-                alert("다시 시도해주세요.");
-            }
-        })
-        .catch((error)=>{
-            console.log("받아온 삭제 결과 에러: ", error);
-        })
     }
 
 
     // 예약이 앞으로 존재하는 회원인지 구분
     const noRes = (userId) => {
-        // 예약 존재 X
-        return allRes.includes(userId);
+        // 과거예약
+        const pastUser = allBookCar.filter(pastStatus => pastStatus.bookingStatus === "PAST").map(res=>res.userId);
+        return pastUser.includes(userId);
     }
-
-    useEffect(()=>{
-        find();
-    },[]);
-    
-    useEffect(()=>{
-        find();
-    },[pageNum]);
 
     // 해당 정보 상세보기 핸들러
     const navigate = useNavigate();
@@ -112,9 +82,15 @@ export default function AllUserPage(){
 
             {/* 검색 */}
             <div className="mau_find">
-                <input type="text" name="searchWord" className="mau_input" placeholder="이름을 검색하세요"
-                onChange={(e)=> setSearch(e.target.value)} value={search}/>
-                <button className="mau_btn" type="button" onClick={find}>검색</button>
+                {/* 검색 타입 */}
+                <select name="searchType" onChange={(e)=> setSearchType(e.target.value)}>
+                    <option value="userId">예약자 아이디</option>
+                    <option value="model">예약 차량</option>
+                </select>
+                {/* 검색 단어*/}
+                <input type="text" name="searchWord" className="mau_input"
+                onChange={(e)=> setSearchWord(e.target.value)} value={searchWord}/>
+                <button className="mau_btn" type="button" onClick={userFind}>검색</button>
             </div>
 
             <table className="managerAllUser_table" border={1}>

@@ -5,7 +5,6 @@ import { BookingContext } from "../contexts/Bookingcontext";
 import { CalendarContext } from "../contexts/Calendarcontext";
 import { DataContext } from "../contexts/Datacontext";
 import { AuthContext } from '../contexts/Authcontext';
-import DaumPostCode from "react-daum-postcode";
 import "./Reservation.css";
 
 export default function Reservation() {
@@ -35,8 +34,6 @@ export default function Reservation() {
         JSON.parse(sessionStorage.getItem("firstFilteredCar")) || [];
     const searchFilters =
         JSON.parse(sessionStorage.getItem("searchFilters")) || [];
-    // const totalPrice = 
-    //     JSON.parse(sessionStorage.getItem("totalPrice")) || [];
     /* ===================== user ===================== */
     const userID = JSON.parse(sessionStorage.getItem("userid") || "{}").userId;
     console.log("세션에서 불러온 로그인 유저 ID ", userID);

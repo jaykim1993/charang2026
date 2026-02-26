@@ -70,7 +70,7 @@
 	        b.userId LIKE CONCAT('%', #{searchKeyWord}, '%')
 	      </when>
 	      <otherwise>
-	        c.model LIKE CONCAT('%', #{searchKeyWord}, '%')
+	        b.bookingId LIKE CONCAT('%', #{searchKeyWord}, '%')
 	      </otherwise>
 	    </choose>
 	  </where>

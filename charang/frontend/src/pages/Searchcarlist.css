@@ -380,15 +380,15 @@ a, p, h4, h3, h2, h1{
 #root .R_carlist .R_location{
     width: 444px;
     margin: 0 auto;
-    padding: 25px;
+    padding: 15px 25px 25px 25px;
     padding-bottom: 0;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
     position: absolute;
-    margin-top: 30px;
+    margin-top: 15px;
     left: -460px;
-    z-index: 100;
+    z-index:  30;
 }
 
 /* 달력 */
@@ -396,26 +396,23 @@ a, p, h4, h3, h2, h1{
     max-height: 0;
     overflow: hidden;
     position: absolute;
-    margin-top: 30px;
-    top: 140px;
-    z-index: 100;
+    z-index: 30;
 }
 
 .R_calendar-slide.open {
   position: absolute;
-  top: 140px;
+  top: 100px;
   right: 0;
-  z-index: 100;
-   width: 665px;
-   min-height: 620px;
+  z-index: 30;
+   width: 680px;
+   min-height: 532px;
    background-color: #fff;
    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
    border-radius: 15px;
-   padding: 25px 5px 0 0;
+   padding: 25px 5px 0;
 }
 .R_calendar-slide.open .R_close02{
     padding-left: 640px;
-    margin-bottom: 20px;
 }
 .R_calendar-slide.open .R_close02 > i{
     width: 15px;

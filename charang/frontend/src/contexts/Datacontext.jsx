@@ -23,6 +23,49 @@ export default function DataProvider({children}){
     }
   // =============================================================================================================
 
+  // 전체 회원목록 <==> 전체 예약목록 공유
+
+  // 예약
+    const [allBookCar, setAllBookCar] = useState([]);
+  // 회원
+    const [ user, setUser] = useState([]);
+
+  // 검색
+    const [searchType, setSearchType] = useState('');
+    const [searchWord, setSearchWord] = useState('');
+
+  // 전체 예약
+    const bookFind = () => {
+        console.log("검색 타입:", searchType); 
+        console.log("검색 단어:", searchWord);
+        axios.get("/api/bookcarlist",{params:{searchType:searchType, searchWord:searchWord, page:pageNum}})
+        .then((res)=>{
+            if(res.data){
+                setPaging(res.data.ph);
+                setAllBookCar(res.data.list);
+                console.log("예약+차량정보 ", res.data.list);
+            }
+        })
+        .catch((error)=>{
+            console.log("예약정보 받기 서버 오류", error);
+        })
+    }
+
+  // 전체 회원
+  const userFind = () => {
+        axios.get("/api/searchUser",{params:{searchType:'',searchWord:''}})
+        .then((res)=>{
+            console.log("검색 회원: ",res.data);
+            setPaging(res.data.ph); // 페이징
+            setUser(res.data.list); // 검색 회원 가져온 데이터
+            setSearch('');
+        })
+        .catch((error)=>{
+            console.log("검색 회원 출력 에러: ",error);
+        })
+    }
+
+  // =============================================================================================================
   // 차량 전체 출력 
   const[car, setCar]=useState([]);
 
@@ -59,7 +102,8 @@ export default function DataProvider({children}){
   return(
     <>
       <DataContext.Provider 
-      value={{car, branch, pageNum, setPageNum, pagesHandler, paging, setPaging}}>
+      value={{car, branch, pageNum, setPageNum, pagesHandler, paging, setPaging, 
+              allBookCar, setAllBookCar, user, setUser, bookFind, userFind, setSearchType, setSearchWord}}>
         {children}
       </DataContext.Provider>
     </>
