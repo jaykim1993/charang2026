@@ -8,7 +8,7 @@ import axios from "axios";
 export default function AllUserPage(){
 
     const {pagesHandler, paging, pageNum, setPageNum, allBookCar, user, 
-        userFind, setSearchType, setSearchWord, searchWord, bookFind} = useContext(DataContext);
+        userFind, setSearchType, searchType, setSearchWord, searchWord, bookFind} = useContext(DataContext);
 
 
 

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AllReservationPage(){
 
-    const { pageNum, paging, allBookCar, user, setSearchType, setSearchWord, bookFind, userFind } = useContext(DataContext);
+    const { pageNum, paging, allBookCar, user, searchType, setSearchType, setSearchWord, bookFind, userFind, setPageNum, pagesHandler } = useContext(DataContext);
 
     // 화면 이동 훅
     const navi = useNavigate();
@@ -96,16 +96,6 @@ export default function AllReservationPage(){
     return(
         <div className="AllReservation">
             <h1>전체 예약 목록</h1>
-<<<<<<< HEAD
-            {/* 검색 타입 */}
-            <select name="searchType" onChange={(e)=> setSearchType(e.target.value)}>
-                <option value="bookingId">예약코드</option>
-                <option value="userId">예약자ID</option>
-            </select>
-            {/* 검색 */}
-            <input type="text" name="searchWord" onChange={(e)=> setSearchWord(e.target.value)}/>
-            <button type="button" onClick={bookFind}>검색</button>
-=======
             <div className="search_area">
                 {/* 검색 타입 */}
                 <select name="searchType" className="search_select"
@@ -119,28 +109,17 @@ export default function AllReservationPage(){
                 <button type="button" onClick={bookFind} className="search_btn">검색</button>
             </div>
             
->>>>>>> main
             <table className="AllReservation_table" border={1}>
                 <thead className="AllReservation_table_th">
                     <tr>
                         <th className="AllReservation_tableNum">번호</th>
                         <th className="AllReservation_tableNum">예약코드</th>
-<<<<<<< HEAD
                         <th className="AllReservation_tableUser">예약자ID</th>
                         <th className="AllReservation_tableUser">예약자이름</th>
                         <th className="AllReservation_tableCar">예약차량</th>
                         <th className="AllReservation_tableResDate">예약일자</th>
                         <th className="AllReservation_tableRentDate">대여일자</th>
                         <th className="AllReservation_tableResDate">반납일자</th>
-                        <th className="AllReservation_tableResDate">결제수단</th>
-=======
-                        <th className="AllReservation_tableUser">예약자 아이디</th>
-                        <th className="AllReservation_tableUser">예약자 이름</th>
-                        <th className="AllReservation_tableCar">예약 차량</th>
-                        <th className="AllReservation_tableResDate">예약 일자</th>
-                        <th className="AllReservation_tableRentDate">대여 일자</th>
-                        <th className="AllReservation_tableResDate">반납 일자</th>
->>>>>>> main
                         <th className="AllReservation_tableResDate">결제금액</th>
                         <th className="AllReservation_tableResDate">진행상태</th>
                         <th className="AllReservation_tableResDate">예약삭제</th>
@@ -155,17 +134,10 @@ export default function AllReservationPage(){
                         return (
                         <tr key={item.bookingId}>
                             <td>{rowNumber}</td>
-<<<<<<< HEAD
                             <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}?userName=${userMap[item.userId]}`)}>{item.bookingId}</td>
                             <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}?userName=${userMap[item.userId]}`)}>{item.userId}</td>
                             <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}?userName=${userMap[item.userId]}`)}>{userMap[item.userId]}</td>
                             <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}?userName=${userMap[item.userId]}`)}> {item.model}</td>
-=======
-                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}`)}>{item.bookingId}</td>
-                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}`)}>{item.userId}</td>
-                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}`)}>{userMap[item.userId]}</td>
-                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}`)}> {item.model}</td>
->>>>>>> main
                             <td>{item.bookedDate}</td>
                             <td>{item.startDate} {item.startTime.slice(0, 8)}</td>
                             <td>{item.endDate} {item.endTime.slice(0, 8)}</td>

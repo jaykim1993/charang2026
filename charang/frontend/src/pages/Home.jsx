@@ -156,7 +156,7 @@ export default function Home() {
   // 25년도 차량만 
   const newCarList =
     car
-      .filter(item => item.modelYear === 2025)
+      .filter(item => item.modelYear === 2025 || item.modelYear === 2026)
       .reduce((carImgList, nowCarImg) => {
         if (!carImgList.some(img => img.carImg === nowCarImg.carImg)) {
           carImgList.push(nowCarImg)
