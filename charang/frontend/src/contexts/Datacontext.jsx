@@ -58,7 +58,6 @@ export default function DataProvider({children}){
             console.log("검색 회원: ",res.data);
             setPaging(res.data.ph); // 페이징
             setUser(res.data.list); // 검색 회원 가져온 데이터
-            setSearch('');
         })
         .catch((error)=>{
             console.log("검색 회원 출력 에러: ",error);

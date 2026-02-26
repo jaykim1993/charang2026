@@ -123,10 +123,10 @@ export default function CarDetailPage(){
                             <th className="carDetail_data">{oneCar.smartKey == 1 ? "있음" : "없음"}</th>
                         </tr>
                         <tr className="carDetail_tr">
+                            <td className="carDetail_td">등록일자</td>
+                            <th className="carDetail_data">{oneCar.regDate}</th>
                             <td className="carDetail_td">수정일자</td>
                             <th className="carDetail_data">{oneCar.modDate}</th>
-                                                        <td className="carDetail_td">등록일자</td>
-                            <th className="carDetail_data">{oneCar.regDate}</th>
                         </tr>
                     </tbody>
                 </table>

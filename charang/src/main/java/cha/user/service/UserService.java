@@ -11,9 +11,9 @@ public interface UserService {
    public int getAllCount();
    
    // 검색 회원 출력
-   public List<UserDTO> getSearchUser(String search, int startRow, int pageSize);
+   public List<UserDTO> getSearchUser(String searchType, String searchWord, int startRow, int pageSize);
    // 검색 회원 개수 
-   public int getSearchCount(String search);
+   public int getSearchCount(String searchType, String searchWord);
    
    //회    틉     揷 체크
    public boolean existUserId(String userId);

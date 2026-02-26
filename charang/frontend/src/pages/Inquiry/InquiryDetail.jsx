@@ -60,21 +60,24 @@ export default function AllInquiryDetail() {
                     <button onClick={deleteHandler}>삭제하기</button>
                 </div>
                 :
-                <div className="inquiryDetail_updateBtn">
+                (inquiry.answer != null ? <></>
+                 : 
+                (userid === 'admin' && <div className="inquiryDetail_updateBtn">
                     <button onClick={() => navigate(`/manager/inquiry/answer/${inquiryId}`)}>
                         답변하기
                     </button>
-                </div>
+                </div>))
             }
             <table>
                 <tbody>
                     <tr>
-                        <th>문의번호</th>
-                        <td>{inquiry.inquiryId}</td>
+                        {/* <th>문의번호</th>
+                        <td>{inquiry.inquiryId}</td> */}
 
                         <th>작성자</th>
-                        {userid === inquiry.userId ? <td>{inquiry.name}({inquiry.userId})</td>
-                            : <td>{maskName(inquiry.name)}({inquiry.userId})</td>}
+                        {userid === inquiry.userId ? <td colSpan={3}>{inquiry.name}({inquiry.userId})</td>
+                            : (inquiry.name === null ? <td colSpan={3}>(알수없음)</td>
+                            : <td colSpan={3}>{maskName(inquiry.name)}({maskName(inquiry.userId)})</td>)}
                     </tr>
                     <tr>
                         <th>문의시간</th>

@@ -62,32 +62,35 @@ export default function Recentcarlist() {
         <h4>최근 본 차량</h4>
       </div>
       <div className="Recent_car_list">
-        <p>총&nbsp;<strong>{recentView.length}</strong>&nbsp;대</p>
         {recentView.length > 0 ?
-          <ul className="Recent_ByDate">
-            {recentView.slice(0, viewMore).map(item => (
-              // 해당 차량 브랜드 searchcarlist로 넘기기 12.23 성중
-              <div className="hihihihi" key={item.carId}>
-                <div className="RecentDelBox">
-                  <button className="RecentDel"><i onClick={() => removeRecentView(item.carId)} className="bi bi-x"></i></button>
-                </div>
-                <li className="Recent_ByDate"  >
-                  <div className="Recent_car_item" onClick={() => goToSearchcarlist(item.model)}>
-                    <img className="Recent_logo" src={`/images/brands/${item.brandLogo}`} />
-                    <img
-                      src={`/images/cars/${item.carImg}`}
-                      alt={item.model}
-                      className="Recent_car_img" />
-                    <p className="Recent_car_p"> {item.model} <span className="Recent_car_span">{item.fuelType}</span></p>
-                    <p className="RecentCar_viewDate">최근 본 날짜 : {new Date(item.viewed_at).toLocaleDateString('ko-KR')}</p>
+          <>
+            <p>총&nbsp;<strong>{recentView.length}</strong>&nbsp;대</p>
+            <ul className="Recent_ByDate">
+              {recentView.slice(0, viewMore).map(item => (
+                // 해당 차량 브랜드 searchcarlist로 넘기기 12.23 성중
+                <div className="hihihihi" key={item.carId}>
+                  <div className="RecentDelBox">
+                    <button className="RecentDel"><i onClick={() => removeRecentView(item.carId)} className="bi bi-x"></i></button>
                   </div>
-                </li>
-              </div>
-            ))}
-          </ul>
+                  <li className="Recent_ByDate"  >
+                    <div className="Recent_car_item" onClick={() => goToSearchcarlist(item.model)}>
+                      <img className="Recent_logo" src={`/images/brands/${item.brandLogo}`} />
+                      <img
+                        src={`/images/cars/${item.carImg}`}
+                        alt={item.model}
+                        className="Recent_car_img" />
+                      <p className="Recent_car_p"> {item.model} <span className="Recent_car_span">{item.fuelType}</span></p>
+                      <p className="RecentCar_viewDate">최근 본 날짜 : {new Date(item.viewed_at).toLocaleDateString('ko-KR')}</p>
+                    </div>
+                  </li>
+                </div>
+              ))}
+            </ul>
+          </>
           :
-          <div className="noRecentCar">
-            <span>최근 본 차량이 없습니다.</span>
+          <div className='mypage_none'>
+            <i className="bi bi-chat-square-dots"></i>
+            <p>최근 본 차량이 없습니다.</p>
           </div>
         }
 
@@ -98,11 +101,11 @@ export default function Recentcarlist() {
               <i className="bi bi-chevron-down"></i>
             </button>
           )}
-          {viewMore > 6 && (
+          {recentView.length === 0 ? <></> : (viewMore > 6 && (
             <button onClick={hiddenHandler}>
               <i className="bi bi-chevron-up"></i>
             </button>
-          )}
+          ))}
         </div>
       </div>
     </>

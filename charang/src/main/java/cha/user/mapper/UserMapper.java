@@ -21,12 +21,16 @@ public interface UserMapper {
 	
    // 검색 회원 출력
    public List<UserDTO> getUserSearch(
-		   @Param("search") String search,
+		   @Param("searchType") String searchType, 
+		   @Param("searchWord") String searchWord,
 		   @Param("startRow") int startRow,
 		   @Param("pageSize") int pageSize
 		   );
    // 검색 회원 개수
-   public int getUserSearchCount(String search);
+   public int getUserSearchCount(
+		   @Param("searchType") String searchType, 
+		   @Param("searchWord") String searchWord
+		   );
    
    //회        煞 
    public int insertUser(UserDTO udto);

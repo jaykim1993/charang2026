@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/Datacontext";
-import { BookingContext } from "../../contexts/Bookingcontext";
 import { useNavigate } from "react-router-dom";
 
 import './AllUserPage.css';
@@ -8,9 +7,9 @@ import axios from "axios";
 
 export default function AllUserPage(){
 
-    const {pagesHandler, paging, pageNum, setPageNum, setPaging, allBookCar, setAllBookCar,  user, setUser, 
-        userFind, setSearchType, setSearchWord, searchType, searchWord, bookFind} = useContext(DataContext);
-    const {myBooking}=useContext(BookingContext);
+    const {pagesHandler, paging, pageNum, setPageNum, allBookCar, user, 
+        userFind, setSearchType, setSearchWord, searchWord, bookFind} = useContext(DataContext);
+
 
 
     console.log(allBookCar);
@@ -64,7 +63,7 @@ export default function AllUserPage(){
 
     // 예약이 앞으로 존재하는 회원인지 구분
     const noRes = (userId) => {
-        // 과거예약
+        // 과거예약(map으로 pastUser에 배열로 출력시켜 담음)
         const pastUser = allBookCar.filter(pastStatus => pastStatus.bookingStatus === "PAST").map(res=>res.userId);
         return pastUser.includes(userId);
     }
@@ -76,6 +75,17 @@ export default function AllUserPage(){
         navigate(`/manager/userDetail/${userId}`); // 주소창에 ID를 실어서 페이지 자체를 이동
     }
 
+    // placeholder
+    const placeholderWord = (searchType) => {
+        console.log("검색", searchType);
+         if(searchType === "userId"){
+            return "아이디를 검색하세요";
+        }else{
+            return "이름을 검색하세요";
+        }
+    }
+
+
     return(
         <div className="ManagerAllUser">
             <h1>전체 회원 목록</h1>
@@ -83,34 +93,43 @@ export default function AllUserPage(){
             {/* 검색 */}
             <div className="mau_find">
                 {/* 검색 타입 */}
-                <select name="searchType" onChange={(e)=> setSearchType(e.target.value)}>
-                    <option value="userId">예약자 아이디</option>
-                    <option value="model">예약 차량</option>
+                <select name="searchType" className="mau_select"
+                onChange={(e)=> setSearchType(e.target.value)}>
+                    <option value="userId">회원ID</option>
+                    <option value="model">회원이름</option>
                 </select>
                 {/* 검색 단어*/}
-                <input type="text" name="searchWord" className="mau_input"
+                <input type="text" name="searchWord" className="mau_input" placeholder={placeholderWord(searchType)}
                 onChange={(e)=> setSearchWord(e.target.value)} value={searchWord}/>
                 <button className="mau_btn" type="button" onClick={userFind}>검색</button>
+                <p className="mau_info">
+                    <i className="bi bi-exclamation-circle-fill" style={{paddingRight:"5px"}}></i>
+                    이용 중이거나 예약된 내역이 있으면 삭제가 불가능합니다.
+                </p>
             </div>
 
             <table className="managerAllUser_table" border={1}>
                 <thead className="managerAllUser_table_th">
                     <tr className="managerAllUser_tr">
-                        {/* <th className="managerAllUser_num">번호</th> */}
-                        <th className="managerAllUser_userId">회원아이디</th>
+                        <th className="managerAllUser_num">번호</th>
+                        <th className="managerAllUser_userId">회원ID</th>
                         <th className="managerAllUser_userName">회원이름</th>
                         <th className="managerAllUser_userEmail">이메일</th>
                         <th className="managerAllUser_userResiNum">주민등록번호</th>
                         <th className="managerAllUser_userPhone">휴대폰번호</th>
                         <th className="managerAllUser_userRegDate">가입일자</th>
-                        <th className="managerAllUser_userDel">삭제</th>
+                        <th className="managerAllUser_userDel">회원삭제</th>
                     </tr>
                 </thead>
                 {user ? 
                     <tbody className="managerAllUser_table_tb">
-                        {user.map((user,index) => (
-                            <tr className="managerAllUser_tr" key={index}>
-                                {/* <td>{index+1}</td> */}
+                        {user.map((user,index) => {
+                            const pageSize = paging?.pageSize || 10; // 페이지당 개수
+                            const rowNumber = (pageNum - 1) * pageSize + index + 1;
+                            
+
+                            return  (<tr className="managerAllUser_tr" key={index}>
+                                <td>{rowNumber}</td>
                                 <td>
                                     <p>{user.userId}</p>
                                 </td>
@@ -127,15 +146,15 @@ export default function AllUserPage(){
                                     {/* 체크한 회원의 userId만 값을 들고옴 */}
                                     {/* e : 해당 값의 체크 상태를 확인하기 위해 */}
                                     {noRes(user.userId)?
-                                        <p>예약 존재</p>
+                                        <p>불가</p>
                                         :
                                         <input type="checkbox" name="delcheck" 
                                         className="AllUser_del" onChange={(e)=>{checkHandler(e, user.userId)}}></input>
                                     }
                                     
                                 </td>
-                            </tr>
-                        ))}
+                            </tr>)
+                        })}
                     </tbody>
                 :
                     <tbody className="managerAllUser_table_tb_none">
