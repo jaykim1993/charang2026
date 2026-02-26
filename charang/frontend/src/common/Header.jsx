@@ -414,7 +414,7 @@ export default function Header() {
                                 </>
                             }
                             {userid ?
-                                <Link to={'/mypage/inquiry'} style={{ textDecoration: 'none' }}>
+                                <Link to={'/customerservice/inquiry/list'} style={{ textDecoration: 'none' }}>
                                     <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
                                         <div>문의내역</div>
                                         <div className='headerNavpointer'>

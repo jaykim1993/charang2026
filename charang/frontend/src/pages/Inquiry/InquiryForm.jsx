@@ -71,6 +71,7 @@ export default function InquiryForm(){
             </div>
             <div className="submitinqu">
                 <button onClick={inquiryForm}>등록하기</button>
+                <button onClick={() => navigate(-1)}>뒤로가기</button>
             </div>
         </div>
     )
