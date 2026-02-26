@@ -93,7 +93,7 @@ export default function AllCarPage(){
     // placeholder 삼항연산자
     const placeholderWord = () => {
         if(searchType === "carName"){
-            return "차량이름을 검색하세요";
+            return "모델명을 검색하세요";
         }else{
             return "차량번호를 검색하세요";
         }
@@ -106,13 +106,14 @@ export default function AllCarPage(){
             <div className="mac_find">
                 {/* 검색 타입 */}
                 <select className="mac_type" name="searchType" onChange={(e)=> setSearchType(e.target.value)}>
-                    <option value="carName">차량 이름</option>
+                    <option value="carName">모델명</option>
                     <option value="carNum">차량 번호</option>
                 </select>
                 {/* 검색 */}
                 <input className="mac_word" type="text" name="searchWord" placeholder={placeholderWord()}
                 onChange={(e)=> setSearchWord(e.target.value)}/>
                 <button className="acp_btn" type="button" onClick={find}>검색</button>
+                <button className="acp_Regbtn" type="button" onClick={()=>{navigate('/manager/carregister')}}>등록하기</button>
             </div>
             
             <table className="m_AllCar_table">

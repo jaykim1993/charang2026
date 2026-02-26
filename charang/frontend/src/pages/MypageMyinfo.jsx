@@ -49,7 +49,7 @@ export default function MypageMyinfo(){
         alert("입력 문구가 올바르지 않습니다.");
         return;
     }
-    axios.delete('/api/delete',{data:[]})
+    axios.delete('/api/delete',{ data: [] })
         .then((res) => {
             if (res.data === 1) {
                 alert('탈퇴가 완료되었습니다.');

@@ -127,6 +127,7 @@ export default function Reservation() {
     /* ==================== 예약 확정 ===================== */
     const sessionUser = sessionStorage.getItem("userid");
     const userId = sessionUser ? JSON.parse(sessionUser).userId : null;
+    
     console.log(userId); // "user01"
     const bookingId = `${Date.now()}_${userId}`;
     const carId = selectedCarId;
