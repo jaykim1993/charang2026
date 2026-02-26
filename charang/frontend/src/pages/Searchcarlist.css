@@ -50,8 +50,8 @@ a, p, h4, h3, h2, h1{
     gap: 10px;
 }
 #root .Recentcar .R_category ul li .cateBtn .active{
-    color: #0b79b7;
-    border: 1px solid #0b79b7;
+    color: #1e75f5;
+    border: 1px solid #1e75f5;
     background-color: #f9fafc;
     font-weight: 600;
 }
@@ -75,7 +75,8 @@ a, p, h4, h3, h2, h1{
 }
 #root .Recentcar .R_category ul li button:hover{
     /* background-color: #f7f7f7; */
-    border: 1px solid #0b79b7 ;
+    border: 1px solid #1763D1;
+    transition: 0.3s;
 }
 #root .Recentcar .R_category ul li h4{
     color: #6c6c6c;
@@ -155,7 +156,7 @@ a, p, h4, h3, h2, h1{
     font-size: 20px;
 }
 #root .Recentcar .R_carlist .cate_choice .delBtn > button i:hover{
-    color: #2591cf;
+    color: #1763D1;
 }
 
 /* 총 n대 */
@@ -266,7 +267,7 @@ a, p, h4, h3, h2, h1{
 #root .Recentcar .R_carlist .car_list_ul .car_variant_info:hover strong,
 #root .Recentcar .R_carlist .car_list_ul .car_variant_info:hover span,
 #root .Recentcar .R_carlist .car_list_ul .car_variant_info:hover i{
-    color: #0b79b7;
+    color: #1e75f5;
 }
 
 #root .Recentcar .R_carlist .car_list_ul .car_variant_info .bi-chevron-right{
@@ -368,7 +369,7 @@ a, p, h4, h3, h2, h1{
     font-size: 16px;
     font-weight: bold;
     color: #fff;
-    background-color: #0b79b7 ;
+    background-color:#1e75f5;
     border: none;
 }
 #root .R_carlist .R_dateReservation .R_spotTable .searchButton i{

@@ -36,7 +36,7 @@
     margin-bottom: 40px;
 }
 .loginColor {
-    color: #0b79b7;
+    color: #1e75f5;
     display: inline-block;
     width: fit-content;
 }
@@ -88,11 +88,11 @@
 
 .loginInput:focus {
   outline: none;
-  border-color: #2591cf;
+  border-color: #1763D1;
 }
 .loginInputDif:focus {
   outline: none;
-  border-color: #2591cf;
+  border-color: #1763D1;
 }
 .loginBtnWrap{
   margin-top: 64px;
@@ -102,7 +102,7 @@
     width: 100%;
     padding: 12px 0;
     border: none;
-    background: #0b79b7;
+    background: #1e75f5;
     border-radius: 6px;
     font-size: 16px;
     cursor: pointer;
@@ -111,7 +111,7 @@
     font-size: 20px;
 }
 .loginBtn:hover {
-    background: #065d8f;
+    background: #1763D1;
     box-shadow: 0 0 10px rgba(0,0,0,0.25);  
 }
 .loginAccount{
@@ -179,7 +179,7 @@
     width: 48%;
     padding: 12px 0;
     border: none;
-    background: #0b79b7;
+    background: #1e75f5;
     border-radius: 6px;
     font-size: 16px;
     cursor: pointer;
@@ -187,7 +187,7 @@
     font-size: 20px;
 }
 .loginBtnDif:hover {
-    background: #065d8f;
+    background: #1763D1;
     box-shadow: 0 0 10px rgba(0,0,0,0.25);
 }
 .loginBtnWrapDif{
@@ -223,7 +223,7 @@
   margin: 0 auto;
 }
 .IDresultSpan{
-  color: #0b79b7;
+  color: #1e75f5;
   margin: 0 10px;
   font-size: 20px;
 }

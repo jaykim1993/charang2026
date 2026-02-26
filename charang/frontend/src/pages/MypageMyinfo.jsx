@@ -108,6 +108,10 @@ export default function MypageMyinfo() {
                         <th>운전면허종류</th>
                         <td>{userid.license}종 보통</td>
                     </tr>
+                    <tr>
+                        <th>가입일</th>
+                        <td>{userid.regDate.slice(0,10)}</td>
+                    </tr>
                 </tbody>
             </table>
             <button className='myinfo-btn2' type='button' onClick={() => setUnregiOverlay(true)}>

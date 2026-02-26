@@ -5,6 +5,8 @@ import { useContext } from "react";
 import { BookingContext } from "../contexts/Bookingcontext";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/Authcontext';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function Footer(){
 
@@ -12,10 +14,13 @@ const { myRecentlist } = useContext(BookingContext);
 const { userid } = useContext(AuthContext);
 const navigate = useNavigate();
 const recentViews = myRecentlist(userid);
-
 const [totop,setTotop]=useState(false);
-
+const [notice,setNotice]=useState([]);
+const [noticeDetail,setNoticeDetail]=useState("");
 const [moverecentcar,setMoverecentcar]=useState(false);
+
+
+
 
 //1000이상 스크롤하면 위로가기 버튼 생성
 useEffect(() => {
@@ -50,6 +55,23 @@ useEffect(() => {
         navigate('/mypage/recent');
     }
 
+    //공지사항  전체목록에서 noticeId 제일 높은거(제일최신) 공지 찾아서 담기
+    useEffect(() => {
+      axios.get('/api/customerservice/notice')
+    .then(res => {
+      const noticeList = res.data.list;
+      const latest = noticeList.reduce((max, current) =>
+        current.noticeId > max.noticeId ? current : max
+      );
+      setNotice(latest);
+      setNoticeDetail(`/customerservice/notice/Info/${notice.noticeId}`)
+
+    })
+    .catch(err => console.log(err));
+    }, []);
+    console.log("최신 공지",notice)
+
+    
 
 
     return(
@@ -74,21 +96,26 @@ useEffect(() => {
                 )}
             </div>
             <div className='Footer'>
+                    <table className='footerNoticeBox'>
+                        <tr><i className="fa-solid fa-bullhorn"></i>공지사항</tr>
+                        <tr><Link to={noticeDetail} className='gotoRecentNotice'>{notice.title}</Link></tr>
+                        <tr>{notice.regDate}</tr>
+                        <tr><Link to="/customerservice/notice">전체보기</Link></tr>
+                    </table>
                 <div className='Footer_Top'>
-                    <img src='/charangcharang_logo_white.png' alt='차랑차랑 로고 이미지' />
+                        <span className='footerSlogan'>가고 싶은 곳 어디든, 차랑차랑</span>
+                        <img src='/charangcharang_logo_white.png' alt='차랑차랑 로고 이미지' />
                     {/* 푸터 섹션 */}
                     <div className='Footer_sec'>
                         {/* 좌측 - 회사정보 */}
                         <div className='F_info'>
                             <ul className='F_infoUl'>
                                 <li className='F_infoLi01'>
-                                    <p>회사소개</p>
-                                    <p>서비스 이용약관</p>
-                                    <p><strong>개인정보처리방침</strong></p>
-                                    <p>이메인무단수집거부</p>
-                                    <p>비지니스</p>
-                                    <p>금융소비자보호</p>
-                                    <p>웹사이트제작 2조</p>
+                                    <Link to="/guide/branch" className='footerLink'>지점안내</Link>
+                                    <Link to="/guide/inventory" className='footerLink'>차량보유현황</Link>
+                                    <Link to="/guide/return" className='footerLink'>차량반납안내</Link>
+                                    <Link to="/guide/rental" className='footerLink'>대여안내</Link>
+                                    <Link to="/guide/pricing" className='footerLink'>요금안내</Link>
                                 </li>
                                 <div className='F_infoLi02flex'>
                                     <div className='F_infoLi02'>
@@ -103,7 +130,6 @@ useEffect(() => {
                                     </div>
                                     <div className='F_infoLi02'>
                                         <p>평일 09:00 ~ 18:00 (주말·공휴일 휴무)</p>
-                                        <p>24시간 온라인 예약 가능</p>
                                     </div>
                                 </div>
                             </ul>

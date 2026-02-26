@@ -68,7 +68,7 @@
 }
 .mapCarDaysOnGoing{
     display: inline-block;
-    background-color: #0b79b7;
+    background-color: #1e75f5;
     color: #e8e8e8;
     padding: 5px 15px;
     border-radius: 20px;
@@ -79,17 +79,17 @@
 .mapGoToDetail {
     width: 120px;
     display: block;
-    background-color: #0b79b7;
+    background-color: #1e75f5;
     color: white;
     padding: 10px;
     border-radius: 5px;
     text-decoration: none;
     font-size: 15px;
-    transition: background 0.3s;
+    transition: 0.3s;
 }
 
 .mapGoToDetail:hover {
-    background-color: #065d8f;
+    background-color: #1763D1;
 }
 .myBooked_noBook{
     width: 100%;

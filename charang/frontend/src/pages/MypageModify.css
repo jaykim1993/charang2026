@@ -67,7 +67,7 @@
 }
 
 .mypagemodify .mypage-form input:focus {
-  border-color: #2a7db8;
+  border-color: #1763D1;
   box-shadow: 0 0 0 3px rgba(42, 125, 184, 0.15);
 }
 
@@ -110,7 +110,7 @@
 .mypagemodify .joinbtnC {
   height: 48px;
   padding: 0 18px;
-  background: #2a7db8;
+  background: #1e75f5;
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -123,7 +123,7 @@
 }
 
 .mypagemodify .joinbtnC:hover {
-  background: #22699a;
+  background: #1763D1;
 }
 
 /* 하단 버튼 */
@@ -148,13 +148,13 @@
 }
 
 .mypagemodify .mypage-btn.primary {
-  background: #2a7db8;
+  background: #1e75f5;
   color: #fff;
   border: none;
 }
 
 .mypagemodify .mypage-btn.primary:hover {
-  background: #22699a;
+  background: #1763D1;
 }
 
 .mypagemodify .mypage-btn.secondary {
