@@ -2,10 +2,14 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { AuthContext } from "../../contexts/Authcontext"
-import './CustomerServiceNotice.css'
+import { DataContext } from "../../contexts/Datacontext";
 import axios from "axios";
 
+import './CustomerServiceNotice.css'
+
 export default function CustomerServiceNotice(){
+    const { pageNum, setPageNum, pagesHandler, paging, setPaging } = useContext(DataContext);
+
     // 로그인 정보/유저 현재 로그인 유저 아이디 알아야됨
     const { userid } = useContext(AuthContext);
 
@@ -13,24 +17,6 @@ export default function CustomerServiceNotice(){
     const [notice, setNotice] = useState([]);
 
     const navigate = useNavigate();
-
-    // 서버에서 받은 ph
-    const [paging, setPaging] = useState({}); 
-    // 현재 페이지 번호 (기본값 1)
-    const [pageNum, setPageNum] = useState(1); 
-
-    // 페이지 이동 핸들러
-    const pagesHandler = () => {
-        const pageNumbers = [];
-        // paging 가 있고, startPage와 endPage가 계산되었을 때만 작동
-        if(paging.startPage && paging.endPage){
-            for(let i = paging.startPage; i <= paging.endPage; i++){
-                pageNumbers.push(i);
-            }
-        }
-        // console.log("페이징 확인: ", pageNumbers);
-        return pageNumbers;
-    }
 
     useEffect(() => {
         axios.get(`/api/customerservice/notice?page=${pageNum}`)
@@ -53,7 +39,7 @@ export default function CustomerServiceNotice(){
                 {/* 관리자(=admin)일 때만 글쓰기 버튼 생김 */}
                 {userid === 'admin' && (
                     <div className="adminBtn">
-                        <button onClick={() => navigate("/customerservice/notice/manager/write")}>
+                        <button className="adminBtn_1" onClick={() => navigate("/customerservice/notice/manager/write")}>
                             글쓰기
                         </button>
                     </div>
@@ -80,7 +66,7 @@ export default function CustomerServiceNotice(){
                                                 {item.title}
                                             </Link>
                                         </td>
-                                        <td>{item.regDate}</td>
+                                        <td>{item.modDate.slice(0,10)}</td>
                                         <td>{item.readCount}</td>
                                 </tr>
                             ))

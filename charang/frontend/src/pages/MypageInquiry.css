@@ -1,44 +1,62 @@
-
 .mypage_inquiry{
     width: 100%;
     min-height: 800px;
 }
-.mypage_inquiry .inquiry_none{
+
+.mypage_inquiry .myInquiry_head{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 20px 0 10px 0;
+}
+.mypage_inquiry .myInquiry_head button {
+    background-color: #444;
+    color: white;
+    padding: 5px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.AllInquiry .Inquiry_head>button:hover {
+    background-color: #222;
+}
+
+/* 문의내역 없을 때 생기는 부분 공통 */
+.mypage_none{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    margin-top: 100px;
+    padding: 50px;
+    background-color: #f7f8fa;
+    border-radius: 7px;
+    margin-top: 20px;
 }
-
-.mypage_inquiry .inquiryCnt{
-    padding: 20px 0 10px 0;
-    border-bottom: 2px solid #000;
-}
-
-/* 문의내역 없을 때 생기는 부분 */
-.mypage_inquiry .inquiry_none > i{
-    font-size: 25px;
+.mypage_none > i{
+    font-size: 30px;
     font-weight: bold;
     color: #666;
     /* color: #0b79b7; */
 }
-.mypage_inquiry .inquiry_none > p{
+.mypage_none > p{
     color: #666;
 }
-.mypage_inquiry .inquiry_none .mypage_btn{
-    background-color: #0b79b7;
+.mypage_none .mypage_btn{
+    background-color: #1e75f5;
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
 }
-.mypage_inquiry .inquiry_none .mypage_btn:hover{
-    background-color: #065d8f;
+.mypage_none .mypage_btn:hover{
+    background-color: #1763D1;
 }
 
 .mypage_inquiry .MyInquiryWrap table{
     width: 100%;
     text-align: center;
+    border-top: 2px solid #000;
 }
 .mypage_inquiry .MyInquiryWrap table th{
     padding: 10px 0;

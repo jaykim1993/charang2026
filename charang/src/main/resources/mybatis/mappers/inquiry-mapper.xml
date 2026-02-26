@@ -20,9 +20,9 @@
 	<!-- public List<InquiryDTO> inquiryList(); -->
 	<select id="inquiryList" resultType="InquiryDTO">
 		SELECT i.*, u.name 
-		FROM inquiry i INNER JOIN user u 
+		FROM inquiry i LEFT JOIN user u 
 		ON i.userId = u.userId
-		ORDER BY modDate ASC
+		ORDER BY i.modDate ASC
 	</select>
 	
 	<!-- public int getCountByUserId(String userId); -->
@@ -39,14 +39,14 @@
 	<select id="getInquiryDetail" resultType="InquiryDTO" parameterType="String">
 		SELECT i.*, u.name 
 	    FROM inquiry i 
-	    INNER JOIN user u ON i.userId = u.userId 
+	    LEFT JOIN user u ON i.userId = u.userId 
 	    WHERE i.inquiryId = #{inquiryId}
 	</select>
 	
 	<!-- public void updateInquiry(InquiryDTO idto); -->
 	<update id="updateInquiry" parameterType="InquiryDTO">
 		UPDATE inquiry SET title = #{title}, content = #{content}, password = #{password}, modDate = NOW() 
-		WHERE inquiryId = #{inquiryId} AND userId = #{userId}
+		WHERE inquiryId = #{inquiryId}
 	</update>
 	
 	<!-- public int deleteInquiry(String inquiryId); -->
@@ -65,7 +65,7 @@
 	<select id="getPageList" resultType="InquiryDTO">
 	    SELECT i.*, u.name 
 	    FROM inquiry i 
-	    INNER JOIN user u ON i.userId = u.userId
+	    LEFT JOIN user u ON i.userId = u.userId
 	    <where>
 	        <if test="userId != null and userId != ''">
 	            AND i.userId = #{userId}

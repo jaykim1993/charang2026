@@ -8,17 +8,13 @@ import lombok.Data;
 
 @Data
 public class NoticeDTO {
-
    private int noticeId;
    private String userId;
    private String title;
    private String content;
    @JsonFormat(pattern = "yyyy-MM-dd")
-   private Date regDate;
+   private String regDate;
    @JsonFormat(pattern = "yyyy-MM-dd")
-   private Date modDate;
+   private String modDate;
    private int readCount;
-   
-  
-   
 }
