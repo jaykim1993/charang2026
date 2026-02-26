@@ -153,7 +153,7 @@ export default function Home() {
     setIsNew(!isNew);
   }
 
-  // 25년도 차량만 
+  // 25년도 차량만 => 26년을 가장 빠르게 출력되게 수정
   const newCarList =
     car
       .filter(item => item.modelYear === 2025 || item.modelYear === 2026)
