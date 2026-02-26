@@ -13,7 +13,6 @@ export default function MypageDetail(){
     const { username } = useContext(AuthContext); // 유저 정보 호출
     const { DeleteYear, timeAMPM, startdayText, enddayText } = useContext(CalendarContext);
     const { branch } = useContext(DataContext); // 지점 정보 호출
-    const [showMap,setShowMap]=useState(false);
     const navigate = useNavigate();
 
     // 개인 예약 내역(+ 차량 정보 조인) 최신값 받기
@@ -45,7 +44,6 @@ export default function MypageDetail(){
             )?.location || '';
 
     //며칠 남앗는지
-    // 3단계로 나눠서 계산 26.02.23 성중
         const today = new Date();
             today.setHours(0, 0, 0, 0);
             const [sy, sm, sd] = bookedThis.startDate.split('-');
@@ -147,15 +145,15 @@ export default function MypageDetail(){
                                 <h4>{bookedThis.paymentMethod}</h4>
                         <div style={{marginTop:'20px'}}>
                                 <div className='mybookDetailPriceBox'>
-                                    <span className='DetailSpans'>차량 금액</span>
+                                    <span className='DetailSpans'>차량대여금액</span>
                                     <h5 style={{color:'gray'}}>{Number(bookedThis?.carPrice ?? 0).toLocaleString()}원</h5>
                                 </div>
                                 <div className='mybookDetailPriceBox'>
-                                    <span className='DetailSpans'>보험 금액</span>
+                                    <span className='DetailSpans'>보험금액</span>
                                     <h5 style={{color:'gray'}}>{Math.round(Number(bookedThis?.insurancePrice ?? 0)).toLocaleString()}원</h5>
                                 </div>
                                 <div className='mybookDetailPriceBox'>
-                                    <span className='DetailSpans'>총 결제 금액</span>
+                                    <span className='DetailSpans'>결제금액</span>
                                     <h4 >{Number(bookedThis?.totalPrice ?? 0).toLocaleString()}원</h4>
                                 </div>
                         </div>

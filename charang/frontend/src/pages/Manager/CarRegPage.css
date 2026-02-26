@@ -1,21 +1,101 @@
-#root .carRegPage{
-    width: 1300px;
-    margin: 100px auto;
-    /* border: 1px solid red; */
+.carRegPage{
+  max-width: 950px;
+  margin: 130px auto;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+.carRegPage .crp_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #222;
+    
 }
 
-#root .carRegPage h1{
-    /* border: 1px solid blue; */
-    text-align: center;
-    margin: 50px 0;
+.carRegPage .crp_header .crp_listBtn, .crp_reg_btn{
+    padding: 10px 20px;
+    background-color: #222;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fbfbfb;
+    cursor: pointer;
+    border: none;
 }
+
+.carRegPage .crp_reg_btn{
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #222;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fbfbfb;
+    cursor: pointer;
+    border: none;
+}
+.carRegPage .crp_reg_btn:hover{
+    background-color: #555;
+}
+
+.carRegPage .crp_header .crp_listBtn:hover{
+    background-color: #414141;
+}
+
+.carRegPage h1{
+    font-size: 26px;
+    font-weight: 700;
+    color: #333;
+}
+
+
 /* 표 */
-#root .carRegPage .car_reg_table{
-    margin: 0 auto;
-    width: 800px;
+.carRegPage .car_reg_table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
 }
-#root .carRegPage .car_reg_table .car_reg_tbody th, .car_reg_tbody td{
-    border: 1px solid rgb(204, 204, 204);
-    padding: 5px;
-    text-align: center;
+
+.carRegPage .car_reg_table .car_reg_tbody {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border: none;
+} 
+
+.carRegPage .car_reg_table .car_reg_tbody .crp_tr{
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.carRegPage .car_reg_table .car_reg_tbody .crp_tr .crp_td{
+    width: 180px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    color: #495057;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-right: 1px solid #d8d8d8;
+}
+
+.carRegPage .car_reg_table .car_reg_tbody .crp_tr .crp_data{
+    /* width: 25%; */
+    padding: 15px 25px;
+    color: #555;
+    font-weight: 700;
+    font-size: 15px;
+    
+} 
+
+.carRegPage .car_reg_table .car_reg_tbody .crp_tr .crp_data .crp_input, .crp_select{
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  transition: all 0.2s;
 }
