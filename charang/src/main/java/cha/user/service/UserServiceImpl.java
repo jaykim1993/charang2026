@@ -26,15 +26,15 @@ public class UserServiceImpl implements UserService {
 	
 	// 검색 회원 출력
    @Override
-   public List<UserDTO> getSearchUser(String search,int startRow, int pageSize) {
+   public List<UserDTO> getSearchUser(String searchType, String searchWord, int startRow, int pageSize) {
 	   System.out.println("검색 회원 출력 서비스");
-	   return usermapper.getUserSearch(search,startRow,pageSize);
+	   return usermapper.getUserSearch(searchType, searchWord, startRow,pageSize);
    }
    // 검색 회원 개수 
    @Override
-   public int getSearchCount(String search) {
+   public int getSearchCount(String searchType, String searchWord) {
 	   System.out.println("검색 회원 개수 서비스");
-	   return usermapper.getUserSearchCount(search);
+	   return usermapper.getUserSearchCount(searchType, searchWord);
    }
    
 

@@ -1,4 +1,6 @@
 import { Outlet, NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/Authcontext";
 import './CustomerService.css'
 
 export default function CustomerService() {

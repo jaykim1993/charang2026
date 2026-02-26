@@ -5,7 +5,7 @@
     padding: 30px;
     background-color: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); */
     font-family: sans-serif;
 }
 
@@ -23,14 +23,32 @@
     vertical-align: middle;
 }
 
-.ManagerAllUser .mau_find .mau_input{
+.ManagerAllUser .mau_find .mau_info{
+    margin-left: auto;
+    padding-right: 5px;
+    font-size: 13px;
+    margin-top: 19px;
+    color: #666;
+}
+
+.ManagerAllUser .mau_find .mau_select, .mau_input{
     height: 40px;
     padding: 0 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-right: 5px;
     vertical-align: middle;
+    outline: none;
 }
+
+/* .ManagerAllUser .mau_find .mau_input{
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 5px;
+    vertical-align: middle;
+} */
 
 .ManagerAllUser .mau_find .mau_btn,.del_btn{
     height: 40px;

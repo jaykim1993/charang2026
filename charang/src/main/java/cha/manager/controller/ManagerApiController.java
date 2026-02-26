@@ -27,7 +27,7 @@ public class ManagerApiController {
 	
 	@GetMapping("/bookcarlist")
 	public Map<String, Object> getAllBookCar(
-			@RequestParam("searchType") String searchType,
+			@RequestParam(value="searchType", defaultValue = "bookingId") String searchType,
 		    @RequestParam("searchWord") String searchKeyWord,
 //			1. 페이지 번호 - 1부터 시작이므로 초기값 1로 정의
 			@RequestParam(value="page", defaultValue = "1") int page,
