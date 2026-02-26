@@ -1,4 +1,4 @@
-git switch mainpackage cha.manager.controller;
+package cha.manager.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;

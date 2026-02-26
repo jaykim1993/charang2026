@@ -96,12 +96,20 @@ useEffect(() => {
                 )}
             </div>
             <div className='Footer'>
-                    <table className='footerNoticeBox'>
-                        <tr><i className="fa-solid fa-bullhorn"></i>공지사항</tr>
-                        <tr><Link to={noticeDetail} className='gotoRecentNotice'>{notice.title}</Link></tr>
-                        <tr>{notice.regDate}</tr>
-                        <tr><Link to="/customerservice/notice">전체보기</Link></tr>
-                    </table>
+                    <ul className='footerNoticeBox'>
+                      <li> 
+                        <i className="fa-solid fa-bullhorn"></i>공지사항
+                      </li>
+                        <li className='gotoRecentNotice' onClick={()=>navigate(noticeDetail)}>
+                            {notice.title}
+                        </li>
+                        <li>
+                            {notice.regDate}
+                        </li>
+                        <li className='allNotice' onClick={()=>navigate("/customerservice/notice")}>
+                          전체보기
+                        </li>
+                    </ul>
                 <div className='Footer_Top'>
                         <span className='footerSlogan'>가고 싶은 곳 어디든, 차랑차랑</span>
                         <img src='/charangcharang_logo_white.png' alt='차랑차랑 로고 이미지' />
