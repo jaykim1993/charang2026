@@ -2,6 +2,15 @@ import { Outlet, NavLink } from "react-router-dom";
 import './CustomerService.css'
 
 export default function CustomerService() {
+    const { userid } = useContext(AuthContext);
+
+    //관리자일 경우 outlet으로 콘텐츠관리 X => 그냥 부모라우트 안타고 바로 콘텐츠 
+    if(userid === 'admin'){
+        return <Outlet/>;
+    }
+
+
+
     return (
         <div className="guideWrap">
             <div className="guideFlex">

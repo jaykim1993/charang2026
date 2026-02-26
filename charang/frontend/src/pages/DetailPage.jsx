@@ -53,38 +53,36 @@ export default function DetailPage(){
                     fuelType: selectedCar?.fuelType,
             };
 
-    // 최근 본 차량 추가(sessionStorage)
-    useEffect(() => {
-        if (!selectedCar || !userId) return;
+    // 최근 본 차량 추가(localStorage)
+   useEffect(() => {
+    if (!selectedCar || !userId) return;
 
-            const raw = sessionStorage.getItem("recentView");
-            const prev = raw ? JSON.parse(raw) : []; // 방어코드 , 22일 성중 수정
+    const raw = localStorage.getItem("recentView");
+    const prev = raw ? JSON.parse(raw) : [];
+    const filtered = prev.filter(
+        (item) =>
+        !(item.userid === userId && item.carId === selectedCar.carId)
+    );
 
-            // 같은 유저 + 같은 차량 제거
-            const filtered = prev.filter(
-                (item) =>
-                !(
-                    item.userId === userId &&
-                    item.carId === selectedCar.carId
-                )
-            );
+    const newRecentView = {
+        id: Date.now(), // 굳이 문자열 합칠 필요 없음
+        userid: userId,
+        carId: selectedCar.carId,
+        model: selectedCar.model,
+        carImg: selectedCar.carImg,
+        brand: selectedCar.brand,
+        brandLogo: selectedCar.brandLogo,
+        fuelType: selectedCar.fuelType,
+        viewed_at: Date.now(), // ✅ 이걸로 정렬하는게 더 좋음
+    };
 
-            const newRecentView = {
-                id: `${Date.now()}_${userId}`,
-                userid: userId,
-                carId: selectedCar.carId,
-                model: selectedCar.model,
-                carImg: selectedCar.carImg,
-                brand: selectedCar.brand,
-                brandLogo: selectedCar.brandLogo,
-                fuelType: selectedCar.fuelType,
-                viewDate: new Date().toISOString().slice(0, 10),
-            };
+    const updated = [newRecentView, ...filtered];
 
-        const updated = [newRecentView, ...filtered];
+    // 최대 100개 유지 
+  const finalList = updated.slice(0, 100);
 
-        sessionStorage.setItem("recentView", JSON.stringify(updated));
-    }, [selectedCar?.carId, userId]);
+  localStorage.setItem("recentView", JSON.stringify(finalList));
+}, [selectedCar?.carId, userId]);
 
     // true인 옵션만 필터링
     const getActiveOptions = (car) => {

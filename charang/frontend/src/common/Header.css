@@ -1,3 +1,5 @@
+
+
 .header {
   position: fixed;
   top: 0;
@@ -35,12 +37,12 @@
 }
 
 .hLogoP{
-  margin-left: 10px;
+  margin-left: 70px;
   font-size: 25px;
   color: white;
   padding-left: 200px;
   transform: translateY(2px);
-
+  font-family: 'Jua', sans-serif;
 }
 .headerLogo {
     width: 100px;

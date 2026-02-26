@@ -36,17 +36,24 @@ export default function Recentcarlist() {
     window.scrollTo(0, 0);
   }, []);
 
-  const [recentView, setRecentView] = useState(myRecentlist(userid));
+  const [recentView, setRecentView] = useState([]);
+
+  useEffect(() => {
+    setRecentView(myRecentlist(userid));
+  }, [userid, myRecentlist]);
 
   const removeRecentView = (carId) => {
-    const raw = sessionStorage.getItem("recentView");
+    const raw = localStorage.getItem("recentView");
     if (!raw) return;
+
     const parsed = JSON.parse(raw);
+
     const filtered = parsed.filter(
       item => !(item.userid === userid && item.carId === carId)
     );
-    sessionStorage.setItem("recentView", JSON.stringify(filtered));
-    setRecentView(filtered);
+
+    localStorage.setItem("recentView", JSON.stringify(filtered));
+    setRecentView(myRecentlist(userid));
   };
 
   return (
@@ -59,11 +66,12 @@ export default function Recentcarlist() {
         {recentView.length > 0 ?
           <ul className="Recent_ByDate">
             {recentView.slice(0, viewMore).map(item => (
+              // 해당 차량 브랜드 searchcarlist로 넘기기 12.23 성중
               <div className="hihihihi" key={item.carId}>
                 <div className="RecentDelBox">
                   <button className="RecentDel"><i onClick={() => removeRecentView(item.carId)} className="bi bi-x"></i></button>
                 </div>
-                <li className="Recent_ByDate">
+                <li className="Recent_ByDate"  >
                   <div className="Recent_car_item" onClick={() => goToSearchcarlist(item.model)}>
                     <img className="Recent_logo" src={`/images/brands/${item.brandLogo}`} />
                     <img
@@ -71,7 +79,7 @@ export default function Recentcarlist() {
                       alt={item.model}
                       className="Recent_car_img" />
                     <p className="Recent_car_p"> {item.model} <span className="Recent_car_span">{item.fuelType}</span></p>
-                    <p className="RecentCar_viewDate">최근 본 날짜 : {item.viewDate.replaceAll('-', '.')}</p>
+                    <p className="RecentCar_viewDate">최근 본 날짜 : {new Date(item.viewed_at).toLocaleDateString('ko-KR')}</p>
                   </div>
                 </li>
               </div>
