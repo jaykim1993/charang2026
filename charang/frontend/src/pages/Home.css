@@ -386,7 +386,7 @@ input:checked + .checkmark {
 /* ---------------------------------- */
 
 /* 지점 선택 모달. */
-#root .Home .H_location{
+.H_location{
     width: 444px;
     margin: 0 auto;
     padding: 25px;
@@ -410,7 +410,7 @@ input:checked + .checkmark {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 .calendar-slide p.Home_isCalendar_p{
     padding-left: 20px;
@@ -418,7 +418,6 @@ input:checked + .checkmark {
     font-weight: 500;
 }
 .calendar-slide .H_close02{
-    margin-bottom: 20px;
     padding-left: 635px;
 }
 .calendar-slide .H_close02 > i{
@@ -427,11 +426,11 @@ input:checked + .checkmark {
     color: #999;
 }
 
-#root .Home .calendar-slide.open {
+.calendar-slide.open {
     max-height: 800px; /* 캘린더 높이 예상값 */
     position: absolute;
-    top: 120px;
-    left: 210px;
+    top: 145px;
+    left: 40px;
     z-index: 100;
     width: 680px;
     height: 585px;
@@ -442,63 +441,63 @@ input:checked + .checkmark {
 }
 
 /* 지점 선택 목록 */
-#root .Home .H_location .H_close01{
+.H_location .H_close01{
     padding-left: 375px;
 }
-#root .Home .H_location .H_close01 > i{
+.H_location .H_close01 > i{
     width: 15px;
     cursor: pointer;
     color: #999;
 }
-#root .Home .H_location .H_close01:hover > i{
+.H_location .H_close01:hover > i{
     color: #333;
 }
-#root .Home .H_location .H_selectLocation{
+.H_location .H_selectLocation{
     /* border: 1px solid red; */
     position: relative;
     padding-top: 20px;
 }
-#root .Home .H_location .H_selectLocation > span{
+.H_location .H_selectLocation > span{
     display: inline-block;
     font-weight: 500;
     margin-bottom: 8px;
 }
-#root .Home .H_location .H_selectLocation p{
+.H_location .H_selectLocation p{
     font-size: 16px;
     margin-bottom: 37px;
     display: flex;
     align-items: center;
 }
-#root .Home .H_location .H_selectLocation p > span{
+.H_location .H_selectLocation p > span{
     font-size: 12px;
     color: rgb(157, 156, 156);
     margin-left: 10px;
 }
-#root .Home .H_location .H_selectLocation .H_detail{
+.H_location .H_selectLocation .H_detail{
     width: 40px;
     height: 30px;
     border: none;
     font-size: 14px;
     border-radius: 3px;
 }
-#root .Home .H_location .H_selectLocation .H_detail:hover{
+.H_location .H_selectLocation .H_detail:hover{
    background-color: rgb(225, 225, 225);
 }
-#root .Home .H_location .H_selectLocation .H_gu{
+.H_location .H_selectLocation .H_gu{
     display: flex;
     justify-content: space-between;
 }
-#root .Home .H_location .H_selectLocation .H_gu .H_Click> p{
+.H_location .H_selectLocation .H_gu .H_Click> p{
     cursor: pointer;
 }
-#root .Home .H_location .H_selectLocation .H_seoul::before{
+.H_location .H_selectLocation .H_seoul::before{
     content: '';
     width: 100%;
     border-bottom: 1px solid rgb(227, 227, 227);
     position: absolute;
     top:215px;
 }
-#root .Home .H_location .H_selectLocation .H_gimpo::before{
+.H_location .H_selectLocation .H_gimpo::before{
     content: '';
     width: 100%;
     border-bottom: 1px solid rgb(227, 227, 227);
@@ -507,21 +506,21 @@ input:checked + .checkmark {
 }
 
 /* 지점 위치 상세보기 (지도) */
-#root .Home .H_location .H_selectLocation_detail{
+.H_location .H_selectLocation_detail{
     padding: 25px 0 25px 0;
     width: 444px;
 }
-#root .Home .H_location .H_selectLocation_detail > h5{
+.H_location .H_selectLocation_detail > h5{
     padding: 20px 0;
 }
-#root .Home .H_location .H_selectLocation_detail > h5::before{
+.H_location .H_selectLocation_detail > h5::before{
     content: '';
     width: 394px;
     border-bottom: 1px solid rgb(227, 227, 227);
     position: absolute;
     top:710px;
 }
-#root .Home .H_location .H_selectLocation_detail .H_detial_address_title{
+.H_location .H_selectLocation_detail .H_detial_address_title{
     color: rgb(190, 190, 190) ;
     font-size: 15px;
     padding: 10px 0;

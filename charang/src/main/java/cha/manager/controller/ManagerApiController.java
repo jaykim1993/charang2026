@@ -1,11 +1,14 @@
 package cha.manager.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,6 +57,17 @@ public class ManagerApiController {
 		return result;
 	}
 	
+	// bookingId로 예약 하나 가져오기
+	@GetMapping("/onebookcar/{bookingId}")
+	public ManagerDTO onebookcarmanager(
+			@PathVariable("bookingId") String bookingId
+			){
+		ManagerDTO result = managerservice.getoneBookManager(bookingId);
+		return result;
+	}
+	
+	
+	// userId로 한명 예약 가져오기
 	@GetMapping("/onebookcar")
 	public List<ManagerDTO> oneBookCar(HttpSession session) {
 	    String loginId = (String) session.getAttribute("loginUser");
@@ -62,4 +76,15 @@ public class ManagerApiController {
 	    }
 	    return managerservice.getOneBookCar(loginId);
 	}
+	
+	// 현재예약, 미래예약이 존재하지 않는 회원id 출력
+	@GetMapping("/isReservation")
+	public List<String> isReservation(){
+		System.out.println("현재,미래 예약이 존재하는지 확인 컨트롤러");
+		// 현재,미래예약이 존재하지 않는 id만 담을 배열
+		List<String> result = new ArrayList<String>();
+		result = managerservice.getIsRes();
+		return result;
+	}
+	
 }

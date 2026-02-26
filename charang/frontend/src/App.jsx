@@ -69,7 +69,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/searchcarlist" element={<Searchcarlist />} />
                 <Route path="/detailpage/:id" element={<DetailPage />} />
-                <Route path="/reservation" element={<Reservation />} />
+                <Route path="/reservation/:selectedCarId" element={<Reservation />} />
 
                 {/* 이용 가이드 */}
                 <Route path="/guide" element={<GuidePage />}>

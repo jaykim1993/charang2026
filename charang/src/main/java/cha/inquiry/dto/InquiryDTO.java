@@ -9,9 +9,9 @@ public class InquiryDTO {
    private String userId;
    private String title;
    private String content;
-   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+   @JsonFormat(pattern = "yyyy-MM-dd")
    private String regDate;
-   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+   @JsonFormat(pattern = "yyyy-MM-dd")
    private Date modDate;
    private String answer;
    private String password;

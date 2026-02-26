@@ -100,7 +100,7 @@ export default function AllInquiry() {
             margin: userid === 'admin' ?'150px auto' : '0'}}>
             <div className="Inquiry_head">
                 <h4>문의하기</h4>
-                {userid === 'admin' ?
+                {userid === 'admin' || !userid ? 
                     <></>
                     : <button onClick={() => navigate("/customerservice/inquiry/write")}>
                         문의하기

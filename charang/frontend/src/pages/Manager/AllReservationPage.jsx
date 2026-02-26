@@ -13,21 +13,18 @@ export default function AllReservationPage(){
     const navi = useNavigate();
 
     // 예약정보+차량정보 불러오기 from ManagerDTO
-    useEffect(()=>{
-        find();
-    },[])
-    useEffect(()=>{
-        find();
-    },[pageNum]);
+    useEffect(() => {
+    find();
+    }, [pageNum]);
     // Paging from DataContext
     useEffect(() => {
         console.log("paging 상태가 변경됨!! : ", paging);
     }, [paging]); // paging 값이 바뀔 때마다 실행됨
 
+    const pageSize = paging.pageSize;
 
 
-
-    const [searchType, setSearchType] = useState('model');
+    const [searchType, setSearchType] = useState('userId');
     const [searchWord, setSearchWord] = useState('');
     const find = () => {
         console.log("검색 타입:", searchType); 
@@ -44,7 +41,6 @@ export default function AllReservationPage(){
             console.log("예약정보 받기 서버 오류", error);
         })
     }
-
     // --------------삭제
     // 체크한 해당 예약의 bookingId 가져오는 핸들러
     const checkHandler = (e, bookingId) => {
@@ -71,12 +67,15 @@ export default function AllReservationPage(){
                 alert("삭제할 예약을 선택해주세요.");
                 return;
             }else{
+                const confirmCancel = window.confirm('선택 예약을 삭제하시겠습니까?');
+                if (!confirmCancel) return;
                 axios.delete("/api/deleteSelectBooks", {
                     data: delBooking
                     })
                 .then((res)=>{
                     console.log("예약 삭제 결과: ", res.data);
                     if(res.data){
+
                         alert("선택 예약이 삭제되었습니다.");
                         find();
                     }else{
@@ -91,60 +90,69 @@ export default function AllReservationPage(){
         }
 
     return(
-        <div className="ManagerAllReservation">
+        <div className="AllReservation">
             <h1>전체 예약 목록</h1>
             {/* 검색 타입 */}
             <select name="searchType" onChange={(e)=> setSearchType(e.target.value)}>
-                <option value="model">예약 차량</option>
                 <option value="userId">예약자 아이디</option>
+                <option value="model">예약 차량</option>
             </select>
             {/* 검색 */}
             <input type="text" name="searchWord" onChange={(e)=> setSearchWord(e.target.value)}/>
             <button type="button" onClick={find}>검색</button>
-            <table className="managerAllReservation_table" border={1}>
-                <thead className="managerAllReservation_table_th">
+            <table className="AllReservation_table" border={1}>
+                <thead className="AllReservation_table_th">
                     <tr>
-                        <th className="managerAllRes_tableNum">번호</th>
-                        <th className="managerAllRes_tableNum">예약코드</th>
-                        <th className="managerAllRes_tableResDate">예약 일자</th>
-                        <th className="managerAllRes_tableUser">예약자 아이디</th>
-                        <th className="managerAllRes_tableCar">예약 차량</th>
-                        <th className="managerAllRes_tableRentDate">시작 일자</th>
-                        <th className="managerAllRes_tableReturnDate">시작 시간</th>
-                        <th className="managerAllRes_tableResDate">반납 일자</th>
-                        <th className="managerAllRes_tableResDate">반납 시간</th>
-                        <th className="managerAllRes_tableResDate">삭제</th>
-                        
+                        <th className="AllReservation_tableNum">번호</th>
+                        <th className="AllReservation_tableNum">예약코드</th>
+                        <th className="AllReservation_tableUser">예약자 아이디</th>
+                        <th className="AllReservation_tableCar">예약 차량</th>
+                        <th className="AllReservation_tableResDate">예약 일자</th>
+                        <th className="AllReservation_tableRentDate">대여 일자</th>
+                        <th className="AllReservation_tableResDate">반납 일자</th>
+                        <th className="AllReservation_tableResDate">결제수단</th>
+                        <th className="AllReservation_tableResDate">결제금액</th>
+                        <th className="AllReservation_tableResDate">진행상태</th>
+                        <th className="AllReservation_tableResDate">삭제</th>
                     </tr>
                 </thead>
-                <tbody className="managerAllReservation_table_tb">
-                    {allBookCar && allBookCar.length>0?
-                        allBookCar.map((item,index)=>(
-                                <tr key={index} onClick={()=>navi(`/manager/reservationDetail/${item.bookingId}`)}>
-                                    <td>{index+1}</td>
-                                    <td>{item.bookingId}</td>
-                                    <td>{item.bookedDate}</td>
-                                    <td>{item.userId}</td>
-                                    <td>{item.model}</td>
-                                    <td>{item.startDate}</td>
-                                    <td>{item.startTime}</td>
-                                    <td>{item.endDate}</td>
-                                    <td>{item.endTime}</td>
-                                    <td className="m_AllCar_tableDel">
-                                        {/* 체크한 차량의 carId만 값을 들고옴 */}
-                                        <input type="checkbox" name="delcheck" 
-                                        className="AllCar_del" onChange={(e)=>{checkHandler(e, item.bookingId)}}></input>
-                                    </td>
-                                </tr>
-                        ))
+                <tbody className="AllReservation_table_tb">
+                    {allBookCar && allBookCar.length > 0 ? (
+                    allBookCar.map((item, index) => {
+                        const pageSize = paging?.pageSize || 10; // 페이지당 개수
+                        const rowNumber = (pageNum - 1) * pageSize + index + 1;
 
-                        :
-                        <tr className="m_AllCar_tr_none">
-                            <td className="m_AllCar_td_none" colSpan={10}>
-                                예약이 존재하지 않습니다.
+                        return (
+                        <tr key={item.bookingId}>
+                            <td>{rowNumber}</td>
+                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}`)}>{item.bookingId}</td>
+                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}`)}>{item.userId}</td>
+                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}`)}> {item.model}</td>
+                            <td>{item.bookedDate}</td>
+                            <td>{item.startDate} {item.startTime.slice(0, 8)}</td>
+                            <td>{item.endDate} {item.endTime.slice(0, 8)}</td>
+                            <td>{item.paymentMethod}</td>
+                            <td>{item.totalPrice.toLocaleString()}원</td>
+                            <td>{item.bookingStatus === "ONGOING"?"진행중":item.bookingStatus === "UPCOMING"?"대기중":"지난예약"}</td>
+                            <td className="m_AllCar_tableDel">
+                            <input
+                                type="checkbox"
+                                name="delcheck"
+                                className="AllCar_del"
+                                onClick={(e) => e.stopPropagation()}
+                                onChange={(e) => checkHandler(e, item.bookingId)}
+                            />
                             </td>
                         </tr>
-                    }
+                        );
+                    })
+                    ) : (
+                    <tr className="AllReservation_tr_none">
+                        <td className="AllReservation_td_none" colSpan={11}>
+                        예약이 존재하지 않습니다.
+                        </td>
+                    </tr>
+                    )}
                     
                 </tbody>
             </table>

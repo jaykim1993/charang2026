@@ -9,8 +9,6 @@ export default function CustomerServiceNotice(){
     // 로그인 정보/유저 현재 로그인 유저 아이디 알아야됨
     const { userid } = useContext(AuthContext);
 
-    // const { noticeId, userId } = useParams(); 
-
     // 공지사항 목록 상태
     const [notice, setNotice] = useState([]);
 

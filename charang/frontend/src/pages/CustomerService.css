@@ -1,7 +1,23 @@
 .CusAssistance{
-    display: flex;
-    justify-content: space-between;
+    width: 90%;
+    min-height: 800px;
+    color: #333;
+    margin-bottom: 100px;
 }
+.CusFAQ > div > div {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  align-items: center;
+  cursor: pointer;
+}
+.CusFAQ{
+    font-size: 20px;
+}
+.CusFAQ > div{
+    margin: 30px 0;
+}
+
 .CusAssistanceBox1{
     width: 800px;
     height: 160px;
@@ -36,13 +52,6 @@
 .CusAssistanceWrap{
     margin-bottom: 80px;
 }
-.CusFAQ > div > div {
-  display: flex;
-  justify-content: flex-start;
-  gap: 20px;
-  align-items: center;
-  cursor: pointer;
-}
 
 .bi.bi-chevron-down {
   transition: transform 0.3s ease;
@@ -52,17 +61,7 @@
 .bi.bi-chevron-down.active {
   transform: rotate(180deg);
 }
-.CusFAQ{
-    font-size: 20px;
-}
-.CusFAQ > div{
-    margin: 30px 0;
-}
-.CusNotice h2{
-    /* font-weight: 600; */
-    margin-top: 80px;
-    margin-bottom: 30px;
-}
+
 
 .togglediv{
     /* padding: 15px; */
@@ -79,6 +78,7 @@
     color: #838383;
     font-size: 16px;
     margin-top: 10px;
+    user-select: none;
 }
 .CusNoticeLink{
     border: 1px solid rgb(204, 204, 204);
@@ -145,9 +145,7 @@
 .guideGoToHome.active{
     color: #333;
 }
-.CusFAQSpan{
-    user-select: none;
-}
+
 .togglediv{
     user-select: none;
 }
@@ -249,22 +247,17 @@
 .guideMainTextp{
     margin: 10px 0;
 }
-/* 전체 배경 */
-.CusFAQ {
-  padding: 30px;
-  margin-bottom: 50px;
-  border-top: 2px solid #a0a0a0;
-  
-}
 
 /* 채팅 영역 */
 .chat-container {
-  max-width: 900px;
-  margin: 0 auto;
+  /* max-width: 900px; */
+  /* margin: 0 auto; */
   display: flex;
   flex-direction: column;
   gap: 40px;
-  padding-left: 80px;
+  border-top: 2px solid #838383;
+  border-bottom: 2px solid #838383;
+  padding: 30px 0;
 }
 
 /* 한 질문 세트 */
@@ -277,7 +270,7 @@
 /* 공통 말풍선 */
 .chat-bubble {
   max-width: 70%;
-  padding: 18px 32px;
+  padding: 10px 25px;
   border-radius: 20px;
   font-size: 16px;
   line-height: 1.8;
@@ -289,21 +282,32 @@
   align-self: flex-end;
   background:#2591cf;
   color: white;
-  border-radius: 35px 35px 5px 35px;
+  border-radius: 35px 35px 2px 35px;
   cursor: pointer;
   transition: 0.2s;
   position: relative;
-  margin: 20px 0;
+  margin: 20px 70px;
 }
 .chat-bubble.question::after {
+    position: absolute;
     content: "Q";
     color: #2591cf;
-    font-family: 'Montserrat', sans-serif;
+    top: -27px;
+    right: -57px;
+    font-size: 45px;
     font-weight: 700;
+}
+.chat-bubble.question::before {
+    content: '';
     position: absolute;
-    top:-90px;
-    right: -5px;
-    font-size: 60px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    top: -10px;
+    right: -70px;
+    background-color: #fff;
+    /* border: 1px solid #e8eaec; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .chat-bubble.question:hover {
@@ -321,22 +325,36 @@
 
 /* 답변 (왼쪽) */
 .chat-bubble.answer {
-  align-self: flex-start;
-  background: white;
-  color: #333;
-  border-radius: 35px 35px 35px 5px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  position: relative;
+    position: relative;
+    align-self: flex-start;
+    background: white;
+    color: #333;
+    border-radius: 35px 35px 35px 2px;
+    background-color: #e8eaec;
+    /* box-shadow: 0 8px 20px rgba(0,0,0,0.2); */
+    margin-left: 70px;
+    padding: 15px 25px;
 }
+
 .chat-bubble.answer::after {
-    content: "A";
-    color: #2591cf;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
     position: absolute;
-    top:-120px;
-    left: -25px;
-    font-size: 100px;
+    content: "A";
+    color: #fff;
+    bottom: -7px;
+    left: -54px;
+    font-size: 45px;
+    font-weight: 700;
+}
+.chat-bubble.answer::before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    bottom: 0;
+    left: -70px;
+    background-color: #2591cf;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* 텍스트 정리 */
@@ -353,4 +371,20 @@
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
+}
+.CusFAQ > p{
+    font-size: 19px;
+    margin-bottom: 100px;
+}
+.CusFAQ > p a{
+    color: #0b79b7;
+    font-weight: bold;
+}
+.CusFAQ > p a:hover{
+    color: #065d8f;
+    text-decoration: underline;
+}
+
+.guideWrap a.active .MyPageSideMenus{
+    color: #222;
 }

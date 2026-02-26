@@ -23,12 +23,10 @@ export default function DetailPage(){
             DeleteYear,
             startdayText,
             enddayText } = useContext(CalendarContext);
-    // console.log('calculatePrice');
-    // console.log(calculatePrice);
     const storedFilteredInfoUser = JSON.parse(sessionStorage.getItem("filteredInfoUser")) || [];
     const sessionUser = sessionStorage.getItem("userid");
     const userId = sessionUser ? JSON.parse(sessionUser).userId : null;
-    console.log(userId);
+    // console.log("세션에서 가져온 유저아이디: ", userId);
     // 차 id 가져오기
     const selectedCarId = Number(useParams().id);
     // user id 가져오기
@@ -38,22 +36,22 @@ export default function DetailPage(){
         ) || null;
     const navigate = useNavigate();
 
-    console.log(selectedCarId);
+    console.log("선택차량 id 넘어온 값 저장 : ", selectedCarId);
 
      const isReady =
-  selectedCar &&
-  branch.length > 0;  
-    // 사용자 필터
-        const filterCar =
-            storedFilteredInfoUser.find(car => car.carId === selectedCarId) || {
-                filterStartDate: startDate,
-                filterEndDate: endDate,
-                filterStartTime: startTime,
-                filterEndTime: endTime,
-                carId: selectedCar?.carId,
-                branchId: selectedCar?.branchId,
-                fuelType: selectedCar?.fuelType,
-        };
+    selectedCar &&
+    branch.length > 0;  
+        // 사용자 필터
+            const filterCar =
+                storedFilteredInfoUser.find(car => car.carId === selectedCarId) || {
+                    filterStartDate: startDate,
+                    filterEndDate: endDate,
+                    filterStartTime: startTime,
+                    filterEndTime: endTime,
+                    carId: selectedCar?.carId,
+                    branchId: selectedCar?.branchId,
+                    fuelType: selectedCar?.fuelType,
+            };
 
     // 최근 본 차량 추가(localStorage)
    useEffect(() => {
@@ -142,13 +140,11 @@ export default function DetailPage(){
             return;
         }
         if(userId){
-            navigate('/reservation', {
-                state : {selectedCarId}
-            });
-            sessionStorage.setItem(
-            "selectedCarId",
-            JSON.stringify(selectedCarId)
-            );
+            navigate(`/reservation/${selectedCarId}?totalPrice=${totalPrice}`);
+            // sessionStorage.setItem(
+            // "selectedCarId",
+            // JSON.stringify(selectedCarId)
+            // );
         }
     };
 
@@ -177,13 +173,13 @@ export default function DetailPage(){
       <div>차량 정보를 불러오는 중입니다...</div>
     ) : (
       <>
-        <div className="DetailPage">
+
             {/* 좌측 - 상세 전체 */}
             <div className="detailContent">
                 {/* 홈 > 예약 */}
                 <div className="D_Head">
-                    <Link to={'/'}><span>홈</span></Link>
-                    <i className="bi bi-caret-right-fill"></i>
+                    <Link to={'/'}><span style={{color: '#999',cursor:'pointer'}}>홈</span></Link>
+                    <i className="bi bi-chevron-right" style={{color: '#999'}}></i>
                     <span>예약하기</span>
                 </div>
                 {/* 이미지, 차이름 등 */}
@@ -343,7 +339,6 @@ export default function DetailPage(){
                     </button>
                 </div>
             </div>
-        </div>
       </>
     )}
   </div>
