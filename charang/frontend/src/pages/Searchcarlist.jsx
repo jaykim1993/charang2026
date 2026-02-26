@@ -1,4 +1,4 @@
-import { useState, useContext, useMemo, useEffect } from "react";
+import { useState, useContext, useMemo, useEffect, useRef } from "react";
 import { CalendarContext } from "../contexts/Calendarcontext";
 import { BookingContext } from "../contexts/Bookingcontext";
 import { DataContext } from "../contexts/Datacontext";
@@ -57,12 +57,12 @@ export default function Recentcar() {
     const { state } = useLocation();
     const selectedModel = state?.model; // 메인에서 모델 선택해서 넘어온 경우
 
-    const { 
-        firstFilteredCar, setLocation, setBranchId, location, 
-        startDate, endDate, startTime, endTime, 
-        setStartDate, setEndDate, 
-        setIsLocation, setIsCalendar, isLocation, isCalendar, 
-        startdayText, enddayText, DeleteYear, timeAMPM 
+    const {
+        firstFilteredCar, setLocation, setBranchId, location,
+        startDate, endDate, startTime, endTime,
+        setStartDate, setEndDate,
+        setIsLocation, setIsCalendar, isLocation, isCalendar,
+        startdayText, enddayText, DeleteYear, timeAMPM
     } = useContext(CalendarContext);
 
     const { fetchBookedList, calculatePrice } = useContext(BookingContext);
@@ -75,10 +75,10 @@ export default function Recentcar() {
         brand: [],
         option: []
     });
-     useEffect(() => {
+    useEffect(() => {
         fetchBookedList();
-      }, []);
-    const [isDetail, setIsDetail] = useState(null); // 지점 상세 보기 ID
+    }, []);
+    // const [isDetail, setIsDetail] = useState(null); // 지점 상세 보기 ID)))))))))))))))))))))))))))))))))))))
     const [tdOpen, setTdOpen] = useState(false); // 더보기 버튼
 
     // ================= 4. Logic: Derived State (useMemo 사용) =================
@@ -103,7 +103,7 @@ export default function Recentcar() {
             // 옵션은 AND 조건 (모두 포함되어야 함)
             if (option.length > 0) {
                 // FILTER_CONFIG에서 label과 매칭되는 key(DB컬럼명)를 찾아서 검사
-                const optionKeys = option.map(optLabel => 
+                const optionKeys = option.map(optLabel =>
                     FILTER_CONFIG.options.find(o => o.label === optLabel)?.key
                 );
                 // 하나라도 false면 탈락
@@ -179,25 +179,81 @@ export default function Recentcar() {
         setIsCalendar(!isCalendar);
         setIsLocation(false);
     };
-
     const locationHandler = () => {
         setIsCalendar(false);
         setIsLocation(!isLocation);
     };
+    const CloseHandler = () => {
+        setIsCalendar(false);
+        setIsLocation(false);
+    }
+    // const detailCloseHandler = () => {
+    //     if (isDetail) setIsDetail(false);
+    //     else setIsLocation(false);
+    // };
 
-    const detailCloseHandler = () => {
-        if (isDetail) setIsDetail(false);
-        else setIsLocation(false);
-    };
-    
     // 현재 선택된 지점 정보
-    const detailSpot = branch.find(item => item.branchId === isDetail);
+    // const detailSpot = branch.find(item => item.branchId === isDetail);
+    // -----------------------------------------------------------------
+    // 지점 상세보기 모달
+    const [isDetailOpen, setIsDetailOpen] = useState(false);
+    const [selectedBranchId, setSelectedBranchId] = useState(null);
+    const detail = branch.find(
+        item => item.branchId === selectedBranchId
+    );
 
+    let detail_lat = detail?.lat;
+    let detail_lng = detail?.lng;
+
+    // 상세보기 close 버튼 핸들러함수
+    const detailCloseHandler = (e) => {
+        e.stopPropagation();
+        setIsDetailOpen(false);
+    };
+
+    // 모달 바깥쪽 클릭 시 모달 자동 닫히기
+    const calendarRef = useRef(null);
+    const locationRef = useRef(null);
+
+    useEffect(() => {
+        if (!isLocation) return;
+
+        const handleClickOutside = (e) => {
+        if (
+            locationRef.current &&
+            !locationRef.current.contains(e.target)
+        ) {
+            if (isDetailOpen) {
+            setIsDetailOpen(false);
+            }
+            setIsLocation(false);
+        }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
+    }, [isLocation, isDetailOpen]);
+
+    useEffect(() => {
+        if (!isCalendar) return;
+        const handleClickOutside = (e) => {
+        if (calendarRef.current && !calendarRef.current.contains(e.target)) {
+            setIsCalendar(false);
+        }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+    }, [isCalendar])
+    // -----------------------------------------------------------------
 
     // ================= 6. Render Functions =================
     // 상단 선택된 필터 태그 렌더링
     const renderSelectedTags = () => {
-        return Object.entries(selectedFilters).flatMap(([category, values]) => 
+        return Object.entries(selectedFilters).flatMap(([category, values]) =>
             values.map(value => (
                 <button key={`${category}-${value}`} onClick={() => toggleFilter(category, value)}>
                     {value} <i className="bi bi-x-lg"></i>
@@ -225,13 +281,13 @@ export default function Recentcar() {
                         {group.map((car, index) => {
                             const unitPrice = calculatePrice(car);
                             const totalPrice = unitPrice * rentalDuration;
-                            
+
                             return (
-                                <div key={car.carId} 
-                                     className={`car_variant_info ${index !== group.length - 1 ? "Line_active" : ""}`}
-                                     onClick={() => goToDetail(car.carId)}
-                                     style={{ cursor: "pointer" }}>
-                                    
+                                <div key={car.carId}
+                                    className={`car_variant_info ${index !== group.length - 1 ? "Line_active" : ""}`}
+                                    onClick={() => goToDetail(car.carId)}
+                                    style={{ cursor: "pointer" }}>
+
                                     <h4>{modelName} {car.fuelType}</h4>
                                     <p className="S_detail">{car.modelYear}년식 · {car.carSize} · {car.carType}</p>
                                     <i className="bi bi-chevron-right"></i>
@@ -276,7 +332,7 @@ export default function Recentcar() {
                         <h3>차종/차량등급</h3>
                         <div className="cateBtn">
                             {FILTER_CONFIG.carSize.map(size => (
-                                <button key={size} 
+                                <button key={size}
                                     onClick={() => toggleFilter('carSize', size)}
                                     className={selectedFilters.carSize.includes(size) ? 'active' : ''}>
                                     {size}
@@ -288,7 +344,7 @@ export default function Recentcar() {
                         <h3>연료</h3>
                         <div className="cateBtn">
                             {FILTER_CONFIG.fuelType.map(fuel => (
-                                <button key={fuel} 
+                                <button key={fuel}
                                     onClick={() => toggleFilter('fuelType', fuel)}
                                     className={selectedFilters.fuelType.includes(fuel) ? 'active' : ''}>
                                     {fuel}
@@ -304,7 +360,7 @@ export default function Recentcar() {
                                 <h4>{cat}차</h4>
                                 <div className="cateBtn">
                                     {FILTER_CONFIG.brands.filter(b => b.category === cat).map(brand => (
-                                        <button key={brand.name} 
+                                        <button key={brand.name}
                                             onClick={() => toggleFilter('brand', brand.name)}
                                             className={selectedFilters.brand.includes(brand.name) ? 'active' : ''}>
                                             <img src={`images/brands/${brand.img}`} alt={brand.name} />
@@ -319,7 +375,7 @@ export default function Recentcar() {
                         <h3>옵션</h3>
                         <div className="cateBtn">
                             {FILTER_CONFIG.options.map(opt => (
-                                <button key={opt.label} 
+                                <button key={opt.label}
                                     onClick={() => toggleFilter('option', opt.label)}
                                     className={selectedFilters.option.includes(opt.label) ? 'active' : ''}>
                                     {opt.label}
@@ -334,16 +390,175 @@ export default function Recentcar() {
             <div className="R_carlist">
                 <div className="R_reservation">
                     {/* 지점 선택 */}
-                    <div className="R_spotTable">
-                        <div className="spot_choice" style={{ cursor: 'pointer' }}>
+                    <div className="R_spotTable" style={{ cursor: 'pointer' }} ref={locationRef}>
+                        <div className="spot_choice">
                             <div className="R_spotTitle" onClick={locationHandler}>
                                 <p className="R_reservation_p">어디서 출발할까요?</p>
                                 {location ? <h4>{location}</h4> : <h4>지점선택</h4>}
                             </div>
                         </div>
+                        {/* 지점 모달 파트 */}
+                        {isLocation && (
+                            <div className="R_location">
+                            <div className="R_close01">
+                                <i
+                                className="bi bi-x-lg"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+
+                                    if (isDetailOpen) {
+                                    setIsDetailOpen(false);
+                                    } else {
+                                    setIsLocation(false);
+                                    }
+                                }}
+                                />
+                            </div>
+                            {/* 상세 위치 (지도.) */}
+                            {isDetailOpen ? (
+                                <>
+                                <div className="R_selectLocation_detail">
+
+                                    <MapContainer center={[detail_lat, detail_lng]} zoom={20} style={{ height: "300px", width: "394px" }}>
+                                    <TileLayer
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+                                    />
+                                    {/* positions 배열을 map으로 돌면서 여러 Marker 렌더링 */}
+                                    {branch.map((spot) => (
+                                        <Marker key={spot.branchId} position={[spot.lat, spot.lng]}
+                                        icon={SelectedIcon}
+                                        >
+                                        <Popup>{spot.name}</Popup>
+                                        </Marker>
+                                    ))}
+                                    </MapContainer>
+                                    <h5>{detail.name}</h5>
+                                    <p className="R_detial_address_title">주소</p>
+                                    <span className="R_detial_address">{detail.address}</span>
+                                </div>
+
+                                </>
+                            ) : (
+                                // 지점 목록 
+                                <>
+                                <h3>지점을 선택하세요</h3>
+                                <div className="R_selectLocation">
+                                    <span>서울</span>
+                                    <div className="R_seoul">
+                                    <div className="R_gu">
+                                        <div className="R_Click">
+                                        <p
+                                            onClick={() => {
+                                            setLocation("서울북부");
+                                            setBranchId(5);
+                                            setIsLocation(false);
+                                            }}
+                                        >
+                                            서울 북부 <span>노원구</span>
+                                        </p>
+                                        </div>
+                                        <button className="R_detail"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setSelectedBranchId(5);
+                                            setIsDetailOpen(true);
+                                        }}>상세</button>
+                                    </div>
+
+                                    <div className="R_gu">
+                                        <div className="R_Click">
+                                        <p
+                                            onClick={() => {
+                                            setLocation("서울남부");
+                                            setBranchId(4);
+                                            setIsLocation(false);
+                                            }}
+                                        >
+                                            서울 남부 <span>서초구</span>
+                                        </p>
+                                        </div>
+                                        <button className="R_detail"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setSelectedBranchId(4);
+                                            setIsDetailOpen(true);
+                                        }}>상세</button>
+                                    </div>
+
+                                    <div className="R_gu">
+                                        <div className="R_Click">
+                                        <p
+                                            onClick={() => {
+                                            setLocation("서울동부");
+                                            setBranchId(3);
+                                            setIsLocation(false);
+                                            }}
+                                        >
+                                            서울 동부 <span>동대문구</span>
+                                        </p>
+                                        </div>
+                                        <button className="R_detail"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setSelectedBranchId(3);
+                                            setIsDetailOpen(true);
+                                        }}>상세</button>
+                                    </div>
+                                    </div>
+
+                                    <span>김포</span>
+                                    <div className="R_gimpo">
+                                    <div className="R_gu">
+                                        <div className="R_Click">
+                                        <p
+                                            onClick={() => {
+                                            setLocation("김포공항");
+                                            setBranchId(2);
+                                            setIsLocation(false);
+                                            }}
+                                        >
+                                            김포공항 <span>강서구</span>
+                                        </p>
+                                        </div>
+                                        <button className="R_detail"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setSelectedBranchId(2);
+                                            setIsDetailOpen(true);
+                                        }}>상세</button>
+                                    </div>
+                                    </div>
+
+                                    <span>인천</span>
+                                    <div className="R_gu">
+                                    <div className="R_Click">
+                                        <p
+                                        onClick={() => {
+                                            setLocation("인천공항");
+                                            setBranchId(1);
+                                            setIsLocation(false);
+                                        }}
+                                        >
+                                        인천공항 <span>인천</span>
+                                        </p>
+                                    </div>
+                                    <button className="R_detail"
+                                        onClick={(e) => {
+                                        e.stopPropagation();
+                                        setSelectedBranchId(1);
+                                        setIsDetailOpen(true);
+                                        }}>상세</button>
+                                    </div>
+                                </div>
+                                </>
+                            )}
+                            </div>
+                        )}
+
                     </div>
                     {/* 날짜 선택 */}
-                    <div className="R_dateTable" style={{ cursor: 'pointer' }}>
+                    <div className="R_dateTable" style={{ cursor: 'pointer' }}  ref={calendarRef}>
                         <div className="R_dateTitle" onClick={calendarHandler}>
                             <p>언제 필요하세요?</p>
                             {startDate && endDate ? (
@@ -361,125 +576,23 @@ export default function Recentcar() {
                                 초기화 <i className="bi bi-arrow-clockwise"></i>
                             </button>
                         </div>
+                        {/* 달력 모달 */}
+                        {isCalendar && (
+                            <div className="R_calendar-slide open">
+                                <div className="R_isCalendar_top">
+                                    <div className="R_close02">
+                                        <i className="bi bi-x-lg" onClick={() => setIsCalendar(false)}></i>
+                                    </div>
+                                </div>
+                                <Calendar />
+                            </div>
+                        )}
                     </div>
                 </div>
 
-                {/* 지점 모달 */}
-                {isLocation && (
-                    <div className="R_location">
-                        <div className="R_close01"><i className="bi bi-x-lg"  onClick={detailCloseHandler}></i></div>
-                        {isDetail && detailSpot ? (
-                            <div className="R_selectLocation_detail">
-                                <MapContainer center={[detailSpot.lat, detailSpot.lng]} zoom={15} style={{ height: "300px", width: "394px" }}>
-                                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; OSM' />
-                                    {branch.map((spot) => (
-                                        <Marker key={spot.branchId} position={[spot.lat, spot.lng]} icon={SelectedIcon}>
-                                            <Popup>{spot.name}</Popup>
-                                        </Marker>
-                                    ))}
-                                </MapContainer>
-                                <h5>{detailSpot.name}</h5>
-                                <p className="R_detial_address_title">주소</p>
-                                <span className="R_detial_address">{detailSpot.address}</span>
-                            </div>
-                        ) : (
-                            <>
-                                <h3>지점을 선택하세요</h3>
-                                <div className="R_selectLocation">
-                                    <span>서울</span>
-                                    <div className="R_seoul">
-                                    <div className="R_gu">
-                                        <div className="R_Click">
-                                        <p
-                                            onClick={() => {
-                                                setLocation("서울북부");
-                                                setBranchId(5);
-                                                setIsLocation(false);
-                                            }}
-                                            >
-                                            서울 북부 <span>노원구</span>
-                                        </p>
-                                        </div>
-                                        <button className="R_detail" onClick={()=>setIsDetail(5)}>상세</button>
-                                    </div>
+               
 
-                                    <div className="R_gu">
-                                        <div className="R_Click">
-                                        <p
-                                            onClick={() => {
-                                                setLocation("서울남부");
-                                                setBranchId(4);
-                                                setIsLocation(false);
-                                            }}
-                                            >
-                                            서울 남부 <span>서초구</span>
-                                        </p>
-                                        </div>
-                                        <button className="R_detail" onClick={()=>setIsDetail(4)}>상세</button>
-                                    </div>
-
-                                    <div className="R_gu">
-                                        <div className="R_Click">
-                                        <p
-                                            onClick={() => {
-                                                setLocation("서울동부");
-                                                setBranchId(3);
-                                                setIsLocation(false);
-                                            }}
-                                            >
-                                            서울 동부 <span>동대문구</span>
-                                        </p>
-                                        </div>
-                                        <button className="R_detail" onClick={()=>setIsDetail(3)}>상세</button>
-                                    </div>
-                                    </div>
-
-                                    <span>김포</span>
-                                    <div className="R_gimpo">
-                                    <div className="R_gu">
-                                        <div className="R_Click">
-                                        <p
-                                            onClick={() => {
-                                                setLocation("김포공항");
-                                                setBranchId(2);
-                                                setIsLocation(false);
-                                            }}
-                                            >
-                                            김포공항 <span>강서구</span>
-                                        </p>
-                                        </div>
-                                        <button className="R_detail" onClick={()=>setIsDetail(2)}>상세</button>
-                                    </div>
-                                    </div>
-
-                                    <span>인천</span>
-                                    <div className="R_gu">
-                                    <div className="R_Click">
-                                        <p
-                                            onClick={() => {
-                                                setLocation("인천공항");
-                                                setBranchId(1);
-                                                setIsLocation(false);
-                                            }}
-                                            >
-                                        인천공항 <span>인천</span>
-                                        </p>
-                                    </div>
-                                    <button className="R_detail" onClick={()=>setIsDetail(1)}>상세</button>
-                                    </div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                )}
-
-                {/* 달력 모달 */}
-                {isCalendar && (
-                    <div className={`R_calendar-slide ${isCalendar ? "open" : ""}`}>
-                        <div className="R_close02"><i className="bi bi-x-lg" onClick={() => setIsCalendar(false)}></i></div>
-                        <Calendar />
-                    </div>
-                )}
+                
 
                 {/* 선택된 필터 태그 표시 & 초기화 버튼 */}
                 <div className="cate_choice">
@@ -497,11 +610,11 @@ export default function Recentcar() {
 
                 {/* 차량 리스트 결과 */}
                 <p>총 <strong>{selectedModel ? secondFilteredCar.length : secondFilteredCar.length}</strong> 종</p>
-                
+
                 <ul className={`GrounpedCarsWrap ${tdOpen ? 'open' : ''}`}>
                     {renderCarList()}
                 </ul>
-                
+
                 <button className="tableOpener" onClick={() => setTdOpen(!tdOpen)}>
                     {tdOpen ? '접기' : '더보기'}
                 </button>
