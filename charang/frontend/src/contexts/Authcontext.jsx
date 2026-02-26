@@ -55,27 +55,6 @@ export default function AuthProvider({children}){
         setModal('login')
     }
 
-    // ================================================ 페이징 ====================================================
-    // 서버에서 받은 ph
-    const [paging, setPaging] = useState({}); 
-    // 현재 페이지 번호 (기본값 1)
-    const [pageNum, setPageNum] = useState(1); 
-
-    // 페이지 이동 핸들러
-    const pagesHandler = () => {
-      const pageNumbers = [];
-      // paging 가 있고, startPage와 endPage가 계산되었을 때만 작동
-      if(paging.startPage && paging.endPage){
-          for(let i = paging.startPage; i <= paging.endPage; i++){
-              pageNumbers.push(i);
-          }
-      }
-      // console.log("페이징 확인: ", pageNumbers);
-      return pageNumbers;
-    }
-  // =============================================================================================================
-    
-
 
     // 공유할 변수, 함수 내보내기
     return(
@@ -87,13 +66,7 @@ export default function AuthProvider({children}){
             logout,
             modal,
             setModal,
-            loginNeeded,
-            // 페이징
-            pagesHandler,
-            paging,
-            setPageNum,
-            setPaging,
-            pageNum
+            loginNeeded
             }}>
             {children}
         </AuthContext.Provider>

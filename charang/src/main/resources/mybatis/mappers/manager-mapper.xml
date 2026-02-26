@@ -37,7 +37,7 @@
 	    END AS bookingStatus
 	    
 		FROM booking b
-		INNER JOIN car c
+		LEFT JOIN car c
 		ON b.carId = c.carId
 		ORDER BY b.bookedDate ASC
 		LIMIT #{startRow}, #{pageSize}
@@ -62,15 +62,19 @@
 	    END AS bookingStatus
 	  ]]>
 	  FROM booking b
-	  INNER JOIN car c ON b.carId = c.carId
+	  LEFT JOIN car c ON b.carId = c.carId
 
 	  <where>
 	    <choose>
-	      <when test="searchType == 'userId'">
-	        b.userId LIKE CONCAT('%', #{searchKeyWord}, '%')
+	      <when test="searchType == 'bookingId'">
+	        b.bookingId LIKE CONCAT('%', #{searchKeyWord}, '%')
 	      </when>
 	      <otherwise>
-	        c.model LIKE CONCAT('%', #{searchKeyWord}, '%')
+<<<<<<< HEAD
+	        b.bookingId LIKE CONCAT('%', #{searchKeyWord}, '%')
+=======
+	        b.userId LIKE CONCAT('%', #{searchKeyWord}, '%')
+>>>>>>> main
 	      </otherwise>
 	    </choose>
 	  </where>

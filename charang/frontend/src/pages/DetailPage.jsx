@@ -73,7 +73,7 @@ export default function DetailPage(){
         brand: selectedCar.brand,
         brandLogo: selectedCar.brandLogo,
         fuelType: selectedCar.fuelType,
-        viewed_at: Date.now(), // ✅ 이걸로 정렬하는게 더 좋음
+        viewed_at: Date.now(),
     };
 
     const updated = [newRecentView, ...filtered];
@@ -138,10 +138,6 @@ export default function DetailPage(){
         }
         if(userId){
             navigate(`/reservation/${selectedCarId}?totalPrice=${totalPrice}`);
-            // sessionStorage.setItem(
-            // "selectedCarId",
-            // JSON.stringify(selectedCarId)
-            // );
         }
     };
 

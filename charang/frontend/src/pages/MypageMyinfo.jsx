@@ -115,7 +115,7 @@ export default function MypageMyinfo() {
                 </tbody>
             </table>
             <button className='myinfo-btn2' type='button' onClick={() => setUnregiOverlay(true)}>
-                <i className="bi bi-arrow-right"></i> 회원 탈퇴하기
+                회원 탈퇴하기
             </button>
             {unregiOverlay &&
                 <div className='unreOverlay'>

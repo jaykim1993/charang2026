@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../contexts/Authcontext";
-import { BookingContext } from "../../contexts/Bookingcontext";
+import { DataContext } from "../../contexts/Datacontext";
 import { useNavigate } from "react-router-dom";
 
 import './AllUserPage.css';
@@ -8,26 +7,18 @@ import axios from "axios";
 
 export default function AllUserPage(){
 
-    const {pagesHandler, paging, pageNum, setPageNum, setPaging} = useContext(AuthContext);
-    const {myBooking}=useContext(BookingContext);
+    const {pagesHandler, paging, pageNum, setPageNum, allBookCar, user, 
+        userFind, setSearchType, setSearchWord, searchWord, bookFind} = useContext(DataContext);
 
-    // 검색 회원 출력
-    // const [searchValue, setSearchValue] = useState('');
-    const [search, setSearch] = useState(''); // 검색어 담는 상태변수
-    const [ user, setUser] = useState([]);
 
-    const find = () => {
-        axios.get("/api/searchUser",{params:{search:search,page:pageNum}})
-        .then((res)=>{
-            console.log("검색 회원: ",res.data);
-            setPaging(res.data.ph); // 페이징
-            setUser(res.data.list); // 검색 회원 가져온 데이터
-            setSearch('');
-        })
-        .catch((error)=>{
-            console.log("검색 회원 출력 에러: ",error);
-        })
-    }
+
+    console.log(allBookCar);
+
+    // 전체 예약, 전체 회원 출력 함수 호출
+     useEffect(()=>{
+        userFind();
+        bookFind();
+    },[pageNum]);
 
     // 회원 삭제
     const [delUser, setDelUser] = useState([]);
@@ -48,56 +39,34 @@ export default function AllUserPage(){
         }
     }
 
-    // [해당 회원들의 예약 유무 불러오기]
-    const [allRes, setAllRes] = useState([]); // 현재,미래에 예약이 없는 회원id(탈퇴가능한 회원)를 담는 변수
-
-    useEffect(()=>{
-        axios.get('/api/isReservation')
-        .then((res)=>{
-            console.log("예약없는 회원id: ",res.data);
-            setAllRes(res.data);
-            console.log(allRes);
-        })
-        .catch((error)=>{
-            console.log("예약없는 회원id 데이터 오류: ", error);
-        })
-    },[delUser]);
-
     const delHandler = () => {
-        // 예약내역이 존재하는 회원인지 확인
-        if(myBooking.length > 0){
-            alert("예약 내역이 존재해 탈퇴가 불가능합니다.");
+        if(delUser.length == 0){
+            alert("삭제할 예약을 선택해주세요.");
             return;
+        }else{
+            axios.delete("/api/delete",{data:delUser})
+            .then((res)=>{
+                console.log("삭제 결과: ", res.data);
+                if(res.data == 1){
+                    alert("삭제되었습니다");
+                    find();
+                }else{
+                    alert("다시 시도해주세요.");
+                }
+            })
+            .catch((error)=>{
+                console.log("받아온 삭제 결과 에러: ", error);
+            })
         }
-        axios.delete("/api/delete",{data:delUser})
-        .then((res)=>{
-            console.log("삭제 결과: ", res.data);
-            if(res.data == 1){
-                alert("삭제되었습니다");
-                find();
-            }else{
-                alert("다시 시도해주세요.");
-            }
-        })
-        .catch((error)=>{
-            console.log("받아온 삭제 결과 에러: ", error);
-        })
     }
 
 
     // 예약이 앞으로 존재하는 회원인지 구분
     const noRes = (userId) => {
-        // 예약 존재 X
-        return allRes.includes(userId);
+        // 과거예약(map으로 pastUser에 배열로 출력시켜 담음)
+        const pastUser = allBookCar.filter(pastStatus => pastStatus.bookingStatus === "PAST").map(res=>res.userId);
+        return pastUser.includes(userId);
     }
-
-    useEffect(()=>{
-        find();
-    },[]);
-    
-    useEffect(()=>{
-        find();
-    },[pageNum]);
 
     // 해당 정보 상세보기 핸들러
     const navigate = useNavigate();
@@ -106,35 +75,61 @@ export default function AllUserPage(){
         navigate(`/manager/userDetail/${userId}`); // 주소창에 ID를 실어서 페이지 자체를 이동
     }
 
+    // placeholder
+    const placeholderWord = (searchType) => {
+        console.log("검색", searchType);
+         if(searchType === "userId"){
+            return "아이디를 검색하세요";
+        }else{
+            return "이름을 검색하세요";
+        }
+    }
+
+
     return(
         <div className="ManagerAllUser">
             <h1>전체 회원 목록</h1>
 
             {/* 검색 */}
             <div className="mau_find">
-                <input type="text" name="searchWord" className="mau_input" placeholder="이름을 검색하세요"
-                onChange={(e)=> setSearch(e.target.value)} value={search}/>
-                <button className="mau_btn" type="button" onClick={find}>검색</button>
+                {/* 검색 타입 */}
+                <select name="searchType" className="mau_select"
+                onChange={(e)=> setSearchType(e.target.value)}>
+                    <option value="userId">회원ID</option>
+                    <option value="model">회원이름</option>
+                </select>
+                {/* 검색 단어*/}
+                <input type="text" name="searchWord" className="mau_input" placeholder={placeholderWord(searchType)}
+                onChange={(e)=> setSearchWord(e.target.value)} value={searchWord}/>
+                <button className="mau_btn" type="button" onClick={userFind}>검색</button>
+                <p className="mau_info">
+                    <i className="bi bi-exclamation-circle-fill" style={{paddingRight:"5px"}}></i>
+                    이용 중이거나 예약된 내역이 있으면 삭제가 불가능합니다.
+                </p>
             </div>
 
             <table className="managerAllUser_table" border={1}>
                 <thead className="managerAllUser_table_th">
                     <tr className="managerAllUser_tr">
-                        {/* <th className="managerAllUser_num">번호</th> */}
-                        <th className="managerAllUser_userId">회원아이디</th>
+                        <th className="managerAllUser_num">번호</th>
+                        <th className="managerAllUser_userId">회원ID</th>
                         <th className="managerAllUser_userName">회원이름</th>
                         <th className="managerAllUser_userEmail">이메일</th>
                         <th className="managerAllUser_userResiNum">주민등록번호</th>
                         <th className="managerAllUser_userPhone">휴대폰번호</th>
                         <th className="managerAllUser_userRegDate">가입일자</th>
-                        <th className="managerAllUser_userDel">삭제</th>
+                        <th className="managerAllUser_userDel">회원삭제</th>
                     </tr>
                 </thead>
                 {user ? 
                     <tbody className="managerAllUser_table_tb">
-                        {user.map((user,index) => (
-                            <tr className="managerAllUser_tr" key={index}>
-                                {/* <td>{index+1}</td> */}
+                        {user.map((user,index) => {
+                            const pageSize = paging?.pageSize || 10; // 페이지당 개수
+                            const rowNumber = (pageNum - 1) * pageSize + index + 1;
+                            
+
+                            return  (<tr className="managerAllUser_tr" key={index}>
+                                <td>{rowNumber}</td>
                                 <td>
                                     <p>{user.userId}</p>
                                 </td>
@@ -151,15 +146,15 @@ export default function AllUserPage(){
                                     {/* 체크한 회원의 userId만 값을 들고옴 */}
                                     {/* e : 해당 값의 체크 상태를 확인하기 위해 */}
                                     {noRes(user.userId)?
-                                        <p>예약 존재</p>
+                                        <p>불가</p>
                                         :
                                         <input type="checkbox" name="delcheck" 
                                         className="AllUser_del" onChange={(e)=>{checkHandler(e, user.userId)}}></input>
                                     }
                                     
                                 </td>
-                            </tr>
-                        ))}
+                            </tr>)
+                        })}
                     </tbody>
                 :
                     <tbody className="managerAllUser_table_tb_none">

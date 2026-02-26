@@ -62,6 +62,7 @@ export default function MypageDetail(){
             if (diffDays > 0) dText = `D-${diffDays}`;
             else if (diffDays <= 0 && diffDayse > 0) dText = '진행중';
             else if (diffDayse < 0 ) dText = `완료된 예약`;
+            else if (diffDays === 0) dText = "D-Day";
   
     //몇시간 이용하는지
         let date = (new Date(`${bookedThis.endDate}T${bookedThis.endTime}`)-new Date(`${bookedThis.startDate}T${bookedThis.startTime}`))/ (1000 * 60 * 30);

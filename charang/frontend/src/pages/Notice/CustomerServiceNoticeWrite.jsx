@@ -44,7 +44,6 @@ export default function CustomerServiceNoticeWrite(){
     const backHandler = () => {
         if(confirm('저장되지 않습니다. 돌아가시겠습니까?')){
             navigate(-1);
-            // return;
         }else{
             return;
         }
@@ -63,17 +62,17 @@ export default function CustomerServiceNoticeWrite(){
                         </td>
                     </tr>
                     <tr>
-                        <th>내용</th>
+                        <th>공지내용</th>
                         <td>
-                            <textarea type="text" name="content" rows="15"
+                            <textarea type="text" name="content" rows="20"
                             onChange={(e) => setContent(e.target.value)} placeholder="내용을 입력하세요." />
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div className="adminBtn">
-                <button onClick={noticeChk}>작성완료</button>
-                <button onClick={backHandler}>뒤로가기</button>
+                <button onClick={noticeChk} className="adminBtn_1">작성완료</button>
+                <button onClick={backHandler} className="adminBtn_2">뒤로가기</button>
             </div>
         </div>
     )

@@ -20,7 +20,7 @@ input:checked + .checkmark {
 
 /* 예약섹션 */
 #root .Home .H_reservation{
-    width: 920px;
+    width: 940px;
     height: 136px;
     display: flex;
     justify-content: space-between;
@@ -77,6 +77,7 @@ input:checked + .checkmark {
     background-color: #fff;
     width: 460px;
     height: 123px;
+    /* transform: translateX(-12px); */
     margin: 0;
     padding: 33px 0 0 40px;
     border-radius: 100px;
@@ -92,7 +93,21 @@ input:checked + .checkmark {
     padding: 5px 0 0 0;
 }
 /* 찾기버튼 */
-#root .Home .H_reservation .H_spotTable .H_searchButton{
+#root .Home .H_reservation .H_spotTable .spot_choice .H_searchButton{
+    position: absolute;
+    top: 39px;
+    right: 43px;   
+    width: 170px;
+    padding: 15px 0px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #0b79b7 ;
+    border: none;
+}
+/* 찾기버튼 */
+#root .Home .H_reservation .H_spotTable .spot_choice.open .H_searchButton{
     position: absolute;
     top: 39px;
     right: 43px;   
@@ -388,17 +403,17 @@ input:checked + .checkmark {
 
 /* 지점 선택 모달. */
 .H_location{
-    width: 444px;
+    width: 460px;
     margin: 0 auto;
-    padding: 25px;
+    padding: 15px 25px 25px 25px;
     padding-bottom: 0;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
     position: absolute;
-    top: 150px;
-    right: 180px;
-    z-index: 100;
+    top: 140px;
+    right: 0;
+    z-index: 30;
 }
 
 /* 달력 */
@@ -430,20 +445,21 @@ input:checked + .checkmark {
 .calendar-slide.open {
     max-height: 800px; /* 캘린더 높이 예상값 */
     position: absolute;
-    top: 145px;
-    left: 40px;
-    z-index: 100;
+    top: 140px;
+    left: 0;
+    z-index: 30;
     width: 680px;
     height: 585px;
     background-color: #fff;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     border-radius: 15px;
-    padding: 25px 5px 0 0;
+    padding: 15px 5px 0 0;
 }
 
 /* 지점 선택 목록 */
 .H_location .H_close01{
-    padding-left: 375px;
+    padding-left: 393px;
+    margin-bottom: 15px;
 }
 .H_location .H_close01 > i{
     width: 15px;
@@ -527,12 +543,6 @@ input:checked + .checkmark {
     padding: 10px 0;
 }
 
-/* 추가 광고 12.23-성중 */
-/* .H_section05 {
-    padding: 30px 0;
-    
-} */
-
 .H_sec04_H {
     margin-bottom: 30px;
 }
@@ -543,6 +553,7 @@ input:checked + .checkmark {
 .H_sec04_list {
     width: 1300px;
     margin: 0 auto;
+    /* background-color: red; */
     padding: 0;
     list-style: none;
     display: flex;
