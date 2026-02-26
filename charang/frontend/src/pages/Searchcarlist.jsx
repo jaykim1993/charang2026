@@ -1,7 +1,5 @@
 import { useState, useContext, useMemo, useEffect } from "react";
-// import { DataContext } from "../contexts/Datacontext"; // 안쓰면 제거
 import { CalendarContext } from "../contexts/Calendarcontext";
-import { AuthContext } from "../contexts/Authcontext";
 import { BookingContext } from "../contexts/Bookingcontext";
 import { DataContext } from "../contexts/Datacontext";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -88,7 +86,7 @@ export default function Recentcar() {
     // => 화면 랜더링용 마지막 필터 적용 배열이며, 그룹화해서 랜더링 진행됨
     const secondFilteredCar = useMemo(() => {
         let cars = firstFilteredCar;
-        console.log('firstFilteredCar(cars), ', cars);
+        // console.log('firstFilteredCar(cars), ', cars);
         // 메인페이지에서 모델을 선택해서 들어온 경우
         if (selectedModel) {
             cars = cars.filter(car => car.model === selectedModel);
@@ -172,7 +170,7 @@ export default function Recentcar() {
             alert("날짜와 지점을 먼저 선택해주세요.");
             return;
         }
-        console.log(carId);
+        // console.log("선택차량 아이디 : ", carId);
         navigate(`/detailpage/${carId}`);
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
@@ -477,7 +475,7 @@ export default function Recentcar() {
 
                 {/* 달력 모달 */}
                 {isCalendar && (
-                    <div className={`calendar-slide ${isCalendar ? "open" : ""}`}>
+                    <div className={`R_calendar-slide ${isCalendar ? "open" : ""}`}>
                         <div className="R_close02"><i className="bi bi-x-lg" onClick={() => setIsCalendar(false)}></i></div>
                         <Calendar />
                     </div>

@@ -1,5 +1,6 @@
 import './Header.css';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../contexts/Authcontext';
 import { BookingContext } from "../contexts/Bookingcontext";
 import { Link } from 'react-router-dom';
@@ -58,13 +59,29 @@ export default function Header() {
         setOpenUserBookedModal(false)
     };
 
+    // 모달 바깥쪽 클릭 시 모달 자동 닫히기
+    const modalRef = useRef(null);
 
+    useEffect(()=>{
+        if(!openUserBookedModal) return;
+        const handleClickOutside =(e)=>{
+            if(modalRef.current && !modalRef.current.contains(e.target)) {
+            closeModal();
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return ()=> {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+    }, [openUserBookedModal])
 
 
 
     return (
         <div className='headerWrap'>
             <header className="header">
+               
                 <div className='headerflex' >
                     <div>
                         <button
@@ -153,9 +170,13 @@ export default function Header() {
                         }
                     </nav>
                 </div>
+
+
                 {/* 예약 내역 헤더 모달 */}
                 {userid ?
-                    <div className={`headerUserBookedModal ${openUserBookedModal ? "open" : ""}`}>
+                    <div
+                        ref={modalRef}
+                        className={`headerUserBookedModal ${openUserBookedModal ? "open" : ""}`}>
                         <div className='headerModalH'>
                             <strong className='loginColor'>
                                 {username}
@@ -451,7 +472,7 @@ export default function Header() {
                                         </div>
                                     </li>
                                 </Link>
-                                <Link to={'/customerservice/inquiry'} style={{ textDecoration: 'none' }}>
+                                <Link to={'/customerservice/inquiry/list'} style={{ textDecoration: 'none' }}>
                                     <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
                                         <div>문의하기</div>
                                         <div className='headerNavpointer'>

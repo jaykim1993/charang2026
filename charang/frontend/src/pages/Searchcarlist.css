@@ -392,7 +392,7 @@ a, p, h4, h3, h2, h1{
 }
 
 /* 달력 */
-.calendar-slide {
+.R_calendar-slide {
     max-height: 0;
     overflow: hidden;
     position: absolute;
@@ -401,7 +401,7 @@ a, p, h4, h3, h2, h1{
     z-index: 100;
 }
 
-.calendar-slide.open {
+.R_calendar-slide.open {
   position: absolute;
   top: 140px;
   right: 0;
@@ -413,11 +413,11 @@ a, p, h4, h3, h2, h1{
    border-radius: 15px;
    padding: 25px 5px 0 0;
 }
-.calendar-slide.open .R_close02{
+.R_calendar-slide.open .R_close02{
     padding-left: 640px;
     margin-bottom: 20px;
 }
-.calendar-slide.open .R_close02 > i{
+.R_calendar-slide.open .R_close02 > i{
     width: 15px;
     cursor: pointer;
     color: #999;

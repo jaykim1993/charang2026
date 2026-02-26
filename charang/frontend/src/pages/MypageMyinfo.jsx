@@ -52,7 +52,7 @@ export default function MypageMyinfo(){
     axios.delete('/api/delete',{ data: [] })
         .then((res) => {
             if (res.data === 1) {
-                alert('회원 탈퇴 처리 완료');
+                alert('탈퇴가 완료되었습니다.');
                 logout();
                 navigate("/");
             } else {

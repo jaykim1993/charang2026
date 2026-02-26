@@ -1,46 +1,225 @@
-#root .ManagerAllReservation{
+#root .AllReservationervation{
     width: 1300px;
     margin: 100px auto;
     border: 1px solid red;
 }
 
-#root .ManagerAllReservation h1{
-    border: 1px solid blue;
+.AllReservation {
+    max-width: 1300px;
+    margin: 120px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    font-family: sans-serif;
+}
+
+.AllReservation h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.AllReservation .mac_find{
+    display: flex;
+    vertical-align: middle;
+}
+
+.AllReservation .mac_find .mac_type, .mac_word{
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 5px;
+    vertical-align: middle;
+    outline: none;
+}
+
+.AllReservation .acp_btn {
+    height: 40px;
+    padding: 0 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.AllReservation button:hover {
+    background-color: #555;
+}
+
+/* 테이블*/
+.AllReservation_table {
+    /* width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-top: 2px solid #333; */
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgb(221, 221, 221);
+}
+
+.AllReservation_th .AllReservation_tr {
+    background-color: #f8f9fa;
+}
+
+.AllReservation_th th {
+    padding: 15px 10px;
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+    border-bottom: 1px solid #c0c0c0;
+}
+
+.AllReservation_tb .AllReservation_tr > td {
+    padding: 12px 0px;
+    /* border: 1px solid red; */
+    font-size: 15px;
+    color: #333;
+    text-align: center;
+    border-bottom: 1px solid #d8d8d8;
+    text-align: center;
+}
+.AllReservation_clicktd{
+    cursor: pointer;
+}
+.AllReservation_clicktd:hover{
+    text-decoration: underline;
+}
+.AllReservation_tb .AllReservation_tr .AllReservation_tableNum{
+    width: 10%;
+}
+.AllReservation_tb .AllReservation_tr .AllReservation_tableCarImg{
+    width: 15%;
+}
+.AllReservation_tb .AllReservation_tr .AllReservation_tableBrand{
+    width: 15%;
+}
+.AllReservation_tb .AllReservation_tr .AllReservation_tableModel{
+    width: 15%;
+}
+
+/* 이미지 처리 */
+.AllReservation_tableCarImg img {
+    width: 100px;
+    height: 60px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.AllReservation_tableCarImg img:hover {
+    transform: scale(1.03);
+}
+
+/* 데이터 없을 때 */
+.AllReservation_tr_none {
+    height: 200px;
+}
+
+.AllReservation_td_none {
+    color: #999;
+    font-size: 16px;
+}
+
+/* 페이징 */
+.notice_paging {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 30px;
+}
+
+.notice_paging button {
+    min-width: 35px;
+    height: 35px;
+    padding: 0;
+    background-color: #fff;
+    color: #666;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.notice_paging button.active {
+    background-color: #dcdcdc;
+    color: #fff;
+    border-color: #ababab;
+}
+
+.notice_paging button:hover:not(.active) {
+    background-color: #f1f1f1;
+}
+
+/* 하단 버튼 영역 */
+.btn_part {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.del_btn {
+    height: 40px;
+    padding: 0 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.del_btn:hover {
+    background-color: #555;
+}
+
+.AllCar_del {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
     text-align: center;
     margin: 50px 0;
 }
 /* 표 */
-#root .ManagerAllReservation .managerAllReservation_table .ManagerAllRes_table{
+#root .AllReservation .AllReservation_table .AllReservation_table{
     margin: 0 auto;
 }
-#root .ManagerAllReservation .managerAllReservation_table .ManagerAllRes_table
- .managerAllReservation_table_th_tb th, .managerAllReservation_table_tb td{
+#root .AllReservation .AllReservatio_table .AllReservation_table
+ .AllReservation_table_th_tb th, .AllReservation_table_tb td{
     border: 1px solid rgb(204, 204, 204);
     padding: 5px;
     text-align: center;
 }
 /* 번호 */
-#root .ManagerAllReservation .managerAllReservation_table .managerAllRes_tableNum{
+#root .AllReservation .AllReservation_table .AllReservation_tableNum{
     width: 80px;
 }
 /* 차량 */
-#root .ManagerAllReservation .managerAllReservation_table .managerAllRes_tableCar{
+#root .AllReservation .AllReservation_table .AllReservation_tableCar{
     width: 380px;
 }
 /* 에약자 */
-#root .ManagerAllReservation .managerAllReservation_table .managerAllRes_tableUser{
+#root .AllReservation .AllReservation_table .AllReservation_tableUser{
     width: 200px;
 }
 /* 대여일자 */
-#root .ManagerAllReservation .managerAllReservation_table .managerAllRes_tableRentDate{
+#root .AllReservation .AllReservation_table .AllReservation_tableRentDate{
     width: 200px;
 }
 /* 반납일자 */
-#root .ManagerAllReservation .managerAllReservation_table .managerAllRes_tableReturnDate{
+#root .AllReservation .AllReservation_table .AllReservation_tableReturnDate{
     width: 200px;
 }
 /* 예약일자 */
-#root .ManagerAllReservation .managerAllReservation_table .managerAllRes_tableResDate{
+#root .AllReservation .AllReservation_table .AllReservation_tableResDate{
     width: 200px;
 }
 
