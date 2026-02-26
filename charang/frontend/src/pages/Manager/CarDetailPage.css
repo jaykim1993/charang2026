@@ -62,7 +62,8 @@
 
 
 .carDetailPage .carDetail_container .carDetail_table .carDetail_table_body .carDetail_tr {
-    border-bottom: 1px solid #f0f0f0;
+    /* border-bottom: 1px solid #f0f0f0; */
+    border-bottom: 1px solid #d8d8d8;
 }
 
 .carDetailPage .carDetail_container .carDetail_table .carDetail_table_body .carDetail_tr:last-child {
@@ -77,7 +78,7 @@
     color: #555;
     font-weight: 700;
     font-size: 15px;
-    border-right: 1px solid #f0f0f0;
+    border-right: 1px solid #d8d8d8;
 }
 
 

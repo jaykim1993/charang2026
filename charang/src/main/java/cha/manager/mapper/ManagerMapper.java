@@ -37,6 +37,9 @@ public interface ManagerMapper {
 	
 	// 유저 아이디로 예약(차량조인) 하나 조회하기
 	public List<ManagerDTO> getOneBookCar(String userId);
+	
+	// 현재예약, 미래예약이 존재하지 않는 회원id 출력
+	public List<String> selectIsRes();
 
 	
 

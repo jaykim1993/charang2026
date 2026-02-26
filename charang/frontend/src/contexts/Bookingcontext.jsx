@@ -87,7 +87,7 @@ export default function BookingProvider({ children }) {
       // sessionStorage 내에서 해당 userid에 부합하는 내용만 찾기
       const myRecentlist = (userid) => {
         if (!userid) return [];
-        const data = JSON.parse(sessionStorage.getItem("recentView")) || [];
+        const data = JSON.parse(localStorage.getItem("recentView")) || [];
         return data
           .filter(item => item.userid === userid)
           .sort((a, b) => b.viewed_at - a.viewed_at)

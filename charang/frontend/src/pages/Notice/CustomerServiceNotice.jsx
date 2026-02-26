@@ -9,8 +9,6 @@ export default function CustomerServiceNotice(){
     // 로그인 정보/유저 현재 로그인 유저 아이디 알아야됨
     const { userid } = useContext(AuthContext);
 
-    // const { noticeId, userId } = useParams(); 
-
     // 공지사항 목록 상태
     const [notice, setNotice] = useState([]);
 
@@ -47,7 +45,9 @@ export default function CustomerServiceNotice(){
     }, [pageNum]);
     
     return(
-        <div className="notice">
+        <div className="notice"  style={{
+            width: userid === 'admin' ? '1300px' : '900px', 
+            margin: userid === 'admin' ?'150px auto' : '0'}}>
             <div className="notice_admin">
                 <h4>공지사항</h4>
                 {/* 관리자(=admin)일 때만 글쓰기 버튼 생김 */}

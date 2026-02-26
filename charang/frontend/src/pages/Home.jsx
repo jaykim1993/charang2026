@@ -219,8 +219,8 @@ export default function Home(){
     },
     {
       id: 4,
-      title: "24시간 실시간 응답",
-      desc: "전문 상담원 항시 대기",
+      title: "전문 상담 서비스",
+      desc: "평일 09:00–18:00 상담 가능",
       icon: "/images/banner/inquiry.png",
       link: "/customerservice/inquiry/list",
     },
@@ -463,7 +463,10 @@ export default function Home(){
       {/* 광고_1 */}
       <div className="H_section05">
           <h4 className="H_sec04_H">
-            원하는 차량을 어디서나 빠르게!
+            <span className="H_sec04_H_span">
+              차랑차랑
+            </span>
+            을 더 쉽고 빠르게!
           </h4>
 
 

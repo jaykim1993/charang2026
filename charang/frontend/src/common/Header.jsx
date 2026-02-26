@@ -274,7 +274,7 @@ export default function Header() {
                         <div className="headerNavAd">
                             <p className='headerNavH'>이달의 EVENT</p>
                             <div className='headerBannerImgWrap'>
-                                <img className='headerBannerImg' src='/images/banner/sideNavAD.png' alt='sindNavAD' />
+                                <img className='headerBannerImg' src='/dolCar.png' alt='sindNavAD' />
                             </div>
                             {/* → */}
                         </div>
@@ -414,7 +414,7 @@ export default function Header() {
                                 </>
                             }
                             {userid ?
-                                <Link to={'/mypage/inquiry'} style={{ textDecoration: 'none' }}>
+                                <Link to={'/customerservice/inquiry/list'} style={{ textDecoration: 'none' }}>
                                     <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
                                         <div>문의내역</div>
                                         <div className='headerNavpointer'>

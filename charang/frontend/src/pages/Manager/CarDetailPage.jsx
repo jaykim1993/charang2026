@@ -49,6 +49,8 @@ export default function CarDetailPage(){
                         <tr className="carDetail_tr">
                             <td className="carDetail_td">차량아이디</td>
                             <th className="carDetail_data">{oneCar.carId}</th>
+                            <td className="carDetail_td">차량 번호</td>
+                            <th className="carDetail_data">{oneCar.plateNumber}</th>
                         </tr>
                         <tr className="carDetail_tr">
                             <td className="carDetail_td">차량 브랜드명</td>
@@ -67,98 +69,64 @@ export default function CarDetailPage(){
                             </th>
                         </tr>
                         <tr className="carDetail_tr">
-                            <td className="carDetail_td">차량 모델명</td>
-                            <th className="carDetail_data">{oneCar.model}</th>
-                        </tr>
-                        <tr className="carDetail_tr">
-                            <td className="carDetail_td">차량 모델 이미지</td>
-                            <th className="carDetail_data">
-                                <img src={`/images/cars/${oneCar.carImg}`} alt={oneCar.carImg} className="carDetial_img"/>
-                            </th>
-                        </tr>
-                        <tr className="carDetail_tr">
-                            <td className="carDetail_td">차량 번호</td>
-                            <th className="carDetail_data">{oneCar.plateNumber}</th>
-                        </tr>
-                        <tr className="carDetail_tr">
                             <td className="carDetail_td">차량 색상</td>
                             <th className="carDetail_data">{oneCar.color}</th>
+                            <td className="carDetail_td">차량 좌석</td>
+                            <th className="carDetail_data">{oneCar.seats} 인승</th>
                         </tr>
                         <tr className="carDetail_tr">
                             <td className="carDetail_td">차량 연식</td>
                             <th className="carDetail_data">{oneCar.modelYear}</th>
-                        </tr>
-                        <tr className="carDetail_tr">
-                            <td className="carDetail_td">차량 좌석</td>
-                            <th className="carDetail_data">{oneCar.seats}</th>
-                        </tr>
-                        <tr className="carDetail_tr">
                             <td className="carDetail_td">차량 크기</td>
                             <th className="carDetail_data">{oneCar.carSize}</th>
                         </tr>
                         <tr className="carDetail_tr">
                             <td className="carDetail_td">차량 종류</td>
                             <th className="carDetail_data">{oneCar.carType}</th>
-                        </tr>
-                        <tr className="carDetail_tr">
                             <td className="carDetail_td">연료 종류</td>
                             <th className="carDetail_data">{oneCar.fuelType}</th>
                         </tr>
                         <tr className="carDetail_tr">
+                            <td className="carDetail_td">면허 종류</td>
+                            <th className="carDetail_data">{oneCar.licenseType}종 보통</th>
                             <td className="carDetail_td">지점</td>
                             <th className="carDetail_data">{oneCar.name}</th>
                         </tr>
                         <tr className="carDetail_tr">
-                            <td className="carDetail_td">면허 종류</td>
-                            <th className="carDetail_data">{oneCar.licenseType}종 보통</th>
-                        </tr>
-                        <tr className="carDetail_tr">
+                            <td className="carDetail_td">연비</td>
+                            <th className="carDetail_data">{oneCar.kmPer}</th>
                             <td className="carDetail_td">최소 나이</td>
                             <th className="carDetail_data">{oneCar.driverMinAge}세</th>
                         </tr>
                         <tr className="carDetail_tr">
-                            <td className="carDetail_td">연비</td>
-                            <th className="carDetail_data">{oneCar.kmPer}</th>
-                        </tr>
-                        <tr className="carDetail_tr">
+                            <td className="carDetail_td">네비게이션</td>
+                            <th className="carDetail_data">{oneCar.navigation == 1 ? "있음" : "없음"}</th>
                             <td className="carDetail_td">가격</td>
                             <th className="carDetail_data">{oneCar.priceValue}</th>
                         </tr>
                         <tr className="carDetail_tr">
-                            <td className="carDetail_td">네비게이션</td>
-                            <th className="carDetail_data">{oneCar.navigation == 1 ? "있음" : "없음"}</th>
-                        </tr>
-                        <tr className="carDetail_tr">
+                            <td className="carDetail_td">썬루프</td>
+                            <th className="carDetail_data">{oneCar.sunRoof == 1 ? "있음" : "없음"}</th>
                             <td className="carDetail_td">후방카메라</td>
                             <th className="carDetail_data">{oneCar.rearCamera == 1 ? "있음" : "없음"}</th>
                         </tr>
                         <tr className="carDetail_tr">
                             <td className="carDetail_td">열선시트</td>
                             <th className="carDetail_data">{oneCar.heatSeat == 1 ? "있음" : "없음"}</th>
-                        </tr>
-                        <tr className="carDetail_tr">
                             <td className="carDetail_td">열선핸들</td>
                             <th className="carDetail_data">{oneCar.heatHandle == 1 ? "있음" : "없음"}</th>
                         </tr>
                         <tr className="carDetail_tr">
                             <td className="carDetail_td">블루투스</td>
                             <th className="carDetail_data">{oneCar.bluetooth == 1 ? "있음" : "없음"}</th>
-                        </tr>
-                        <tr className="carDetail_tr">
                             <td className="carDetail_td">스마트키</td>
                             <th className="carDetail_data">{oneCar.smartKey == 1 ? "있음" : "없음"}</th>
                         </tr>
                         <tr className="carDetail_tr">
-                            <td className="carDetail_td">썬루프</td>
-                            <th className="carDetail_data">{oneCar.sunRoof == 1 ? "있음" : "없음"}</th>
-                        </tr>
-                        <tr className="carDetail_tr">
-                            <td className="carDetail_td">등록일자</td>
-                            <th className="carDetail_data">{oneCar.regDate}</th>
-                        </tr>
-                        <tr className="carDetail_tr">
                             <td className="carDetail_td">수정일자</td>
                             <th className="carDetail_data">{oneCar.modDate}</th>
+                                                        <td className="carDetail_td">등록일자</td>
+                            <th className="carDetail_data">{oneCar.regDate}</th>
                         </tr>
                     </tbody>
                 </table>

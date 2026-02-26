@@ -1,91 +1,6 @@
-<<<<<<< HEAD
-/* #root .mypage-inquries{
-    min-height: 900px;
-    margin-left: 50px;
-=======
-#root .mypage-inquries{
-    min-height: 1100px;
-    width: 900px;
-    margin: 0 auto; /* 가운데 정렬 */
->>>>>>> main
-}
-.mypage-inquiries-table{
-    width: 100%;
-    margin-top: 50px;
-}
-.mypage-inquiries-table tr{
-    text-align: center;
-    border-bottom: 1px solid rgb(204, 204, 204);
-    font-size: 14px;
-}
-.mypage-inquiries-table tr > th{
-    padding: 10px;
-}
-.mypage-inquiries-table .mytable1{
-    width: 80px;
-}
-.mypage-inquiries-table .mytable2{
-    width: 180px;
 
-}
-.mypage-inquiries-table .mytable3{
-    width: 400px;
-
-}
-.mypage-inquiries-table .mytable4{
-    width: 110px;
-
-}
-.mypage-inquiries-table .mytable5{
-    width: 110px;
-    
-}
-.mypage-inquiries-table th{
-    background-color: #cccccc;
-    color: #2b2b2b;
-    padding: 5px;
-    font-weight: 500;
-}
-.myinquTr td{
-    padding: 10px;
-}
-
-.mytable1TD{
-    font-size: 15px;
-}
-.mytable2TD{
-    font-size: 15px;
-    max-width: 150px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.mytable3TD{
-    font-size: 15px;
-    max-width: 400px; 
-    white-space: nowrap;
-    overflow: hidden;    
-    text-overflow: ellipsis;
-    color: #333;
-    font-weight: 500;
-}
-
- .mytable5TD{
-    color: #666;
- }
-.myinquTr{
-    cursor: pointer;
-}
-.myinquTr:hover .mytable3TD{
-    color: #0b79b7;
-}
-.mypage-inquries .noBookedGoToBook{
-    margin-bottom: 80px;
-} */
-
-/* ============= 령경 ============= */
 .mypage_inquiry{
-    width: 90%;
+    width: 100%;
     min-height: 800px;
 }
 .mypage_inquiry .inquiry_none{
@@ -99,7 +14,6 @@
 .mypage_inquiry .inquiryCnt{
     padding: 20px 0 10px 0;
     border-bottom: 2px solid #000;
-    /* margin-bottom: 20px; */
 }
 
 /* 문의내역 없을 때 생기는 부분 */
@@ -129,7 +43,17 @@
 .mypage_inquiry .MyInquiryWrap table th{
     padding: 10px 0;
 }
-.mypage_inquiry .MyInquiryWrap table td{
-    padding: 20px 0;
+.mypage_inquiry .MyInquiryWrap table tr{
     border-bottom: 1px solid #d3d3d3;
+    cursor: pointer;
+}
+.mypage_inquiry .MyInquiryWrap table tbody tr:hover{
+    background-color: #f7f8fa;
+}
+.mypage_inquiry .MyInquiryWrap table tr td{
+    padding: 20px 0;
+    /* width: 200px; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

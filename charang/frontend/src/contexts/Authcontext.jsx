@@ -74,61 +74,6 @@ export default function AuthProvider({children}){
       return pageNumbers;
     }
   // =============================================================================================================
-
-
-    // 검색 회원 출력
-    const [search, setSearch] = useState(null); // 검색어 담는 상태변수
-    const [ user, setUser] = useState([]);
-
-    const find = () => {
-        axios.get("/api/searchUser",{params:{search:search,page:pageNum}})
-        .then((res)=>{
-            console.log("검색 회원: ",res.data);
-            setPaging(res.data.ph); // 페이징
-            setUser(res.data.list); // 검색 회원 가져온 데이터
-        })
-        .catch((error)=>{
-            console.log("검색 회원 출력 에러: ",error);
-        })
-    }
-
-
-    // 회원 수정
-
-    // 회원 삭제
-    const [delUser, setDelUser] = useState([]);
-    // 체크된 회원의 id만 가져오는 핸들러
-    const checkHandler = (e, userId) => {
-
-        let delUserCopy = [...delUser];
-
-        // 체크되어있으면 delUser배열에 넣기(true)
-        if(e.target.checked){
-            delUserCopy.push(userId);
-            setDelUser(delUserCopy);
-        }
-        // 체크를 했다가 취소할 경우(false)
-        else{
-            delUserCopy = delUser.filter(id => id !== userId);
-            setDelUser(delUserCopy);
-        }
-    }
-
-    const delHandler = () => {
-        axios.delete("/api/delete",{data:delUser})
-        .then((res)=>{
-            console.log("삭제 결과: ", res.data);
-            if(res.data == 1){
-                alert("삭제되었습니다");
-                find();
-            }else{
-                alert("다시 시도해주세요.");
-            }
-        })
-        .catch((error)=>{
-            console.log("받아온 삭제 결과 에러: ", error);
-        })
-    }
     
 
 
@@ -143,16 +88,11 @@ export default function AuthProvider({children}){
             modal,
             setModal,
             loginNeeded,
-            setSearch,
-            find,
-            search,
-            user,
             // 페이징
             pagesHandler,
             paging,
-            delHandler,
-            checkHandler,
             setPageNum,
+            setPaging,
             pageNum
             }}>
             {children}

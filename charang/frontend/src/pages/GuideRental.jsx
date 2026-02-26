@@ -1,15 +1,14 @@
-export default function GuideRental(){
-    return(
-        <>
-         <div>
+export default function GuideRental() {
+    return (
+        <div className="GuideRental">
             <h3 className="daaae">대여안내</h3>
-            <></>
-            <p className="guideExplainDetail">차랑차랑렌터카 사용예약을 위해 고객님께서는 아래 절차대로 진행해 주세요.</p>
-            <p className="guideRentalProcessExplain">
-                온라인으로 예약이 어려우신 경우 지점을 방문하시거나 전화로 예약이 가능합니다. (고객센터 : 910-1112)
-            </p>
+            <div className="GuideRental_head">
+                <p>차랑차랑렌터카 사용예약을 위해 고객님께서는 아래 절차대로 진행해 주세요.</p>
+                <p>온라인으로 예약이 어려우신 경우 지점을 방문하시거나
+                     전화로 예약이 가능합니다. (고객센터 : 910-1112)</p>
+            </div>
             <div className="guideRentalProcessImg">
-                <img src="/images/guideimgs/guide_1_1.jpg"/>
+                <img src="/images/guideimgs/guide_1_1.jpg" />
             </div>
             <div className="guideSecond">
                 <h3 className="guideSecondExplain">대여 중 사고시 보상범위</h3>
@@ -26,8 +25,8 @@ export default function GuideRental(){
                         <tr>
                             <th className="guidetable1th">자손</th>
                             <td className="guidetable1td">
-                            · 인당 1천5백만원 한도<br/>
-                            · 사고 건당 1억5천만원 한도
+                                · 인당 1천5백만원 한도<br />
+                                · 사고 건당 1억5천만원 한도
                             </td>
                         </tr>
                     </tbody>
@@ -83,13 +82,12 @@ export default function GuideRental(){
             </div>
             <div className="guideFifth">
                 <h3 className="guideFifthExplain">대여 시 유의사항</h3>
-                <img src="/images/guideimgs/guide_1_5.JPG"/>
+                <img src="/images/guideimgs/guide_1_5.JPG" />
                 <span className="guideFifthExplainDetail">대여 당일 차량인수 시 운전면허증 지참은 필수입니다.(도로교통법상 유효한 운전면허소지자)</span>
-                <span className="guideFifthExplainDetail">사전 동의 없이 임의로 연장해 사용하실 경우 차량 손해에 대해 보상 및 면책을 받지 못할 수 있으니, 
+                <span className="guideFifthExplainDetail">사전 동의 없이 임의로 연장해 사용하실 경우 차량 손해에 대해 보상 및 면책을 받지 못할 수 있으니,
                     이용 연장 시 반드시 약속된 반납 시간 이전에 대여지점으로 연락바랍니다.</span>
                 <span className="guideFifthExplainDetail">금지행위(음주/무면허 등)으로 인한 사고 발생시 보험 혜택 적용이 불가합니다.</span>
             </div>
         </div>
-        </>
     )
 }
