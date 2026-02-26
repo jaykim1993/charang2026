@@ -232,8 +232,6 @@ export default function Home(){
       {id:1, model:'그랑조', img:'hy_2.webp', carTitle: '한대 그랑조', carInfo: '20대도 즐겨 찾는 인기 렌트카, 세련된 디자인과 편안한 주행감을 갖춘 한대 그랑조!', hashtag: `#요즘세단`},
       {id:2, model:'dmw new 5', img:'bmw_5.webp', carTitle: 'dmw new 5', carInfo: '프리미엄 세단. 비즈니스와 일상 모두에 잘 어울리는 모델!', hashtag: '#도심드라이브'},
       {id:3, model:'WV7', img:'kia_2.webp', carTitle: '크아 WV7', carInfo: '넉넉한 실내 공간과 실용성을 강조한 SUV. 가족 이동이나 장거리 주행에 부담 없는 선택!', hashtag: '#여행각SUV'},
-      // {id:4, model:'아이온', img:'hy_9.webp', carTitle: '한대 아이온', carInfo: '프리미엄 감성과 넉넉한 공간으로 20대 여행·드라이브에 잘 어울리는 한대 아이온!'},
-      // {id:5, model:'GGE80', img:'ZENE_2.webp', carTitle: '제네러스 GGE80', carInfo: '고급스러운 승차감과 세련된 인테리어가 돋보이는 대형 세단. 품격 있는 이동을 원하는 고객에게!'},
     ];
 
     const SelectedIcon = new L.Icon({
@@ -282,6 +280,7 @@ export default function Home(){
         <div className="H_spotTable">
           <div ref={locationRef}
             className={`spot_choice ${ isLocation? "open" : ""}`}>
+            <div>
             <p>어디서 출발할까요?</p>
             <div className="H_spotTitle" onClick={locationHandler}>{location? <p>{location}</p> 
             :<p>지점을 선택하세요</p>}
@@ -419,6 +418,7 @@ export default function Home(){
                     )}
                   </div>
                 )}
+                </div>
         </div>
       </div>
 </div>

@@ -1,5 +1,8 @@
 package cha.booking.dto;
 
+import lombok.Data;
+
+@Data
 public class BookingDTO {
 	private String bookingId;
 	private String userId;
@@ -13,80 +16,6 @@ public class BookingDTO {
 	private int insurancePrice;
 	private int totalPrice;
 	private String paymentMethod;
-	
-	
-	public String getPaymentMethod() {
-		return paymentMethod;
-	}
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
-	public String getBookingId() {
-		return bookingId;
-	}
-	public void setBookingId(String bookingId) {
-		this.bookingId = bookingId;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public int getCarId() {
-		return carId;
-	}
-	public void setCarId(int carId) {
-		this.carId = carId;
-	}
-	public String getBookedDate() {
-		return bookedDate;
-	}
-	public void setBookedDate(String bookedDate) {
-		this.bookedDate = bookedDate;
-	}
-	public String getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	public String getStartTime() {
-		return startTime;
-	}
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-	public String getEndTime() {
-		return endTime;
-	}
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
-	public int getCarPrice() {
-		return carPrice;
-	}
-	public void setCarPrice(int carPrice) {
-		this.carPrice = carPrice;
-	}
-	public int getInsurancePrice() {
-		return insurancePrice;
-	}
-	public void setInsurancePrice(int insurancePrice) {
-		this.insurancePrice = insurancePrice;
-	}
-	public int getTotalPrice() {
-		return totalPrice;
-	}
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
-	}
 	
 	
 }

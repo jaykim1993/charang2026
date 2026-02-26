@@ -35,6 +35,9 @@ export default function AuthProvider({children}){
     const logout =()=>{
         //세션 스토리지 정보 삭제
         sessionStorage.removeItem("userid");
+        sessionStorage.removeItem("filteredInfoUser");
+        sessionStorage.removeItem("searchFilters");
+        sessionStorage.removeItem("firstFilteredCar");
         alert("로그아웃 되었습니다. 메인페이지로 이동합니다.")
         //초기값 null
         setUserid(null);
@@ -72,21 +75,6 @@ export default function AuthProvider({children}){
     }
   // =============================================================================================================
 
-    // 전체 회원 출력
-    // const [allUser, setAllUser] = useState([]);
-
-    // useEffect(()=>{
-    //     axios.get("/api/alluser")
-    //     .then((res)=>{
-    //         // console.log("전체 회원 출력: ",res.data);
-    //         if(res.data){
-    //             setAllUser(res.data);
-    //         }
-    //     })
-    //     .catch((error)=>{
-    //         console.log("전체 회원 출력 에러: ",error);
-    //     })
-    // },[]);
 
     // 검색 회원 출력
     const [search, setSearch] = useState(null); // 검색어 담는 상태변수

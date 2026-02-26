@@ -122,9 +122,6 @@ export default function DetailPage(){
     const price = calculatePrice(selectedCar) * date;
 
     setTotalPrice(price);
-
-    // 새로고침 대비 저장
-    sessionStorage.setItem("totalPrice", JSON.stringify(price));
     }, [date, selectedCar, calculatePrice]);
 
     // ===================== Reservation으로 값 넘기기 ========================
