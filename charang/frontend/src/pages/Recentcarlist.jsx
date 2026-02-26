@@ -6,7 +6,7 @@ import { BookingContext } from "../contexts/Bookingcontext";
 import { useEffect } from "react";
 
 import './Recentcarlist.css';
-
+// 아쉽다
 export default function Recentcarlist() {
   const { userid } = useContext(AuthContext);
   const { myRecentlist } = useContext(BookingContext);

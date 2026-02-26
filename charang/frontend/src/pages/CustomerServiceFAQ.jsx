@@ -86,7 +86,7 @@ export default function CustomerServiceFAQ() {
 
   return (
     <div className="CusFAQ">
-      <h4>자주 찾는 질문 FAQ</h4>
+      <h4>자주 찾는 질문</h4>
       <div className="chat-container">
         {faqList.map((item, index) => (
           <div key={index} className="chat-row">
@@ -115,10 +115,10 @@ export default function CustomerServiceFAQ() {
       </div>
       <p>
         더 궁금한 사항은 &nbsp;
-      <Link to={'/customerservice/inquiry/list'}>
-        문의하기
-      </Link>
-      를 이용해주세요.
+        <Link to={'/customerservice/inquiry/list'}>
+          문의하기
+        </Link>
+        를 이용해주세요.
       </p>
     </div>
   )

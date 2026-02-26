@@ -70,11 +70,7 @@
 	        b.bookingId LIKE CONCAT('%', #{searchKeyWord}, '%')
 	      </when>
 	      <otherwise>
-<<<<<<< HEAD
-	        b.bookingId LIKE CONCAT('%', #{searchKeyWord}, '%')
-=======
 	        b.userId LIKE CONCAT('%', #{searchKeyWord}, '%')
->>>>>>> main
 	      </otherwise>
 	    </choose>
 	  </where>

@@ -91,7 +91,6 @@
 
 .AllReservation .AllReservation_table tbody tr .AllReservation_clicktd:hover {
     color: #222;
-    font-weight: 600;
     text-decoration: underline;
 }
 
