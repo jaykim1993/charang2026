@@ -20,13 +20,24 @@
 	<!-- 검색 회원 출력
    public List<UserDTO> getUserSearch(String search); -->
    <select id="getUserSearch" resultType="userDTO">
-   		SELECT * FROM user WHERE name LIKE CONCAT("%",#{search},"%") LIMIT #{startRow}, #{pageSize}
+   		SELECT * FROM user 
+   		<where>
+   			<choose>
+   				<when test="searchType == 'userId'">
+   					userId LIKE CONCAT("%",#{searchWord},"%")
+   				</when>
+   				<otherwise>
+   					name LIKE CONCAT("%",#{searchWord},"%")
+   				</otherwise>
+   			</choose>
+   		</where>
+   		LIMIT #{startRow}, #{pageSize}
    </select>
    
    <!-- 검색 회원 개수
    public int getUserSearchCount(String search); -->
    <select id="getUserSearchCount" resultType="int">
-   		SELECT COUNT(*) FROM user WHERE name LIKE CONCAT("%",#{search},"%")
+   		SELECT COUNT(*) FROM user WHERE name LIKE CONCAT("%",#{searchWord},"%")
    </select>
 
    <!-- 회원 가입 INSERT -->

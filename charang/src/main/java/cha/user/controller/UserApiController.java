@@ -32,7 +32,8 @@ public class UserApiController {
 	// 검색 회원 출력
 	@GetMapping("/searchUser")
 	public Map<String, Object> getSearchUserList(
-			@RequestParam(value="search", required=false) String search, // 검색어
+			@RequestParam(value="searchType", required=false) String searchType, // 검색 타입
+			@RequestParam(value="searchWord", required=false) String searchWord, // 검색어
 			@RequestParam( value="page", defaultValue = "1") int page, // 페이지 번호
 			@RequestParam( value="pageSize", defaultValue = "10") int pageSize // 한 화면에 보여지는 user개수
 			){
@@ -46,10 +47,10 @@ public class UserApiController {
 		Map<String, Object> result = new HashMap<>(); // userList, ph를 Map에 담아서 return할 예정
 		
 		// 검색어 존재 O
-		if(search != null && !search.trim().isEmpty()) {
-			int totalCnt = userservice.getSearchCount(search);
+		if(searchType != null && !searchWord.trim().isEmpty()) {
+			int totalCnt = userservice.getSearchCount(searchType, searchWord);
 			ph = new PageHandler(totalCnt, page, pageSize); // 페이징 핸들러
-			userList = userservice.getSearchUser(search, ph.getStartRow(), pageSize); // 데이터
+			userList = userservice.getSearchUser(searchType, searchWord, ph.getStartRow(), pageSize); // 데이터
 		}
 		// 검색어 존재 X
 		else {
@@ -73,14 +74,14 @@ public class UserApiController {
 	// 회원가입
 	@PostMapping("/signup")
 	public int signup(@RequestBody UserDTO udto) {
-		System.out.println("占쏙옙 占쏙옙트占싼뤄옙 signup 占쏙옙청占쏙옙");
+		System.out.println("회원가입 컨트롤러");
 		return userservice.insertUser(udto);
 	}
 	
 	// 로그인
 	@PostMapping("/login")
 	public UserDTO login(@RequestBody UserDTO udto, HttpSession session) {
-			System.out.println("api占쏙옙트占싼뤄옙 login 占쏙옙청占쏙옙");
+			System.out.println("회원 로그인 컨트롤러");
 			//loginUser = {no:~,id:~,pw:~,mail:~,phone:~ ,~~}
 			UserDTO loginUser = userservice.loginConfirm(udto);
 			if(loginUser != null) {
@@ -93,7 +94,7 @@ public class UserApiController {
 	// 로그아웃
 	@GetMapping("/logout")
 	public int logout(HttpSession session) {
-			System.out.println("api占쏙옙트占싼뤄옙 logout 占쏙옙청占쏙옙");
+			System.out.println("로그아웃 컨트롤러");
 			session.invalidate();
 			return 1;
 		}

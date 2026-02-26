@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useMemo } from "react";
+import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/Datacontext";
 import './AllReservationPage.css';
 import axios from "axios";
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AllReservationPage(){
 
-    const { pageNum, setPageNum, pagesHandler, paging, allBookCar, user, setSearchType, searchType,setSearchWord, bookFind, userFind } = useContext(DataContext);
+    const { pageNum, setPageNum, pagesHandler, paging, setPaging, allBookCar, setAllBookCar,user, setSearchType, setSearchWord, bookFind, userFind } = useContext(DataContext);
 
     // 화면 이동 훅
     const navi = useNavigate();
@@ -18,15 +18,6 @@ export default function AllReservationPage(){
     }, [pageNum]);
 
         console.log(user);
-        
-    // 불러온 예약정보로 예약자 이름 따기
-    const userMap = useMemo(() => {
-        const userName = {};
-        user.forEach(u => {
-            userName[u.userId] = u.name;
-        });
-        return userName;
-    }, [user]);
 
     // Paging from DataContext
     useEffect(() => {
@@ -83,43 +74,28 @@ export default function AllReservationPage(){
             }
         }
 
-    // placeholder
-    const placeholderWord = (searchType) => {
-        console.log("검색: ", searchType);
-         if(searchType === "bookingId"){
-            return "예약코드를 검색하세요";
-        }else{
-            return "예약자ID를 검색하세요";
-        }
-    }
-
     return(
         <div className="AllReservation">
             <h1>전체 예약 목록</h1>
-            <div className="search_area">
-                {/* 검색 타입 */}
-                <select name="searchType" className="search_select"
-                onChange={(e)=> setSearchType(e.target.value)}>
-                    <option value="bookingId">예약코드</option>
-                    <option value="userId">예약자ID</option>
-                </select>
-                {/* 검색 */}
-                <input type="text" name="searchWord" className="search_input" placeholder={placeholderWord(searchType)}
-                onChange={(e)=> setSearchWord(e.target.value)}/>
-                <button type="button" onClick={bookFind} className="search_btn">검색</button>
-            </div>
-            
+            {/* 검색 타입 */}
+            <select name="searchType" onChange={(e)=> setSearchType(e.target.value)}>
+                <option value="userId">예약자 아이디</option>
+                <option value="model">예약 차량</option>
+            </select>
+            {/* 검색 */}
+            <input type="text" name="searchWord" onChange={(e)=> setSearchWord(e.target.value)}/>
+            <button type="button" onClick={bookFind}>검색</button>
             <table className="AllReservation_table" border={1}>
                 <thead className="AllReservation_table_th">
                     <tr>
                         <th className="AllReservation_tableNum">번호</th>
                         <th className="AllReservation_tableNum">예약코드</th>
                         <th className="AllReservation_tableUser">예약자 아이디</th>
-                        <th className="AllReservation_tableUser">예약자 이름</th>
                         <th className="AllReservation_tableCar">예약 차량</th>
                         <th className="AllReservation_tableResDate">예약 일자</th>
                         <th className="AllReservation_tableRentDate">대여 일자</th>
                         <th className="AllReservation_tableResDate">반납 일자</th>
+                        <th className="AllReservation_tableResDate">결제수단</th>
                         <th className="AllReservation_tableResDate">결제금액</th>
                         <th className="AllReservation_tableResDate">진행상태</th>
                         <th className="AllReservation_tableResDate">삭제</th>
@@ -136,11 +112,11 @@ export default function AllReservationPage(){
                             <td>{rowNumber}</td>
                             <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}`)}>{item.bookingId}</td>
                             <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}`)}>{item.userId}</td>
-                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}`)}>{userMap[item.userId]}</td>
                             <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}`)}> {item.model}</td>
                             <td>{item.bookedDate}</td>
                             <td>{item.startDate} {item.startTime.slice(0, 8)}</td>
                             <td>{item.endDate} {item.endTime.slice(0, 8)}</td>
+                            <td>{item.paymentMethod}</td>
                             <td>{item.totalPrice.toLocaleString()}원</td>
                             <td>{item.bookingStatus === "ONGOING"?"진행중":item.bookingStatus === "UPCOMING"?"대기중":"지난예약"}</td>
                             <td className="m_AllCar_tableDel">
@@ -157,7 +133,7 @@ export default function AllReservationPage(){
                     })
                     ) : (
                     <tr className="AllReservation_tr_none">
-                        <td className="AllReservation_td_none" colSpan={12}>
+                        <td className="AllReservation_td_none" colSpan={11}>
                         예약이 존재하지 않습니다.
                         </td>
                     </tr>
