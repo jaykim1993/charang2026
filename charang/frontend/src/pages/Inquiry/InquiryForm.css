@@ -4,27 +4,67 @@
 }
 
 .inquiry .inquiry_form{
-    margin-top: 10px;
+    margin-top: 20px;
 }
 .inquiry .inquiry_form p{
     font-size: 18px;
     font-weight: 500;
 }
 .inquiry .inquiry_form p .userName{
-    color: #0b79b7;
+    color: #1e75f5;
 }
+
 .inquiry .inquiry_form table{
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
+    border-collapse: collapse;
+    border-top: 2px solid #333;
 }
-.inquiry .inquiry_form table tr td input,
+.inquiry .inquiry_form table tr{
+    border-bottom: 1px solid #dee2e6;
+}
+.inquiry .inquiry_form table tr th{
+    padding: 15px;
+    width: 90px;
+    text-align: center;
+}
+.inquiry .inquiry_form table tr td input, 
 .inquiry .inquiry_form table tr td textarea{
-    width: 80%;
     padding: 10px;
+    width: 100%;
     border: none;
-    border-bottom: 1px solid #999;
+    outline: none;
+    white-space: pre-wrap;
+    resize: none;
 }
 .inquiry .inquiry_form table tr td textarea{
     white-space: pre-wrap;
     resize: none;
+}
+
+/* 하단 버튼 */
+.submitinqu{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+.submitinqu button{
+    border: none;
+    border-radius: 7px;
+    padding: 7px 20px;
+}
+.submitinqu_sub{
+    color: #fff;
+    background-color: #1e75f5;
+}
+.submitinqu_sub:hover{
+    background-color: #1763D1;
+}
+.submitinqu_back{
+    background-color: #dee2e6;
+}
+.submitinqu_back:hover{
+    background-color: #c7cbce;
 }

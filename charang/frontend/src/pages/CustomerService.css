@@ -222,7 +222,7 @@
     /* margin: 0 auto; */
     text-align: center;
 }
-.submitinqu button{
+/* .submitinqu button{
     width: 100%;
     font-size: 19px;
     padding: 10px;
@@ -234,7 +234,7 @@
 }
 .submitinqu button:hover{
     background-color: #065d8f ;
-}
+} */
 .modalOpen .bi-x:hover{
     color: #0b79b7;
 }

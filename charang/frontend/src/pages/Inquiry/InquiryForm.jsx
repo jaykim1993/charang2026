@@ -41,6 +41,14 @@ export default function InquiryForm(){
         .catch((error) => console.log("error : ", error))
     }
 
+    const backHandler = () => {
+        if(confirm('저장되지 않습니다. 돌아가시겠습니까?')){
+            navigate(-1);
+        }else{
+            return;
+        }
+    }
+
     return(
         <div className="inquiry">
             <h4>문의하기</h4>
@@ -49,18 +57,21 @@ export default function InquiryForm(){
                 <table>
                     <tbody>
                         <tr>
+                            <th>제목</th>
                             <td>
                                 <input type="text" placeholder="제목을 입력하세요. (필수)" 
                                 name="title" onChange={(e) => setTitle(e.target.value)} />
                             </td>
                         </tr>
                         <tr>
+                            <th>문의내용</th>
                             <td>
-                                <textarea type="text" placeholder="문의 내용을 입력하세요. (필수)" rows="15" 
+                                <textarea type="text" placeholder="문의 내용을 입력하세요. (필수)" rows="20" 
                                 name="content" onChange={(e) => setContent(e.target.value)} />
                             </td>
                         </tr>
                         <tr>
+                            <th>비밀번호</th>
                             <td>
                                 <input type="password" placeholder="비밀번호를 입력하세요. (선택사항)" 
                                 name="password" onChange={(e) => setPassword(e.target.value)} />
@@ -70,8 +81,8 @@ export default function InquiryForm(){
                 </table>
             </div>
             <div className="submitinqu">
-                <button onClick={inquiryForm}>등록하기</button>
-                <button onClick={() => navigate(-1)}>뒤로가기</button>
+                <button onClick={inquiryForm} className="submitinqu_sub">등록하기</button>
+                <button onClick={backHandler} className="submitinqu_back">뒤로가기</button>
             </div>
         </div>
     )

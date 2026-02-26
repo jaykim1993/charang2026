@@ -42,7 +42,7 @@ export default function CustomerServiceNoticeDetail() {
 
     return (
         <div className="noticeInfo">
-            <h4>공지사항 │ {notice.regDate}</h4>
+            <h4>공지사항 │ {notice.modDate}</h4>
             <table>
                 <tbody>
                     <tr>
@@ -62,10 +62,11 @@ export default function CustomerServiceNoticeDetail() {
                 
                 {userid === 'admin' && (
                     <div className="adminBtn">
-                        <button onClick={() => navigate(`/customerservice/notice/manager/modify/${noticeId}`)}>
+                        <button className="adminBtn_1"
+                         onClick={() => navigate(`/customerservice/notice/manager/modify/${noticeId}`)}>
                             수정하기
                         </button>
-                        <button onClick={handleDelete}>
+                        <button onClick={handleDelete} className="adminBtn_2">
                             삭제하기
                         </button>
                     </div>

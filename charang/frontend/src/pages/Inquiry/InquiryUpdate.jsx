@@ -97,7 +97,7 @@ export default function InquiryUpdate() {
                 </table>
             </div>
             <div className="submitinqu">
-                <button onClick={inquiryUpdateForm}>수정하기</button>
+                <button onClick={inquiryUpdateForm} className="submitinqu_sub">수정하기</button>
             </div>
         </div>
     )

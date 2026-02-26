@@ -52,6 +52,14 @@ export default function CustomerServiceNoticeModfiy(){
         .catch((error) => console.log("error : ", error))
     }
 
+    const backHandler = () => {
+        if(confirm('저장되지 않습니다. 돌아가시겠습니까?')){
+            navigate(-1);
+        }else{
+            return;
+        }
+    }
+
     return(
         <div className="notice_modfiy">
             <h4>공지사항 수정</h4>
@@ -65,17 +73,17 @@ export default function CustomerServiceNoticeModfiy(){
                         </td>
                     </tr>
                     <tr>
-                        <th>내용</th>
+                        <th>공지내용</th>
                         <td>
-                            <textarea type="text" name="content" rows="15" value={content}
+                            <textarea type="text" name="content" rows="20" value={content}
                             onChange={(e) => setContent(e.target.value)} placeholder="내용을 입력하세요." />
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div className="adminBtn">
-                <button onClick={noticeMod}>수정완료</button>
-                <button onClick={() => navigate("/customerservice/notice")}>목록으로 돌아가기</button>
+                <button onClick={noticeMod} className="adminBtn_1">수정완료</button>
+                <button onClick={backHandler} className="adminBtn_2">뒤로가기</button>
             </div>
         </div>
     )

@@ -11,7 +11,7 @@
 #root .myinfo-Wrap .myInfoBtn .myinfo-btn1{
   background-color: #0b79b7;
   color: #fff;
-  padding: 5px 10px;
+  padding: 7px 15px;
   margin: 10px 0;
   border-radius: 7px;
   border: none;
@@ -45,12 +45,14 @@
 
 #root .myinfo-Wrap .myinfo-btn2, 
 #root .myinfo-Wrap .myinfo-btn2 i{
-  border: none;
+  border: 1px solid #666;
+  border-radius: 7px;
+  padding: 7px 15px;
   background-color: transparent;
   color: #444;
   margin-top: 20px;
 }
 #root .myinfo-Wrap .myinfo-btn2:hover{
   color: #666;
-  text-decoration: underline;
+  background-color: #f0f0f0;
 }

@@ -414,9 +414,9 @@ export default function Header() {
                                 </>
                             }
                             {userid ?
-                                <Link to={'/customerservice/inquiry/list'} style={{ textDecoration: 'none' }}>
+                                <Link to='/mypage/inquiry' style={{ textDecoration: 'none' }}>
                                     <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
-                                        <div>문의내역</div>
+                                        <div>개인문의내역</div>
                                         <div className='headerNavpointer'>
                                             <i className="bi bi-chevron-right"></i>
                                         </div>
@@ -425,7 +425,7 @@ export default function Header() {
                                 :
                                 <>
                                     <li className='headerNavLi' onClick={loginNeeded}>
-                                        <div>문의내역</div>
+                                        <div>개인문의내역</div>
                                         <div className='headerNavpointer'>
                                             <i className="bi bi-chevron-right"></i>
                                         </div>
