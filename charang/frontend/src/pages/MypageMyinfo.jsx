@@ -12,7 +12,7 @@ export default function MypageMyinfo(){
     const {logout,loginNeeded}=useContext(AuthContext);
     const {myBooking}=useContext(BookingContext);
     const navigate = useNavigate();
-
+    //
     //회원탈퇴핸들러
     const unregistHandler=()=>{
 
