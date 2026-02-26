@@ -8,8 +8,8 @@
 }
 
 input:checked + .checkmark {
-    background: #0b79b7;
-    border-color: #065d8f;
+    background: #1e75f5;
+    border-color: #1e75f5;
 }
 #root .Home{
     width: 1300px;
@@ -117,7 +117,7 @@ input:checked + .checkmark {
     font-size: 16px;
     font-weight: bold;
     color: #fff;
-    background-color: #0b79b7 ;
+    background-color: #1e75f5;
     border: none;
 }
 #root .Home .H_reservation .H_spotTable .H_searchButton > i{
@@ -125,7 +125,7 @@ input:checked + .checkmark {
     font-weight: 900;
 }
 #root .Home .H_reservation .H_spotTable .H_searchButton:hover{
-    background-color:#065d8f;
+    background-color:#1763D1;
 }
 
 /* ---------------------------------- */
@@ -348,7 +348,7 @@ input:checked + .checkmark {
     padding-bottom: 20px;
 }
 #root .Home .H_sec_history .H_sec_history_block .H_more > span{
-    color: #0b79b7;
+    color: #1e75f5;
     font-weight: 600;
     display: inline-block;
     height: 38px;
@@ -356,7 +356,8 @@ input:checked + .checkmark {
     padding-left: 15px;
 }
 #root .Home .H_sec_history .H_sec_history_block .H_more > span:hover{
-    color: #065d8f;
+    color: #1763D1;
+    text-decoration: underline;
 }
 #root .Home .H_sec_history_map{
     /* margin-bottom: 50px; */
@@ -546,7 +547,7 @@ input:checked + .checkmark {
     margin-bottom: 30px;
 }
 .H_sec04_H_span {
-    color: #0b79b7;
+    color: #1e75f5;
 }
 
 .H_sec04_list {

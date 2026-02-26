@@ -43,7 +43,7 @@
     cursor: pointer;
 }
 .joinColorText {
-    color: #0b79b7;
+    color: #1e75f5;
     font-weight: 900;
 }
 .joinContent {
@@ -77,7 +77,7 @@
     width: 100%;
     padding: 12px 0;
     border: none;
-    background: #0b79b7;;
+    background: #1e75f5;
     color: white;
     border-radius: 6px;
     font-size: 20px;
@@ -86,7 +86,7 @@
     transition: 0.2s;
 }
 .joinFormNext:hover {
-    background: #065d8f;
+    background: #1763D1;
     box-shadow: 0 0 10px rgba(0,0,0,0.25);
 }
 .joinInput{
@@ -100,7 +100,7 @@
 }
 .joinInput:focus {
   outline: none;
-  border: 1px solid #2591cf;
+  border: 1px solid #1763D1;
 }
 /* 회원가입 A페이지 CSS */
 .joinWrapA {
@@ -125,7 +125,7 @@
     margin-left: 30px;
 }
 .joinAListbtn {
-    color:  #0b79b7;
+    color:  #1e75f5;
     border: none;
     background-color: inherit;
     cursor: pointer;
@@ -222,7 +222,7 @@
 }
 .joinInputB:focus {
   outline: none;
-  border-bottom: 1px solid #2591cf;
+  border-bottom: 1px solid #1763D1;
 }
 .joinBtnB{
     width: 100px;
@@ -232,14 +232,15 @@
     background-color: inherit;
     box-sizing: border-box;
     color: white;
-    background: #0b79b7;
+    background: #1e75f5;
     border-radius: 10px;
     font-size: 14px;
     font-weight: 500;
     transition: 0.2s;
+    outline: none;
 }
 .joinBtnB:hover {
-    background-color: #065d8f;
+    background-color: #1763D1;
     box-shadow: 0 0 10px rgba(0,0,0,0.25);
 }
 
@@ -360,13 +361,13 @@
     margin-right: 60px;
     margin-top: 5px;
     color: white;
-    background: #0b79b7;
+    background: #1e75f5;
     border-radius: 6px;
     transform: translateY(5px);
     transition: 0.2s;
 }
 .joinbtnC:hover {
-    background-color: #065d8f;
+    background-color: #1763D1;
     box-shadow: 0 0 10px rgba(0,0,0,0.25);
 }
 .joinCheckC {
@@ -384,7 +385,7 @@
     width: 100%;
     padding: 12px 0;
     border: none;
-    background: #0b79b7;
+    background: #1e75f5;
     color: white;
     border-radius: 6px;
     font-size: 20px;
@@ -392,7 +393,7 @@
     transition: 0.2s;
 }
 .joinFormSubmit:hover {
-    background: #065d8f;
+    background: #1763D1;
     box-shadow: 0 0 10px rgba(0,0,0,0.25);
 }
 .joinCOverlay {
@@ -470,7 +471,7 @@
 .joinUlC .joinLiB:nth-of-type(8) input[type="radio"] {
   transform: scale(1.1);
   margin: 0;
-  accent-color: #0b79b7; /* 크롬/엣지에서 색 통일 */
+  accent-color: #1e75f5;; /* 크롬/엣지에서 색 통일 */
 }
 
 /* 옵션 사이 간격 */

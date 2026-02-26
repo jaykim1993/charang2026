@@ -142,7 +142,7 @@ export default function MypageDetail(){
                             <hr/>
                         {/* </div> */}
                         {/* <div> */}
-                                <p className='mypageDetailP'>결제</p>
+                                <p className='mypageDetailP'>결제수단</p>
                                 <h4>{bookedThis.paymentMethod}</h4>
                         <div style={{marginTop:'20px'}}>
                                 <div className='mybookDetailPriceBox'>

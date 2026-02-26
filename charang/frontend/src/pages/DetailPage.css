@@ -173,7 +173,7 @@ hr{
     padding: 10px;
     width: 100%;
     font-size: 19px;
-    background-color: #0b79b7;
+    background-color: #1e75f5;
     color: #f7f8fa;
     margin-top: 20px;
 }
@@ -192,7 +192,7 @@ hr{
     margin: 30px 0;
 }
 #root .DetailPage .detailSummary .summary_card .reserve_btn:hover{
-    background-color: #0a6aa1;
+    background-color: #1763D1;
 }
 #root .DetailPage .detailSummary .price_total > p{
     display: flex;

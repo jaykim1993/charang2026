@@ -280,7 +280,7 @@
 /* 질문 (오른쪽) */
 .chat-bubble.question {
   align-self: flex-end;
-  background:#2591cf;
+  background:#1e75f5;
   color: white;
   border-radius: 35px 35px 2px 35px;
   cursor: pointer;
@@ -291,7 +291,7 @@
 .chat-bubble.question::after {
     position: absolute;
     content: "Q";
-    color: #2591cf;
+    color: #1e75f5;
     top: -27px;
     right: -57px;
     font-size: 45px;
@@ -353,7 +353,7 @@
     border-radius: 50%;
     bottom: 0;
     left: -70px;
-    background-color: #2591cf;
+    background-color: #1e75f5;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -377,11 +377,11 @@
     margin-bottom: 100px;
 }
 .CusFAQ > p a{
-    color: #0b79b7;
+    color: #1e75f5;
     font-weight: bold;
 }
 .CusFAQ > p a:hover{
-    color: #065d8f;
+    color: #1763D1;
     text-decoration: underline;
 }
 

@@ -1,0 +1,71 @@
+.LocationPage2 .invenTR{
+    text-align: center;
+}
+.invenTH{
+    background-color: #1e75f5;
+    width: 150px;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0;
+}
+.invenTH .invendropdownBtn{
+    width: 150px;
+    padding: 7px 0;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: white;
+}
+.invenTH .invendropdownBtn i{
+    color: white;
+    margin-left: 30px;
+}
+.invendropdown{
+    background-color: #1e75f5;
+    padding: 7px 0;
+}
+.invendropdown:hover{
+    background-color: #1763D1;
+}
+    
+.invenTB{
+    width: 900px;
+}
+.invenTableTD{
+    text-align: center;
+}
+.invenTableTD img{
+    max-width: 130px;
+    padding: 10px 0;
+}
+.LocationDropDownMenuLi{
+    width: 100%;
+    background-color: rgb(235, 235, 235);
+}
+.LocationdropdownMenu.open{
+    width: 150px;
+    transform: scaleY(1);
+    opacity: 1;
+    pointer-events: auto;
+    
+}
+.LocationdropdownMenu {
+  list-style: none;
+  position: absolute;
+  right: 0;
+  top: 116px;
+  width: 150px;
+  text-align: center;
+  color: #333;
+  padding: 10px 0;
+  transform-origin: top;
+  transform: scaleY(0);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 0 0 10px 10px;
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease;
+}

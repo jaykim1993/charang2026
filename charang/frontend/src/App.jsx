@@ -8,7 +8,6 @@ import DetailPage from './pages/DetailPage';
 import Recentcarlist from './pages/Recentcarlist';
 import Reservation from './pages/Reservation'
 import CustomerService from './pages/CustomerService';
-import LocationPage from './pages/Location';
 
 import Mypage from './pages/Mypage'
 import MypageDetail from './pages/MypageDetail'
@@ -95,9 +94,7 @@ import ScrollToTop from './ScrollToTop';
                   <Route path="/customerservice/notice/manager/write" element={<CustomerServiceNoticeWrite />} />              {/* 공지사항 작성*/}
                   <Route path="/customerservice/notice/manager/modify/:noticeId" element={<CustomerServiceNoticeModfiy />} />  {/* 공지사항 수정*/}
                   <Route path="/customerservice/inquiry/list/info/:inquiryId" element={<InquiryDetail />} />                   {/* 문의상세 */}
-                  <Route path="/manager/inquiry/answer/:inquiryId" element={<InquiryAnswer />} />                              {/* 문의답변 */}
-                  <Route path="/location" element={<LocationPage />} />
-                  
+                  <Route path="/manager/inquiry/answer/:inquiryId" element={<InquiryAnswer />} />                              {/* 문의답변 */} 
   
                   {/* 마이페이지 */}
                   <Route path="/mypage" element={<Mypage />}>

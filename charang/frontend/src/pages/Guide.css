@@ -152,13 +152,18 @@
 }
 .guideSelectCarSizeBtn{
     margin-top: 30px;
-    background-color: rgb(214, 214, 214);
+    background-color:#b9b9b9;
     border: none;
     font-size: 17px;
     padding: 7px 10px;
     width: 120px;
     border-radius: 7px 7px 0 0 ;
     outline: none;
+    transition: 0.3s;
+    color: white;
+    transform: translateY(6px);
+    position: relative;
+    z-index: 10;
 }
 .guideSelectCarSizeBtn2{
     margin-top: 30px;
@@ -178,21 +183,26 @@
     color: gray;
 }
 .guideSideMenus.active{
-    color: #333;
+    color: white;
 }
 .guideSelectButns{
     color: gray;
 }
 .guideSelectButns.active{
-    color: #333;
+    color: white;
 }
 
 .guideSelectCarSizeBtn:hover{
-    background-color: #ccc;
+    background-color: #1763D1;
 }
 .guideSelectCarSizeBtn.active{
-    background-color: #333;
+    background-color: #1e75f5;
+    transition: 0.3s;
     color: white;
+    transform: translateY(1px);
+}
+.guideSelectCarSizeBtn.active:hover{
+     background-color: #1763D1;
 }
 .guideSelectWhereBox{
     margin-top: 50px;
@@ -211,11 +221,13 @@
     width: 900px;
 }
 .guideThead{
-    background-color: #333;
+    background-color: #1e75f5;
     height: 45px;
     font-size: 15px;
     text-align: center;
     font-weight: 500;
+    position: relative;
+    z-index: 20;
 }
 .guideTr th{
     color: white;
@@ -242,7 +254,7 @@
     padding: 10px;
     border: none;
     border-radius: 10px;
-    background-color: #0b79b7;
+    background-color: #1e75f5;
     color: white;
     transition: 0.3s;
     margin-bottom: 100px;
@@ -250,7 +262,7 @@
 }
 
 .guideGoToBook:hover{
-    background-color: #065d8f;
+    background-color: #1763D1;
 }
 .guideGoToHome{
     color: rgb(160, 160, 160);
@@ -268,7 +280,7 @@
     text-align: left;
   }
 .guidetable1th{
-    background-color: #0b79b7;
+    background-color: #1e75f5;
     color: white;
     font-weight: bold;
     text-align: center;
@@ -290,7 +302,7 @@
   }
 
 .guidetable2th{
-    background-color: #0b79b7;
+    background-color:#1e75f5;
     color: white;
     font-weight: 500;
   }
