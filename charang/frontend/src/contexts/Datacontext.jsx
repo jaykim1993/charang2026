@@ -18,7 +18,7 @@ export default function DataProvider({children}){
               pageNumbers.push(i);
           }
       }
-      // console.log("페이징 확인: ", pageNumbers);
+      console.log("페이징 확인: ", pageNumbers);
       return pageNumbers;
     }
   // =============================================================================================================
@@ -27,6 +27,8 @@ export default function DataProvider({children}){
 
   // 예약
     const [allBookCar, setAllBookCar] = useState([]);
+  // 예약 전체
+    const [allBookStatus, setAllBookStatus] = useState([]);
   // 회원
     const [ user, setUser] = useState([]);
 
@@ -40,10 +42,14 @@ export default function DataProvider({children}){
         console.log("검색 단어:", searchWord);
         axios.get("/api/bookcarlist",{params:{searchType:searchType, searchWord:searchWord, page:pageNum}})
         .then((res)=>{
+            if(!searchWord == ''){
+                setPageNum(1);
+                
+              }
             if(res.data){
-                setPaging(res.data.ph);
                 setAllBookCar(res.data.list);
-                console.log("예약+차량정보 ", res.data.list);
+                setPaging(res.data.ph); // 페이징
+                console.log("예약+차량정보 : !!!! ", res.data.list);
             }
         })
         .catch((error)=>{
@@ -51,16 +57,35 @@ export default function DataProvider({children}){
         })
     }
 
+    console.log("user검색: ",searchWord);
+
   // 전체 회원
   const userFind = () => {
-        axios.get("/api/searchUser",{params:{searchType:'',searchWord:''}})
+        axios.get("/api/searchUser",{params:{searchType:searchType,searchWord:searchWord, page:pageNum}})
         .then((res)=>{
+            if(!searchWord == ''){
+              setPageNum(1);
+            }
             console.log("검색 회원: ",res.data);
-            setPaging(res.data.ph); // 페이징
             setUser(res.data.list); // 검색 회원 가져온 데이터
+            setPaging(res.data.ph); // 페이징
         })
         .catch((error)=>{
             console.log("검색 회원 출력 에러: ",error);
+        })
+    }
+
+    // 전체 예약 (관리자용)
+    const bookStatusFind = () => {
+        axios.get("/api/booklistStatus")
+        .then((res)=>{
+            if(res.data){
+                setAllBookStatus(res.data);
+                console.log("예약+차량정보 ", res.data);
+            }
+        })
+        .catch((error)=>{
+            console.log("예약정보 받기 서버 오류", error);
         })
     }
 
@@ -98,11 +123,12 @@ export default function DataProvider({children}){
         })
       },[])
 
+
   return(
     <>
       <DataContext.Provider 
       value={{car, branch, pageNum, setPageNum, pagesHandler, paging, setPaging, 
-              allBookCar, setAllBookCar, user, setUser, bookFind, userFind, setSearchType, setSearchWord}}>
+              allBookCar, setAllBookCar, user, setUser, bookFind, userFind, setSearchType, setSearchWord, bookStatusFind, allBookStatus}}>
         {children}
       </DataContext.Provider>
     </>

@@ -27,6 +27,12 @@ public class BookingApiController {
 		return bookingservice.getAllBooking();
 	}
 	
+	@GetMapping("/booklistStatus")
+	public List<BookingDTO> getAllBookingListStatus(){
+		System.out.println("예약 컨트롤러 - 관리자용 예약 전체 출력 컨트롤러");
+		return bookingservice.getAllBookingStatus();
+	}
+	
 	@GetMapping("/userbooklist")
 	public List<BookingDTO> getUserBookingList(HttpSession session){
 		String loginId = (String) session.getAttribute("loginUser");

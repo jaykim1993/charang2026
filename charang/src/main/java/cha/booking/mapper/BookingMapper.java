@@ -12,6 +12,9 @@ public interface BookingMapper {
 	// 전체 예약 출력 메서드
 	public List<BookingDTO> getAllBooking();
 	
+	// 관리자용 전체 예약 출력
+	public List<BookingDTO> getAllBookingStatus();
+	
 	// 로그인 회원 예약 출력 메서드
 	public List<BookingDTO> getUserBooking(String userId);
 	

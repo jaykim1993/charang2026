@@ -7,6 +7,33 @@
 	<select id="getAllBooking" resultType="bookingDTO">
 		SELECT * FROM booking
 	</select>
+	<!-- 전체 예약 목록 출력 -->
+	<select id="getAllBookingStatus" resultType="bookingDTO">
+		<![CDATA[
+		SELECT *,
+		CASE
+	      WHEN NOW() < STR_TO_DATE(
+	        CONCAT(startDate, ' ', startTime),
+	        '%Y-%m-%d %H:%i'
+	      )
+	        THEN 'UPCOMING'
+	
+	      WHEN NOW() BETWEEN
+	        STR_TO_DATE(
+	          CONCAT(startDate, ' ', startTime),
+	          '%Y-%m-%d %H:%i'
+	        )
+	        AND
+	        STR_TO_DATE(
+	          CONCAT(endDate, ' ', endTime),
+	          '%Y-%m-%d %H:%i'
+	        )
+	        THEN 'ONGOING'
+	      ELSE 'PAST'
+	    END AS bookingStatus FROM booking
+	    ]]>
+	</select>
+	
 	
 	<!-- 로그인한 유저 예약 목록 출력 -->
 	<select id="getUserBooking" resultType="bookingDTO">

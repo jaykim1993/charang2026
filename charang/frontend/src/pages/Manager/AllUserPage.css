@@ -2,11 +2,11 @@
 .ManagerAllUser {
     max-width: 1300px;
     margin: 120px auto;
-    padding: 30px;
     background-color: #fff;
     border-radius: 12px;
     /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); */
     font-family: sans-serif;
+    min-height: 800px;
 }
 
 .ManagerAllUser h1 {
@@ -25,7 +25,7 @@
 
 .ManagerAllUser .mau_find .mau_info{
     margin-left: auto;
-    padding-right: 5px;
+    padding-right: 10px;
     font-size: 13px;
     margin-top: 19px;
     color: #666;
@@ -65,15 +65,40 @@
 }
 
 /* 테이블 스타일 */
+
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_num{
+    width: 5%;
+}
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userId{
+    width: 10%;
+}
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userName{
+    width: 7%;
+}
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userEmail{
+    width: 20%;
+}
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userResiNum{
+    width: 15%;
+}
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userPhone{
+    width: 10%;
+}
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userRegDate{
+    width: 15%;
+}
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userDel{
+    width: 7%;
+}
+
 .managerAllUser_table {
-    width: 100%;
+    width: 1300px;
     border-collapse: separate;
     border-spacing: 0;
     margin-top: 20px;
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     border: 1px solid rgb(221, 221, 221);
 }
 
@@ -86,6 +111,18 @@
     text-align: center;
 }
 
+.managerAllUser_table .managerAllUser_table_tb .managerAllUser_tr:last-child td{
+    border-bottom: none;
+} 
+.mau_div{
+    text-decoration: underline;
+}
+.mau_td:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
 .managerAllUser_table td {
     padding: 15px;
     text-align: center;
@@ -96,15 +133,6 @@
 
 .managerAllUser_table_tb tr:hover {
     background-color: #f8fbff;
-}
-
-.managerAllUser_table_tb tr .mau_name{
-    cursor: pointer;
-}
-
-.managerAllUser_table_tb tr .mau_name:hover{
-    color: 222;
-    font-weight: 600;
 }
 
 /* 데이터 없을 때 */

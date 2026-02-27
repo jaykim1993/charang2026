@@ -1,14 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/Datacontext";
 import { useNavigate } from "react-router-dom";
+import { useMemo } from 'react';
 
 import './AllCarPage.css';
-import axios from "axios";
+import axios, { all } from "axios";
 
 export default function AllCarPage() {
 
-    const { pageNum, setPageNum, pagesHandler, paging, setPaging, allBookCar,
-         setAllBookCar, user, setUser, bookFind, userFind} = useContext(DataContext);
+    const { pageNum, setPageNum, pagesHandler, paging, setPaging, bookStatusFind, allBookStatus } = useContext(DataContext);
 
     // =============================================================================================
 
@@ -24,7 +24,12 @@ export default function AllCarPage() {
         // http://api/searchcar/searchType=검색타입&&searchWord="검색단어"
         axios.get("/api/searchCar", { params: { searchType: searchType, searchWord: searchWord, page: pageNum } })
             .then((res) => {
+                console.log("검색어: ", searchWord);
                 console.log("확인", res.data.list);
+                // 검색어가 존재
+                if (!searchWord == '') {
+                    setPageNum(1);
+                }
                 setPaging(res.data.ph); // 페이징
                 setSearchCar(res.data.list); // 가져온 데이터
             })
@@ -36,22 +41,30 @@ export default function AllCarPage() {
     // =============================================================================================
 
     // 예약이 있는 차량인지 확인하는 함수(true:삭제가능, false:삭제불가)
-        // 삭제하면 안 되는 차량 ID 배열 만들기
-        const upCommingCar = allBookCar
-            .filter(book => book.bookingStatus === "UPCOMMING" || book.bookingStatus === "ONGOING")
-            .map(book => book.carId);
-        console.log("삭제하면 안되는 차량", upCommingCar);
-        // noRes 함수에서 사용
-        const noRes = (carId) => {
-            // 위에서 만든 '삭제 불가 명단'에 이 carId가 포함되어 있는지 확인
-            return upCommingCar.includes(carId); 
-        }
+    // 삭제하면 안 되는 차량 ID 배열 만들기
+
+    console.log("전체 예약: ", allBookStatus);
+
+
+    const upCommingCar = allBookStatus
+        .filter(book => book.bookingStatus === "UPCOMING" || book.bookingStatus === "ONGOING")
+        .map(book => book.carId);
+
+    console.log("전체 예약: ", allBookStatus);
+    console.log("삭제하면 안되는 차량", upCommingCar);
+    console.log(`전체 예약수: ${allBookStatus.length}개 / 삭제불가 차량 수: ${upCommingCar.length}대`);
+
+    // noRes 함수에서 사용
+    const noRes = (carId) => {
+        // 위에서 만든 '삭제 불가 명단'에 이 carId가 포함되어 있는지 확인
+        return upCommingCar.includes(carId);
+    }
     // =============================================================================================
 
     // 처음 실행할때 find실행하여 전체 출력
     useEffect(() => {
-        bookFind();
         carFind();
+        bookStatusFind();
     }, [pageNum]);
 
     // =============================================================================================
@@ -85,12 +98,14 @@ export default function AllCarPage() {
             alert("삭제할 차량을 선택해주세요.");
             return;
         } else {
-            axios.post("/api/delCar", delCar)
+            const confirmCancel = window.confirm('선택 차량을 삭제하시겠습니까?');
+            if (!confirmCancel) return;
+            axios.delete("/api/delCar", { data: delCar })
                 .then((res) => {
                     console.log("삭제 결과: ", res.data);
                     if (res.data) {
                         alert("삭제되었습니다.");
-                        find();
+                        carFind();
                     } else {
                         alert("다시 시도해주세요.");
                     }
@@ -134,6 +149,7 @@ export default function AllCarPage() {
                     onChange={(e) => setSearchWord(e.target.value)} />
                 <button className="acp_btn" type="button" onClick={carFind}>검색</button>
                 <button className="acp_Regbtn" type="button" onClick={() => { navigate('/manager/carregister') }}>등록하기</button>
+                <button className="acp_btn" onClick={delHandler}>삭제하기</button>
             </div>
 
             <table className="m_AllCar_table">
@@ -157,32 +173,33 @@ export default function AllCarPage() {
 
                             return (
                                 <tr className="m_AllCar_tr" key={index}>
-                                    <td className="m_AllCar_tableNum">{rowNumber}</td>
-                                    <td className="m_AllCar_tableNum">{item.carId}</td>
+                                    <td className="m_AllCar_tableNum" >{rowNumber}</td>
+                                    <td className="m_AllCar_tableId" onClick={() => detailHandler(item.carId)}>{item.carId}</td>
                                     <td className="m_AllCar_tableCarImg" onClick={() => detailHandler(item.carId)}>
                                         <img src={`/images/cars/${item.carImg}`} alt={item.carImg} />
                                     </td>
-                                    <td className="m_AllCar_tableBrand">{item.brand}</td>
-                                    <td className="m_AllCar_tableModel">{item.model}</td>
-                                    <td className="m_AllCar_tableCarNum">{item.plateNumber}</td>
+                                    <td className="m_AllCar_tableBrand" onClick={() => detailHandler(item.carId)}>{item.brand}</td>
+                                    <td className="m_AllCar_tableModel" onClick={() => detailHandler(item.carId)}>{item.model}</td>
+                                    <td className="m_AllCar_tableCarNum" onClick={() => detailHandler(item.carId)}>{item.plateNumber}</td>
                                     <td className="m_AllCar_tableRegDate">{item.regDate}</td>
                                     <td className="m_AllCar_tableDel">
                                         {/* 체크한 차량의 carId만 값을 들고옴 */}
-                                        {noRes(item.carId)?
-                                        <p>불가</p>
-                                        :
-                                        <input type="checkbox" name="delcheck"
-                                            className="AllCar_del" onChange={(e) => { checkHandler(e, item.carId) }}></input>
-                                    }
+                                        {noRes(item.carId) ?
+                                            <p>예약 중</p>
+                                            :
+                                            <input type="checkbox" name="delcheck"
+                                                className="AllCar_del" onChange={(e) => { checkHandler(e, item.carId) }}></input>
+                                        }
                                     </td>
                                 </tr>
-                            )})
-                    :
-                    <tr className="m_AllCar_tr_none" colSpan={6}>
-                        <td className="m_AllCar_td_none">
-                            차량이 존재하지 않습니다.
-                        </td>
-                    </tr>
+                            )
+                        })
+                        :
+                        <tr className="m_AllCar_tr_none">
+                            <td className="m_AllCar_td_none" colSpan={8}>
+                                차량이 존재하지 않습니다.
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -210,9 +227,7 @@ export default function AllCarPage() {
                     </button>
                 )}
             </div>
-            <div className="btn_part">
-                <button className="acp_btn" onClick={delHandler}>삭제하기</button>
-            </div>
+
         </div>
     )
 }

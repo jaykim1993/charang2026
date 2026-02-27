@@ -48,6 +48,7 @@
     font-weight: 600;
     color: #fbfbfb;
     cursor: pointer;
+    border: none;
 }
 
 .reservationDetailPage .reservationDetail_container .reservationDetail_header .reservationDetail_btnBox .reservationDetail_listBtn:hover {

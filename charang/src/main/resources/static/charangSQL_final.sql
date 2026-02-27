@@ -26,7 +26,6 @@ INSERT INTO user (
     address, addressDetail, isKorean, license, licenseNum,
     regDate, modDate
 ) VALUES
-) VALUES
 ('admin', '$2a$10$R6TxP2gny9PiLqeBW5kgcue4pK2QJfWRNH4OSSVJGD1eboUK3BcfS', '관리자', 'admin@naver.com', '000000-0000000', '000-0000-0000', 'seoul', 'seoul', 0, '0', '1', '2024-01-01 10:05:43', '2024-01-01 10:05:43'),
 ('dlfudrud','$2a$10$R6TxP2gny9PiLqeBW5kgcue4pK2QJfWRNH4OSSVJGD1eboUK3BcfS','이령경','dlfudrud627@naver.com','880312-1238745','010-3819-5521','서울시 마포구 월드컵북로','201-1102',0,1,'12-45-8231-19','2024-01-18 10:05:43','2024-01-18 10:05:43'),
 ('heayeon','$2a$10$R6TxP2gny9PiLqeBW5kgcue4pK2QJfWRNH4OSSVJGD1eboUK3BcfS','정해연','heayeon1124@naver.com','890427-2239912','010-9042-1138','서울시 강서구 화곡로','305-807',0,2,'34-18-4429-02','2024-02-09 10:05:43','2024-02-09 10:05:43'),

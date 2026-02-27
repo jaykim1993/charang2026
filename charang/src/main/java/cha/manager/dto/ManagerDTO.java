@@ -10,6 +10,7 @@ public class ManagerDTO {
 	// 예약 테이블
 	private String bookingId;
 	private String userId;
+	private String name;
 	private int carId;
 	private String bookedDate;
 	private String startDate;
