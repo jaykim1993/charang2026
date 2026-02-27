@@ -24,6 +24,8 @@ export default function MypageInquiry() {
     const [inputPw, setInputPw] = useState("");
 
     useEffect(() => {
+        if (!userid) return;
+
         axios.get(`/api/customerservice/inquiry/list?page=${pageNum}&userId=${userid}`)
             .then((res) => {
                 console.log("문의목록 - 받아온데이터 : ", res.data);
@@ -33,7 +35,7 @@ export default function MypageInquiry() {
                 console.log("문의목록 - res.data.ph : ", res.data.ph);
             })
             .catch(error => console.log("error : ", error));
-    }, [pageNum]);
+    }, [pageNum, userid]);
 
     // 비밀번호가 있는지 체크
     const myInquiryHandler = (item) => {

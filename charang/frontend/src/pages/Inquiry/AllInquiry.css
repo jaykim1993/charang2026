@@ -10,7 +10,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .AllInquiry .Inquiry_head>button {
@@ -30,7 +30,6 @@
 .AllInquiry table {
     width: 100%;
     text-align: center;
-    margin-top: 20px;
     border-top: 2px solid #333;
 }
 

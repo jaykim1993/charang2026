@@ -7,7 +7,7 @@ import './CustomerServiceNoticeDetail.css';
 
 export default function CustomerServiceNoticeDetail() {
     const navigate = useNavigate();
-    
+
     // 주소창에서 :noticeId 자리에 있는 값을 바로 뽑아옴
     const { noticeId } = useParams();
     const { userid } = useContext(AuthContext);
@@ -15,55 +15,58 @@ export default function CustomerServiceNoticeDetail() {
 
     useEffect(() => {
         axios.get(`/api/customerservice/notice/Info/${noticeId}`)
-        .then((res) => {
-            setNotice(res.data);
-            console.log("공지 상세 - res.data : ", res.data);
-        })
-        .catch(error => console.log("error : ", error));
+            .then((res) => {
+                setNotice(res.data);
+                console.log("공지 상세 - res.data : ", res.data);
+            })
+            .catch(error => console.log("error : ", error));
     }, [noticeId]);
 
     const handleDelete = () => {
         if (window.confirm("정말 삭제하시겠습니까?")) {
             // axios.delete(`/api/customerservice/notice/manager/delete/${noticeId}`)
             axios.delete("/api/customerservice/notice/manager/delete", { params: { noticeId: noticeId } })
-            .then((res) => {
-                if(res.data === 1){
-                    alert("공지사항이 삭제되었습니다.");
-                    navigate("/customerservice/notice");
-                }else{
-                    alert("공지사항 삭제실패하였습니다? 코드고치세요");
-                }
-            })
-            .catch(error => console.log("error : ", error));
+                .then((res) => {
+                    if (res.data === 1) {
+                        alert("공지사항이 삭제되었습니다.");
+                        navigate("/customerservice/notice");
+                    } else {
+                        alert("공지사항 삭제실패하였습니다? 코드고치세요");
+                    }
+                })
+                .catch(error => console.log("error : ", error));
         }
     };
 
-    if (!notice) return <div>로딩 중...</div>;
+    if (!notice) return <div style={{minHeight: '800px', textAlign: 'center'}}>로딩 중...</div>;
 
     return (
-        <div className="noticeInfo">
+        <div className="noticeInfo" 
+        style={{width: userid === 'admin' ? '1300px' : '100%', 
+            margin: userid === 'admin' ?'150px auto' : '0'}}>
             <h4>공지사항 │ {notice.modDate}</h4>
             <table>
                 <tbody>
                     <tr>
-                        <td>
-                            <h4>{notice.title}</h4>
-                        </td>
-                        <td style={{width: '200px'}}>조회수&nbsp;&nbsp;&nbsp;&nbsp;{notice.readCount}</td>
+                        {/* <th>제목</th> */}
+                        <th>{notice.title}</th>
+                        <td style={{ width: '150px' }}>조회수&nbsp;&nbsp;&nbsp;&nbsp;{notice.readCount}</td>
                     </tr>
                     <tr>
-                        <td colSpan="2" style={{fontSize: "17px", padding: "40px 5px", whiteSpace: "pre-wrap"}}>{notice.content}</td>
+                        <td colSpan="2" style={{ fontSize: "17px", padding: "40px 5px", whiteSpace: "pre-wrap" }}>
+                            {notice.content}
+                        </td>
                     </tr>
                 </tbody>
             </table>
 
             <div className="noticeInfo_btn">
                 <button onClick={() => navigate("/customerservice/notice")}>목록으로 돌아가기</button>
-                
+
                 {userid === 'admin' && (
                     <div className="adminBtn">
                         <button className="adminBtn_1"
-                         onClick={() => navigate(`/customerservice/notice/manager/modify/${noticeId}`)}>
+                            onClick={() => navigate(`/customerservice/notice/manager/modify/${noticeId}`)}>
                             수정하기
                         </button>
                         <button onClick={handleDelete} className="adminBtn_2">

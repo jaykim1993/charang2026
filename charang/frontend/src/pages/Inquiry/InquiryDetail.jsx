@@ -85,13 +85,7 @@ export default function AllInquiryDetail() {
 
                         <th>답변상태</th>
                         <td>
-                            {inquiry.answer === null ?
-                                (userid === "admin" ?
-                                    <button onClick={() => navigate(`/manager/inquiry/answer/${inquiryId}`)}>
-                                        답변하기
-                                    </button>
-                                    : "답변 대기중")
-                                : "답변완료"}
+                            {inquiry.answer === null ? "답변 대기중" : "답변완료"}
                         </td>
                     </tr>
                     <tr>

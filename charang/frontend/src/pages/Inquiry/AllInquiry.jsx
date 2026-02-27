@@ -83,7 +83,7 @@ export default function AllInquiry() {
             width: userid === 'admin' ? '1300px' : '900px',
             margin: userid === 'admin' ? '150px auto' : '0'
         }}>
-            <div className="Inquiry_head">
+            <div className="Inquiry_head" style={{marginBottom: userid === 'admin' ?'20px' : '15px'}}>
                 <h4>문의하기</h4>
                 {userid === 'admin' || !userid ?
                     <></>
