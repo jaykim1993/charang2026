@@ -64,12 +64,13 @@ useEffect(() => {
         current.noticeId > max.noticeId ? current : max
       );
       setNotice(latest);
-      setNoticeDetail(`/customerservice/notice/Info/${notice.noticeId}`)
+      setNoticeDetail(`/customerservice/notice/Info/${latest.noticeId}`)
 
     })
     .catch(err => console.log(err));
     }, []);
     console.log("최신 공지",notice)
+    console.log("최신공지배열",noticeDetail)
 
     
 
@@ -97,14 +98,11 @@ useEffect(() => {
             </div>
             <div className='Footer'>
                     <ul className='footerNoticeBox'>
-                      <li> 
+                      <li className='footerno1'> 
                         <i className="fa-solid fa-bullhorn"></i>공지사항
                       </li>
                         <li className='gotoRecentNotice' onClick={()=>navigate(noticeDetail)}>
-                            {notice.title}
-                        </li>
-                        <li>
-                            {notice.regDate}
+                            {notice.title}({notice.regDate})
                         </li>
                         <li className='allNotice' onClick={()=>navigate("/customerservice/notice")}>
                           전체보기

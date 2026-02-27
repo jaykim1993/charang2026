@@ -7,16 +7,6 @@ import { Link, Outlet } from "react-router-dom"
 export default function GuidePricing() {
     const { car } = useContext(DataContext); //데이터받아오기
 
-    const [showPage, setShowPage] = useState(true); //기본화면 출력 기본값 true
-    const showGuideOne = () => {
-        setShowPage(true);
-        console.log(showPage)
-    }
-    const showGuideTwo = () => {
-        setShowPage(false);
-        console.log(showPage)
-    }
-
     const carsCopy = [...car] //얕은복사
 
     const uniqueCars = carsCopy.filter((car, index, array) =>   // 얕은복사한거로 중복제거
@@ -149,7 +139,7 @@ export default function GuidePricing() {
                 )}
             </div>
 
-            <div className={`LoTableWrap ${tdOpen ? 'open' : ''}`}>
+            <div className={`LoTableWrap2 ${tdOpen ? 'open' : ''}`}>
                 <table className="guideTable">
                     <thead className="guideThead">
                         <tr className="guideTr">
@@ -177,9 +167,9 @@ export default function GuidePricing() {
                     </tbody>
                 </table>
             </div>
-            <button className="tableOpener" onClick={() => setTdOpen(!tdOpen)}>
+            {carListToRender.length >= 8? <button className="tableOpener" onClick={() => setTdOpen(!tdOpen)}>
                 {tdOpen ? '접기' : '더보기'}
-            </button>
+            </button>:<div className="NotEnoughLenghtToFoldDiv"></div>}
             <div className="guideGoToBookBox">
                 <Link to='/searchcarlist' className="guideGoToBook" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>예약하러가기</Link>
             </div>

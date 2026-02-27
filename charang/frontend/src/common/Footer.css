@@ -195,7 +195,6 @@
     margin: 20px 0;
     font-size: 17px;
     display: flex;
-    justify-content: space-between;
     position: relative;
 }
 .footerNoticeBox::after{
@@ -206,6 +205,9 @@
     content: "";
     left: -50%;
     bottom: -22px;
+}
+.footerno1{
+    margin-right: 150px;
 }
 .footerSlogan{
     color: white;
@@ -265,6 +267,7 @@
 }
 .allNotice{
     cursor: pointer;
+    margin-left: auto;
 }
 .allNotice:hover{
     text-decoration: underline;

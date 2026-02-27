@@ -7,32 +7,33 @@ import axios from 'axios';
 import './MypageMyinfo.css'
 
 export default function MypageMyinfo() {
-    const [userid, setUserid] = useState(null);
     const [unregiOverlay, setUnregiOverlay] = useState(false);
     const [unregiInput, setUnregiInput] = useState('');
-    const { logout, loginNeeded } = useContext(AuthContext);
+    const { userid: loginUserId, logout, loginNeeded } = useContext(AuthContext);
+    const [userinfo, setUserinfo] = useState(null);
     const { myBooking } = useContext(BookingContext);
     const navigate = useNavigate();
 
+
     //개인회원 정보 불러오기
     useEffect(() => {
-        axios.get(`/api/userinfo/${userid}`, { userId: userid })
+        if (!loginUserId) return;
+        axios.get(`/api/userinfo/${loginUserId}`)
             .then((res) => {
-                if (!res.data) {
-                    loginNeeded();
-                } else {
-                    setUserid(res.data);
-                }
+                setUserinfo(res.data);
             })
             .catch((error) => {
-                console.log(error)
-            })
-    }, [])
+                console.log(error);
+            });
+    }, [loginUserId]);
 
-    if (!userid) {
-        return <div>로딩중 ....</div>
+    if (!loginUserId) {
+        return <div>로그인이 필요합니다.</div>;
     }
 
+    if (!userinfo) {
+        return <div>로딩중...</div>;
+    }
 
     //회원 탈퇴하기
     const deleteHandler = (e) => {
@@ -41,7 +42,7 @@ export default function MypageMyinfo() {
             alert("예약 내역이 존재해 탈퇴가 불가능합니다.");
             return;
         }
-        if (unregiInput !== `${userid.name}탈퇴`) {
+        if (unregiInput !== `${userinfo.name}탈퇴`) {
             alert("입력 문구가 올바르지 않습니다.");
             return;
         }
@@ -72,45 +73,45 @@ export default function MypageMyinfo() {
                 <tbody className="myinfo-list">
                     <tr>
                         <th>아이디</th>
-                        <td>{userid.userId}</td>
+                        <td>{userinfo.userId}</td>
                     </tr>
                     <tr>
                         <th>이름</th>
-                        <td>{userid.name}</td>
+                        <td>{userinfo.name}</td>
                     </tr>
                     <tr>
                         <th>이메일</th>
-                        <td>{userid.mail}</td>
+                        <td>{userinfo.mail}</td>
                     </tr>
                     <tr>
                         <th>주민번호</th>
-                        <td>{userid.resistNum}</td>
+                        <td>{userinfo.resistNum}</td>
                     </tr>
                     <tr>
                         <th>전화번호</th>
-                        <td>{userid.phone}</td>
+                        <td>{userinfo.phone}</td>
                     </tr>
                     <tr>
                         <th>주소</th>
-                        <td>{userid.address} ({userid.addressDetail})</td>
+                        <td>{userinfo.address} ({userinfo.addressDetail})</td>
                     </tr>
                     <tr>
                         <th>국적</th>
                         <td>
-                            {userid.isKorean == 0 ? "대한민국 국적" : "외국 국적"}
+                            {userinfo.isKorean == 0 ? "대한민국 국적" : "외국 국적"}
                         </td>
                     </tr>
                     <tr>
                         <th>운전면허번호</th>
-                        <td>{userid.licenseNum}</td>
+                        <td>{userinfo.licenseNum}</td>
                     </tr>
                     <tr>
                         <th>운전면허종류</th>
-                        <td>{userid.license}종 보통</td>
+                        <td>{userinfo.license}종 보통</td>
                     </tr>
                     <tr>
                         <th>가입일</th>
-                        <td>{userid.regDate.slice(0,10)}</td>
+                        <td>{userinfo.regDate.slice(0, 10)}</td>
                     </tr>
                 </tbody>
             </table>

@@ -609,15 +609,15 @@ export default function Recentcar() {
                 </div>
 
                 {/* 차량 리스트 결과 */}
-                <p>총 <strong>{selectedModel ? secondFilteredCar.length : secondFilteredCar.length}</strong> 종</p>
+                <p>총 &nbsp;<strong>{selectedModel ? secondFilteredCar.length : secondFilteredCar.length}</strong>&nbsp; 종</p>
 
                 <ul className={`GrounpedCarsWrap ${tdOpen ? 'open' : ''}`}>
                     {renderCarList()}
                 </ul>
-
-                <button className="tableOpener" onClick={() => setTdOpen(!tdOpen)}>
+                {secondFilteredCar.length == 0?(<></>):(<button className="tableOpener" onClick={() => setTdOpen(!tdOpen)}>
                     {tdOpen ? '접기' : '더보기'}
-                </button>
+                </button>)}
+                
             </div>
         </div>
     );
