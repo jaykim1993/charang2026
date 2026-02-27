@@ -46,12 +46,5 @@
 	<!-- 공지 전체 목록 -->
 	<select id="getPageList" resultType="noticeDTO">
 		SELECT * FROM notice ORDER BY noticeId DESC LIMIT #{startRow}, #{pageSize}
-		<!-- SELECT noticeId, userId, title,content,
-        DATE_FORMAT(regDate, '%Y-%m-%d') as regDate, 
-        DATE_FORMAT(modDate, '%Y-%m-%d') as modDate, readCount
-	    FROM notice 
-	    ORDER BY noticeId DESC 
-	    LIMIT #{startRow}, #{pageSize} -->
 	</select>
-
 </mapper>
