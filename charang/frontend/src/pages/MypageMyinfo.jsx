@@ -29,6 +29,7 @@ export default function MypageMyinfo() {
             })
     }, [])
 
+    console.log(userid);
     if (!userid) {
         return <div>로딩중 ....</div>
     }

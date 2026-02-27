@@ -10,7 +10,7 @@
     margin: 20px 0 10px 0;
 }
 .mypage_inquiry .myInquiry_head button {
-    background-color: #444;
+    background-color: #1e75f5;
     color: white;
     padding: 5px 16px;
     border: none;
@@ -19,8 +19,8 @@
     margin: 0 5px;
 }
 
-.AllInquiry .Inquiry_head>button:hover {
-    background-color: #222;
+.mypage_inquiry .myInquiry_head button:hover {
+    background-color: #1763D1;
 }
 
 /* 문의내역 없을 때 생기는 부분 공통 */

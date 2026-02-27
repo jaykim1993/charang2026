@@ -21,7 +21,7 @@
 }
 
 .AllInquiryDetail .inquiryDetail_updateBtn > button{
-    background-color: #444;
+    background-color: #1e75f5;
     color: white;
     padding: 5px 16px;
     border: none;
@@ -30,7 +30,7 @@
     margin: 0 5px;
 }
 .AllInquiryDetail .inquiryDetail_updateBtn > button:hover{
-    background-color: #222;
+    background-color: #1763D1;
 }
 
 .AllInquiryDetail table {
@@ -60,14 +60,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-.AllInquiryDetail table tr td button{
-    border: none;
-    background-color: transparent;
-    color: #2591cf;
-}
-.AllInquiryDetail table tr td button:hover{
-    color: red;
 }
 
 .AllInquiryDetail > button{
