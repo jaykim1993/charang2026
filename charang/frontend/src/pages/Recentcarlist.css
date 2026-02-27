@@ -1,9 +1,10 @@
 #root .Recent_car_list{
     width: 900px;
-    /* margin: 50px auto; */
     padding: 0;
+    margin-top: 20px;
     min-height: 900px;
 }
+
 #root .Recent_car_list .Recent_Head{
     display: flex;
     gap: 10px;
@@ -22,8 +23,6 @@
 }
 .Recent_car_span{
     font-size: 15px;
-}#root .Recent_car_list{
-    min-height: 900px;
 }
 #root .Recent_car_list > ul{
     display: flex;

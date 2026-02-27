@@ -274,7 +274,9 @@ export default function Header() {
                         <div className="headerNavAd">
                             <p className='headerNavH'>이달의 소식</p>
                             <div className='headerBannerImgWrap'>
-                                <img className='headerBannerImg' src='/dolCar.png' alt='sindNavAD' />
+                                <Link to={'/customerservice/notice/Info/20'}>
+                                    <img className='headerBannerImg' src='/dolCar.png' alt='sindNavAD' />
+                                </Link>
                             </div>
                             {/* → */}
                         </div>

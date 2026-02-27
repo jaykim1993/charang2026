@@ -16,6 +16,7 @@ public class BookingDTO {
 	private int insurancePrice;
 	private int totalPrice;
 	private String paymentMethod;
+	private String bookingStatus;
 	
 	
 }

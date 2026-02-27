@@ -166,7 +166,7 @@ export default function Recentcar() {
 
     const goToDetail = (carId) => {
         // 로그인 필요 위치 DetailPage로 조정 26.02.21
-        if (!location || !endTime) {
+        if (!location || !endDate) {
             alert("날짜와 지점을 먼저 선택해주세요.");
             return;
         }
@@ -183,14 +183,6 @@ export default function Recentcar() {
         setIsCalendar(false);
         setIsLocation(!isLocation);
     };
-    const CloseHandler = () => {
-        setIsCalendar(false);
-        setIsLocation(false);
-    }
-    // const detailCloseHandler = () => {
-    //     if (isDetail) setIsDetail(false);
-    //     else setIsLocation(false);
-    // };
 
     // 현재 선택된 지점 정보
     // const detailSpot = branch.find(item => item.branchId === isDetail);
@@ -205,11 +197,6 @@ export default function Recentcar() {
     let detail_lat = detail?.lat;
     let detail_lng = detail?.lng;
 
-    // 상세보기 close 버튼 핸들러함수
-    const detailCloseHandler = (e) => {
-        e.stopPropagation();
-        setIsDetailOpen(false);
-    };
 
     // 모달 바깥쪽 클릭 시 모달 자동 닫히기
     const calendarRef = useRef(null);

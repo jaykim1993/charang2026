@@ -2,11 +2,11 @@
 .AllReservation {
     max-width: 1300px;
     margin: 120px auto;
-    padding: 30px;
     background-color: #fff;
     border-radius: 12px;
     font-family: sans-serif;
     box-sizing: border-box;
+    min-height: 800px;
 }
 
 .AllReservation h1 {
@@ -18,10 +18,9 @@
 }
 
 /* 검색 */
-.AllReservation .search_area {
+.AllReservation .AllReservation_top .search_area {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .AllReservation .search_area .search_select, .search_input{
@@ -48,16 +47,21 @@
     background-color: #555;
 }
 
+.AllReservation .AllReservation_top{
+    display: flex;
+    justify-content: space-between;
+}
+
 /* 테이블*/
+
 .AllReservation .AllReservation_table {
-    width: 100%;
+    width: 1300px;
     border-collapse: separate;
     border-spacing: 0;
     margin-top: 20px;
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     border: 1px solid rgb(221, 221, 221);
 }
 
@@ -71,13 +75,16 @@
     font-weight: 600;
 }
 
+.AllReservation .AllReservation_table tbody tr:last-child td{
+    border-bottom: none;
+}
 .AllReservation .AllReservation_table tbody tr td {
     padding: 10px 15px; 
     text-align: center;
-    border-bottom: 1px solid #d8d8d8;
     color: #333;
     font-size: 14px;
     vertical-align: middle;
+    border-bottom: 1px solid #d8d8d8;
 }
 
 .AllReservation .AllReservation_table tbody tr:hover {
@@ -123,4 +130,5 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: auto;
 }
