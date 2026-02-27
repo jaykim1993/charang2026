@@ -479,4 +479,12 @@
 .joinUlC .joinLiB:nth-of-type(8) .joinLabelB + .joinLabelB {
   margin-left: 18px;
 }
-
+/* 글자수 안내 추가 02/27 */
+.JoinLimit{
+    font-size: 12px;
+    margin-left: 30px;
+    margin-top: 5px;
+    color: #818181;
+    font-weight: 500;
+    user-select: none;
+}

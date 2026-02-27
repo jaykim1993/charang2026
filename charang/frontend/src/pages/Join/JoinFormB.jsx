@@ -3,7 +3,7 @@
 // 아이디 최대 15자
 // 비밀번호 10~20자 내외
 import './JoinForm.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
@@ -25,7 +25,9 @@ export default function JoinFormB({ onClose, onNext }) {
       if(res.data) {
         alert("중복된 아이디입니다.");
         setIsidChecked(false);
-      } else {
+      } else if(userid.length < 4 || userid.length > 15){
+        alert("아이디를 4자 이상 15자 이하로 입력하세요.");
+      }else{
         alert("사용 가능한 아이디입니다.");
         setIsidChecked(true);
       }
@@ -39,15 +41,18 @@ export default function JoinFormB({ onClose, onNext }) {
 
   // 비밀번호 확인 버튼 함수
   const checkpw =()=>{
-    if(userpw == userpwCheck){
+    if(userpwCheck.length < 4 || userpwCheck.length > 20 ){
+      alert("비밀번호를 8자 이상 16자 이하로 입력하세요.")
+    }else if(userpw == userpwCheck ){
       setIspwChecked(true);
       alert("비밀번호 확인 완료")
-    } else { 
+    }else{
       setIspwChecked(false);
       alert("입력하신 비밀번호가 다릅니다.")
       setUserpwCheck('')
     }
   }
+
   // 다음 버튼 함수
   const handleNext = () => {
     if (!userid || !userpw) return alert("아이디와 비밀번호를 모두 입력하세요.");
@@ -69,6 +74,7 @@ export default function JoinFormB({ onClose, onNext }) {
                 <li className='joinLiB'>
                     <label className='joinLabelB'>
                         <div className='joinTextB'>아이디</div>
+                        
                         <div className='joinContentB'>
                           <input
                               className='joinInputB'
@@ -77,6 +83,7 @@ export default function JoinFormB({ onClose, onNext }) {
                               value={userid}
                               onChange={(e)=>setUserid(e.target.value)}
                           />
+                          <p className='JoinLimit'>아이디는 4자 이상 15자 이하로 입력해주세요</p>
                         </div>
                         <button
                         className='joinBtnB'
@@ -89,6 +96,7 @@ export default function JoinFormB({ onClose, onNext }) {
                 <li className='joinLiB'>
                     <label className='joinLabelB'>
                         <div className='joinTextB'>비밀번호</div>
+                         
                         <div className='joinContentB'>
                           <input
                             className='joinInputB'
@@ -97,6 +105,7 @@ export default function JoinFormB({ onClose, onNext }) {
                             value={userpw}
                             onChange={(e)=>setUserpw(e.target.value)}
                           />
+                          <p className='JoinLimit'>비밀번호는 4자 이상 20자 이하로 입력해주세요</p>
                         </div>
                     </label>
                 </li>

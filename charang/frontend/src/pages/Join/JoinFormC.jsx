@@ -153,7 +153,7 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                 <input className='joinInputResi'
                                     type="text"
                                     maxLength="6"
-                                    placeholder="생년월일 입력"
+                                    placeholder="주민등록번호 앞자리"
                                     value={resistFront}
                                     onChange={(e) => setResistFront(e.target.value)}
                                 />
@@ -161,7 +161,7 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                 <input className='joinInputResi'
                                     type="password"
                                     maxLength="7"
-                                    placeholder="*******"
+                                    placeholder="주민등록번호 뒷자리"
                                     value={resistBack}
                                     onChange={(e) => setResistBack(e.target.value)}
                                 />
@@ -176,7 +176,6 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                     type="text"
                                     maxLength="3"
                                     value={phoneFront}
-                                    placeholder='010'
                                     onChange={(e) => setPhoneFront(e.target.value)}
                                 />
                                 -
