@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +47,7 @@ public class CarApiController {
 	// 검색 차량 출력 컨트롤러
 	@GetMapping("/searchCar")
 	public Map<String, Object> getSearchCarList(
-			@RequestParam("searchType") String searchType,
+			@RequestParam(value="searchType", defaultValue = "carName") String searchType,
 		    @RequestParam("searchWord") String searchKeyWord,
 //			1. 페이지 번호 - 1부터 시작이므로 초기값 1로 정의
 			@RequestParam(value="page", defaultValue = "1") int page,
@@ -80,7 +81,7 @@ public class CarApiController {
 	}
 	
 	// 차량 삭제 컨트롤러
-	@PostMapping("/delCar")
+	@DeleteMapping("/delCar")
 	public boolean delCarList(
 			@RequestBody List<Integer> carId
 			) {
@@ -109,7 +110,8 @@ public class CarApiController {
         CarDTO carData = mapper.readValue(carDTOData, CarDTO.class);
 		
 		// 01. 이미지 파일을 저장할 실제 하드디스크 위치 지정(webConfig에서 설정한 경로와 일치)
-		String savePath = "C:/rentcar2026/charang/frontend/public/images/cars/";
+		String savePath = "C:/rentcar2026/charang/frontend/public/images/brands/";
+		String savePath2 = "C:/rentcar2026/charang/frontend/public/images/cars/";
 		
 		// 02. 해당 폴더가 존재하지 않을 경우 자동생성
 		File saveDir = new File(savePath);
@@ -147,7 +149,7 @@ public class CarApiController {
 			fileName02 = UUID.randomUUID().toString().substring(0,4)+"_"+originalName;
 			
 			// 파일
-			File file = new File(savePath+fileName02);
+			File file = new File(savePath2+fileName02);
 			
 			// 서버에만 존재하던 파일이 실제 하드디스크에 생성됨
 			carImgImg.transferTo(file); // 자동으로 throws IllegalStateException, IOException 생김

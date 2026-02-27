@@ -18,7 +18,7 @@ export default function UserDetailPage(){
     // 해당 userId 정보 불러오기
     useEffect(()=>{
         console.log("현재 useParams로 가져온 userId: ", userId);
-        axios.get("/api/userinfo/"+userId)
+        axios.get(`/api/userinfo/${userId}`)
         .then((res)=>{
             console.log("해당 id 데이터: ",res.data);
             setOneUser(res.data);

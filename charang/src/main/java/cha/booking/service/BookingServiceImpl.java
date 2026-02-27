@@ -20,6 +20,13 @@ public class BookingServiceImpl implements BookingService {
 		return bookingmapper.getAllBooking();
 	}
 	
+	// 관리자용 전체 예약 출력
+	@Override
+	public List<BookingDTO> getAllBookingStatus() {
+		System.out.println("예약 서비스 : 관리자용 전체 예약 출력 서비스");
+		return bookingmapper.getAllBookingStatus();
+	}
+	
 	@Override
 	public List<BookingDTO> getUserBooking(String userId) {
 		System.out.println("예약 서비스 : 로그인 유저 예약 출력 서비스");

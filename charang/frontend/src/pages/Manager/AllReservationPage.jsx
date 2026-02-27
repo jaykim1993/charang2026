@@ -13,20 +13,20 @@ export default function AllReservationPage(){
 
     // 예약정보+차량정보 불러오기 from ManagerDTO
     useEffect(() => {
-        userFind();
+        // userFind();
         bookFind();
     }, [pageNum]);
 
         console.log(user);
         
     // 불러온 예약정보로 예약자 이름 따기
-    const userMap = useMemo(() => {
-        const userName = {};
-        user.forEach(u => {
-            userName[u.userId] = u.name;
-        });
-        return userName;
-    }, [user]);
+    // const userMap = useMemo(() => {
+    //     const userName = {};
+    //     user.forEach(u => {
+    //         userName[u.userId] = u.name;
+    //     });
+    //     return userName;
+    // }, [user]);
 
     // Paging from DataContext
     useEffect(() => {
@@ -71,7 +71,7 @@ export default function AllReservationPage(){
                     if(res.data){
 
                         alert("선택 예약이 삭제되었습니다.");
-                        find();
+                        bookFind();
                     }else{
                         alert("다시 시도해주세요.");
                     }
@@ -96,33 +96,37 @@ export default function AllReservationPage(){
     return(
         <div className="AllReservation">
             <h1>전체 예약 목록</h1>
-            <div className="search_area">
-                {/* 검색 타입 */}
-                <select name="searchType" className="search_select"
-                onChange={(e)=> setSearchType(e.target.value)}>
-                    <option value="bookingId">예약코드</option>
-                    <option value="userId">예약자ID</option>
-                </select>
-                {/* 검색 */}
-                <input type="text" name="searchWord" className="search_input" placeholder={placeholderWord(searchType)}
-                onChange={(e)=> setSearchWord(e.target.value)}/>
-                <button type="button" onClick={bookFind} className="search_btn">검색</button>
+            <div className="AllReservation_top">
+                <div className="search_area">
+                    {/* 검색 타입 */}
+                    <select name="searchType" className="search_select"
+                    onChange={(e)=> setSearchType(e.target.value)}>
+                        <option value="bookingId">예약코드</option>
+                        <option value="userId">예약자ID</option>
+                    </select>
+                    {/* 검색 */}
+                    <input type="text" name="searchWord" className="search_input" placeholder={placeholderWord(searchType)}
+                    onChange={(e)=> setSearchWord(e.target.value)}/>
+                    <button type="button" onClick={bookFind} className="search_btn">검색</button>
+                </div>
+                <button className="del_btn" onClick={delHandler}>삭제하기</button>
             </div>
             
+
             <table className="AllReservation_table" border={1}>
                 <thead className="AllReservation_table_th">
                     <tr>
-                        <th className="AllReservation_tableNum">번호</th>
-                        <th className="AllReservation_tableNum">예약코드</th>
-                        <th className="AllReservation_tableUser">예약자ID</th>
-                        <th className="AllReservation_tableUser">예약자이름</th>
-                        <th className="AllReservation_tableCar">예약차량</th>
-                        <th className="AllReservation_tableResDate">예약일자</th>
-                        <th className="AllReservation_tableRentDate">대여일자</th>
-                        <th className="AllReservation_tableResDate">반납일자</th>
-                        <th className="AllReservation_tableResDate">결제금액</th>
-                        <th className="AllReservation_tableResDate">진행상태</th>
-                        <th className="AllReservation_tableResDate">예약삭제</th>
+                        <th className="AllReservation_tableNum" style={{width:'5%'}}>번호</th>
+                        <th className="AllReservation_tableNum" style={{width:'20%'}}>예약코드</th>
+                        <th className="AllReservation_tableUser" style={{width:'5%'}}>예약자ID</th>
+                        <th className="AllReservation_tableUser" style={{width:'7%'}}>예약자</th>
+                        <th className="AllReservation_tableCar" style={{width:'10%'}}>예약차량</th>
+                        <th className="AllReservation_tableResDate" style={{width:'9%'}}>예약일자</th>
+                        <th className="AllReservation_tableRentDate" style={{width:'10%'}}>대여일자</th>
+                        <th className="AllReservation_tableResDate" style={{width:'10%'}}>반납일자</th>
+                        <th className="AllReservation_tableResDate" style={{width:'10%'}}>결제금액</th>
+                        <th className="AllReservation_tableResDate" style={{width:'7%'}}>진행상태</th>
+                        <th className="AllReservation_tableResDate" style={{width:'10%'}}>예약삭제</th>
                     </tr>
                 </thead>
                 <tbody className="AllReservation_table_tb">
@@ -134,10 +138,10 @@ export default function AllReservationPage(){
                         return (
                         <tr key={item.bookingId}>
                             <td>{rowNumber}</td>
-                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}?userName=${userMap[item.userId]}`)}>{item.bookingId}</td>
-                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}?userName=${userMap[item.userId]}`)}>{item.userId}</td>
-                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}?userName=${userMap[item.userId]}`)}>{userMap[item.userId]}</td>
-                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}?userName=${userMap[item.userId]}`)}> {item.model}</td>
+                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}?userName=${item.name}`)}>{item.bookingId}</td>
+                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}?userName=${item.name}`)}>{item.userId}</td>
+                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}?userName=${item.name}`)}>{item.name}</td>
+                            <td className="AllReservation_clicktd" onClick={() => navi(`/manager/reservationDetail/${item.bookingId}?userName=${item.name}`)}> {item.model}</td>
                             <td>{item.bookedDate}</td>
                             <td>{item.startDate} {item.startTime.slice(0, 8)}</td>
                             <td>{item.endDate} {item.endTime.slice(0, 8)}</td>
@@ -166,31 +170,28 @@ export default function AllReservationPage(){
                 </tbody>
             </table>
             {/* 페이징 */}
-                <div className="notice_paging">
-                    {/* 이전 버튼 */}
-                    {/* 5페이지 넘어가야 화살표 나옴 */}
-                    {paging.prev && (
-                        <button onClick={() => setPageNum(paging.startPage - 1)}>
-                            <i className="bi bi-caret-left-fill"></i>
-                        </button>
-                    )}
+            <div className="paging">
+                {/* 이전 버튼 */}
+                {/* 5페이지 넘어가야 화살표 나옴 */}
+                {paging.prev && (
+                    <button onClick={() => setPageNum(paging.startPage - 1)}>
+                        <i className="bi bi-caret-left-fill"></i>
+                    </button>
+                )}
 
-                    {/* 페이지 번호들 */}
-                    {pagesHandler().map(num => (
-                        <button key={num} className={pageNum === num ? "active" : ""} onClick={() => setPageNum(num)}>
-                            {num}
-                        </button>
-                    ))}
+                {/* 페이지 번호들 */}
+                {pagesHandler().map(num => (
+                    <button key={num} className={pageNum === num ? "active" : ""} onClick={() => setPageNum(num)}>
+                        {num}
+                    </button>
+                ))}
 
-                    {/* 다음 버튼 */}
-                    {paging.next && (
-                        <button onClick={() => setPageNum(paging.endPage + 1)}>
-                            <i className="bi bi-caret-right-fill"></i>
-                        </button>
-                    )}
-                </div>
-            <div className="btn_part">
-                <button className="del_btn" onClick={delHandler}>삭제하기</button>
+                {/* 다음 버튼 */}
+                {paging.next && (
+                    <button onClick={() => setPageNum(paging.endPage + 1)}>
+                        <i className="bi bi-caret-right-fill"></i>
+                    </button>
+                )}
             </div>
         </div>
     )

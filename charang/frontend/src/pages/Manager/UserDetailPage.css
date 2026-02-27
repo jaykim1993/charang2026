@@ -35,12 +35,16 @@
 /* 버튼 박스 및 버튼 */
 .userMod .userMod_container .userMod_header .userMod_btnBox .userMod_listBtn {
     padding: 8px 16px;
-    background: #6c757d;
+    background-color: #333;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     margin-right: 8px;
+}
+
+.userMod .userMod_container .userMod_header .userMod_btnBox .userMod_listBtn:hover{
+    background: #6c757d;
 }
 
 .userMod .userMod_container .userMod_header .userMod_btnBox .userMod_modBtn {

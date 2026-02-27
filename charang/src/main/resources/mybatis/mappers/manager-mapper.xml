@@ -39,6 +39,8 @@
 		FROM booking b
 		LEFT JOIN car c
 		ON b.carId = c.carId
+		LEFT JOIN user u
+		ON b.userId = u.userId
 		ORDER BY b.bookedDate ASC
 		LIMIT #{startRow}, #{pageSize}
 		]]>
@@ -46,7 +48,7 @@
 	
 	<!-- 검색 예약 메서드 -->
 	<select id="GetAllSearchBookCar" resultType="managerDTO">
-	  SELECT *,
+	  SELECT b.*,u.name AS name, c.*,
 	  <![CDATA[
 	    CASE
 	      WHEN NOW() < STR_TO_DATE(
@@ -63,6 +65,7 @@
 	  ]]>
 	  FROM booking b
 	  LEFT JOIN car c ON b.carId = c.carId
+	  LEFT JOIN user u ON  b.userId= u.userId
 
 	  <where>
 	    <choose>

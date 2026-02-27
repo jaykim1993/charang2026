@@ -48,6 +48,7 @@ public class UserApiController {
 		
 		// 검색어 존재 O
 		if(searchType != null && !searchWord.trim().isEmpty()) {
+			System.out.println("검색어: "+searchWord);
 			int totalCnt = userservice.getSearchCount(searchType, searchWord);
 			ph = new PageHandler(totalCnt, page, pageSize); // 페이징 핸들러
 			userList = userservice.getSearchUser(searchType, searchWord, ph.getStartRow(), pageSize); // 데이터
@@ -55,6 +56,7 @@ public class UserApiController {
 		// 검색어 존재 X
 		else {
 			int totalCnt = userservice.getAllCount();
+			System.out.println("전체 유저 개수: "+totalCnt);
 			ph = new PageHandler(totalCnt, page, pageSize); // 페이징 핸들러
 			userList = userservice.getAllUser(ph.getStartRow(), pageSize);
 		}
@@ -108,6 +110,7 @@ public class UserApiController {
 			System.out.println("유저 개인 정보 컨트롤러");
 			String loginId = (String) session.getAttribute("loginUser");
 			System.out.println("유저 개인: "+userId);
+			System.out.println("현재 로그인한 사람; "+loginId);
 			
 			if(loginId == null) {
 				return null;

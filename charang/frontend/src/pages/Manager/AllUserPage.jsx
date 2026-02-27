@@ -7,17 +7,13 @@ import axios from "axios";
 
 export default function AllUserPage(){
 
-    const {pagesHandler, paging, pageNum, setPageNum, allBookCar, user, 
-        userFind, setSearchType, searchType, setSearchWord, searchWord, bookFind} = useContext(DataContext);
-
-
-
-    console.log(allBookCar);
+    const {pagesHandler, paging, pageNum, setPageNum, allBookCar, user,
+        userFind, setSearchType, searchType, setSearchWord, searchWord, bookStatusFind, allBookStatus} = useContext(DataContext);
 
     // 전체 예약, 전체 회원 출력 함수 호출
      useEffect(()=>{
         userFind();
-        bookFind();
+        bookStatusFind();
     },[pageNum]);
 
     // 회원 삭제
@@ -49,7 +45,7 @@ export default function AllUserPage(){
                 console.log("삭제 결과: ", res.data);
                 if(res.data == 1){
                     alert("삭제되었습니다");
-                    find();
+                    userFind();
                 }else{
                     alert("다시 시도해주세요.");
                 }
@@ -63,9 +59,14 @@ export default function AllUserPage(){
 
     // 예약이 앞으로 존재하는 회원인지 구분
     const noRes = (userId) => {
-        // 과거예약(map으로 pastUser에 배열로 출력시켜 담음)
-        const pastUser = allBookCar.filter(pastStatus => pastStatus.bookingStatus === "PAST").map(res=>res.userId);
-        return pastUser.includes(userId);
+        // 앞으로 예약이 존재하는 회원
+        const ingUser = allBookStatus
+        .filter(pastStatus => pastStatus.bookingStatus === "UPCOMING" || pastStatus.bookingStatus === "ONGOING")
+        .map(res=>res.userId);
+        console.log("전체 예약 회원: ",allBookStatus);
+        console.log("삭제 불가능 회원: ",ingUser);
+        console.log(`현재 페이지 전체 예약수: ${allBookStatus.length}건 / 삭제불가 회원수: ${ingUser.length}명`);
+        return ingUser.includes(userId);
     }
 
     // 해당 정보 상세보기 핸들러
@@ -106,6 +107,7 @@ export default function AllUserPage(){
                     <i className="bi bi-exclamation-circle-fill" style={{paddingRight:"5px"}}></i>
                     이용 중이거나 예약된 내역이 있으면 삭제가 불가능합니다.
                 </p>
+                <button className="del_btn" onClick={delHandler}>삭제하기</button>
             </div>
 
             <table className="managerAllUser_table" border={1}>
@@ -128,19 +130,14 @@ export default function AllUserPage(){
                             const rowNumber = (pageNum - 1) * pageSize + index + 1;
                             
 
-                            return  (<tr className="managerAllUser_tr" key={index}>
+                            return  (
+                            <tr className="managerAllUser_tr" key={index}>
                                 <td>{rowNumber}</td>
-                                <td>
-                                    <p>{user.userId}</p>
-                                </td>
-                                <td>
-                                    <div className="mau_name" onClick={()=>oneInfoClick(user.userId)}>
-                                        {user.name}
-                                    </div>
-                                </td>
-                                <td>{user.mail}</td>
-                                <td>{user.resistNum}</td>
-                                <td>{user.phone}</td>
+                                <td className="mau_td" onClick={()=>oneInfoClick(user.userId)}>{user.userId}</td>
+                                <td className="mau_td" onClick={()=>oneInfoClick(user.userId)}>{user.name}</td>
+                                <td className="mau_td" onClick={()=>oneInfoClick(user.userId)}>{user.mail}</td>
+                                <td className="mau_td" onClick={()=>oneInfoClick(user.userId)}>{user.resistNum}</td>
+                                <td className="mau_td" onClick={()=>oneInfoClick(user.userId)}>{user.phone}</td>
                                 <td>{user.regDate}</td>
                                 <td className="mau_delCheck">
                                     {/* 체크한 회원의 userId만 값을 들고옴 */}
@@ -168,7 +165,7 @@ export default function AllUserPage(){
             </table>
 
             {/* 페이징 */}
-            <div className="notice_paging">
+            <div className="paging">
                 {/* 이전 버튼 */}
                 {/* 5페이지 넘어가야 화살표 나옴 */}
                 {paging.prev && (
@@ -190,9 +187,6 @@ export default function AllUserPage(){
                         <i className="bi bi-caret-right-fill"></i>
                     </button>
                 )}
-            </div>
-            <div className="btn_part">
-                <button className="del_btn" onClick={delHandler}>삭제하기</button>
             </div>
         </div>
     )

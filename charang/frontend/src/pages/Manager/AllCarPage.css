@@ -1,8 +1,8 @@
 
 .ManagerAllCar {
     max-width: 1300px;
+    min-height: 800px;
     margin: 120px auto;
-    padding: 30px;
     background-color: #fff;
     border-radius: 12px;
     /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); */
@@ -43,27 +43,23 @@
 }
 
 .ManagerAllCar .acp_Regbtn{
-    margin-left: auto
+    margin-left: auto;
+    margin-right: 10px;
 }
 
-.ManagerAllCar button:hover {
+.ManagerAllCar .mac_find button:hover {
     background-color: #555;
 }
 
 /* 테이블*/
 .ManagerAllCar .m_AllCar_table {
-    /* width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border-top: 2px solid #333; */
-    width: 100%;
+    width: 1300px;
     border-collapse: separate;
     border-spacing: 0;
     margin-top: 20px;
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     border: 1px solid rgb(221, 221, 221);
 }
 
@@ -78,6 +74,10 @@
     color: #555;
     text-align: center;
     border-bottom: 1px solid #c0c0c0;
+}
+
+.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr:last-child td{
+    border-bottom: none;
 }
 
 .ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr > td{
@@ -98,9 +98,29 @@
 }
 .ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableBrand{
     width: 15%;
+    cursor: pointer;
+}
+.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableBrand:hover{
+    text-decoration: underline;
 }
 .ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableModel{
     width: 15%;
+    cursor: pointer;
+}
+.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableModel:hover{
+    text-decoration: underline;
+}
+.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableId{
+    cursor: pointer;
+}
+.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableId:hover{
+    text-decoration: underline;
+}
+.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableCarNum{
+    cursor: pointer;
+}
+.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableCarNum:hover{
+    text-decoration: underline;
 }
 
 /* 이미지 처리 */
@@ -111,9 +131,6 @@
     cursor: pointer;
 }
 
-.m_AllCar_tableCarImg img:hover {
-    transform: scale(1.03);
-}
 
 /* 데이터 없을 때 */
 .m_AllCar_tr_none {
@@ -123,37 +140,10 @@
 .m_AllCar_td_none {
     color: #999;
     font-size: 16px;
+    text-align: center;
 }
 
-/* 페이징 */
-.notice_paging {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    margin-top: 30px;
-}
 
-.notice_paging button {
-    min-width: 35px;
-    height: 35px;
-    padding: 0;
-    background-color: #fff;
-    color: #666;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.notice_paging button.active {
-    background-color: #dcdcdc;
-    color: #fff;
-    border-color: #ababab;
-}
-
-.notice_paging button:hover:not(.active) {
-    background-color: #f1f1f1;
-}
 
 /* 하단 버튼 영역 */
 .btn_part {
