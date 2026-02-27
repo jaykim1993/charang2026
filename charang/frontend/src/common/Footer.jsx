@@ -105,7 +105,7 @@ useEffect(() => {
                             {notice.title}({notice.regDate})
                         </li>
                         <li className='allNotice' onClick={()=>navigate("/customerservice/notice")}>
-                          전체보기
+                          전체보기 <i className="bi bi-plus-lg"></i>
                         </li>
                     </ul>
                 <div className='Footer_Top'>

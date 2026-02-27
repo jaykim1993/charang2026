@@ -11,7 +11,12 @@ export default function AllCarPage() {
     const { pageNum, setPageNum, pagesHandler, paging, setPaging, bookStatusFind, allBookStatus } = useContext(DataContext);
 
     // =============================================================================================
-
+    // --- 추가된 초기화 로직 ---
+    useEffect(() => {
+        // 다른 페이지에서 진입 시 무조건 1페이지로 시작
+        setPageNum(1);
+    }, []); // 빈 배열([])을 넣어 마운트 시점에 딱 한 번만 실행되게 합니다.
+    // -----------------------
     // 이동 훅
     const navigate = useNavigate();
 

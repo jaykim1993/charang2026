@@ -78,7 +78,7 @@ export default function InquiryAnswer() {
                 </tbody>
             </table>
             <div className="adminBtn">
-                <button onClick={inquiryAnswer}>답변하기</button>
+                <button onClick={inquiryAnswer} className="adminBtn_1">답변하기</button>
             </div>
         </div>
     )
