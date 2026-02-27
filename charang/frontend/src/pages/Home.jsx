@@ -25,10 +25,10 @@ export default function Home() {
   const { car, branch } = useContext(DataContext);
 
   const images = [
-    "/images/banner/banner01.png",
-    "/images/banner/banner02.png",
-    "/images/banner/banner03.png",
-    "/images/banner/banner04.png",
+    { img: "/images/banner/banner01.png", link: "/customerservice/notice/Info/23" },
+    { img: "/images/banner/banner02.png", link: "/customerservice/notice/Info/28" },
+    { img: "/images/banner/banner03.png", link: "/customerservice/notice/Info/25" },
+    { img: "/images/banner/banner04.png", link: "/customerservice/notice/Info/26" },
   ];
 
   const [index, setIndex] = useState(0);
@@ -489,13 +489,11 @@ export default function Home() {
           transform: `translateX(-${index * 100}%)`,
         }}>
 
-          {images.map((img, i) => (
-            <img key={i} src={img} alt="banner"
-              style={{
-                width: "100%",
-                flexShrink: 0,
-                pointerEvents: "none"
-              }} />
+          {images.map((item, i) => (
+            <Link to={item.link} key={i} style={{ width: "100%", flexShrink: 0, display: 'block'}}>
+              <img src={item.img} alt={`banner0${i+1}`}
+                style={{ width: "100%", flexShrink: 0, pointerEvents: "none"}} />
+            </Link>
           ))}
         </div>
       </div>
@@ -503,10 +501,10 @@ export default function Home() {
       {/* 광고_1 */}
       <div className="H_section05">
         <h4 className="H_sec04_H">
+          쉽고 빠른 차량 렌트 
           <span className="H_sec04_H_span">
             차랑차랑
           </span>
-          을 더 쉽고 빠르게!
         </h4>
 
 
@@ -617,11 +615,21 @@ export default function Home() {
       <div className="H_sect_blockBanner">
         <h4>2026 특가 혜택!</h4>
         <div className="H_sec04_advertisementBanner">
-          <img src="/images/banner/advertisementBanner01.png" alt="광고배너1" />
-          <img src="/images/banner/advertisementBanner02.png" alt="광고배너2" />
-          <img src="/images/banner/advertisementBanner03.png" alt="광고배너3" />
-          <img src="/images/banner/advertisementBanner04.png" alt="광고배너4" />
-          <img src="/images/banner/advertisementBanner05.png" alt="광고배너5" />
+          <Link to={'/customerservice/notice/Info/9'}>
+            <img src="/images/banner/advertisementBanner01.png" alt="광고배너1" />
+          </Link>
+          <Link to={'/customerservice/notice/Info/4'}>
+            <img src="/images/banner/advertisementBanner02.png" alt="광고배너2" />
+          </Link>
+          <Link to={'/customerservice/notice/Info/13'}>
+            <img src="/images/banner/advertisementBanner03.png" alt="광고배너3" />
+          </Link>
+          <Link to={'/customerservice/notice/Info/30'}>
+            <img src="/images/banner/advertisementBanner04.png" alt="광고배너4" />
+          </Link>
+          <Link to={'/customerservice/notice/Info/5'}>
+            <img src="/images/banner/advertisementBanner05.png" alt="광고배너5" />
+          </Link>
         </div>
       </div>
     </div>

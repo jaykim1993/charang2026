@@ -31,10 +31,10 @@ export default function CustomerServiceNotice(){
     }, [pageNum]);
     
     return(
-        <div className="notice"  style={{
-            width: userid === 'admin' ? '1300px' : '900px', 
+        <div className="notice" 
+        style={{width: userid === 'admin' ? '1300px' : '100%', 
             margin: userid === 'admin' ?'150px auto' : '0'}}>
-            <div className="notice_admin">
+            <div className="notice_admin" style={{marginBottom: userid === 'admin' ?'11px' : '20px'}}>
                 <h4>공지사항</h4>
                 {/* 관리자(=admin)일 때만 글쓰기 버튼 생김 */}
                 {userid === 'admin' && (
@@ -57,10 +57,10 @@ export default function CustomerServiceNotice(){
                     </thead>
                     <tbody>
                         {notice.length > 0 ? (
-                            notice.map((item) => (
+                            notice.map((item, index) => (
                                 <tr key={item.noticeId}>
                                     {/* 상세 페이지 이동 */}
-                                        <td>{item.noticeId}</td>
+                                        <td>{paging.totalCnt - ((pageNum - 1) * paging.pageSize) - index}</td>
                                         <td>
                                             <Link to={`/customerservice/notice/Info/${item.noticeId}`}>
                                                 {item.title}

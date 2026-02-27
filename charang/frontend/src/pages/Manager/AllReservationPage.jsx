@@ -18,15 +18,6 @@ export default function AllReservationPage(){
     }, [pageNum]);
 
         console.log(user);
-        
-    // 불러온 예약정보로 예약자 이름 따기
-    // const userMap = useMemo(() => {
-    //     const userName = {};
-    //     user.forEach(u => {
-    //         userName[u.userId] = u.name;
-    //     });
-    //     return userName;
-    // }, [user]);
 
     // Paging from DataContext
     useEffect(() => {

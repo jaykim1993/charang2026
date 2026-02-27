@@ -110,6 +110,7 @@
 .fc .fc-myPrev-button::before {
   position: absolute;
   content: "<";
+  z-index: 50;
   font-size: 20px;
   left: 0;
   top: 23px;
@@ -117,6 +118,7 @@
 
 .fc .fc-myNext-button::before {
   position: absolute;
+  z-index: 50;
   content: ">";
   font-size: 20px;
   right: 0;

@@ -149,6 +149,9 @@ export default function Reservation() {
             totalPrice: finalTotalPrice,
             paymentMethod: payment,
             });
+    console.log(selectedCar.licenseType);
+    console.log(userinfo.license);
+
     const addBookInfo = () => {
         if (!payment) {
             alert("결제수단을 선택해주세요.");
@@ -157,6 +160,10 @@ export default function Reservation() {
         // 관리자 예약 방어코드 26.02.23 성중
         if (userId ==="admin") {
             alert("관리자는 예약이 불가합니다.");
+            return;
+        }
+        if(selectedCar.licenseType < userinfo.license){
+            alert("1종 면허를 소지한 고객만 해당 차량을 예약할 수 있습니다.");
             return;
         }
 

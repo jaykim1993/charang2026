@@ -13,7 +13,7 @@ export default function Recentcarlist() {
   const navigate = useNavigate(); // 차량 클릭시 serchcarlist 12.23 성중
 
   // 화면에 출력되는 차량의 수
-  const [viewMore, setViewMore] = useState(8);
+  const [viewMore, setViewMore] = useState(6);
 
 
   const moreHandler = () => {
