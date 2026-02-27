@@ -414,11 +414,15 @@ a, p, h4, h3, h2, h1{
 }
 .R_calendar-slide.open .R_close02{
     padding-left: 640px;
+    margin-bottom: 5px;
 }
 .R_calendar-slide.open .R_close02 > i{
     width: 15px;
     cursor: pointer;
     color: #999;
+}
+.R_calendar-slide.open .R_close02 > i:hover{
+    color: #333;
 }
 
 /* 지점 선택 목록 */
@@ -430,7 +434,7 @@ a, p, h4, h3, h2, h1{
     cursor: pointer;
     color: #999;
 }
-#root .R_carlist .R_location .R_close01:hover > i{
+#root .R_carlist .R_location .R_close01 > i:hover{
     color: #333;
 }
 #root .R_carlist .R_location .R_selectLocation{

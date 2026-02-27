@@ -501,10 +501,10 @@ export default function Home() {
       {/* 광고_1 */}
       <div className="H_section05">
         <h4 className="H_sec04_H">
+          쉽고 빠른 차량 렌트 
           <span className="H_sec04_H_span">
             차랑차랑
           </span>
-          을 더 쉽고 빠르게!
         </h4>
 
 
