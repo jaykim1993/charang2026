@@ -441,6 +441,9 @@ input:checked + .checkmark {
     cursor: pointer;
     color: #999;
 }
+.calendar-slide .H_close02 > i:hover{
+    color: #333;
+}
 
 .calendar-slide.open {
     max-height: 800px; /* 캘린더 높이 예상값 */

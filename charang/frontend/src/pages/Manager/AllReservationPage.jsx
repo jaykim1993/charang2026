@@ -13,9 +13,9 @@ export default function AllReservationPage(){
 
     // 예약정보+차량정보 불러오기 from ManagerDTO
     useEffect(() => {
-        userFind();
-        bookFind();
-    }, [pageNum]);
+    userFind();
+    bookFind();
+    }, [pageNum, searchType]);
 
         console.log(user);
         
@@ -71,7 +71,8 @@ export default function AllReservationPage(){
                     if(res.data){
 
                         alert("선택 예약이 삭제되었습니다.");
-                        find();
+                        setDelBooking([]);
+                        bookFind(); 
                     }else{
                         alert("다시 시도해주세요.");
                     }
