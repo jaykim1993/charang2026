@@ -31,16 +31,18 @@ export default function AllCarPage() {
             .then((res) => {
                 console.log("검색어: ", searchWord);
                 console.log("확인", res.data.list);
-                // 검색어가 존재
-                if (!searchWord == '') {
-                    setPageNum(1);
-                }
                 setPaging(res.data.ph); // 페이징
                 setSearchCar(res.data.list); // 가져온 데이터
             })
             .catch((error) => {
                 console.log("검색 차량 출력 에러: ", error);
             })
+    }
+
+    // 차량 검색 핸들러
+    const searchHandler = () => {
+        setPageNum(1); // 검색했을때 1페이지를 기본값으로 초기화
+        carFind();
     }
 
     // =============================================================================================
@@ -152,7 +154,7 @@ export default function AllCarPage() {
                 {/* 검색 */}
                 <input className="mac_word" type="text" name="searchWord" placeholder={placeholderWord()}
                     onChange={(e) => setSearchWord(e.target.value)} />
-                <button className="acp_btn" type="button" onClick={carFind}>검색</button>
+                <button className="acp_btn" type="button" onClick={searchHandler}>검색</button>
                 <button className="acp_Regbtn" type="button" onClick={() => { navigate('/manager/carregister') }}>등록하기</button>
                 <button className="acp_btn" onClick={delHandler}>삭제하기</button>
             </div>

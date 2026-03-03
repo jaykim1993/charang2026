@@ -13,9 +13,15 @@ export default function AllUserPage(){
     useEffect(() => {
         // 다른 페이지에서 진입 시 무조건 1페이지로 시작
         setPageNum(1);
-        setSearchType('');
+        setSearchType('userId');
         setSearchWord('');
     }, []); // 빈 배열([])을 넣어 마운트 시점에 딱 한 번만 실행되게 합니다.
+
+    // 회원 검색 핸들러
+    const searchHandler = () => {
+        setPageNum(1); // 검색했을때 1페이지를 기본값으로 초기화
+        userFind();
+    }
     // -----------------------
     // 전체 예약, 전체 회원 출력 함수 호출
      useEffect(()=>{
@@ -84,7 +90,7 @@ export default function AllUserPage(){
     }
 
     // placeholder
-    const placeholderWord = (searchType) => {
+    const placeholderWord = () => {
         console.log("검색", searchType);
          if(searchType === "userId"){
             return "아이디를 검색하세요";
@@ -107,9 +113,9 @@ export default function AllUserPage(){
                     <option value="model">회원이름</option>
                 </select>
                 {/* 검색 단어*/}
-                <input type="text" name="searchWord" className="mau_input" placeholder={placeholderWord(searchType)}
+                <input type="text" name="searchWord" className="mau_input" placeholder={placeholderWord()}
                 onChange={(e)=> setSearchWord(e.target.value)} value={searchWord}/>
-                <button className="mau_btn" type="button" onClick={userFind}>검색</button>
+                <button className="mau_btn" type="button" onClick={searchHandler}>검색</button>
                 <p className="mau_info">
                     <i className="bi bi-exclamation-circle-fill" style={{paddingRight:"5px"}}></i>
                     이용 중이거나 예약된 내역이 있으면 삭제가 불가능합니다.

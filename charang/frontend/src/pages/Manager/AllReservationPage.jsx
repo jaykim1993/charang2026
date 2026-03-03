@@ -10,6 +10,12 @@ export default function AllReservationPage(){
 
     // 화면 이동 훅
     const navi = useNavigate();
+
+    // 예약 검색 핸들러
+    const searchHandler = () => {
+        setPageNum(1); // 검색했을때 1페이지를 기본값으로 초기화
+        bookFind();
+    }
     // --- 추가된 초기화 로직 ---
     useEffect(() => {
         // 다른 페이지에서 진입 시 무조건 1페이지로 시작
@@ -107,7 +113,7 @@ export default function AllReservationPage(){
                     {/* 검색 */}
                     <input type="text" name="searchWord" className="search_input" placeholder={searchType === "bookingId" ? "예약코드를 검색하세요" : "예약자ID를 검색하세요"}
                     onChange={(e)=> setSearchWord(e.target.value)}/>
-                    <button type="button" onClick={bookFind} className="search_btn">검색</button>
+                    <button type="button" onClick={searchHandler} className="search_btn">검색</button>
                 </div>
                 <button className="del_btn" onClick={delHandler}>삭제하기</button>
             </div>

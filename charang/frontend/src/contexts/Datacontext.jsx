@@ -42,10 +42,6 @@ export default function DataProvider({children}){
         console.log("검색 단어:", searchWord);
         axios.get("/api/bookcarlist",{params:{searchType:searchType, searchWord:searchWord, page:pageNum}})
         .then((res)=>{
-            if(!searchWord == ''){
-                setPageNum(1);
-                
-              }
             if(res.data){
                 setAllBookCar(res.data.list);
                 setPaging(res.data.ph); // 페이징
@@ -63,9 +59,6 @@ export default function DataProvider({children}){
   const userFind = () => {
         axios.get("/api/searchUser",{params:{searchType:searchType,searchWord:searchWord, page:pageNum}})
         .then((res)=>{
-            if(!searchWord == ''){
-              setPageNum(1);
-            }
             console.log("검색 회원: ",res.data);
             setUser(res.data.list); // 검색 회원 가져온 데이터
             setPaging(res.data.ph); // 페이징
