@@ -86,13 +86,17 @@
     width: 60px;
 }
 
-.reservationDetailPage .reservationDetail_container .reservationDetail_table .reservationDetail_table_body .reservationDetail_tr .reservationDetail_data {
+.reservationDetailPage .reservationDetail_container .reservationDetail_table .reservationDetail_table_body .reservationDetail_tr .reservationDetail_data, .reservationDetail_data2 {
     width: 25%;
     padding: 18px 25px;
     color: #333;
     font-size: 15px;
     font-weight: 400;
     text-align: left; 
+}
+.reservationDetail_data2:hover{
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .reservationDetailPage .reservationDetail_container .reservationDetail_table .reservationDetail_table_body .reservationDetail_tr .reservationDetail_data .carDetial_img{

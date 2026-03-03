@@ -86,13 +86,17 @@
     width: 60px;
 }
 
-.carDetailPage .carDetail_container .carDetail_table .carDetail_table_body .carDetail_tr .carDetail_data {
+.carDetailPage .carDetail_container .carDetail_table .carDetail_table_body .carDetail_tr .carDetail_data,.carDetail_data2 {
     width: 25%;
     padding: 18px 25px;
     color: #333;
     font-size: 15px;
     font-weight: 400;
     text-align: left; 
+}
+.carDetailPage .carDetail_data2:hover{
+   cursor: pointer;
+   text-decoration: underline;
 }
 
 .carDetailPage .carDetail_container .carDetail_table .carDetail_table_body .carDetail_tr .carDetail_data .carDetial_img{
