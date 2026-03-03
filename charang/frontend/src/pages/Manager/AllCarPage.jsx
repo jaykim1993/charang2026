@@ -140,6 +140,9 @@ export default function AllCarPage() {
     }
 
     // =============================================================================================
+    console.log("서치타입")
+    console.log(searchType)
+
 
     return (
         <div className="ManagerAllCar">

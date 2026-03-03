@@ -136,7 +136,7 @@ export default function AllUserPage(){
                         <th className="managerAllUser_userDel">회원삭제</th>
                     </tr>
                 </thead>
-                {user ? 
+                {user && user.length > 0? 
                     <tbody className="managerAllUser_table_tb">
                         {user.map((user,index) => {
                             const pageSize = paging?.pageSize || 10; // 페이지당 개수

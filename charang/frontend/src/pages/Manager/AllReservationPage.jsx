@@ -99,6 +99,7 @@ export default function AllReservationPage(){
     console.log('searchType');
     console.log(searchType);
 
+
     return(
         <div className="AllReservation">
             <h1>전체 예약 목록</h1>
@@ -111,7 +112,7 @@ export default function AllReservationPage(){
                         <option value="userId">예약자ID</option>
                     </select>
                     {/* 검색 */}
-                    <input type="text" name="searchWord" className="search_input" placeholder={searchType === "bookingId" ? "예약코드를 검색하세요" : "예약자ID를 검색하세요"}
+                    <input type="text" name="searchWord" className="search_input" placeholder={searchType === 'bookingId' ? "예약코드를 검색하세요" : "예약자ID를 검색하세요"}
                     onChange={(e)=> setSearchWord(e.target.value)}/>
                     <button type="button" onClick={searchHandler} className="search_btn">검색</button>
                 </div>
