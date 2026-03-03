@@ -3,7 +3,7 @@
     /* border: 1px solid red; */
     margin-top: 70px;
     padding: 60px 0;
-    background-color: #f8f9fa;
+    background-color: #eceef2;
     display: flex;
     justify-content: center;
 }
@@ -14,7 +14,6 @@
     background-color: #ffffff;
     padding: 40px;
     border-radius: 15px;
-    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); */
 }
 
 

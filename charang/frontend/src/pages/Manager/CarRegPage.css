@@ -1,8 +1,7 @@
 .carRegPage{
     width: 100%;
     padding: 1px 0;
-    background-color: #f4f5f8;
-    
+    background-color: #eceef2;
 }
 
 .carRegPage .crp_container{
@@ -11,7 +10,6 @@
     padding: 40px;
     background: #ffffff;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 .carRegPage .crp_container .crp_header{
     display: flex;

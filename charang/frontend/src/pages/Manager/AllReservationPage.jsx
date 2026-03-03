@@ -102,7 +102,7 @@ export default function AllReservationPage(){
 
     return(
         <div className="AllReservation">
-            <h1>전체 예약 목록</h1>
+            <h1>전체 예약목록</h1>
             <div className="AllReservation_top">
                 <div className="search_area">
                     {/* 검색 타입 */}
