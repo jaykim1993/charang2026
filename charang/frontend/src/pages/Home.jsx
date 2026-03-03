@@ -575,9 +575,11 @@ export default function Home() {
 
 
       {/* 광고_2 */}
-      <div className="H_sec_banner_one">
-        <img className="H_ad10" src='/images/banner/advertise10.png'></img>
-      </div>
+      <Link to={'/customerservice/notice/Info/22'}>
+        <div className="H_sec_banner_one">
+          <img className="H_ad10" src='/images/banner/advertise10.png'></img>
+        </div>
+      </Link>
 
       {/* sec - 최근본차량 */}
       {userid &&
