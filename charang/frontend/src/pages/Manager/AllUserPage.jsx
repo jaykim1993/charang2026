@@ -28,6 +28,10 @@ export default function AllUserPage(){
         bookStatusFind();
     },[pageNum]);
 
+    useEffect(() => {
+    console.log("searchType 변경됨:", searchType);
+    }, [searchType]);
+
     // 회원 삭제
     const [delUser, setDelUser] = useState([]);
     // 체크된 회원의 id만 가져오는 핸들러
@@ -49,7 +53,7 @@ export default function AllUserPage(){
 
     const delHandler = () => {
         if(delUser.length == 0){
-            alert("삭제할 예약을 선택해주세요.");
+            alert("삭제할 회원을 선택해주세요.");
             return;
         }else{
             axios.delete("/api/delete",{data:delUser})
@@ -109,7 +113,7 @@ export default function AllUserPage(){
                 <select name="userSearchType" className="mau_select"
                 onChange={(e)=> setUserSearchType(e.target.value)}>
                     <option value="userId">회원ID</option>
-                    <option value="model">회원이름</option>
+                    <option value="userName">회원이름</option>
                 </select>
                 {/* 검색 단어*/}
                 <input type="text" name="searchWord" className="mau_input" placeholder={placeholderWord()}
