@@ -23,6 +23,7 @@ import cha.PageHandler;
 import cha.car.dto.CarDTO;
 import cha.car.service.CarService;
 import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.HttpServletRequest;
 import tools.jackson.databind.ObjectMapper;
 
 @MultipartConfig(
@@ -94,6 +95,7 @@ public class CarApiController {
 	// 차량 추가 컨트롤러
 	@PostMapping("/addCar")
 	public int addCarList(
+			HttpServletRequest request, // 1. 서버의 실제 경로를 찾기 위해 추가
 			// ★ 파일(이미지)와 dto를 동시에 받아야할 땐 FormData 사용, @RequestBody X 없애야함
 //			@ModelAttribute CarDTO cdto, // RequestBody는 post만 가능(dto로 값을 받을 때)
 			 @RequestParam("carDTOData") String carDTOData,
@@ -108,10 +110,13 @@ public class CarApiController {
         ObjectMapper mapper = new ObjectMapper();
         
         CarDTO carData = mapper.readValue(carDTOData, CarDTO.class);
-		
+		// 2. 저장 경로 설정 (상대 경로 활용)
+	    // 배포 환경과 로컬 모두에서 작동하도록 프로젝트 내부 static 폴더를 참조합니다.
+	    String savePath = request.getServletContext().getRealPath("/images/brands/");
+	    String savePath2 = request.getServletContext().getRealPath("/images/cars/");
 		// 01. 이미지 파일을 저장할 실제 하드디스크 위치 지정(webConfig에서 설정한 경로와 일치)
-		String savePath = "C:/rentcar2026/charang/frontend/public/images/brands/";
-		String savePath2 = "C:/rentcar2026/charang/frontend/public/images/cars/";
+//		String savePath = "C:/rentcar2026/charang/frontend/public/images/brands/";
+//		String savePath2 = "C:/rentcar2026/charang/frontend/public/images/cars/";
 		
 		// 02. 해당 폴더가 존재하지 않을 경우 자동생성
 		File saveDir = new File(savePath);
