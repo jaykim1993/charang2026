@@ -54,7 +54,7 @@
 }
 
 .AllInquiry table td a:hover {
-    color: #0b79b7;
+    color: #1e75f5;
 }
 
 /* 모달 */
@@ -90,12 +90,12 @@
 }
 
 .isModalOpen_pwChk button.pwBtnYes {
-    background-color: #0b79b7;
+    background-color: #1e75f5;
     color: #fff;
 }
 
 .isModalOpen_pwChk button.pwBtnYes:hover {
-    background-color: #065d8f;
+    background-color: #1763D1;
 }
 
 .isModalOpen_pwChk button.pwBtnNo {

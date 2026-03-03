@@ -99,7 +99,6 @@ export default function AllUserPage(){
         }
     }
 
-
     return(
         <div className="ManagerAllUser">
             <h1>전체 회원 목록</h1>
@@ -107,7 +106,7 @@ export default function AllUserPage(){
             {/* 검색 */}
             <div className="mau_find">
                 {/* 검색 타입 */}
-                <select name="searchType" className="mau_select"
+                <select name="searchType" className="mau_select" value={searchType} 
                 onChange={(e)=> setSearchType(e.target.value)}>
                     <option value="userId">회원ID</option>
                     <option value="model">회원이름</option>
