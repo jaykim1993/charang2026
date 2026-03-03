@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AllReservationPage(){
 
-    const { pageNum, paging, allBookCar, user, searchType, setSearchType, setSearchWord, bookFind, userFind, setPageNum, pagesHandler } = useContext(DataContext);
+    const { pageNum, paging, allBookCar, user, searchTypeBook, setSearchTypeBook, setSearchWordBook, bookFind, userFind, setPageNum, pagesHandler } = useContext(DataContext);
 
     // 화면 이동 훅
     const navi = useNavigate();
@@ -20,9 +20,11 @@ export default function AllReservationPage(){
     useEffect(() => {
         // 다른 페이지에서 진입 시 무조건 1페이지로 시작
         setPageNum(1);
-        setSearchType('');
-        setSearchWord('');
+        setSearchTypeBook("bookingId");
+        setSearchWordBook('');
     }, []); // 빈 배열([])을 넣어 마운트 시점에 딱 한 번만 실행되게 합니다.
+
+
     // -----------------------
     // 예약정보+차량정보 불러오기 from ManagerDTO
     useEffect(() => {
@@ -88,16 +90,15 @@ export default function AllReservationPage(){
         }
 
     // placeholder
-    // const placeholderWord = (searchType) => {
-    //     console.log("검색: ", searchType);
-    //      if(searchType === "bookingId"){
-    //         return "예약코드를 검색하세요";
-    //     }else{
-    //         return "예약자ID를 검색하세요";
-    //     }
-    // }
-    console.log('searchType');
-    console.log(searchType);
+    const placeholderWord = () => {
+        console.log("검색 타입:", searchTypeBook);
+        if (searchTypeBook === "bookingId") {
+            return "예약코드를 검색하세요";
+        } else {
+            return "예약자ID를 검색하세요";
+        }
+    };
+    
 
     return(
         <div className="AllReservation">
@@ -105,14 +106,18 @@ export default function AllReservationPage(){
             <div className="AllReservation_top">
                 <div className="search_area">
                     {/* 검색 타입 */}
-                    <select name="searchType" className="search_select"
-                    onChange={(e)=> setSearchType(e.target.value)}>
+                    <select name="searchTypeBook" className="search_select" value={searchTypeBook}
+                    onChange={(e)=> setSearchTypeBook(e.target.value)}>
                         <option value="bookingId">예약코드</option>
                         <option value="userId">예약자ID</option>
                     </select>
                     {/* 검색 */}
-                    <input type="text" name="searchWord" className="search_input" placeholder={searchType === "bookingId" ? "예약코드를 검색하세요" : "예약자ID를 검색하세요"}
-                    onChange={(e)=> setSearchWord(e.target.value)}/>
+                    <input 
+                    type="text" 
+                    name="searchWordBook" 
+                    className="search_input" 
+                    placeholder={placeholderWord()}
+                    onChange={(e)=> setSearchWordBook(e.target.value)}/>
                     <button type="button" onClick={searchHandler} className="search_btn">검색</button>
                 </div>
                 <button className="del_btn" onClick={delHandler}>삭제하기</button>
