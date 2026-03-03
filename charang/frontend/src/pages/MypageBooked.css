@@ -1,7 +1,7 @@
 #root .MypageBooked {
     width: 100%;
     min-height: 800px;
-    height: fit-content;
+    margin-bottom: 100px;
 }
 .mypageBookTable {
     /* border-collapse: collapse;  */

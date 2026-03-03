@@ -34,10 +34,20 @@
    		LIMIT #{startRow}, #{pageSize}
    </select>
    
-   <!-- 검색 회원 개수
+ <!-- 검색 회원 개수
    public int getUserSearchCount(String search); -->
    <select id="getUserSearchCount" resultType="int">
-   		SELECT COUNT(*) FROM user WHERE name LIKE CONCAT("%",#{searchWord},"%")
+   		SELECT COUNT(*) FROM user 
+   		<where>
+   			<choose>
+   				<when test="searchType == 'userId'">
+   					userId LIKE CONCAT("%",#{searchWord},"%")
+   				</when>
+   				<otherwise>
+   					name LIKE CONCAT("%",#{searchWord},"%")
+   				</otherwise>
+   			</choose>
+   		</where>
    </select>
 
    <!-- 회원 가입 INSERT -->
