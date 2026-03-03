@@ -105,6 +105,7 @@ input:checked + .checkmark {
     color: #fff;
     background-color: #1e75f5;
     border: none;
+    transition: 0.3s ease;
 }
 /* 찾기버튼 */
 #root .Home .H_reservation .H_spotTable .spot_choice.open .H_searchButton{
@@ -119,6 +120,7 @@ input:checked + .checkmark {
     color: #fff;
     background-color: #1e75f5;
     border: none;
+    transition: 0.3s ease;
 }
 #root .Home .H_reservation .H_spotTable .H_searchButton > i{
     color: #fff;
@@ -170,7 +172,6 @@ input:checked + .checkmark {
     transition: 0.3s;
 }
 #root .Home .H_sec_top5_map > li:hover{
-    background-color:#e0e0e0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     transform: translateY(-5px);
 }
@@ -242,7 +243,7 @@ input:checked + .checkmark {
 #root .Home .H_sec_top5 .H_sec_top5_map > li .top5_img::before{
     content: '';
     position: absolute;
-    background-color: #e0e0e0;
+    background-color: #ebebee;
     border-radius: 10px 0 0 10px;
     width: 100%;
     height: 100%;
@@ -302,14 +303,14 @@ input:checked + .checkmark {
 #root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li{
     height: 300px;
 }
-#root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li:hover{
-    background-color: #f2f3f5;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+#root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li .H_new:hover{
+    background-color: #cbcbce;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 #root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li .H_new{
     display: inline-block;
     position: relative;
-    background-color: #eeeeee;
+    background-color: #ebebee;
     width: 240px;
     height: 300px;
     border-radius: 10px;
@@ -331,7 +332,7 @@ input:checked + .checkmark {
 }
 .H_new_Year{
     font-size: 15px;
-    color: #0b79b7;
+    color: #1e75f5;
 }
 .H_new_Name{
     font-style: italic;

@@ -277,8 +277,8 @@ export default function LoginForm({ onClose, onJoin }) {
 
                     </div>
                     <div className="loginBtnWrapDif">
-                        <button className='loginBtnDif' type="button"  onClick={(e) => {e.preventDefault();e.stopPropagation();setFormView(1);}}>뒤로가기</button>
                         <button className='loginBtnDif' type="submit">아이디 조회하기</button>
+                        <button className='loginBtnDif' type="button"  onClick={(e) => {e.preventDefault();e.stopPropagation();setFormView(1);}}>뒤로가기</button>
                     </div>
                 </form>
             </div>
@@ -338,8 +338,8 @@ export default function LoginForm({ onClose, onJoin }) {
                         </ul>
                     </div>
                     <div className="loginBtnWrapDif">
-                        <button className='loginBtnDif' type="button"  onClick={(e) => {e.preventDefault();e.stopPropagation();setFormView(1);}}>뒤로가기</button>
                         <button className='loginBtnDif' type="submit" onClick={()=>buffering()}>인증번호 확인하기</button>
+                        <button className='loginBtnDif' type="button"  onClick={(e) => {e.preventDefault();e.stopPropagation();setFormView(1);}}>뒤로가기</button>
                     </div>
                 </form>
             </div>
