@@ -37,9 +37,9 @@
 	    END AS bookingStatus
 	    
 		FROM booking b
-		LEFT JOIN car c
+		INNER JOIN car c
 		ON b.carId = c.carId
-		LEFT JOIN user u
+		INNER JOIN user u
 		ON b.userId = u.userId
 		ORDER BY b.bookedDate ASC
 		LIMIT #{startRow}, #{pageSize}
@@ -64,8 +64,8 @@
 	    END AS bookingStatus
 	  ]]>
 	  FROM booking b
-	  LEFT JOIN car c ON b.carId = c.carId
-	  LEFT JOIN user u ON  b.userId= u.userId
+	  INNER JOIN car c ON b.carId = c.carId
+	  INNER JOIN user u ON  b.userId= u.userId
 
 	  <where>
 	    <choose>
