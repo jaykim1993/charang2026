@@ -93,7 +93,12 @@ export default function MypageMyinfo() {
                     </tr>
                     <tr>
                         <th>주소</th>
-                        <td>{userinfo.address} ({userinfo.addressDetail})</td>
+                        <td>
+                            {userinfo.address === '' || userinfo.addressDetail === ''
+                            ? '-'
+                            : `${userinfo.address} (${userinfo.addressDetail})`
+                            }
+                        </td>
                     </tr>
                     <tr>
                         <th>국적</th>
@@ -103,11 +108,15 @@ export default function MypageMyinfo() {
                     </tr>
                     <tr>
                         <th>운전면허번호</th>
-                        <td>{userinfo.licenseNum}</td>
+                        <td>
+                        {userinfo.licenseNum === '---' || !userinfo.licenseNum
+                            ? '-'
+                            : userinfo.licenseNum}
+                        </td>
                     </tr>
                     <tr>
                         <th>운전면허종류</th>
-                        <td>{userinfo.license}종 보통</td>
+                        <td>{userinfo.license ? `${userinfo.license}종 보통` : '-'}</td>
                     </tr>
                     <tr>
                         <th>가입일</th>
@@ -115,7 +124,7 @@ export default function MypageMyinfo() {
                     </tr>
                 </tbody>
             </table>
-            <button className='myinfo-btn2' type='button' onClick={() => setUnregiOverlay(true)}>
+            <button className='myinfo-btn2' type='button' onClick={() => {setUnregiOverlay(true); setUnregiInput(null);}}>
                 회원 탈퇴하기
             </button>
             {unregiOverlay &&
@@ -141,8 +150,8 @@ export default function MypageMyinfo() {
                                     <p className='verPDif2'>정말 진행하시겠습니까?</p>
                                 </div>
                                 <div className="loginBtnWrapDif">
-                                    <button className='loginBtnDif' type="button" onClick={() => setUnregiOverlay(false)}>취소하기</button>
                                     <button className='loginBtnDif' type="submit">탈퇴하기</button>
+                                    <button className='loginBtnDif' type="button" onClick={() => setUnregiOverlay(false)}>취소하기</button>
                                 </div>
                             </form>
                         </div>

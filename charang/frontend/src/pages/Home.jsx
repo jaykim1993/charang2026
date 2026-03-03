@@ -228,9 +228,9 @@ export default function Home() {
 
   // 인기순 차량 배열
   const goodCar = [
-    { id: 1, model: '그랑조', img: 'hy_2.webp', carTitle: '한대 그랑조', carInfo: '20대도 즐겨 찾는 인기 렌트카, 세련된 디자인과 편안한 주행감을 갖춘 한대 그랑조!', hashtag: `#요즘세단` },
-    { id: 2, model: 'dmw new 5', img: 'bmw_5.webp', carTitle: 'dmw new 5', carInfo: '프리미엄 세단. 비즈니스와 일상 모두에 잘 어울리는 모델!', hashtag: '#도심드라이브' },
-    { id: 3, model: 'WV7', img: 'kia_2.webp', carTitle: '크아 WV7', carInfo: '넉넉한 실내 공간과 실용성을 강조한 SUV. 가족 이동이나 장거리 주행에 부담 없는 선택!', hashtag: '#여행각SUV' },
+    { id: 1, model: '그랑조', img: 'hy_2.webp', brand: '한대', carInfo: '20대도 즐겨 찾는 인기 렌트카, 세련된 디자인과 편안한 주행감을 갖춘 한대 그랑조!', hashtag: `#요즘세단` },
+    { id: 2, model: 'new 5', img: 'bmw_5.webp', brand: 'DMW', carInfo: '프리미엄 세단. 비즈니스와 일상 모두에 잘 어울리는 모델!', hashtag: '#도심드라이브' },
+    { id: 3, model: 'WV7', img: 'kia_2.webp', brand: '크아', carInfo: '넉넉한 실내 공간과 실용성을 강조한 SUV. 가족 이동이나 장거리 주행에 부담 없는 선택!', hashtag: '#여행각SUV' },
   ];
 
   const SelectedIcon = new L.Icon({
@@ -501,10 +501,10 @@ export default function Home() {
       {/* 광고_1 */}
       <div className="H_section05">
         <h4 className="H_sec04_H">
-          쉽고 빠른 차량 렌트 
           <span className="H_sec04_H_span">
             차랑차랑
           </span>
+          을 쉽고 빠르게
         </h4>
 
 
@@ -528,19 +528,16 @@ export default function Home() {
       {/* sec - 인기순 */}
       <div className="H_sec_top5">
         <h4>인기순</h4>
-        {/* <div className="H_sec_top5_hashtag">
-          <span>#인기폭발</span><span>#가성비갑</span><span>#신차</span>
-        </div> */}
         <ul className="H_sec_top5_map">
           {goodCar.map((item, index) => (
             <li key={index} onClick={() => { goToSearchcarlist(item.model); scrollTo(0, 0); }}>
               <span className="H_sec_top5_rank">{index + 1}</span>
               <span className="H_sec_top5_sticker">인기차량</span>
               <div className="top5_img">
-                <img src={`/images/cars/${item.img}`} alt={item.carTitle} />
+                <img src={`/images/cars/${item.img}`} alt={item.model} />
               </div>
               <div className="H_good">
-                <h5>{item.carTitle}</h5>
+                <h5>{item.brand} - {item.model}</h5>
                 <p className="H_good_p">{item.carInfo}</p>
                 <p className="hashtags">{item.hashtag}</p>
               </div>
