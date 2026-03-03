@@ -33,11 +33,26 @@ export default function CarDetailPage(){
         navigate(`/manager/modPage/${carId}`);
     }
 
+        const copyText = async (text) => {
+            try {
+                await navigator.clipboard.writeText(text);
+                alert('차량 번호가 복사되었습니다.')
+            } catch (err) {
+            }
+        };
+        const copyText2 = async (text) => {
+            try {
+                await navigator.clipboard.writeText(text);
+                alert('차량 모델명 복사되었습니다.')
+            } catch (err) {
+            }
+        };
+
    return (
         <div className="carDetailPage">
             <div className="carDetail_container">
                 <div className="carDetail_header">
-                    <h2 className="carDetail_title">차량 상세 정보</h2>
+                    <h2 className="carDetail_title">차량 상세정보</h2>
                     <div className="carDetail_btnBox">
                         <button type="button" className="carDetail_listBtn" onClick={() => navigate(-1)}>전체목록</button>
                         <button type="button" className="carDetail_listBtn" onClick={modPageHandler}>수정하기</button>
@@ -47,47 +62,47 @@ export default function CarDetailPage(){
                 <table className="carDetail_table">
                     <tbody className="carDetail_table_body">
                         <tr className="carDetail_tr">
-                            <td className="carDetail_td">차량아이디</td>
+                            <td className="carDetail_td">차량ID</td>
                             <th className="carDetail_data">{oneCar.carId}</th>
-                            <td className="carDetail_td">차량 번호</td>
-                            <th className="carDetail_data">{oneCar.plateNumber}</th>
+                            <td className="carDetail_td">차량번호</td>
+                            <th className="carDetail_data2" onClick={() => copyText(oneCar.plateNumber)} title="클릭하면 차량 번호가 복사됩니다">{oneCar.plateNumber}</th>
                         </tr>
                         <tr className="carDetail_tr">
-                            <td className="carDetail_td">차량 브랜드명</td>
+                            <td className="carDetail_td">브랜드명</td>
                             <th className="carDetail_data">{oneCar.brand}</th>
-                            <td className="carDetail_td">차량 모델명</td>
-                            <th className="carDetail_data">{oneCar.model}</th>
+                            <td className="carDetail_td">모델명</td>
+                            <th className="carDetail_data2" onClick={() => copyText2(oneCar.model)} title="클릭하면 차량 모델명이 복사됩니다">{oneCar.model}</th>
                         </tr>
                         <tr className="carDetail_tr">
-                            <td className="carDetail_td">차량 브랜드 이미지</td>
+                            <td className="carDetail_td">브랜드이미지</td>
                             <th className="carDetail_data">
                                 <img src={`/images/brands/${oneCar.brandLogo}`} alt={oneCar.carImg} className="carDetial_img1"/>
                             </th>
-                            <td className="carDetail_td">차량 모델 이미지</td>
+                            <td className="carDetail_td">모델이미지</td>
                             <th className="carDetail_data">
                                 <img src={`/images/cars/${oneCar.carImg}`} alt={oneCar.carImg} className="carDetial_img"/>
                             </th>
                         </tr>
                         <tr className="carDetail_tr">
-                            <td className="carDetail_td">차량 색상</td>
+                            <td className="carDetail_td">색상</td>
                             <th className="carDetail_data">{oneCar.color}</th>
-                            <td className="carDetail_td">차량 좌석</td>
+                            <td className="carDetail_td">좌석수</td>
                             <th className="carDetail_data">{oneCar.seats} 인승</th>
                         </tr>
                         <tr className="carDetail_tr">
-                            <td className="carDetail_td">차량 연식</td>
+                            <td className="carDetail_td">연식</td>
                             <th className="carDetail_data">{oneCar.modelYear}</th>
-                            <td className="carDetail_td">차량 크기</td>
+                            <td className="carDetail_td">크기</td>
                             <th className="carDetail_data">{oneCar.carSize}</th>
                         </tr>
                         <tr className="carDetail_tr">
-                            <td className="carDetail_td">차량 종류</td>
+                            <td className="carDetail_td">차량타입</td>
                             <th className="carDetail_data">{oneCar.carType}</th>
-                            <td className="carDetail_td">연료 종류</td>
+                            <td className="carDetail_td">연료타입</td>
                             <th className="carDetail_data">{oneCar.fuelType}</th>
                         </tr>
                         <tr className="carDetail_tr">
-                            <td className="carDetail_td">면허 종류</td>
+                            <td className="carDetail_td">면허타입</td>
                             <th className="carDetail_data">{oneCar.licenseType}종 보통</th>
                             <td className="carDetail_td">지점</td>
                             <th className="carDetail_data">{oneCar.name}</th>
@@ -95,13 +110,13 @@ export default function CarDetailPage(){
                         <tr className="carDetail_tr">
                             <td className="carDetail_td">연비</td>
                             <th className="carDetail_data">{oneCar.kmPer}</th>
-                            <td className="carDetail_td">최소 나이</td>
+                            <td className="carDetail_td">최소나이</td>
                             <th className="carDetail_data">{oneCar.driverMinAge}세</th>
                         </tr>
                         <tr className="carDetail_tr">
                             <td className="carDetail_td">네비게이션</td>
                             <th className="carDetail_data">{oneCar.navigation == 1 ? "있음" : "없음"}</th>
-                            <td className="carDetail_td">가격</td>
+                            <td className="carDetail_td">브랜드가중치</td>
                             <th className="carDetail_data">{oneCar.priceValue}</th>
                         </tr>
                         <tr className="carDetail_tr">
