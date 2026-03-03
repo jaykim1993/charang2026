@@ -28,9 +28,6 @@ export default function AllUserPage(){
         bookStatusFind();
     },[pageNum]);
 
-    useEffect(() => {
-    console.log("searchType 변경됨:", searchType);
-    }, [searchType]);
 
     // 회원 삭제
     const [delUser, setDelUser] = useState([]);
