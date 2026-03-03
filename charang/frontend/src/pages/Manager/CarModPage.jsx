@@ -115,7 +115,7 @@ export default function CarModPage() {
         <div className="carMod">
             <div className="carMod_container">
                 <div className="carMod_header">
-                    <h2 className="carMod_title">차량 상세 정보 수정</h2>
+                    <h2 className="carMod_title">차량 상세정보 수정</h2>
                     <div className="carMod_btnBox">
                         <button type="button" className="carMod_Btn" onClick={() => navigate(-1)}>뒤로가기</button>
                     </div>
@@ -149,7 +149,7 @@ export default function CarModPage() {
                         </tr>
                         {/* 차량 번호 */}
                         <tr className="carMod_tr">
-                            <td className="carMod_td_label">차량 번호</td>
+                            <td className="carMod_td_label">차량번호</td>
                             <td className="carMod_td_input">
                                 <input type="text" name="plateNumber" className="carMod_input"
                                     placeholder='예) 00호0000' onChange={changeHandler} value={updateCar.plateNumber} />
@@ -165,7 +165,7 @@ export default function CarModPage() {
                         </tr>
                         {/* 지점 코드 */}
                         <tr className="carMod_tr">
-                            <td className="carMod_td_label">지점 위치</td>
+                            <td className="carMod_td_label">지점</td>
                             <td className="carMod_td_input">
                                 <select name="branchId" className="carMod_select" onChange={changeHandler} value={updateCar.branchId}>
                                     <option value={1}>인천공항 지점</option>
@@ -178,7 +178,7 @@ export default function CarModPage() {
                         </tr>
                         {/* 면허 종류 */}
                         <tr className="carMod_tr">
-                            <td className="carMod_td_label">요구 면허</td>
+                            <td className="carMod_td_label">면허타입</td>
                             <td className="carMod_td_input">
                                 <select name="licenseType" className="carMod_select" onChange={changeHandler} value={updateCar.licenseType}>
                                     <option value={1}>1종 보통</option>
@@ -188,7 +188,7 @@ export default function CarModPage() {
                         </tr>
                         {/* 최소 나이 */}
                         <tr className="carMod_tr">
-                            <td className="carMod_td_label">최소 나이</td>
+                            <td className="carMod_td_label">최소나이</td>
                             <td className="carMod_td_input">
                                 <input type="number" name="driverMinAge" className="carMod_input" onChange={changeHandler} value={updateCar.driverMinAge} />
                             </td>
@@ -202,21 +202,21 @@ export default function CarModPage() {
                         </tr>
                         {/* 브랜드 가중치(가격) */}
                         <tr className="carMod_tr">
-                            <td className="carMod_td_label">브랜드 가중치</td>
+                            <td className="carMod_td_label">브랜드가중치</td>
                             <td className="carMod_td_input">
                                 <input type="number" name="priceValue" className="carMod_input" onChange={changeHandler} value={updateCar.priceValue} />
                             </td>
                         </tr>
                         {/* 좌석 수 */}
                         <tr className="carMod_tr">
-                            <td className="carMod_td_label">좌석 수</td>
+                            <td className="carMod_td_label">좌석수</td>
                             <td className="carMod_td_input">
                                 <input type="number" name="seats" className="carMod_input" onChange={changeHandler} value={updateCar.seats} />
                             </td>
                         </tr>
                         {/* 차량 크기 */}
                         <tr className="carMod_tr">
-                            <td className="carMod_td_label">차량 크기</td>
+                            <td className="carMod_td_label">크기</td>
                             <td className="carMod_td_input">
                                 <select name="carSize" className="carMod_select" onChange={changeHandler} value={updateCar.carSize}>
                                     <option value="경소형">경소형</option>
@@ -227,7 +227,7 @@ export default function CarModPage() {
                         </tr>
                         {/* 차량 타입 */}
                         <tr className="carMod_tr">
-                            <td className="carMod_td_label">차량 타입</td>
+                            <td className="carMod_td_label">차량타입</td>
                             <td className="carMod_td_input">
                                 <select name="carType" className="carMod_select" onChange={changeHandler} value={updateCar.carType}>
                                     <option value="승용">승용</option>
@@ -239,7 +239,7 @@ export default function CarModPage() {
                         </tr>
                         {/* 연료 타입 */}
                         <tr className="carMod_tr">
-                            <td className="carMod_td_label">연료 타입</td>
+                            <td className="carMod_td_label">연료타입</td>
                             <td className="carMod_td_input">
                                 <select name="fuelType" className="carMod_select" onChange={changeHandler} value={updateCar.fuelType}>
                                     <option value="하이브리드">하이브리드</option>

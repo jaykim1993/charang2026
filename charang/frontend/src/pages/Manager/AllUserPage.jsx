@@ -7,19 +7,18 @@ import axios from "axios";
 
 export default function AllUserPage(){
 
-    const {pagesHandler, paging, pageNum, setPageNum, allBookCar, user,
-        userFind, setSearchType, searchType, setSearchWord, searchWord, bookStatusFind, allBookStatus} = useContext(DataContext);
+    const {pagesHandler, paging, pageNum, setPageNum, user,
+        userFind, userSearchType, setUserSearchType, setUserSearchWord, bookStatusFind, allBookStatus} = useContext(DataContext);
         // --- 추가된 초기화 로직 ---
     useEffect(() => {
         // 다른 페이지에서 진입 시 무조건 1페이지로 시작
         setPageNum(1);
-        setSearchType('userId');
-        setSearchWord('');
+        setUserSearchWord('');
     }, []); // 빈 배열([])을 넣어 마운트 시점에 딱 한 번만 실행되게 합니다.
 
     // 회원 검색 핸들러
     const searchHandler = () => {
-        setPageNum(1); // 검색했을때 1페이지를 기본값으로 초기화
+        setPageNum(1); // 검색했을때 1페이지를 기본값으로 초기화cd 
         userFind();
     }
     // -----------------------
@@ -76,9 +75,9 @@ export default function AllUserPage(){
         const ingUser = allBookStatus
         .filter(pastStatus => pastStatus.bookingStatus === "UPCOMING" || pastStatus.bookingStatus === "ONGOING")
         .map(res=>res.userId);
-        console.log("전체 예약 회원: ",allBookStatus);
-        console.log("삭제 불가능 회원: ",ingUser);
-        console.log(`현재 페이지 전체 예약수: ${allBookStatus.length}건 / 삭제불가 회원수: ${ingUser.length}명`);
+        // console.log("전체 예약 회원: ",allBookStatus);
+        // console.log("삭제 불가능 회원: ",ingUser);
+        // console.log(`현재 페이지 전체 예약수: ${allBookStatus.length}건 / 삭제불가 회원수: ${ingUser.length}명`);
         return ingUser.includes(userId);
     }
 
@@ -91,8 +90,8 @@ export default function AllUserPage(){
 
     // placeholder
     const placeholderWord = () => {
-        console.log("검색", searchType);
-         if(searchType === "userId"){
+        console.log("검색", userSearchType);
+         if(userSearchType === 'userId'){
             return "아이디를 검색하세요";
         }else{
             return "이름을 검색하세요";
@@ -107,14 +106,14 @@ export default function AllUserPage(){
             {/* 검색 */}
             <div className="mau_find">
                 {/* 검색 타입 */}
-                <select name="searchType" className="mau_select"
-                onChange={(e)=> setSearchType(e.target.value)}>
+                <select name="userSearchType" className="mau_select"
+                onChange={(e)=> setUserSearchType(e.target.value)}>
                     <option value="userId">회원ID</option>
                     <option value="model">회원이름</option>
                 </select>
                 {/* 검색 단어*/}
                 <input type="text" name="searchWord" className="mau_input" placeholder={placeholderWord()}
-                onChange={(e)=> setSearchWord(e.target.value)} value={searchWord}/>
+                onChange={(e)=> setUserSearchWord(e.target.value)}/>
                 <button className="mau_btn" type="button" onClick={searchHandler}>검색</button>
                 <p className="mau_info">
                     <i className="bi bi-exclamation-circle-fill" style={{paddingRight:"5px"}}></i>
@@ -136,7 +135,7 @@ export default function AllUserPage(){
                         <th className="managerAllUser_userDel">회원삭제</th>
                     </tr>
                 </thead>
-                {user ? 
+                {user && user.length > 0 ? 
                     <tbody className="managerAllUser_table_tb">
                         {user.map((user,index) => {
                             const pageSize = paging?.pageSize || 10; // 페이지당 개수

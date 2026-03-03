@@ -82,7 +82,7 @@
 	LIMIT #{startRow}, #{pageSize}
 	</select>
 	
-	<!-- 검색 예약 수 -->
+<!-- 검색 예약 수 -->
 	<select id="AllSearchBookCarCount" resultType="int">
 	  SELECT COUNT(*)
 	  FROM booking b
@@ -93,7 +93,7 @@
 	        b.userId LIKE CONCAT('%', #{searchKeyWord}, '%')
 	      </when>
 	      <otherwise>
-	        c.model LIKE CONCAT('%', #{searchKeyWord}, '%')
+	        b.bookingId LIKE CONCAT('%', #{searchKeyWord}, '%')
 	      </otherwise>
 	    </choose>
 	  </where>
