@@ -1,8 +1,5 @@
 .carMod {
-  max-width: 950px;
-  margin: 130px auto;
-  padding: 40px;
-  border-radius: 15px;
+  width: 100%;
   background-color: #eceef2;
 }
 
