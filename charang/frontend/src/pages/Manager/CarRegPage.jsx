@@ -125,14 +125,14 @@ export default function CarRegPage() {
                             </td>
                         </tr>
                         <tr className="crp_tr">
-                            <td className="crp_td">브랜드 로고 이미지</td>
+                            <td className="crp_td">브랜드 이미지</td>
                             <td className="crp_data">
                                 <input type="file" name="brandLogo" className="crp_input_img"
                                     onChange={inputHandler} />
                             </td>
                         </tr>
                         <tr className="crp_tr">
-                            <td className="crp_td">모델명</td>
+                            <td className="crp_td">모델</td>
                             <td className="crp_data">
                                 <input type="text" name="model" className="crp_input"
                                     placeholder='예) GG80' onChange={inputHandler} />
@@ -153,7 +153,7 @@ export default function CarRegPage() {
                             </td>
                         </tr>
                         <tr className="crp_tr">
-                            <td className="crp_td">차량 번호</td>
+                            <td className="crp_td">차량번호</td>
                             <td className="crp_data">
                                 <input type="text" name="plateNumber" className="crp_input"
                                     placeholder='예) 00호0000' onChange={inputHandler} />
@@ -167,7 +167,7 @@ export default function CarRegPage() {
                             </td>
                         </tr>
                         <tr className="crp_tr">
-                            <td className="crp_td">지점 코드</td>
+                            <td className="crp_td">지점</td>
                             <td className="crp_data">
                                 <select name="branchId" onChange={inputHandler} className="crp_select">
                                     <option value={1}>인천공항 지점</option>
@@ -179,7 +179,7 @@ export default function CarRegPage() {
                             </td>
                         </tr >
                         <tr className="crp_tr">
-                            <td className="crp_td">요구 면허종류</td>
+                            <td className="crp_td">면허타입</td>
                             <td className="crp_data">
                                 <select name="licenseType" onChange={inputHandler} className="crp_select">
                                     <option value={1}>1종</option>
@@ -198,7 +198,7 @@ export default function CarRegPage() {
                             <td className="crp_td">연비</td>
                             <td className="crp_data">
                                 <input type="text" name="kmPer" onChange={inputHandler} 
-                                className="crp_input" placeholder="예) 13.2"/>
+                                className="crp_input" placeholder="예) 13.2km/L"/>
                             </td>
                         </tr>
                         <tr className="crp_tr">
@@ -209,24 +209,24 @@ export default function CarRegPage() {
                             </td>
                         </tr>
                         <tr className="crp_tr">
-                            <td className="crp_td">좌석 수</td>
+                            <td className="crp_td">좌석수</td>
                             <td className="crp_data">
                                 <input type="number" name="seats" onChange={inputHandler} 
                                 className="crp_input" placeholder="예) 5"/>
                             </td>
                         </tr>
                         <tr className="crp_tr">
-                            <td className="crp_td">차량 크기</td>
+                            <td className="crp_td">크기</td>
                             <td className="crp_data">
                                 <select name="carSize" onChange={inputHandler} className="crp_select">
-                                    <option value="경소형">1종</option>
-                                    <option value="대형">1종 대형</option>
-                                    <option value="중형">2종</option>
+                                    <option value="경소형">경소형</option>
+                                    <option value="중형">중형</option>
+                                    <option value="대형">대형</option>
                                 </select>
                             </td>
                         </tr>
                         <tr className="crp_tr">
-                            <td className="crp_td">차량 타입</td>
+                            <td className="crp_td">차량타입</td>
                             <td className="crp_data">
                                 <select name="carType" onChange={inputHandler} className="crp_select">
                                     <option value="승용">승용</option>
@@ -237,7 +237,7 @@ export default function CarRegPage() {
                             </td>
                         </tr>
                         <tr className="crp_tr">
-                            <td className="crp_td">연료 타입</td>
+                            <td className="crp_td">연료타입</td>
                             <td className="crp_data">
                                 <select name="fuelType" onChange={inputHandler} className="crp_select">
                                     <option value="하이브리드">하이브리드</option>
