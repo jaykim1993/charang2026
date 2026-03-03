@@ -102,7 +102,7 @@ export default function AllUserPage(){
 
     return(
         <div className="ManagerAllUser">
-            <h1>전체 회원 목록</h1>
+            <h1>전체 회원목록</h1>
 
             {/* 검색 */}
             <div className="mau_find">
