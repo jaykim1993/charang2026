@@ -17,15 +17,33 @@ public class SecurityConfig {
 	}
 	
 //	기본적으로 동작하는 기능을 꺼야하기 때문에 disable로 비활성화 시킴
-	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http
-		.cors(cors-> cors.disable())
-		.csrf(csrf-> csrf.disable());
-		
-		http
-		.formLogin(login-> login.disable());
-		
-		return http.build();
-	}
+//	@Bean
+//	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//		http
+//		.cors(cors-> cors.disable())
+//		.csrf(csrf-> csrf.disable());
+//		
+//		http
+//		.formLogin(login-> login.disable());
+//		
+//		return http.build();
+//	}
+//기본적으로 동작하는 기능을 꺼야하기에 disable()로 비활성화 한다.
+	   @Bean
+	   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+	       http
+	               .cors(cors -> cors.disable())
+	               .csrf(csrf -> csrf.disable());
+	       
+
+	       http
+	       			// 아래 설정을 추가하여 모든 경로에 대한 접근을 허용합니다.
+			        .authorizeHttpRequests(auth -> auth
+			            .anyRequest().permitAll() 
+			        )
+	               .formLogin(login -> login.disable());
+
+	       return http.build();
+	   }
 }
