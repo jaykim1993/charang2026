@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AllReservationPage(){
 
-    const { pageNum, paging, allBookCar, user, searchTypeBook, setSearchTypeBook, setSearchWordBook, bookFind, userFind, setPageNum, pagesHandler } = useContext(DataContext);
+    const { pageNum, paging, allBookCar, user, searchTypeBook, setSearchTypeBook, setSearchWordBook, bookFind, setPageNum, pagesHandler } = useContext(DataContext);
 
     // 화면 이동 훅
     const navi = useNavigate();
@@ -16,6 +16,7 @@ export default function AllReservationPage(){
         setPageNum(1); // 검색했을때 1페이지를 기본값으로 초기화
         bookFind();
     }
+    
     // --- 추가된 초기화 로직 ---
     useEffect(() => {
         // 다른 페이지에서 진입 시 무조건 1페이지로 시작
@@ -28,7 +29,6 @@ export default function AllReservationPage(){
     // -----------------------
     // 예약정보+차량정보 불러오기 from ManagerDTO
     useEffect(() => {
-        // userFind();
         bookFind();
     }, [pageNum]);
 

@@ -75,10 +75,19 @@
     text-align: center;
 }
 
-.userMod .userMod_container .userMod_table .userMod_table_body .userMod_tr .userMod_data {
+.userMod .userMod_container .userMod_table .userMod_table_body .userMod_tr .userMod_data, .userMod_data2 {
     width: 75%;
     padding: 0 25px;
     text-align: left;
     font-weight: normal;
     color: #333;
+}
+.userMod .userMod_container .userMod_table .userMod_table_body .userMod_tr .userMod_data2:hover {
+    width: 75%;
+    padding: 0 25px;
+    text-align: left;
+    font-weight: normal;
+    color: #333;
+    cursor: pointer;
+    text-decoration: underline;
 }

@@ -32,11 +32,10 @@ export default function DataProvider({children}){
   // 회원
     const [ user, setUser] = useState([]);
 
-  // 검색
-    const [searchTypeBook, setSearchTypeBook] = useState('');
-    const [searchType, setSearchType] = useState('userId');
+  // 예약 검색
     const [searchWordBook, setSearchWordBook] = useState('');
-    const [searchWord, setSearchWord] = useState('');
+    const [searchTypeBook, setSearchTypeBook] = useState('');
+
 
   // 전체 예약
     const bookFind = () => {
@@ -55,11 +54,13 @@ export default function DataProvider({children}){
         })
     }
 
-    console.log("user검색: ",searchWord);
+  // 회원 검색
+  const [userSearchType, setUserSearchType] = useState('userId');
+  const [userSearchWord, setUserSearchWord] = useState('');
 
   // 전체 회원
   const userFind = () => {
-        axios.get("/api/searchUser",{params:{searchType:searchType,searchWord:searchWord, page:pageNum}})
+        axios.get("/api/searchUser",{params:{searchType:userSearchType,searchWord:userSearchWord, page:pageNum}})
         .then((res)=>{
             console.log("검색 회원: ",res.data);
             setUser(res.data.list); // 검색 회원 가져온 데이터
@@ -123,9 +124,8 @@ export default function DataProvider({children}){
     <>
       <DataContext.Provider 
       value={{car, branch, pageNum, setPageNum, pagesHandler, paging, setPaging, 
-              allBookCar, setAllBookCar, user, setUser, bookFind, userFind, setSearchType, setSearchWord, bookStatusFind, allBookStatus,
-              searchTypeBook, setSearchTypeBook, searchWordBook, setSearchWordBook
-              }}>
+              allBookCar, setAllBookCar, user, setUser, bookFind, userFind, setUserSearchType, setUserSearchWord, 
+              bookStatusFind, userSearchType, searchTypeBook, setSearchTypeBook, searchWordBook, setSearchWordBook, allBookStatus}}>
         {children}
       </DataContext.Provider>
     </>

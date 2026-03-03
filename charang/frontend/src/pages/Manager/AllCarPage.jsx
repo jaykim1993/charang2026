@@ -143,13 +143,13 @@ export default function AllCarPage() {
 
     return (
         <div className="ManagerAllCar">
-            <h1>전체 차량 목록</h1>
+            <h1>전체 차량목록</h1>
 
             <div className="mac_find">
                 {/* 검색 타입 */}
                 <select className="mac_type" name="searchType" onChange={(e) => setSearchType(e.target.value)}>
                     <option value="carName">모델명</option>
-                    <option value="carNum">차량 번호</option>
+                    <option value="carNum">차량번호</option>
                 </select>
                 {/* 검색 */}
                 <input className="mac_word" type="text" name="searchWord" placeholder={placeholderWord()}
@@ -163,7 +163,7 @@ export default function AllCarPage() {
                 <thead className="m_AllCar_th">
                     <tr className="m_AllCar_tr">
                         <th className="m_AllCar_tableNum">번호</th>
-                        <th className="m_AllCar_tablecod">차량코드</th>
+                        <th className="m_AllCar_tablecod">차량ID</th>
                         <th className="m_AllCar_tableCarImg">이미지</th>
                         <th className="m_AllCar_tableCar">브랜드</th>
                         <th className="m_AllCar_tableCar">모델명</th>
