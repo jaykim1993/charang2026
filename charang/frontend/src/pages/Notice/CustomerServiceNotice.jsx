@@ -26,11 +26,11 @@ export default function CustomerServiceNotice(){
     useEffect(() => {
         axios.get(`/api/customerservice/notice?page=${pageNum}`)
         .then((res) => {
-            console.log("공지사항전체 - 받아온데이터 : ", res.data);
+            // console.log("공지사항전체 - 받아온데이터 : ", res.data);
             setNotice(res.data.list);  // 받아온 데이터
             setPaging(res.data.ph);  // 페이징
-            console.log("공지사항 - res.data.list : ", res.data.list);
-            console.log("공지사항 - res.data.ph : ", res.data.ph);
+            // console.log("공지사항 - res.data.list : ", res.data.list);
+            // console.log("공지사항 - res.data.ph : ", res.data.ph);
         })
         .catch(error => console.log("error : ", error));
     }, [pageNum]);

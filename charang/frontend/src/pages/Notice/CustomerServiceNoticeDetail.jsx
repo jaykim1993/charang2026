@@ -17,7 +17,7 @@ export default function CustomerServiceNoticeDetail() {
         axios.get(`/api/customerservice/notice/Info/${noticeId}`)
             .then((res) => {
                 setNotice(res.data);
-                console.log("공지 상세 - res.data : ", res.data);
+                // console.log("공지 상세 - res.data : ", res.data);
             })
             .catch(error => console.log("error : ", error));
     }, [noticeId]);
