@@ -5,18 +5,18 @@ import { useNavigate } from "react-router-dom";
 import './AllUserPage.css';
 import axios from "axios";
 
-export default function AllUserPage() {
+export default function AllUserPage(){
 
-    const { pagesHandler, paging, pageNum, setPageNum, user, searchResetHandler,
-        userFind, userSearchType, setUserSearchType, setUserSearchWord, bookStatusFind, allBookStatus } = useContext(DataContext);
-    // --- 추가된 초기화 로직 ---
+    const {pagesHandler, paging, pageNum, setPageNum, user, searchResetHandler,
+        userFind, userSearchType, setUserSearchType, setUserSearchWord, bookStatusFind, allBookStatus} = useContext(DataContext);
+        // --- 추가된 초기화 로직 ---
     useEffect(() => {
         // 다른 페이지에서 진입 시 무조건 1페이지로 시작
         setPageNum(1);
         setUserSearchWord('');
         searchResetHandler();
         userCount();
-    }, []); // 빈 배열([])을 넣어 마운트 시점에 딱 한 번만 실행되게 합니다.
+    }, []);
 
     // 회원 검색 핸들러
     const searchHandler = () => {
@@ -25,12 +25,11 @@ export default function AllUserPage() {
     }
     // -----------------------
     // 전체 예약, 전체 회원 출력 함수 호출
-    useEffect(() => {
+     useEffect(()=>{
         userFind();
         bookStatusFind();
         userCount();
-    }, [pageNum]);
-
+    },[pageNum]);
 
     // 회원 삭제
     const [delUser, setDelUser] = useState([]);
@@ -40,48 +39,49 @@ export default function AllUserPage() {
         let delUserCopy = [...delUser];
 
         // 체크되어있으면 delUser배열에 넣기(true)
-        if (e.target.checked) {
+        if(e.target.checked){
             delUserCopy.push(userId);
             setDelUser(delUserCopy);
         }
         // 체크를 했다가 취소할 경우(false)
-        else {
+        else{
             delUserCopy = delUser.filter(id => id !== userId);
             setDelUser(delUserCopy);
         }
     }
 
     const delHandler = () => {
-        if (delUser.length == 0) {
+        if(delUser.length == 0){
             alert("삭제할 예약을 선택해주세요.");
             return;
-        } else {
+        }else{
             const confirmCancel = window.confirm(`${delUser.length}명의 회원데이터를 삭제하시겠습니까?`);
             if (!confirmCancel) return;
-            axios.delete("/api/delete", { data: delUser })
-                .then((res) => {
-                    console.log("삭제 결과: ", res.data);
-                    if (res.data == 1) {
-                        alert(`${delUser.length}명의 회원데이터가 삭제되었습니다`);
-                        userFind();
-                        setDelUser([]);
-                        userCount();
-                    } else {
-                        alert("다시 시도해주세요.");
-                    }
-                })
-                .catch((error) => {
-                    console.log("받아온 삭제 결과 에러: ", error);
-                })
+            axios.delete("/api/delete",{data:delUser})
+            .then((res)=>{
+                // console.log("삭제 결과: ", res.data);
+                if(res.data == 1){
+                    alert(`${delUser.length}명의 회원데이터가 삭제되었습니다`);
+                    userFind();
+                    setDelUser([]);
+                    userCount();
+                }else{
+                    alert("다시 시도해주세요.");
+                }
+            })
+            .catch((error)=>{
+                console.log("받아온 삭제 결과 에러: ", error);
+            })
         }
     }
+
 
     // 예약이 앞으로 존재하는 회원인지 구분
     const noRes = (userId) => {
         // 앞으로 예약이 존재하는 회원
         const ingUser = allBookStatus
-            .filter(pastStatus => pastStatus.bookingStatus === "UPCOMING" || pastStatus.bookingStatus === "ONGOING")
-            .map(res => res.userId);
+        .filter(pastStatus => pastStatus.bookingStatus === "UPCOMING" || pastStatus.bookingStatus === "ONGOING")
+        .map(res=>res.userId);
         return ingUser.includes(userId);
     }
 
@@ -94,10 +94,10 @@ export default function AllUserPage() {
 
     // placeholder
     const placeholderWord = () => {
-        console.log("검색", userSearchType);
-        if (userSearchType === 'userId') {
+        // console.log("검색", userSearchType);
+         if(userSearchType === 'userId'){
             return "아이디를 검색하세요";
-        } else {
+        }else{
             return "이름을 검색하세요";
         }
     }
@@ -106,18 +106,19 @@ export default function AllUserPage() {
     const [userCnt, setUserCnt] = useState(0);
     const userCount = () => {
         axios.get("/api/allUserCount")
-            .then((res) => {
-                console.log("받아온 전체 회원 개수: ", res.data);
-                setUserCnt(res.data);
-            })
-            .catch((error) => {
-                console.log("불러온 전체 회원 개수 에러: ", error);
-            })
+        .then((res)=>{
+            // console.log("받아온 전체 회원 개수: ", res.data);
+            setUserCnt(res.data);
+        })
+        .catch((error)=>{
+            console.log("불러온 전체 회원 개수 에러: ",error);
+        })
     }
 
-   return(
+
+    return(
         <div className="ManagerAllUser">
-            <h1>전체 회원목록</h1>
+            <h1>전체 회원 목록</h1>
 
             {/* 검색 */}
             <div className="mau_find">
