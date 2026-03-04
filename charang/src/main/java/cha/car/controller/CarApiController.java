@@ -114,15 +114,18 @@ public class CarApiController {
 	    // 배포 환경과 로컬 모두에서 작동하도록 프로젝트 내부 static 폴더를 참조합니다.
 //	    String savePath = request.getServletContext().getRealPath("/images/brands/");
 //	    String savePath2 = request.getServletContext().getRealPath("/images/cars/");
-        String rootPath1 = System.getProperty("user.dir"); 
-	     String savePath = rootPath1 + File.separator + "uploads" + File.separator + "images" + File.separator + "brands" + File.separator;
-	     String rootPath2 = System.getProperty("user.dir"); 
-	     String savePath2 = rootPath2 + File.separator + "uploads" + File.separator + "images" + File.separator + "cars" + File.separator;
+        String rootPath = System.getProperty("user.dir"); 
+	     String savePath = rootPath + File.separator + "uploads" + File.separator + "images" + File.separator + "brands" + File.separator;
+	     String savePath2 = rootPath + File.separator + "uploads" + File.separator + "images" + File.separator + "cars" + File.separator;
 		// 02. 해당 폴더가 존재하지 않을 경우 자동생성
 	     
 		File saveDir = new File(savePath);
 		if(!saveDir.exists()) {
 			saveDir.mkdirs();
+		}
+		File saveDir2 = new File(savePath2);
+		if(!saveDir2.exists()) {
+			saveDir2.mkdirs();
 		}
 		
 		// 03. 이미지 업로드 처리
