@@ -334,3 +334,29 @@
   .NotEnoughLenghtToFoldDiv{
     margin: 168px 0;
   }
+/* 지점 마우스오버 버튼 */
+.findNearestBtn {
+    position: relative;
+}
+
+.findNearestBtn::after {
+    position: absolute;
+    content: '가까운 지점 찾기';
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 13px;
+    background-color: #555;
+    width: 120px;
+    padding: 8px;
+    border-radius: 500px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.findNearestBtn:hover::after {
+    opacity: 1;
+    visibility: visible;
+    left: 60px;
+}

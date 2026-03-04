@@ -14,18 +14,21 @@
     border-radius: 50px;
     display: flex;
     align-items: center;
-    background-color: #fff;
-    border: 2.5px solid #00000086;
+    background-color: #ffffffaf;
+    border: 2px solid #1e74f5;
     color: white;
     z-index: 20;
     bottom: 10px;
     left: 10px;
 }
+.findNearestBtn i{
+    opacity: 70%;
+}
 .findNearestBtn:hover{
-    background-color: #555555;
+    background-color: #fff;
 }
 .findNearestBtn:hover>.bi-person-walking{
-    color: white;
+    opacity: 100%;
 }
 .bi-person-walking{
     transform: translateX(-6.8px);

@@ -229,8 +229,8 @@ export default function Home() {
   // 인기순 차량 배열
   const goodCar = [
     { id: 1, model: '그랑조', img: 'hy_2.webp', brand: '한대', carInfo: '20대도 즐겨 찾는 인기 렌트카, 세련된 디자인과 편안한 주행감을 갖춘 한대 그랑조!', hashtag: `#요즘세단` },
-    { id: 2, model: 'new 5', img: 'bmw_5.webp', brand: 'DMW', carInfo: '프리미엄 세단. 비즈니스와 일상 모두에 잘 어울리는 모델!', hashtag: '#도심드라이브' },
-    { id: 3, model: 'WV7', img: 'kia_2.webp', brand: '크아', carInfo: '넉넉한 실내 공간과 실용성을 강조한 SUV. 가족 이동이나 장거리 주행에 부담 없는 선택!', hashtag: '#여행각SUV' },
+    { id: 2, model: 'NEW X5', img: 'bmw_5.webp', brand: 'DMW', carInfo: '프리미엄 세단. 비즈니스와 일상 모두에 잘 어울리는 모델!', hashtag: '#도심드라이브' },
+    { id: 3, model: 'WV-7', img: 'kia_2.webp', brand: '크아', carInfo: '넉넉한 실내 공간과 실용성을 강조한 SUV. 가족 이동이나 장거리 주행에 부담 없는 선택!', hashtag: '#여행각SUV' },
   ];
 
   const SelectedIcon = new L.Icon({
