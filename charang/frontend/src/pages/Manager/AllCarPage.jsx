@@ -109,7 +109,7 @@ export default function AllCarPage() {
                 if (!confirmCancel) return;
                 axios.delete("/api/delCar", { data: delCar })
                     .then((res) => {
-                        console.log("삭제 결과: ", res.data);
+                        // console.log("삭제 결과: ", res.data);
                         if (res.data) {
                             alert(`${delCar.length}개의 차량데이터가 삭제되었습니다.`);
                             setDelCar([]);
