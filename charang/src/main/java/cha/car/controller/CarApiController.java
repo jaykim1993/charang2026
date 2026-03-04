@@ -112,13 +112,14 @@ public class CarApiController {
         CarDTO carData = mapper.readValue(carDTOData, CarDTO.class);
 		// 2. 저장 경로 설정 (상대 경로 활용)
 	    // 배포 환경과 로컬 모두에서 작동하도록 프로젝트 내부 static 폴더를 참조합니다.
-	    String savePath = request.getServletContext().getRealPath("/images/brands/");
-	    String savePath2 = request.getServletContext().getRealPath("/images/cars/");
-		// 01. 이미지 파일을 저장할 실제 하드디스크 위치 지정(webConfig에서 설정한 경로와 일치)
-//		String savePath = "C:/rentcar2026/charang/frontend/public/images/brands/";
-//		String savePath2 = "C:/rentcar2026/charang/frontend/public/images/cars/";
-		
+//	    String savePath = request.getServletContext().getRealPath("/images/brands/");
+//	    String savePath2 = request.getServletContext().getRealPath("/images/cars/");
+        String rootPath1 = System.getProperty("user.dir"); 
+	     String savePath = rootPath1 + File.separator + "uploads" + File.separator + "images" + File.separator + "brands" + File.separator;
+	     String rootPath2 = System.getProperty("user.dir"); 
+	     String savePath2 = rootPath2 + File.separator + "uploads" + File.separator + "images" + File.separator + "cars" + File.separator;
 		// 02. 해당 폴더가 존재하지 않을 경우 자동생성
+	     
 		File saveDir = new File(savePath);
 		if(!saveDir.exists()) {
 			saveDir.mkdirs();
