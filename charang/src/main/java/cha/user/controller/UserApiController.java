@@ -65,6 +65,13 @@ public class UserApiController {
 		return result;
 	}
 	
+	// 전체 회원 개수 불러오기
+	@GetMapping("/allUserCount")
+	public int allUserCount() {
+		System.out.println("전체 회원 개수 불러오기 컨트롤러");
+		int result = userservice.getAllCount();
+		return result;
+	}
 	// 아이디 중복 체크
 	@PostMapping("/checkid")
 	public boolean checkId(@RequestBody UserDTO udto) {
