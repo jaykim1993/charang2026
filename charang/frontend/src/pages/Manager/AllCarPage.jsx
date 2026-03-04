@@ -94,7 +94,7 @@ export default function AllCarPage() {
                 setDelCar(delCarCopy);
             }
         }
-        console.log("삭제할 차량 개수: ", delCar.length);
+        // console.log("삭제할 차량 개수: ", delCar.length);
     
         // ※ 차량 id만 보내면 되기때문에, 객체배열 방식이 아닌 그냥 배열 방식으로 보내도 sql에서 알아서 변환해줌( ex) 1,5,45 )
         // 차량 삭제 핸들러
