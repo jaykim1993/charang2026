@@ -38,11 +38,6 @@
 	<select id="getAllCount" resultType="int">
 		SELECT COUNT(*) FROM car
 	</select>
-
-	<!-- 공지 전체 목록 -->
-<!-- 	<select id="getSearchCar" resultType="CarDTO">
-		SELECT * FROM car ORDER BY carId DESC LIMIT #{startRow}, #{pageSize}
-	</select> -->
 	
 	<!-- 차량 검색 메서드
 	public List<CarDTO> getSearchCarList( String searchType, String searchKeyWord); -->

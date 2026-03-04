@@ -13,13 +13,6 @@ public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	NoticeMapper noticemapper;
 
-//	@Override
-//	public List<NoticeDTO> getAllNoticeList() {
-//		System.out.println("NoticeServiceImpl - 공지 목록");
-//		
-//		return noticemapper.getAllNoticeList();
-//	}
-
 	@Override
 	public NoticeDTO selectNoticeDetail(int noticeId) {
 		System.out.println("NoticeServiceImpl - 공지 상세");

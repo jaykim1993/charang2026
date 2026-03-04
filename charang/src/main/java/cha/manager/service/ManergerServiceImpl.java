@@ -13,7 +13,8 @@ public class ManergerServiceImpl implements ManagerService{
 	
 	@Autowired
 	ManagerMapper managermapper;
-	
+
+	// 검색 페이징 메서드
 	@Override
 	public List<ManagerDTO> GetAllSearchBookCar(int startRow, int pageSize, String searchType, String searchKeyWord) {
 		
@@ -21,7 +22,7 @@ public class ManergerServiceImpl implements ManagerService{
 	}
 
 
-
+	// 전체 예약 수 
 	@Override
 	public int AllBookCarCount() {
 		
@@ -29,7 +30,7 @@ public class ManergerServiceImpl implements ManagerService{
 	}
 
 
-
+	// 전체 예약 + 예약 내 차량 데이터 조인 메서드
 	@Override
 	public List<ManagerDTO> GetAllBookCar(int startRow, int pageSize) {
 		
@@ -37,25 +38,26 @@ public class ManergerServiceImpl implements ManagerService{
 	}
 
 
-
+	// 검색 예약 수
 	@Override
 	public int AllSearchBookCarCount(String searchType, String searchKeyWord) {
 		
 		return managermapper.AllSearchBookCarCount(searchType, searchKeyWord);
 	}
 
+	// 예약 아이디로 예약(차량조인) 하나 조회하기
 	@Override
 	public ManagerDTO getoneBookManager(String bookingId) {
 		
 		return managermapper.getoneBookManager(bookingId);
 	}
 
+	// 개인 예약 + 예약 내 차량 데이터 조인 메서드
 	@Override
 	public List<ManagerDTO> getOneBookCar(String userId) {
 		
 		return managermapper.getOneBookCar(userId);
 	}
-
 
 
 	// 현재예약, 미래예약이 존재하지 않는 회원id 출력

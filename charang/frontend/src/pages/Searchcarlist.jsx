@@ -43,11 +43,11 @@ const FILTER_CONFIG = {
     options: [
         { key: 'navigation', label: '내비게이션' },
         { key: 'rearCamera', label: '후방카메라' },
-        { key: 'heatedSeat', label: '열선시트' },
-        { key: 'heatedHandle', label: '핸들열선' },
+        { key: 'heatSeat', label: '열선시트' },
+        { key: 'heatHandle', label: '핸들열선' },
         { key: 'bluetooth', label: '블루투스' },
         { key: 'smartKey', label: '스마트키' },
-        { key: 'sunLoof', label: '썬루프' }, // DB 컬럼명 주의
+        { key: 'sunRoof', label: '썬루프' }, // DB 컬럼명 주의
     ]
 };
 
@@ -185,7 +185,6 @@ export default function Recentcar() {
     };
 
     // 현재 선택된 지점 정보
-    // const detailSpot = branch.find(item => item.branchId === isDetail);
     // -----------------------------------------------------------------
     // 지점 상세보기 모달
     const [isDetailOpen, setIsDetailOpen] = useState(false);

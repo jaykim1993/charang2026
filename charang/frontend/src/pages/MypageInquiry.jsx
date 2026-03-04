@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { AuthContext } from "../contexts/Authcontext";
 import { DataContext } from "../contexts/Datacontext";
 import { useNavigate } from "react-router-dom"
@@ -31,8 +31,8 @@ export default function MypageInquiry() {
                 console.log("문의목록 - 받아온데이터 : ", res.data);
                 setInquiry(res.data.list);  // 받아온 데이터
                 setPaging(res.data.ph);  // 페이징
-                console.log("문의목록 - res.data.list : ", res.data.list);
-                console.log("문의목록 - res.data.ph : ", res.data.ph);
+                // console.log("문의목록 - res.data.list : ", res.data.list);
+                // console.log("문의목록 - res.data.ph : ", res.data.ph);
             })
             .catch(error => console.log("error : ", error));
     }, [pageNum, userid]);

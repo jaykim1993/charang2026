@@ -20,7 +20,7 @@ export default function CarModPage() {
         console.log("현재 useParams로 가져온 carId: ", carId);
         axios.get("/api/carinfo/" + carId)
             .then((res) => {
-                console.log("해당 id 데이터: ", res.data);
+                // console.log("해당 id 데이터: ", res.data);
                 setUpdateCar(res.data);
             })
             .catch((error) => {
@@ -83,7 +83,7 @@ export default function CarModPage() {
             sunRoof: Number(updateCar.sunRoof)
         };
 
-        console.log("보낼 데이터: ", textData);
+        // console.log("보낼 데이터: ", textData);
 
         // JSON 문자열로 변환해서 testData 하나로 묶기
         formData.append('carDTOData', JSON.stringify(textData));

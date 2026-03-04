@@ -38,13 +38,28 @@ export default function CustomerServiceNoticeDetail() {
         }
     };
 
-    if (!notice) return <div style={{minHeight: '800px', textAlign: 'center'}}>로딩 중...</div>;
+    if (!notice) return <div style={{ minHeight: '800px', textAlign: 'center' }}>로딩 중...</div>;
 
     return (
-        <div className="noticeInfo" 
-        style={{width: userid === 'admin' ? '1300px' : '100%', 
-            margin: userid === 'admin' ?'150px auto' : '0'}}>
-            <h4>공지사항 │ {notice.modDate}</h4>
+        <div className="noticeInfo"
+            style={{
+                width: userid === 'admin' ? '1300px' : '100%',
+                margin: userid === 'admin' ? '150px auto' : '0'
+            }}>
+            <div className="noticeInfo_head" style={{marginBottom: userid === 'admin' ? '11px' : '20px'}}>
+                <h4>공지사항 │ {notice.modDate}</h4>
+                {userid === 'admin' && (
+                    <div className="adminBtn">
+                        <button className="adminBtn_1"
+                            onClick={() => navigate(`/customerservice/notice/manager/modify/${noticeId}`)}>
+                            수정하기
+                        </button>
+                        <button onClick={handleDelete} className="adminBtn_2">
+                            삭제하기
+                        </button>
+                    </div>
+                )}
+            </div>
             <table>
                 <tbody>
                     <tr>
@@ -62,18 +77,6 @@ export default function CustomerServiceNoticeDetail() {
 
             <div className="noticeInfo_btn">
                 <button onClick={() => navigate("/customerservice/notice")}>목록으로 돌아가기</button>
-
-                {userid === 'admin' && (
-                    <div className="adminBtn">
-                        <button className="adminBtn_1"
-                            onClick={() => navigate(`/customerservice/notice/manager/modify/${noticeId}`)}>
-                            수정하기
-                        </button>
-                        <button onClick={handleDelete} className="adminBtn_2">
-                            삭제하기
-                        </button>
-                    </div>
-                )}
             </div>
         </div>
     );

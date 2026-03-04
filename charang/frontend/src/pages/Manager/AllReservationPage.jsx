@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useMemo } from "react";
+import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/Datacontext";
 import './AllReservationPage.css';
 import axios from "axios";
@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AllReservationPage(){
 
-    const { pageNum, paging, allBookCar, user, searchTypeBook, setSearchTypeBook, setSearchWordBook, bookFind, setPageNum, pagesHandler } = useContext(DataContext);
+    const { pageNum, paging, allBookCar, searchTypeBook, setSearchTypeBook, setSearchWordBook, searchResetHandler,
+        bookFind, setPageNum, pagesHandler, allBookStatus, bookStatusFind } = useContext(DataContext);
 
     // 화면 이동 훅
     const navi = useNavigate();
@@ -22,21 +23,23 @@ export default function AllReservationPage(){
         // 다른 페이지에서 진입 시 무조건 1페이지로 시작
         setPageNum(1);
         setSearchTypeBook("bookingId");
-        setSearchWordBook('');
-    }, []); // 빈 배열([])을 넣어 마운트 시점에 딱 한 번만 실행되게 합니다.
+        searchResetHandler();
+        bookStatusFind();
+    }, []);
 
 
     // -----------------------
     // 예약정보+차량정보 불러오기 from ManagerDTO
     useEffect(() => {
         bookFind();
+        bookStatusFind();
     }, [pageNum]);
 
-        console.log(user);
+        // console.log(user);
 
     // Paging from DataContext
     useEffect(() => {
-        console.log("paging 상태가 변경됨!! : ", paging);
+        // console.log("paging 상태가 변경됨!! : ", paging);
     }, [paging]); // paging 값이 바뀔 때마다 실행됨
 
 
@@ -59,7 +62,7 @@ export default function AllReservationPage(){
     
     // 삭제 예약의 id를 담는 상태변수
     const [delBooking, setDelBooking] = useState([]);
-    console.log(delBooking);
+    // console.log(delBooking);
      const delHandler = () => {
     
             // 체크를 하지 않고 삭제버튼을 눌렀을 경우
@@ -67,17 +70,18 @@ export default function AllReservationPage(){
                 alert("삭제할 예약을 선택해주세요.");
                 return;
             }else{
-                const confirmCancel = window.confirm('선택 예약을 삭제하시겠습니까?');
+                const confirmCancel = window.confirm(`${delBooking.length}개의 예약데이터를 삭제하시겠습니까?`);
                 if (!confirmCancel) return;
                 axios.delete("/api/deleteSelectBooks", {
                     data: delBooking
                     })
                 .then((res)=>{
-                    console.log("예약 삭제 결과: ", res.data);
+                    // console.log("예약 삭제 결과: ", res.data);
                     if(res.data){
-
-                        alert("선택 예약이 삭제되었습니다.");
+                        alert(`${delBooking.length}개의 예약데이터가 삭제되었습니다.`);
                         bookFind();
+                        setDelBooking([]);
+                        bookStatusFind();
                     }else{
                         alert("다시 시도해주세요.");
                     }
@@ -91,7 +95,7 @@ export default function AllReservationPage(){
 
     // placeholder
     const placeholderWord = () => {
-        console.log("검색 타입:", searchTypeBook);
+        // console.log("검색 타입:", searchTypeBook);
         if (searchTypeBook === "bookingId") {
             return "예약코드를 검색하세요";
         } else {
@@ -126,7 +130,7 @@ export default function AllReservationPage(){
 
             <table className="AllReservation_table" border={1}>
                 <thead className="AllReservation_table_th">
-                    <tr>
+                    <tr className="AllReservation_table_tr">
                         <th className="AllReservation_tableNum" style={{width:'5%'}}>번호</th>
                         <th className="AllReservation_tableNum" style={{width:'20%'}}>예약코드</th>
                         <th className="AllReservation_tableUser" style={{width:'5%'}}>예약자ID</th>
@@ -137,7 +141,7 @@ export default function AllReservationPage(){
                         <th className="AllReservation_tableResDate" style={{width:'10%'}}>반납일자</th>
                         <th className="AllReservation_tableResDate" style={{width:'10%'}}>결제금액</th>
                         <th className="AllReservation_tableResDate" style={{width:'7%'}}>진행상태</th>
-                        <th className="AllReservation_tableResDate" style={{width:'10%'}}>예약삭제</th>
+                        <th className="AllReservation_tableResDate" style={{width:'10%'}}>삭제<p>({delBooking.length}/{allBookStatus.length})</p></th>
                     </tr>
                 </thead>
                 <tbody className="AllReservation_table_tb">
@@ -165,6 +169,7 @@ export default function AllReservationPage(){
                                 className="AllCar_del"
                                 onClick={(e) => e.stopPropagation()}
                                 onChange={(e) => checkHandler(e, item.bookingId)}
+                                checked={delBooking.includes(item.bookingId)}
                             />
                             </td>
                         </tr>

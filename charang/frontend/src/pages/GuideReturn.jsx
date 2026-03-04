@@ -1,17 +1,13 @@
 import { Link } from "react-router-dom"
 import { useContext } from "react"
-import { DataContext } from "../contexts/Datacontext"
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useState } from 'react';
-import L from 'leaflet';
 import './Location.css'
 import { AuthContext } from "../contexts/Authcontext"; // 미로그인 시 방어코드 12.22 - 성중 - 성중
 
 export default function GuideReturn() {
 
 
-    const { userid, loginNeeded } = useContext(AuthContext);
+    const { userid } = useContext(AuthContext);
 
 
     return (

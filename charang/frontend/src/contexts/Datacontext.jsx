@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react"
 import axios from "axios";
 export const DataContext = createContext();
+
 export default function DataProvider({children}){
 
   // ================================================ 페이징 ====================================================
@@ -30,23 +31,29 @@ export default function DataProvider({children}){
   // 예약 전체
     const [allBookStatus, setAllBookStatus] = useState([]);
   // 회원
-    const [ user, setUser] = useState([]);
+    const [user, setUser] = useState([]);
+
+  // 검색어 리셋함수
+  const searchResetHandler = () => {
+    setSearchWordBook('');
+    setUserSearchWord('');
+  }
 
   // 예약 검색
-    const [searchWordBook, setSearchWordBook] = useState('');
-    const [searchTypeBook, setSearchTypeBook] = useState('');
+  const [searchTypeBook, setSearchTypeBook] = useState('');
+  const [searchWordBook, setSearchWordBook] = useState('');
 
 
   // 전체 예약
     const bookFind = () => {
-        console.log("검색 타입:", searchTypeBook); 
-        console.log("검색 단어:", searchWordBook);
+        // console.log("검색 타입:", searchTypeBook); 
+        // console.log("검색 단어:", searchWordBook);
         axios.get("/api/bookcarlist",{params:{searchType:searchTypeBook, searchWord:searchWordBook, page:pageNum}})
         .then((res)=>{
             if(res.data){
                 setAllBookCar(res.data.list);
                 setPaging(res.data.ph); // 페이징
-                console.log("예약+차량정보 : !!!! ", res.data.list);
+                // console.log("예약+차량정보 : !!!! ", res.data.list);
             }
         })
         .catch((error)=>{
@@ -62,7 +69,8 @@ export default function DataProvider({children}){
   const userFind = () => {
         axios.get("/api/searchUser",{params:{searchType:userSearchType,searchWord:userSearchWord, page:pageNum}})
         .then((res)=>{
-            console.log("검색 회원: ",res.data);
+            // console.log("검색 회원: ",res.data);
+            // console.log("회원 검색어: ",userSearchWord);
             setUser(res.data.list); // 검색 회원 가져온 데이터
             setPaging(res.data.ph); // 페이징
         })
@@ -77,7 +85,7 @@ export default function DataProvider({children}){
         .then((res)=>{
             if(res.data){
                 setAllBookStatus(res.data);
-                console.log("예약+차량정보 ", res.data);
+                console.log("관리자확인용 예약+차량정보 ", res.data);
             }
         })
         .catch((error)=>{
@@ -102,6 +110,20 @@ export default function DataProvider({children}){
         })
       },[])
 
+      // 차량 전체 출력 함수 버전
+      const allCar = () => {
+        axios.get("/api/")
+        .then((res)=>{
+          // console.log("받아온 차량데이터", res.data);
+          if(res.data){
+            setCar(res.data);
+          }
+        })
+        .catch((error)=>{
+          console.log("받아온 차량에러", error)
+        })
+      }
+
   // 지점 전체 출력 
   // 111
   const[branch,setBranch]=useState([]);
@@ -123,9 +145,40 @@ export default function DataProvider({children}){
   return(
     <>
       <DataContext.Provider 
-      value={{car, branch, pageNum, setPageNum, pagesHandler, paging, setPaging, 
-              allBookCar, setAllBookCar, user, setUser, bookFind, userFind, setUserSearchType, setUserSearchWord, 
-              bookStatusFind, userSearchType, searchTypeBook, setSearchTypeBook, searchWordBook, setSearchWordBook, allBookStatus}}>
+      value={{
+              car, 
+              branch, 
+              allCar,
+              // 페이징
+              pageNum, 
+              setPageNum, 
+              pagesHandler, 
+              paging, 
+              setPaging, 
+              // 전체 예약
+              allBookCar, 
+              setAllBookCar, 
+              // 회원 출력 변수
+              user, 
+              setUser, 
+              // 예약 출력
+              bookFind, 
+              // 회원 출력
+              userFind, 
+              // 검색 - 회원
+              userSearchType,
+              setUserSearchType,
+              setUserSearchWord,
+              // 검색 - 예약
+              setSearchWordBook,
+              searchTypeBook,
+              setSearchTypeBook,
+              searchWordBook, 
+              searchResetHandler, // 검색 리셋 핸들러
+              // 전체 예약 (관리자용)
+              bookStatusFind, // 함수
+              allBookStatus, // 변수
+              }}>
         {children}
       </DataContext.Provider>
     </>

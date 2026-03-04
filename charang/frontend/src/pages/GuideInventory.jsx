@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom"
 import { useContext } from "react"
 import { DataContext } from "../contexts/Datacontext"
 import 'leaflet/dist/leaflet.css';
 import { useState } from 'react';
 import './GuideInventory.css'
-import { AuthContext } from "../contexts/Authcontext"; // 미로그인 시 방어코드 12.22 - 성중 - 성중
 
 export default function GuideInventory(){
 
@@ -28,7 +26,6 @@ const filteredCars = locaselected === '지점 선택'
   ? carCopy
   : carCopy.filter(item => item.branchId === locaselected);
 
-    const { userid, loginNeeded } = useContext(AuthContext);
     const [tdOpen, setTdOpen] = useState(false);
     return(
         <div className="LocationPage2">

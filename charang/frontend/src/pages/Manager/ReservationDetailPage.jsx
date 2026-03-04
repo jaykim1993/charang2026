@@ -23,14 +23,14 @@ export default function ReservationDetailPage() {
     useEffect(() => {
         axios.get("/api/onebookcar/" + selectedBookingId)
             .then((res) => {
-                console.log("해당 id 데이터: ", res.data);
+                // console.log("해당 id 데이터: ", res.data);
                 setSelectedBooking(res.data);
             })
             .catch((error) => {
                 console.log("해당 id 데이터 오류: ", error);
             })
     }, [selectedBookingId]);
-    console.log("가져온 예약 정보", selectedBooking);
+    // console.log("가져온 예약 정보", selectedBooking);
     if (!selectedBooking.startDate) {
         return <div>예약 정보 불러오는 중...</div>;
     }
@@ -39,7 +39,7 @@ export default function ReservationDetailPage() {
         branch.find(
             b => b.branchId === selectedBooking.branchId
         )?.location || '';
-    console.log("지점명", branchName);
+    // console.log("지점명", branchName);
 
     //며칠 남앗는지
     const today = new Date();
@@ -54,8 +54,8 @@ export default function ReservationDetailPage() {
     const diffDayse = Math.ceil(
         (endDate - today) / (1000 * 60 * 60 * 24)
     );
-    console.log(diffDays);
-    console.log(diffDayse);
+    // console.log(diffDays);
+    // console.log(diffDayse);
     let dText;
     if (diffDays > 0) dText = `D-${diffDays}`;
     else if (diffDays <= 0 && diffDayse > 0) dText = '진행중';

@@ -21,9 +21,6 @@ export default function InquiryUpdate() {
 
     console.log(inquiryId);
 
-    // const [inquiry, setInquiry] = useState({});
-    // const [content, setContent] = useState('');
-
     useEffect(() => {
         axios.get(`/api/customerservice/inquiry/list/info/${inquiryId}`)
             .then((res) => {

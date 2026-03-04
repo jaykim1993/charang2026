@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react"
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/Authcontext';
 import { BookingContext } from '../contexts/Bookingcontext';
 import axios from 'axios';
@@ -9,7 +9,7 @@ import './MypageMyinfo.css'
 export default function MypageMyinfo() {
     const [unregiOverlay, setUnregiOverlay] = useState(false);
     const [unregiInput, setUnregiInput] = useState('');
-    const { userid: loginUserId, logout, loginNeeded } = useContext(AuthContext);
+    const { userid: loginUserId, logout } = useContext(AuthContext);
     const [userinfo, setUserinfo] = useState(null);
     const { myBooking } = useContext(BookingContext);
     const navigate = useNavigate();

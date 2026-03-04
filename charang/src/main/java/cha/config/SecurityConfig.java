@@ -16,18 +16,6 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();  // 예) 1234 -> rejwurgfd 처럼 문자열 암호화 시켜줌
 	}
 	
-//	기본적으로 동작하는 기능을 꺼야하기 때문에 disable로 비활성화 시킴
-//	@Bean
-//	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//		http
-//		.cors(cors-> cors.disable())
-//		.csrf(csrf-> csrf.disable());
-//		
-//		http
-//		.formLogin(login-> login.disable());
-//		
-//		return http.build();
-//	}
 //기본적으로 동작하는 기능을 꺼야하기에 disable()로 비활성화 한다.
 	   @Bean
 	   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

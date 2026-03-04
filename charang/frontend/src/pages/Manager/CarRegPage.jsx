@@ -69,14 +69,14 @@ export default function CarRegPage() {
             sunRoof: Number(regCar.sunRoof)
         };
 
-        console.log("보낼 데이터: ", textData);
+        // console.log("보낼 데이터: ", textData);
 
         // JSON 문자열로 변환해서 testData 하나로 묶기
         formData.append('carDTOData', JSON.stringify(textData));
 
         axios.post("/api/addCar", formData)
             .then((res) => {
-                console.log("등록 결과", res.data);
+                // console.log("등록 결과", res.data);
                 // 등록 성공
                 if (res.data === 1) {
                     alert("차량 등록이 완료되었습니다.");

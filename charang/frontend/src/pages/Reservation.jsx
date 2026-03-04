@@ -19,7 +19,7 @@ export default function Reservation() {
     const carPrice = Number(searchParams.get("totalPrice"));
     // console.log(selectedCarId);
     const id = selectedCarId;
-    console.log(id);
+    // console.log(id);
     /* ===================== context ===================== */
     const { fetchBookedList } = useContext(BookingContext);
     const { startdayText, enddayText, DeleteYear } = useContext(CalendarContext);
@@ -36,7 +36,7 @@ export default function Reservation() {
         JSON.parse(sessionStorage.getItem("searchFilters")) || [];
     /* ===================== user ===================== */
     const userID = JSON.parse(sessionStorage.getItem("userid") || "{}").userId;
-    console.log("세션에서 불러온 로그인 유저 ID ", userID);
+    // console.log("세션에서 불러온 로그인 유저 ID ", userID);
     const [userinfo,setUserinfo]=useState(userID);
     
     useEffect(()=>{
@@ -53,24 +53,7 @@ export default function Reservation() {
         console.log(error)
     })
     },[])
-    
-    /* ===================== 주소 관련 ===================== */
-    const [isChange, setIsChange] = useState(false);
-    const [openModal, setOpenModal] = useState(false);
-    const [zipcode, setZipcode] = useState("");
-    const [change_address, setChange_address] = useState("");
-    const [detailAddress, setDetailAddress] = useState("");
 
-    const changeAddressHandler = (data) => {
-        const address =
-        data.userSelectedType === "R"
-            ? data.roadAddress
-            : data.jibunAddress;
-
-        setZipcode(data.zonecode);
-        setChange_address(address);
-        setOpenModal(false);
-    };
 
     /* ===================== 결제 ===================== */
     const [payment, setPayment] = useState(null);
@@ -374,7 +357,6 @@ export default function Reservation() {
                     </div>
                 </div>
             </div>
-            {isChange && <div className="R_modal_overlay"></div>}
         </div>
     )
 }

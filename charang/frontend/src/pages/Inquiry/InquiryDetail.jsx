@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { AuthContext } from "../../contexts/Authcontext"
 import { useNavigate } from "react-router-dom"
 import axios from "axios";
@@ -54,10 +54,11 @@ export default function AllInquiryDetail() {
             <h1>문의상세</h1>
             {inquiry.userId === userid && inquiry.answer === null ?
                 <div className="inquiryDetail_updateBtn">
-                    <button onClick={() => navigate(`/customerservice/inquiry/list/info/update/${inquiryId}`)}>
+                    <button className="inquiryDetail_updateBtn_1" 
+                    onClick={() => navigate(`/customerservice/inquiry/list/info/update/${inquiryId}`)}>
                         수정하기
                     </button>
-                    <button onClick={deleteHandler}>삭제하기</button>
+                    <button onClick={deleteHandler} className="inquiryDetail_updateBtn_2">삭제하기</button>
                 </div>
                 :
                 (inquiry.answer != null ? <></>
@@ -71,8 +72,6 @@ export default function AllInquiryDetail() {
             <table>
                 <tbody>
                     <tr>
-                        {/* <th>문의번호</th>
-                        <td>{inquiry.inquiryId}</td> */}
 
                         <th>작성자</th>
                         {userid === inquiry.userId ? <td colSpan={3}>{inquiry.name}({inquiry.userId})</td>

@@ -32,7 +32,7 @@ export default function MypageDetail() {
         return <div>예약 정보 불러오는 중...</div>;
     }
     // console.log(bookingId);
-    //리스트삭제핸들러  ->   DB에서 직접 삭제하는 쪽으로 대체해야함
+    //리스트삭제핸들러
     const handleDeleteBooking = () => {
         deleteBooking(bookingId, navigate);
     };
@@ -56,8 +56,8 @@ export default function MypageDetail() {
     const diffDayse = Math.ceil(
         (endDate - today) / (1000 * 60 * 60 * 24)
     );
-    console.log(diffDays);
-    console.log(diffDayse);
+    // console.log(diffDays);
+    // console.log(diffDayse);
     let dText;
     if (diffDays > 0) dText = `D-${diffDays}`;
     else if (diffDays <= 0 && diffDayse > 0) dText = '진행중';

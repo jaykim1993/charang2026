@@ -23,8 +23,8 @@ public class VerificationApiController {
 	    @Autowired
 	    private UserService userservice;
 	    
-	 //ÀÎÁõ¹øÈ£ º¸³»±â
-	@PostMapping("/findpw")
+	 // ì¸ì¦ ì½”ë“œ ë³´ë‚´ê¸°
+	 @PostMapping("/findpw")
 	 public ResponseEntity<?> sendCode(@RequestBody Map<String,String> req){
 		
 		boolean result = verificationservice.sendCode(
@@ -33,13 +33,13 @@ public class VerificationApiController {
                 req.get("email")
         );
 		if(result){
-            return ResponseEntity.ok("ÀÎÁõ¹øÈ£ ¹ß¼Û ¿Ï·á");
+            return ResponseEntity.ok("ì¸ì¦ë²ˆí˜¸ ì „ì†¡ ì™„ë£Œ");
         }else{
-            return ResponseEntity.badRequest().body("È¸¿ø Á¤º¸ ºÒÀÏÄ¡");
+            return ResponseEntity.badRequest().body("íšŒì› ì •ë³´ ë¶ˆì¼ì¹˜");
         }
     }
 	
-	// ÀÎÁõ¹øÈ£Ã¼Å©
+	// ì¸ì¦ë²ˆí˜¸ ì²´í¬
     @PostMapping("/checkcode")
     public ResponseEntity<?> verifyCode(@RequestBody Map<String,String> req){
 
@@ -48,9 +48,9 @@ public class VerificationApiController {
                 req.get("code")
         );
         if(result){
-            return ResponseEntity.ok("ÀÎÁõ ¼º°ø");
+            return ResponseEntity.ok("ì¸ì¦ ì„±ê³µ");
         }else{
-            return ResponseEntity.badRequest().body("ÀÎÁõ ½ÇÆĞ ¶Ç´Â ¸¸·á");
+            return ResponseEntity.badRequest().body("ì¸ì¦ ì‹¤íŒ¨ ë˜ëŠ” ë§Œë£Œ");
         }
     }
 

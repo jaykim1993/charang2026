@@ -19,16 +19,22 @@
 
 .ManagerAllCar .mac_find{
     display: flex;
-    vertical-align: middle;
+    justify-content: space-between;
 }
-
-.ManagerAllCar .mac_find .mac_type, .mac_word{
+.ManagerAllCar .mac_find .MAC_search{
+    display: flex;
+    gap: 5px;
+}
+.ManagerAllCar .mac_find .MAC_BTN{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.mac_type, .mac_word{
     height: 40px;
     padding: 0 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin-right: 5px;
-    vertical-align: middle;
     outline: none;
 }
 
@@ -74,6 +80,10 @@
     color: #555;
     text-align: center;
     border-bottom: 1px solid #c0c0c0;
+}
+
+.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr{
+    height: 60px;
 }
 
 .ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr:last-child td{
@@ -123,6 +133,12 @@
     text-decoration: underline;
 }
 
+.ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tableDel p{
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 7px;
+}
+
 /* 이미지 처리 */
 .m_AllCar_tableCarImg img {
     width: 100px;
@@ -170,4 +186,5 @@
     width: 18px;
     height: 18px;
     cursor: pointer;
+    margin-top: 5px;
 }

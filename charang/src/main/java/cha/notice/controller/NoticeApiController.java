@@ -51,8 +51,6 @@ public class NoticeApiController {
 	}
 
 //	공지사항 상세
-//  @RequestParam() => /board/info?noticeId=5
-//  @PathVariable() => /board/Info/5
 	@GetMapping("/notice/Info/{noticeId}")
 	public NoticeDTO noticeInfo(@PathVariable("noticeId") int noticeId) {
 		System.out.println("NoticeApiController - 공지사항 상세페이지로 이동" + noticeId);
@@ -73,14 +71,7 @@ public class NoticeApiController {
 	@PostMapping("/notice/manager/writePro")
 	public int noticeWritePro(@RequestBody NoticeDTO ndto, HttpSession session) {
 		System.out.println("NoticeApiController - 공지사항 등록 처리");
-
-//		세션에서 로그인 정보 꺼내기
-//		UserDTO loginMember = (UserDTO) session.getAttribute("loginmember");
-
-//		관리자 admin인지 확인
-//		if(loginMember != null && "admin".equals(loginMember.getUserId())) {
 		if("admin".equals(ndto.getUserId())) {
-//			dto.setUserId(loginMember.getUserId());
 			return noticeservice.insertNotice(ndto); // 성공 시 1 반환
 		}
 
@@ -101,12 +92,7 @@ public class NoticeApiController {
 			@RequestBody NoticeDTO ndto, HttpSession session) {
 		System.out.println("NoticeApiController - 공지사항 수정처리");
 
-//		NoticeDTO noticeNum = (NoticeDTO) session.getAttribute("noticeNum");
 		ndto.setNoticeId(noticeId);
-
-//		if (noticeNum != null && "admin".equals(noticeNum.getUserId())) {
-//			return 
-//		}
 
 		return noticeservice.updateNotice(ndto); // 성공 시 1 반환
 	}

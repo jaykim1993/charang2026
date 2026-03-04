@@ -9,8 +9,6 @@ import cha.notice.dto.NoticeDTO;
 
 @Mapper
 public interface NoticeMapper {
-//	공지 전체 목록
-//	public List<NoticeDTO> getAllNoticeList();
 
 //	공지 상세
 	public NoticeDTO selectNoticeDetail(int noticeId);
