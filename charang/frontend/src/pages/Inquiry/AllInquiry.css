@@ -14,8 +14,8 @@
 }
 
 .AllInquiry .Inquiry_head>button {
-    background-color: #444;
-    color: white;
+    background-color: #1e75f5;
+    color: #fff;
     padding: 5px 16px;
     border: none;
     border-radius: 4px;
@@ -24,7 +24,7 @@
 }
 
 .AllInquiry .Inquiry_head>button:hover {
-    background-color: #222;
+    background-color: #1763D1;
 }
 
 .AllInquiry table {

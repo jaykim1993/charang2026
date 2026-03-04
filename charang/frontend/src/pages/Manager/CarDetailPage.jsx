@@ -20,7 +20,7 @@ export default function CarDetailPage(){
         console.log("현재 useParams로 가져온 carId: ", carId);
         axios.get("/api/carinfo/"+carId)
         .then((res)=>{
-            console.log("해당 id 데이터: ",res.data);
+            // console.log("해당 id 데이터: ",res.data);
             setOneCar(res.data);
         })
         .catch((error)=>{

@@ -36,7 +36,7 @@ export default function DetailPage() {
     ) || null;
     const navigate = useNavigate();
 
-    console.log("선택차량 id 넘어온 값 저장 : ", selectedCarId);
+    // console.log("선택차량 id 넘어온 값 저장 : ", selectedCarId);
 
     const isReady =
         selectedCar &&

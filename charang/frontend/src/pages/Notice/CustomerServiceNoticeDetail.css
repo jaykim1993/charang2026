@@ -6,6 +6,12 @@
     color: #333;
 }
 
+.noticeInfo .noticeInfo_head{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
 /* 공지사항 타이틀 */
 .noticeInfo > h4{
     font-size: 20px;

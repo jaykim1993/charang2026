@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { useState } from "react";
 import { AuthContext } from "../contexts/Authcontext";
-import { Link, useNavigate } from "react-router-dom"; // 차량 클릭시 serchcarlist ,12.23 성중
+import { useNavigate } from "react-router-dom"; // 차량 클릭시 serchcarlist ,12.23 성중
 import { BookingContext } from "../contexts/Bookingcontext";
 import { useEffect } from "react";
 
 import './Recentcarlist.css';
-// 아쉽다
+
 export default function Recentcarlist() {
   const { userid } = useContext(AuthContext);
   const { myRecentlist } = useContext(BookingContext);

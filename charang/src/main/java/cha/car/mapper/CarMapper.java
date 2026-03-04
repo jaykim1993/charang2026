@@ -20,14 +20,6 @@ public interface CarMapper {
 	
 	// 차량 추가 메서드
 	public int insertCar(CarDTO cdto);
-	
-	// 차량 수정 메서드
-	
-	// 차량 검색 메서드
-//	public List<CarDTO> getSearchCarList(
-//			@Param("searchType") String searchType, 
-//			@Param("searchKeyWord") String searchKeyWord
-//			);
 
 	// 차량 삭제 메서드
 	public int deleteCar(List<Integer> carId);
@@ -40,17 +32,17 @@ public interface CarMapper {
 			@Param("searchKeyWord") String searchKeyWord
 			);
 
-	// 전체 차량 개수
+	// 전체 차량 개수 메서드
 	public int getAllCount();
 	
-	// 검색 차량 개수
+	// 검색 차량 개수 메서드
 	public int SearchCount(
 			@Param("searchType") String searchType, 
 			@Param("searchKeyWord") String searchKeyWord);
 	
-	// 차량 상세보기 
+	// 차량 상세보기 메서드
 	public CarDTO oneCar(int carId);
 	
-	// 차량 수정하기
+	// 차량 수정 메서드
 	public int modCar(CarDTO carData);
 }

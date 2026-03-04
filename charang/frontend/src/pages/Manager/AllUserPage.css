@@ -18,20 +18,21 @@
 }
 
 /* 검색바 영역 */
-.ManagerAllUser .mau_find{
+.ManagerAllUser .mau_find {
     display: flex;
     vertical-align: middle;
 }
 
-.ManagerAllUser .mau_find .mau_info{
+.ManagerAllUser .mau_find .mau_info {
     margin-left: auto;
     padding-right: 10px;
     font-size: 13px;
-    margin-top: 19px;
+    margin-top: 9px;
     color: #666;
 }
 
-.ManagerAllUser .mau_find .mau_select, .mau_input{
+.ManagerAllUser .mau_find .mau_select,
+.mau_input {
     height: 40px;
     padding: 0 10px;
     border: 1px solid #ddd;
@@ -41,16 +42,9 @@
     outline: none;
 }
 
-/* .ManagerAllUser .mau_find .mau_input{
-    height: 40px;
-    padding: 0 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-right: 5px;
-    vertical-align: middle;
-} */
 
-.ManagerAllUser .mau_find .mau_btn,.del_btn{
+.ManagerAllUser .mau_find .mau_btn,
+.del_btn {
     height: 40px;
     padding: 0 20px;
     background-color: #333;
@@ -65,30 +59,45 @@
 }
 
 /* 테이블 스타일 */
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_tb .managerAllUser_tr{
+    height: 60px;
+}
 
-.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_num{
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_num {
     width: 5%;
 }
-.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userId{
+
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userId {
     width: 10%;
 }
-.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userName{
+
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userName {
     width: 7%;
 }
-.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userEmail{
+
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userEmail {
     width: 20%;
 }
-.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userResiNum{
+
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userResiNum {
     width: 15%;
 }
-.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userPhone{
+
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userPhone {
     width: 10%;
 }
-.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userRegDate{
+
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userRegDate {
     width: 15%;
 }
-.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userDel{
+
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userDel {
     width: 7%;
+}
+
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userDel p {
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .managerAllUser_table {
@@ -105,19 +114,21 @@
 .managerAllUser_table th {
     background-color: #f1f3f5;
     color: #555;
-    padding: 15px 10px;
+    padding: 10px 10px;
     font-size: 16px;
     border-bottom: 1px solid #d8d8d8;
     text-align: center;
 }
 
-.managerAllUser_table .managerAllUser_table_tb .managerAllUser_tr:last-child td{
+.managerAllUser_table .managerAllUser_table_tb .managerAllUser_tr:last-child td {
     border-bottom: none;
-} 
-.mau_div{
+}
+
+.mau_div {
     text-decoration: underline;
 }
-.mau_td:hover{
+
+.mau_td:hover {
     text-decoration: underline;
     cursor: pointer;
 }
@@ -141,8 +152,10 @@
     color: #adb5bd;
     font-style: italic;
 }
+
 .AllUser_del{
-        width: 18px;
+    width: 18px;
     height: 18px;
     cursor: pointer;
+    margin-top: 5px;
 }

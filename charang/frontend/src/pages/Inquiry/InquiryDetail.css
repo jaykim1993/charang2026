@@ -21,16 +21,24 @@
 }
 
 .AllInquiryDetail .inquiryDetail_updateBtn > button{
-    background-color: #1e75f5;
-    color: white;
     padding: 5px 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     margin: 0 5px;
 }
-.AllInquiryDetail .inquiryDetail_updateBtn > button:hover{
+.AllInquiryDetail .inquiryDetail_updateBtn .inquiryDetail_updateBtn_1{
+    background-color: #1e75f5;
+    color: #fff;
+}
+.AllInquiryDetail .inquiryDetail_updateBtn .inquiryDetail_updateBtn_1:hover{
     background-color: #1763D1;
+}
+.AllInquiryDetail .inquiryDetail_updateBtn .inquiryDetail_updateBtn_2{
+    background-color: #dee2e6;
+}
+.AllInquiryDetail .inquiryDetail_updateBtn .inquiryDetail_updateBtn_2:hover{
+    background-color: #c7cbce;
 }
 
 .AllInquiryDetail table {
@@ -50,9 +58,6 @@
 .AllInquiryDetail table tr td{
     width: 25%;
 }
-/* .AllInquiryDetail table tr .td{
-    min-height: 300px;
-} */
 .AllInquiryDetail table tr th, 
 .AllInquiryDetail table tr td {
     border-bottom: 1px solid #d3d3d3;

@@ -56,7 +56,6 @@ public class InquiryApiController {
         PageHandler ph = new PageHandler(totalCnt, page, pageSize);
         
 //      페이징된 목록 조회
-//        List<InquiryDTO> inquiryList = inquiryservice.getPageList(ph.getStartRow(), pageSize);
         List<InquiryDTO> inquiryList = inquiryservice.getPageList(ph.getStartRow(), pageSize, userId);
         
         Map<String, Object> result = new HashMap<>();
@@ -91,12 +90,6 @@ public class InquiryApiController {
     	return "success";
     }
     
-//  문의 수정
-//    @PutMapping("/customerservice/inquiry/list/info/update")
-//    public void updateInquiry(@RequestBody InquiryDTO idto) {
-//    	System.out.println("InquiryApiController - 문의수정 페이지");
-//    }
-
 //	문의 수정 처리
 	@PutMapping("/customerservice/inquiry/list/info/updatePro")
 	public String updateInquiryPro(@RequestBody InquiryDTO idto) {

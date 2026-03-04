@@ -7,8 +7,6 @@ import org.apache.ibatis.annotations.Param;
 import cha.notice.dto.NoticeDTO;
 
 public interface NoticeService {
-//	공지 목록
-//	public List<NoticeDTO> getAllNoticeList();
 	
 //	공지 상세
 	public NoticeDTO selectNoticeDetail(int noticeId);

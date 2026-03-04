@@ -11,7 +11,7 @@ import cha.user.mapper.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService {
-   // �쟾泥� �쉶�썝 異쒕젰
+   // 전체 회원 출력
 	@Override
 	public List<UserDTO> getAllUser(int startRow, int pageSize) {
 		System.out.println("전체 회원 출력 서비스");
@@ -38,11 +38,12 @@ public class UserServiceImpl implements UserService {
    }
    
 
-   // 회        揷 
+   // 회원 중복체크
+   // 중복있음
    public final static int user_duplicate = 0;
-   // 회           
+   // 성공
    public final static int user_success = 1;
-   // 회           
+   // 실패
    public final static int user_fail = -1;
    
    @Autowired
@@ -71,11 +72,13 @@ public class UserServiceImpl implements UserService {
 
    @Override
    public boolean isUser(String userId) {
+	   System.out.println("로그인할 계정이 DB에 있는지 아이디 중복체크");
        return usermapper.isUser(userId);
    }
 
    @Override
    public boolean modUser(UserDTO udto) {
+	   System.out.println("회원 수정");
        String dbPass = usermapper.getPass(udto.getUserId());
        if(dbPass == null) {
            return false;
@@ -88,13 +91,13 @@ public class UserServiceImpl implements UserService {
    
    @Override
    public boolean delUser(List<String> delIdList) {
-      System.out.println("User      ȸ      /Ż  ");
+      System.out.println("delUser 유저 삭제");
       return usermapper.delUser(delIdList) == 1;
    }
 
    @Override
    public UserDTO oneUser(String userId) {
-      System.out.println("User       祺    회     회");
+      System.out.println("oneUser 유저 1명");
       return usermapper.oneUser(userId);
    }
 
@@ -108,7 +111,7 @@ public class UserServiceImpl implements UserService {
       System.out.println("UserService loginConfirm() 로그인성공확인  ");
       UserDTO dbUser = usermapper.oneUser(udto.getUserId());
       if(dbUser != null && dbUser.getUserPw() != null) {
-         if(passwordEncoder.matches(udto.getUserPw(), dbUser.getUserPw())) { //  호화 歐 
+         if(passwordEncoder.matches(udto.getUserPw(), dbUser.getUserPw())) {
             return dbUser;
          }
       }

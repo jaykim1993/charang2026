@@ -1,6 +1,5 @@
 package cha.notice.dto;
 
-import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

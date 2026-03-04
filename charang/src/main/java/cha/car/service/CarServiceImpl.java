@@ -25,19 +25,6 @@ public class CarServiceImpl implements CarService {
 		System.out.println("차 서비스 : 전체 차량 출력 서비스(페이징 버전)");
 		return carmapper.AllCarPage(startRow, pageSize);
 	}
-	
-//	@Override
-//	public List<CarDTO> getSearchCar(int startRow, int pageSize) {
-//		System.out.println("차 서비스 : 전체 차량 출력 서비스");
-//		return carmapper.getSearchCar(startRow,pageSize);
-//	}
-
-	// 검색 차량 출력
-//	@Override
-//	public List<CarDTO> getSearchCar(String searchType, String searchKeyWord, int startRow, int pageSize) {
-//		System.out.println("차 서비스 : 검색 차량 출력 서비스");
-//		return carmapper.getSearchCar(searchType,searchKeyWord,startRow,pageSize);
-//	}
 
 	// 차량 추가 
 	@Override
