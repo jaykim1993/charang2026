@@ -24,7 +24,6 @@ export default function CustomerServiceNoticeDetail() {
 
     const handleDelete = () => {
         if (window.confirm("정말 삭제하시겠습니까?")) {
-            // axios.delete(`/api/customerservice/notice/manager/delete/${noticeId}`)
             axios.delete("/api/customerservice/notice/manager/delete", { params: { noticeId: noticeId } })
                 .then((res) => {
                     if (res.data === 1) {

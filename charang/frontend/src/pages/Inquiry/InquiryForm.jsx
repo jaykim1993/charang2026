@@ -31,7 +31,7 @@ export default function InquiryForm(){
         })
         .then((res) => {
             if(res.data === "success"){
-                console.log("문의 - res.data : ", res.data);
+                // console.log("문의 - res.data : ", res.data);
                 alert('등록되었습니다.');
                 navigate(-1);
             }else{

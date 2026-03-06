@@ -45,7 +45,7 @@ export default function Reservation() {
         if(!res.data){
         loginNeeded();
         }else{
-        console.log(res.data);
+        // console.log(res.data);
         setUserinfo(res.data);
         }
     })
@@ -108,7 +108,7 @@ export default function Reservation() {
     const sessionUser = sessionStorage.getItem("userid");
     const userId = sessionUser ? JSON.parse(sessionUser).userId : null;
     
-    console.log(userId); // "user01"
+    // console.log(userId); // "user01"
     const bookingId = `${Date.now()}_${userId}`;
     const carId = selectedCarId;
     const bookedDate = new Date().toISOString().slice(0, 10);
@@ -118,22 +118,22 @@ export default function Reservation() {
     const endTime = searchFilters.endTime; 
     const insurancePrice = date * selectedCar.priceValue * 200;
     const finalTotalPrice = carPrice + insurancePrice;
-        console.log({
-            bookingId,
-            userId,
-            carId,
-            bookedDate,
-            startDate,
-            startTime,
-            endDate,
-            endTime,
-            carPrice,
-            insurancePrice,
-            totalPrice: finalTotalPrice,
-            paymentMethod: payment,
-            });
-    console.log(selectedCar.licenseType);
-    console.log(userinfo.license);
+    //     console.log({
+    //         bookingId,
+    //         userId,
+    //         carId,
+    //         bookedDate,
+    //         startDate,
+    //         startTime,
+    //         endDate,
+    //         endTime,
+    //         carPrice,
+    //         insurancePrice,
+    //         totalPrice: finalTotalPrice,
+    //         paymentMethod: payment,
+    //         });
+    // console.log(selectedCar.licenseType);
+    // console.log(userinfo.license);
 
     const addBookInfo = () => {
         if (!payment) {

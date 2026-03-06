@@ -17,7 +17,7 @@ export default function InquiryAnswer() {
         axios.get(`/api/customerservice/inquiry/list/info/${inquiryId}`)
             .then((res) => {
                 setInquiry(res.data);
-                console.log("문의 답변 - res.data : ", res.data);
+                // console.log("문의 답변 - res.data : ", res.data);
             })
             .catch(error => console.log("error : ", error));
     }, [inquiryId]);
@@ -33,7 +33,7 @@ export default function InquiryAnswer() {
         })
             .then((res) => {
                 if (res.data === "success") {
-                    console.log("답변등록 - res.data : ", res.data);
+                    // console.log("답변등록 - res.data : ", res.data);
                     alert('답변이 등록되었습니다.')
                     navigate(-1);
                 } else {

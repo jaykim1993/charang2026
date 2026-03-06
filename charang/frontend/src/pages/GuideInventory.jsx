@@ -9,7 +9,7 @@ export default function GuideInventory(){
 const [locaisOpen, setLocaIsOpen] = useState(false);
 const [locaselected, setLocaSelected] = useState('지점 선택');
 const [locaCvs,setLocaCvs] = useState("지점 선택");
-const {branch, car}=useContext(DataContext)
+const {car}=useContext(DataContext)
 const carCopy = [...car]
   if(locaselected === 1){
     setLocaCvs === "인천공항"

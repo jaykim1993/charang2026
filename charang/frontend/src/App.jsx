@@ -1,19 +1,29 @@
 
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import AuthProvider from './contexts/Authcontext';
+import CalendarProvider from './contexts/Calendarcontext';
+import DataProvider from './contexts/Datacontext';
+import BookingProvider from './contexts/Bookingcontext';
+
 import './App.css';
+
 import GuidePage from './pages/Guide';
 import Header from './common/Header';
+import Footer from './common/Footer';
 import Home from './pages/Home';
 import Searchcarlist from './pages/Searchcarlist';
 import DetailPage from './pages/DetailPage';
 import Recentcarlist from './pages/Recentcarlist';
 import Reservation from './pages/Reservation'
-import CustomerService from './pages/CustomerService';
+
 
 import Mypage from './pages/Mypage'
 import MypageDetail from './pages/MypageDetail'
 import MypageInquiry from './pages/MypageInquiry'
 import MypageMyinfo from './pages/MypageMyinfo'
 import MypageBooked from './pages/MypageBooked'
+import MypageModify from './pages/MypageModify';
 
 import AllCarPage from './pages/Manager/AllCarPage';
 import AllReservationPage from './pages/Manager/AllReservationPage';
@@ -28,18 +38,10 @@ import AllInquiry from './pages/Inquiry/AllInquiry';
 import InquiryDetail from './pages/Inquiry/InquiryDetail';
 import InquiryAnswer from './pages/Inquiry/InquiryAnswer';
 import InquiryUpdate from './pages/Inquiry/InquiryUpdate';
-
-import AuthProvider from './contexts/Authcontext';
-import CalendarProvider from './contexts/Calendarcontext';
-import DataProvider from './contexts/Datacontext';
-import BookingProvider from './contexts/Bookingcontext';
-
-import Footer from './common/Footer';
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import InquiryForm from './pages/Inquiry/InquiryForm';
-import CustomerServiceFAQ from './pages/CustomerServiceFAQ';
 
+import CustomerService from './pages/CustomerService';
+import CustomerServiceFAQ from './pages/CustomerServiceFAQ';
 import CustomerServiceNotice from './pages/Notice/CustomerServiceNotice';
 import CustomerServiceNoticeDetail from './pages/Notice/CustomerServiceNoticeDetail';
 import CustomerServiceNoticeWrite from './pages/Notice/CustomerServiceNoticeWrite';
@@ -50,7 +52,7 @@ import GuideInventory from './pages/GuideInventory';
 import GuideReturn from './pages/GuideReturn';
 import GuideRental from './pages/GuideRental';
 import GuidePricing from './pages/GuidePricing';
-import MypageModify from './pages/MypageModify';
+
 
 // 폰트어썸
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -68,6 +70,7 @@ import ScrollToTop from './ScrollToTop';
               <ScrollToTop />
                 <Header />
                 <Routes>
+                  {/* 예약 하기 */}
                   <Route path="/" element={<Home />} />
                   <Route path="/searchcarlist" element={<Searchcarlist />} />
                   <Route path="/detailpage/:id" element={<DetailPage />} />
@@ -81,14 +84,15 @@ import ScrollToTop from './ScrollToTop';
                     <Route path="rental" element={<GuideRental />} />            {/* 대여안내 */}
                     <Route path="pricing" element={<GuidePricing />} />          {/* 요금안내 */}
                   </Route>
+
                   {/* 고객 가이드 */}
                   <Route path="/customerservice" element={<CustomerService />}>
                     <Route path="inquiry/list/info/update/:inquiryId" element={<InquiryUpdate />} />          {/* 문의수정 */}
                     <Route path="inquiry/write" element={<InquiryForm />} />                                  {/* 1:1문의 */}
                     <Route path="FAQ" element={<CustomerServiceFAQ />} />                                     {/* 자주 찾는 질문 */}
-                    <Route path="notice" element={<CustomerServiceNotice />} />                               {/* 공지사항  @@@@@@@@@@@@@@@@@@@@*/}
+                    <Route path="notice" element={<CustomerServiceNotice />} />                               {/* 공지사항 */}
                     <Route path="notice/Info/:noticeId" element={<CustomerServiceNoticeDetail />} />          {/* 공지사항 상세*/}
-                    <Route path="inquiry/list" element={<AllInquiry />} />                                    {/* 문의목록 @@@@@@@@@@@@@@@@@@@@*/}        
+                    <Route path="inquiry/list" element={<AllInquiry />} />                                    {/* 문의목록 */}        
                   </Route>
   
                   <Route path="/customerservice/notice/manager/write" element={<CustomerServiceNoticeWrite />} />              {/* 공지사항 작성*/}

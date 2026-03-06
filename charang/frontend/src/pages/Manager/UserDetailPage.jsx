@@ -20,7 +20,7 @@ export default function UserDetailPage() {
         // console.log("현재 useParams로 가져온 userId: ", userId);
         axios.get(`/api/userinfo/${userId}`)
             .then((res) => {
-                console.log("해당 id 데이터: ", res.data);
+                // console.log("해당 id 데이터: ", res.data);
                 setOneUser(res.data);
             })
             .catch((error) => {
