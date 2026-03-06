@@ -107,11 +107,6 @@ export default function CalendarProvider({ children }) {
       .map((book) => book.carId);
   }, [bookedlistAll, startDate, endDate, startTime, endTime]);
 
-  // console.log("이용 불가능한 차량 리스트", blockedCarIds);
-
-
-
-
   /* ================= 예약 가능 차량 ================= */
   const firstFilteredCar = useMemo(() => {
     return car.filter((car) => {

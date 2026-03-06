@@ -1,11 +1,11 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import './CarRegPage.css';
 
 export default function CarRegPage() {
-
+    const { allCar } = useContext(DataContext);
     // 모든 값 하나의 객체로 관리
     const [regCar, setRegCar] = useState({
         brand: '', // 브랜드 이름
@@ -81,6 +81,7 @@ export default function CarRegPage() {
                 if (res.data === 1) {
                     alert("차량 등록이 완료되었습니다.");
                     navi('/manager/carlist');
+                    allCar();
                 }
                 // 등록 실패
                 else {
