@@ -19,7 +19,7 @@ export default function InquiryUpdate() {
         password: ''
     });
 
-    console.log(inquiryId);
+    // console.log(inquiryId);
 
     useEffect(() => {
         axios.get(`/api/customerservice/inquiry/list/info/${inquiryId}`)
@@ -29,7 +29,7 @@ export default function InquiryUpdate() {
                     content: res.data.content,
                     password: res.data.password || '' // null일 경우 빈 문자열
                 });
-                console.log("문의 수정 - res.data : ", res.data);
+                // console.log("문의 수정 - res.data : ", res.data);
             })
             .catch(error => console.log("error : ", error));
     }, [inquiryId]);

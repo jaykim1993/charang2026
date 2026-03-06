@@ -17,7 +17,7 @@ export default function CarModPage() {
 
     // 해당 carId 정보 불러와서 기본값으로 채우기
     useEffect(() => {
-        console.log("현재 useParams로 가져온 carId: ", carId);
+        // console.log("현재 useParams로 가져온 carId: ", carId);
         axios.get("/api/carinfo/" + carId)
             .then((res) => {
                 // console.log("해당 id 데이터: ", res.data);

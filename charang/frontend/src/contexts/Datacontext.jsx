@@ -19,7 +19,7 @@ export default function DataProvider({children}){
               pageNumbers.push(i);
           }
       }
-      console.log("페이징 확인: ", pageNumbers);
+      // console.log("페이징 확인: ", pageNumbers);
       return pageNumbers;
     }
   // =============================================================================================================
@@ -85,7 +85,7 @@ export default function DataProvider({children}){
         .then((res)=>{
             if(res.data){
                 setAllBookStatus(res.data);
-                console.log("관리자확인용 예약+차량정보 ", res.data);
+                // console.log("관리자확인용 예약+차량정보 ", res.data);
             }
         })
         .catch((error)=>{

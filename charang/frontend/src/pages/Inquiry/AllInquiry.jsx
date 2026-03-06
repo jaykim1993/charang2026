@@ -29,11 +29,11 @@ export default function AllInquiry() {
     useEffect(() => {
         axios.get(`/api/customerservice/inquiry/list?page=${pageNum}`)
             .then((res) => {
-                console.log("문의목록 - 받아온데이터 : ", res.data);
+                // console.log("문의목록 - 받아온데이터 : ", res.data);
                 setInquiry(res.data.list);  // 받아온 데이터
                 setPaging(res.data.ph);  // 페이징
-                console.log("문의목록 - res.data.list : ", res.data.list);
-                console.log("문의목록 - res.data.ph : ", res.data.ph);
+                // console.log("문의목록 - res.data.list : ", res.data.list);
+                // console.log("문의목록 - res.data.ph : ", res.data.ph);
             })
             .catch(error => console.log("error : ", error));
     }, [pageNum]);

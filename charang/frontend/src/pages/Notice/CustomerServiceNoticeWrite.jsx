@@ -31,7 +31,7 @@ export default function CustomerServiceNoticeWrite(){
         })
         .then((res) => {
             if(res.data === 1){
-                console.log("res.data : ", res.data);
+                // console.log("res.data : ", res.data);
                 alert('공지사항이 등록되었습니다.')
                 navigate('/customerservice/notice');
             }else{

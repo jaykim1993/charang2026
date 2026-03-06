@@ -42,7 +42,7 @@ export default function CustomerServiceNoticeModfiy(){
         })
         .then((res) => {
             if(res.data === 1){
-                console.log("res.data : ", res.data);
+                // console.log("res.data : ", res.data);
                 alert('공지사항이 수정되었습니다.')
                 navigate(`/customerservice/notice/Info/${noticeId}`);
             }else{

@@ -34,7 +34,7 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
     const [address_detail, setAddress_detail] = useState("");
     const [zipcode, setZipcode]=useState('');
     const [isOpen, setIsOpen] = useState(false);
-    console.log(isOpen);
+    // console.log(isOpen);
 
     const addresstHandler = (data) => {
         let arr =''

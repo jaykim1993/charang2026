@@ -19,7 +19,7 @@ export default function AllInquiryDetail() {
         axios.get(`/api/customerservice/inquiry/list/info/${inquiryId}`)
             .then((res) => {
                 setInquiry(res.data);
-                console.log("문의 상세 - res.data : ", res.data);
+                // console.log("문의 상세 - res.data : ", res.data);
             })
             .catch(error => console.log("error : ", error));
     }, [inquiryId]);
