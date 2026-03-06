@@ -43,11 +43,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	
-	// ¸ŞÀÏ Àü¼Û ¼³Á¤
+	// ì´ë©”ì¼ ì¸ì¦
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	
-	//final ÇÊµå »ı¼ºÀÚ ÀÚµ¿ »ı¼º
+	// getter & setter ìë™ ìƒì„± ìœ„í•œ ë¡¬ë³µ
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 }
