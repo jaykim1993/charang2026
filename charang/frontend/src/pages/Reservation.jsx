@@ -22,7 +22,7 @@ export default function Reservation() {
     // console.log(id);
     /* ===================== context ===================== */
     const { fetchBookedList } = useContext(BookingContext);
-    const { startdayText, enddayText, DeleteYear } = useContext(CalendarContext);
+    const { startdayText, enddayText, DeleteYear, resetFilters } = useContext(CalendarContext);
     const { car, branch } = useContext(DataContext);
     const { loginNeeded }=useContext(AuthContext);
 
@@ -118,22 +118,6 @@ export default function Reservation() {
     const endTime = searchFilters.endTime; 
     const insurancePrice = date * selectedCar.priceValue * 200;
     const finalTotalPrice = carPrice + insurancePrice;
-    //     console.log({
-    //         bookingId,
-    //         userId,
-    //         carId,
-    //         bookedDate,
-    //         startDate,
-    //         startTime,
-    //         endDate,
-    //         endTime,
-    //         carPrice,
-    //         insurancePrice,
-    //         totalPrice: finalTotalPrice,
-    //         paymentMethod: payment,
-    //         });
-    // console.log(selectedCar.licenseType);
-    // console.log(userinfo.license);
 
     const addBookInfo = () => {
         if (!payment) {
@@ -172,6 +156,7 @@ export default function Reservation() {
                 alert("결제가 완료되었습니다. 예약 정보 페이지로 이동합니다.");
                 fetchBookedList();
                 navigate(`/mypage/detail/${bookingId}`);
+                resetFilters();
             }
         })
         .catch((error)=>{

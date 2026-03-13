@@ -93,6 +93,18 @@ export default function CarModPage() {
             .then((res) => {
                 if (res.data === 1) {
                     alert("수정되었습니다.");
+                        const recentCars = localStorage.getItem("recentView");
+                        if (recentCars) {
+                            const parsedCars = JSON.parse(recentCars);
+                            const updatedCars = parsedCars.map(car => {
+                                if (car.carId === textData.carId) {
+                                    return { ...car, ...textData };
+                                }
+                                return car;
+                            });
+
+                            localStorage.setItem("recentView", JSON.stringify(updatedCars));
+                        }
                     navigate("/manager/carlist");
                 } else {
                     alert("다시 시도해주세요.");
