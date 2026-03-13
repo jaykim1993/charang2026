@@ -196,7 +196,7 @@ export default function Recentcar() {
     let detail_lat = detail?.lat;
     let detail_lng = detail?.lng;
 
-
+ 
     // 모달 바깥쪽 클릭 시 모달 자동 닫히기
     const calendarRef = useRef(null);
     const locationRef = useRef(null);
@@ -267,7 +267,11 @@ export default function Recentcar() {
                         {group.map((car, index) => {
                             const unitPrice = calculatePrice(car);
                             const totalPrice = unitPrice * rentalDuration;
-
+                            // 지점명 따기
+                            const selectedBranch = car
+                                ? branch.find(b => b.branchId === car.branchId)
+                                : null;
+                            const branchName = selectedBranch?.location || '';
                             return (
                                 <div key={car.carId}
                                     className={`car_variant_info ${index !== group.length - 1 ? "Line_active" : ""}`}
@@ -275,7 +279,7 @@ export default function Recentcar() {
                                     style={{ cursor: "pointer" }}>
 
                                     <h4>{modelName} {car.fuelType}</h4>
-                                    <p className="S_detail">{car.modelYear}년식 · {car.carSize} · {car.carType}</p>
+                                    <p className="S_detail">{car.modelYear}년식 · {car.carSize} · {car.carType} · {branchName}</p>
                                     <i className="bi bi-chevron-right"></i>
 
                                     {rentalDuration > 0 ? (
