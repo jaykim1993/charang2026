@@ -189,6 +189,7 @@ export default function Home() {
 
   // 해당 차량 브랜드 searchcarlist로 넘기기
   const goToSearchcarlist = (model) => {
+    sessionStorage.removeItem("allCarShow")
     navigate("/searchcarlist", {
       state: { model }
     });

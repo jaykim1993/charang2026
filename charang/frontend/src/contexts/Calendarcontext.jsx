@@ -11,22 +11,7 @@ export default function CalendarProvider({ children }) {
   const { userid } = useContext(AuthContext);
   const { car } = useContext(DataContext);
   const { bookedlistAll } = useContext(BookingContext);
-  useEffect(() => {
-    const saved = sessionStorage.getItem("searchFilters");
-
-    if (saved) {
-      const parsed = JSON.parse(saved);
-
-      setStartDate(parsed.startDate ?? null);
-      setEndDate(parsed.endDate ?? null);
-      setStartTime(parsed.startTime ?? "10:00");
-      setEndTime(parsed.endTime ?? "10:00");
-
-
-      setBranchId(parsed.branchId ?? "");
-      setLocation(parsed.location ?? "");
-    }
-  }, []);
+  
   //시작 달력 초기값 정하기 13시2분이면 13시30분부터 
   const canRentStart = new Date();
 
@@ -57,20 +42,20 @@ export default function CalendarProvider({ children }) {
   }
 
 
-
+  const todayStartDate = new Date().toLocaleDateString('sv-SE');
   /* ================= UI 상태 ================= */
   const savedCalendar = JSON.parse(sessionStorage.getItem("searchFilters"));
   const [startDate, setStartDate] = useState(
-    savedCalendar?.startDate ?? null
+    savedCalendar?.startDate ?? todayStartDate
   );
   const [endDate, setEndDate] = useState(
     savedCalendar?.endDate ?? null
   );
   const [startTime, setStartTime] = useState(
-    savedCalendar?.startTime ?? "13:30"
+  savedCalendar?.startTime ?? `${CanRentHour()}:${canRentMin()}`
   );
   const [endTime, setEndTime] = useState(
-    savedCalendar?.endTime ?? "14:30"
+    savedCalendar?.endTime ?? `${CanRentHour()+1}:${canRentMin()}`
   );
 
   // 사용자 입력 차량 위치 정보, 홈에서 공유받아야 하며 지금은 임시
@@ -260,6 +245,20 @@ export default function CalendarProvider({ children }) {
     return ` ${ampm} ${hours}:${minutes}`;
   }
 
+  // 초기화 버튼
+  const resetFilters = () => {
+    setStartDate(null);
+    setEndDate(null);
+    setStartTime("13:30");
+    setEndTime("14:30");
+    setLocation("");
+    setBranchId("");
+    
+    // sessionStorage 비우기
+    sessionStorage.removeItem("filteredInfoUser");
+    sessionStorage.removeItem("firstFilteredCar");
+    sessionStorage.removeItem("searchFilters");
+  };
   return (
     <CalendarContext.Provider
       value={{
@@ -293,6 +292,7 @@ export default function CalendarProvider({ children }) {
         /* 함수 */
         handleDateFilter,
         handleSearchBtn,
+        resetFilters,
 
         // 모달창 열림 닫힘
         setIsLocation,
@@ -301,7 +301,10 @@ export default function CalendarProvider({ children }) {
         isCalendar,
 
         // 오전 오후 구분
-        timeAMPM
+        timeAMPM,
+        todayStartDate,
+        CanRentHour,
+        canRentMin
       }}
     >
       {children}

@@ -27,6 +27,7 @@ export default function Recentcarlist() {
 
   // 해당 차량 브랜드 searchcarlist로 넘기기 12.23 성중
   const goToSearchcarlist = (model) => {
+    sessionStorage.removeItem("allCarShow")
     navigate("/searchcarlist", {
       state: { model }
     });

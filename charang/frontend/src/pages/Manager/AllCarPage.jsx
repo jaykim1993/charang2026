@@ -114,6 +114,12 @@ export default function AllCarPage() {
                             alert(`${delCar.length}개의 차량데이터가 삭제되었습니다.`);
                             setDelCar([]);
                             carFind();
+                            const recentCars = localStorage.getItem("recentView"); 
+                            if (recentCars) {
+                                const parsedCars = JSON.parse(recentCars);
+                                const updatedCars = parsedCars.filter(car => !delCar.includes(car.carId));
+                                localStorage.setItem("recentView", JSON.stringify(updatedCars));
+                            }
                             allCar();
                         } else {
                             alert("다시 시도해주세요.");
