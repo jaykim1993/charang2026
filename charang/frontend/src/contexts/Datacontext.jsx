@@ -161,6 +161,10 @@ export default function DataProvider({children}){
               // 회원 출력 변수
               user, 
               setUser, 
+              setSortType,
+              setSort,
+              sortType,
+              sort,
               // 예약 출력
               bookFind, 
               // 회원 출력
