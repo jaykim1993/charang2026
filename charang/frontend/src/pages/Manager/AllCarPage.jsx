@@ -5,238 +5,186 @@ import axios from "axios";
 import './AllCarPage.css';
 
 export default function AllCarPage() {
+    // DataContext에서 isLoading 추가로 가져오기
+    const { 
+        pageNum, setPageNum, pagesHandler, paging, setPaging, 
+        bookStatusFind, allBookStatus, car, allCar, searchResetHandler,
+        isLoading // 로딩 상태 추가
+    } = useContext(DataContext);
 
-    const { pageNum, setPageNum, pagesHandler, paging, setPaging, bookStatusFind, allBookStatus, car, allCar, searchResetHandler } = useContext(DataContext);
-
-    // =============================================================================================
-    // --- 추가된 초기화 로직 ---
-    useEffect(() => {
-        // 다른 페이지에서 진입 시 무조건 1페이지로 시작
-        setPageNum(1);
-        searchResetHandler();
-    }, []); // 빈 배열([])을 넣어 마운트 시점에 딱 한 번만 실행되게 합니다.
-    // -----------------------
-    // 이동 훅
     const navigate = useNavigate();
 
-    //  검색 차량 출력(검색값 보내기) axios
+    // 로컬 상태들
     const [searchType, setSearchType] = useState('carName');
     const [searchWord, setSearchWord] = useState('');
     const [sortType, setSortType] = useState('carId');
     const [sort, setSort] = useState('desc');
     const [searchCar, setSearchCar] = useState([]);
-    console.log(sortType);
-    console.log(sort);
-    const carFind = () => {
-        // http://api/searchcar/searchType=검색타입&&searchWord="검색단어"
-        axios.get("/api/searchCar", { params: { searchType: searchType, searchWord: searchWord, page: pageNum, sortType: sortType, sort: sort} })
-            .then((res) => {
-                // console.log("검색어: ", searchWord);
-                // console.log("확인", res.data.list);
-                // console.log(sortType);
-                // console.log(sort);
-                setPaging(res.data.ph); // 페이징
-                setSearchCar(res.data.list); // 가져온 데이터
-            })
-            .catch((error) => {
-                console.log("검색 차량 출력 에러: ", error);
-            })
-    }
+    const [isCarLoading, setIsCarLoading] = useState(false);
 
-    // 차량 검색 핸들러
-    const searchHandler = () => {
-        setPageNum(1); // 검색했을때 1페이지를 기본값으로 초기화
-        carFind();
-    }
-
-    // 차량 sort 핸들러
-    const sortHandler = (type) => {
-        // 재클릭(desc -> asc)
-        if(sortType === type){
-            sort === 'asc'? setSort("desc") : setSort("asc")
-        }
-        // 처음 클릭(desc)
-        else{
-            setSortType(type);
-        }
-        carFind();
-        setPageNum(1);
-    }
-
-    // =============================================================================================
-
-    // 예약이 있는 차량인지 확인하는 함수(true:삭제가능, false:삭제불가)
-    // 삭제하면 안 되는 차량 ID 배열 만들기
-
-    // console.log("전체 예약: ", allBookStatus);
-
-
-    const upCommingCar = allBookStatus
-        .filter(book => book.bookingStatus === "UPCOMING" || book.bookingStatus === "ONGOING")
-        .map(book => book.carId);
-
-    // console.log("전체 예약: ", allBookStatus);
-    // console.log("삭제하면 안되는 차량", upCommingCar);
-    // console.log(`전체 예약수: ${allBookStatus.length}개 / 삭제불가 차량 수: ${upCommingCar.length}대`);
-
-    // noRes 함수에서 사용
-    const noRes = (carId) => {
-        // 위에서 만든 '삭제 불가 명단'에 이 carId가 포함되어 있는지 확인
-        return upCommingCar.includes(carId);
-    }
-    // =============================================================================================
-
-    // 처음 실행할때 find실행하여 전체 출력
+    // 초기화 로직
     useEffect(() => {
-        carFind();
-        bookStatusFind();
-    }, [pageNum,sortType,sort]);
-
-    // =============================================================================================
-
-    // 삭제 차량의 id를 담는 상태변수
-        const [delCar, setDelCar] = useState([]);
-    
-        // 체크한 해당 차량의 carId만 가져오는 핸들러
-        const checkHandler = (e, carId) => {
-    
-            let delCarCopy = [...delCar]; // 얕은 복사
-    
-            // 체크되었으면(true) 
-            if (e.target.checked) {
-                delCarCopy.push(carId);
-                setDelCar(delCarCopy);
-            }
-            // 다시 체크를 취소할 경우(false)
-            else {
-                delCarCopy = delCar.filter(id => id !== carId); // 해당 carId를 제외한 나머지 carId만 배열에 넣기
-                setDelCar(delCarCopy);
-            }
-        }
-        // console.log("삭제할 차량 개수: ", delCar.length);
-    
-        // ※ 차량 id만 보내면 되기때문에, 객체배열 방식이 아닌 그냥 배열 방식으로 보내도 sql에서 알아서 변환해줌( ex) 1,5,45 )
-        // 차량 삭제 핸들러
-        const delHandler = () => {
-    
-            // 체크를 하지 않고 삭제버튼을 눌렀을 경우
-            if (delCar.length == 0) {
-                alert("삭제할 차량을 선택해주세요.");
-                return;
-            } else {
-                const confirmCancel = window.confirm(`${delCar.length}개의 차량데이터를 삭제하시겠습니까?`);
-                if (!confirmCancel) return;
-                axios.delete("/api/delCar", { data: delCar })
-                    .then((res) => {
-                        // console.log("삭제 결과: ", res.data);
-                        if (res.data) {
-                            alert(`${delCar.length}개의 차량데이터가 삭제되었습니다.`);
-                            setDelCar([]);
-                            carFind();
-                            const recentCars = localStorage.getItem("recentView"); 
-                            if (recentCars) {
-                                const parsedCars = JSON.parse(recentCars);
-                                const updatedCars = parsedCars.filter(car => !delCar.includes(car.carId));
-                                localStorage.setItem("recentView", JSON.stringify(updatedCars));
-                            }
-                            allCar();
-                        } else {
-                            alert("다시 시도해주세요.");
-                        }
-                    })
-                    .catch((error) => {
-                        console.log("받아온 삭제 결과 에러: ", error);
-                    })
-            }
-        }
-    
-        // =============================================================================================
-    
-        // 해당 차량 상세보기
-        const detailHandler = (carId) => {
-            navigate(`/manager/carDetail/${carId}`);
-        }
-    
-        // placeholder 삼항연산자
-        const placeholderWord = () => {
-            if (searchType === "carName") {
-                return "모델명을 검색하세요";
-            }
-            if (searchType === "carNum") {
-                return "차량번호를 검색하세요";
-            } else {
-                return "차량브랜드를 검색하세요";
-            }
-        }
-    
-        // =============================================================================================
-    
-          const delKeyword = () => {
-        setSearchWord("");
         setPageNum(1);
+        searchResetHandler();
+    }, []);
 
-        axios.get("/api/searchCar", {
-            params: {
-                searchType: searchType,
-                searchWord: "",
-                page: 1
-            }
+    // 차량 검색 API 호출 함수
+    const carFind = () => {
+        setIsCarLoading(true);
+        // DataProvider 내부에서 setIsLoading(true/false) 처리가 되어 있어야 합니다.
+        axios.get("/api/searchCar", { 
+            params: { searchType, searchWord, page: pageNum, sortType, sort } 
         })
         .then((res) => {
             setPaging(res.data.ph);
             setSearchCar(res.data.list);
         })
         .catch((error) => {
-            console.log(error);
+            console.log("검색 차량 출력 에러: ", error);
+        })
+        .finally(() => {
+        setIsCarLoading(false); // 성공하든 실패하든 요청 끝나면 로딩 종료
         });
+    }
+
+    // 검색 핸들러
+    const searchHandler = () => {
+        setPageNum(1);
+        carFind();
+    }
+
+    // 정렬 핸들러
+    const sortHandler = (type) => {
+        if (sortType === type) {
+            setSort(prev => prev === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortType(type);
+            setSort("desc"); // 새로운 타입 클릭 시 기본 desc
+        }
+        setPageNum(1);
+    }
+
+    // 예약 상태 확인 (삭제 불가 차량 리스트 생성)
+    const upCommingCar = allBookStatus
+        .filter(book => book.bookingStatus === "UPCOMING" || book.bookingStatus === "ONGOING")
+        .map(book => book.carId);
+
+    const noRes = (carId) => upCommingCar.includes(carId);
+
+    // 데이터 감시 및 재호출
+    useEffect(() => {
+        carFind();
+        bookStatusFind();
+    }, [pageNum, sortType, sort]);
+
+    // 삭제 관련 로직
+    const [delCar, setDelCar] = useState([]);
+    const checkHandler = (e, carId) => {
+        if (e.target.checked) {
+            setDelCar(prev => [...prev, carId]);
+        } else {
+            setDelCar(prev => prev.filter(id => id !== carId));
+        }
+    }
+
+    const delHandler = () => {
+        if (delCar.length === 0) {
+            alert("삭제할 차량을 선택해주세요.");
+            return;
+        }
+        const confirmCancel = window.confirm(`${delCar.length}개의 차량데이터를 삭제하시겠습니까?`);
+        if (!confirmCancel) return;
+
+        axios.delete("/api/delCar", { data: delCar })
+            .then((res) => {
+                if (res.data) {
+                    alert(`${delCar.length}개의 차량데이터가 삭제되었습니다.`);
+                    setDelCar([]);
+                    carFind();
+                    
+                    // 로컬스토리지 동기화
+                    const recentCars = localStorage.getItem("recentView"); 
+                    if (recentCars) {
+                        const parsedCars = JSON.parse(recentCars);
+                        const updatedCars = parsedCars.filter(c => !delCar.includes(c.carId));
+                        localStorage.setItem("recentView", JSON.stringify(updatedCars));
+                    }
+                    allCar();
+                } else {
+                    alert("다시 시도해주세요.");
+                }
+            })
+            .catch((error) => console.log("삭제 에러: ", error));
+    }
+
+    const detailHandler = (carId) => navigate(`/manager/carDetail/${carId}`);
+
+    const placeholderWord = () => {
+        if (searchType === "carName") return "모델명을 검색하세요";
+        if (searchType === "carNum") return "차량번호를 검색하세요";
+        return "차량브랜드를 검색하세요";
+    }
+
+    const delKeyword = () => {
+        setSearchWord("");
+        setPageNum(1);
+        // carFind를 직접 호출하거나 useEffect가 감지하게 할 수 있습니다.
     };
 
-        return (
-            <div className="ManagerAllCar">
-                <h1>전체 차량목록</h1>
-    
-                <div className="mac_find">
-                    <div className="MAC_search">
-                        {/* 검색 타입 */}
-                        <select className="mac_type" name="searchType" onChange={(e) => setSearchType(e.target.value)}>
-                            <option value="carName">모델명</option>
-                            <option value="carNum">차량번호</option>
-                            <option value="carBrand">브랜드</option>
-                        </select>
-                        {/* 검색 */}
-                        <input className="mac_word" type="text" name="searchWord" placeholder={placeholderWord()} value={searchWord}
-                            onChange={(e) => setSearchWord(e.target.value)} />
-                        {searchWord != "" ? <i className="bi bi-x-circle-fill" onClick={delKeyword}></i> : <></>}
-                        <button className="acp_btn" type="button" onClick={searchHandler}>검색</button>
-                    </div>
-                    <div className="MAC_BTN">
-                        <button className="acp_Regbtn" type="button" onClick={() => { navigate('/manager/carregister') }}>등록하기</button>
-                        <button className="acp_btn" onClick={delHandler}>삭제하기</button>
-                    </div>
+    return (
+        <div className="ManagerAllCar">
+            <h1>전체 차량목록</h1>
+
+            <div className="mac_find">
+                <div className="MAC_search">
+                    <select className="mac_type" onChange={(e) => setSearchType(e.target.value)}>
+                        <option value="carName">모델명</option>
+                        <option value="carNum">차량번호</option>
+                        <option value="carBrand">브랜드</option>
+                    </select>
+                    <input className="mac_word" type="text" placeholder={placeholderWord()} value={searchWord}
+                        onChange={(e) => setSearchWord(e.target.value)} />
+                    {searchWord !== "" && <i className="bi bi-x-circle-fill" onClick={delKeyword}></i>}
+                    <button className="acp_btn" onClick={searchHandler}>검색</button>
                 </div>
-    
-                <table className="m_AllCar_table">
-                    <thead className="m_AllCar_th">
-                        <tr className="m_AllCar_tr">
-                            <th className="m_AllCar_tableNum">번호</th>
-                            <th className="m_AllCar_tablecod" onClick={() => sortHandler("carId")}>차량ID</th>
-                            <th className="m_AllCar_tableCarImg">이미지</th>
-                            <th className="m_AllCar_tableCar" onClick={() => sortHandler("brand")}>브랜드</th>
-                            <th className="m_AllCar_tableCar" onClick={() => sortHandler("model")}>모델명</th>
-                            <th className="m_AllCar_tableCarNum" onClick={() => sortHandler("number")}>차량번호</th>
-                            <th className="m_AllCar_tableRegDate" onClick={() => sortHandler("regDate")}>등록일자</th>
-                            <th className="m_AllCar_tableDel">삭제<p>({delCar.length}/{car.length})</p></th>
-                        </tr>
-                    </thead>
+                <div className="MAC_BTN">
+                    <button className="acp_Regbtn" onClick={() => navigate('/manager/carregister')}>등록하기</button>
+                    <button className="acp_btn" onClick={delHandler}>삭제하기</button>
+                </div>
+            </div>
+
+            <table className="m_AllCar_table">
+                <thead className="m_AllCar_th">
+                    <tr className="m_AllCar_tr">
+                        <th className="m_AllCar_tableNum">번호</th>
+                        <th onClick={() => sortHandler("carId")} style={{cursor:'pointer'}}>차량ID</th>
+                        <th className="m_AllCar_tableCarImg">이미지</th>
+                        <th onClick={() => sortHandler("brand")} style={{cursor:'pointer'}}>브랜드</th>
+                        <th onClick={() => sortHandler("model")} style={{cursor:'pointer'}}>모델명</th>
+                        <th onClick={() => sortHandler("number")} style={{cursor:'pointer'}}>차량번호</th>
+                        <th onClick={() => sortHandler("regDate")} style={{cursor:'pointer'}}>등록일자</th>
+                        <th className="m_AllCar_tableDel">삭제<p>({delCar.length}/{car.length})</p></th>
+                    </tr>
+                </thead>
+
+                {/* --- Step.2 로딩 상태 적용 --- */}
+                {isCarLoading ? (
                     <tbody className="m_AllCar_tb">
-                        {searchCar && searchCar.length > 0 ?
+                        <tr>
+                            <td colSpan={8} style={{ textAlign: 'center', padding: '30px' }}>
+                                차량 정보를 불러오는 중입니다...
+                            </td>
+                        </tr>
+                    </tbody>
+                ) : (
+                    <tbody className="m_AllCar_tb">
+                        {searchCar && searchCar.length > 0 ? (
                             searchCar.map((item, index) => {
-                                const pageSize = paging?.pageSize || 10; // 페이지당 개수
+                                const pageSize = paging?.pageSize || 10;
                                 const rowNumber = (pageNum - 1) * pageSize + index + 1;
-    
                                 return (
-                                    <tr className="m_AllCar_tr" key={index}>
-                                        <td className="m_AllCar_tableNum" >{rowNumber}</td>
+                                    <tr className="m_AllCar_tr" key={item.carId || index}>
+                                        <td className="m_AllCar_tableNum">{rowNumber}</td>
                                         <td className="m_AllCar_tableId" onClick={() => detailHandler(item.carId)}>{item.carId}</td>
                                         <td className="m_AllCar_tableCarImg" onClick={() => detailHandler(item.carId)}>
                                             <img src={`/images/cars/${item.carImg}`} alt={item.carImg} />
@@ -246,51 +194,39 @@ export default function AllCarPage() {
                                         <td className="m_AllCar_tableCarNum" onClick={() => detailHandler(item.carId)}>{item.plateNumber}</td>
                                         <td className="m_AllCar_tableRegDate">{item.regDate}</td>
                                         <td className="m_AllCar_tableDel">
-                                            {/* 체크한 차량의 carId만 값을 들고옴 */}
-                                            {noRes(item.carId) ?
-                                                <p>예약 중</p>
-                                                :
-                                                <input type="checkbox" name="delcheck" checked={delCar.includes(item.carId)}
-                                                    className="AllCar_del" onChange={(e) => { checkHandler(e, item.carId) }}></input>
-                                            }
+                                            {noRes(item.carId) ? <p>예약 중</p> :
+                                                <input type="checkbox" checked={delCar.includes(item.carId)}
+                                                    className="AllCar_del" onChange={(e) => checkHandler(e, item.carId)} />}
                                         </td>
                                     </tr>
-                                )
+                                );
                             })
-                            :
+                        ) : (
                             <tr className="m_AllCar_tr_none">
-                                <td className="m_AllCar_td_none" colSpan={8}>
-                                    차량이 존재하지 않습니다.
-                                </td>
+                                <td className="m_AllCar_td_none" colSpan={8}>차량이 존재하지 않습니다.</td>
                             </tr>
-                        }
+                        )}
                     </tbody>
-                </table>
-                {/* 페이징 */}
-                <div className="paging">
-                    {/* 이전 버튼 */}
-                    {/* 5페이지 넘어가야 화살표 나옴 */}
-                    {paging.prev && (
-                        <button onClick={() => setPageNum(paging.startPage - 1)}>
-                            <i className="bi bi-caret-left-fill"></i>
-                        </button>
-                    )}
-    
-                    {/* 페이지 번호들 */}
-                    {pagesHandler(paging).map(num => (
-                        <button key={num} className={pageNum === num ? "active" : ""} onClick={() => setPageNum(num)}>
-                            {num}
-                        </button>
-                    ))}
-    
-                    {/* 다음 버튼 */}
-                    {paging.next && (
-                        <button onClick={() => setPageNum(paging.endPage + 1)}>
-                            <i className="bi bi-caret-right-fill"></i>
-                        </button>
-                    )}
-                </div>
-    
+                )}
+            </table>
+
+            <div className="paging">
+                {paging.prev && (
+                    <button onClick={() => setPageNum(paging.startPage - 1)}>
+                        <i className="bi bi-caret-left-fill"></i>
+                    </button>
+                )}
+                {pagesHandler(paging).map(num => (
+                    <button key={num} className={pageNum === num ? "active" : ""} onClick={() => setPageNum(num)}>
+                        {num}
+                    </button>
+                ))}
+                {paging.next && (
+                    <button onClick={() => setPageNum(paging.endPage + 1)}>
+                        <i className="bi bi-caret-right-fill"></i>
+                    </button>
+                )}
             </div>
-        )
-    }
+        </div>
+    );
+}

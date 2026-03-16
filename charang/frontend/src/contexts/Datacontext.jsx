@@ -68,9 +68,10 @@ export default function DataProvider({children}){
   const [sort, setSort] = useState('desc');
   // console.log(sortType)
   // console.log(sort)
-
+  const [isUserLoading, setIsUserLoading] = useState(false); // 로딩 상태 추가
   // 전체 회원
   const userFind = () => {
+        setIsUserLoading(true);
         axios.get("/api/searchUser",{params:{searchType:userSearchType,searchWord:userSearchWord, page:pageNum, sortType:sortType, sort:sort}})
         .then((res)=>{
             // console.log("검색 회원: ",res.data);
@@ -81,6 +82,9 @@ export default function DataProvider({children}){
         .catch((error)=>{
             console.log("검색 회원 출력 에러: ",error);
         })
+        .finally(() => {
+        setIsUserLoading(false); // 성공하든 실패하든 요청 끝나면 로딩 종료
+        });
     }
 
     // 전체 예약 (관리자용)
@@ -187,6 +191,9 @@ export default function DataProvider({children}){
               // 전체 예약 (관리자용)
               bookStatusFind, // 함수
               allBookStatus, // 변수
+
+              // 로딩 보내기
+              isUserLoading, // 유저
               }}>
         {children}
       </DataContext.Provider>
