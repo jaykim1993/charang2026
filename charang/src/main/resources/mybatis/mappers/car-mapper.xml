@@ -4,103 +4,109 @@
 
 <mapper namespace="cha.car.mapper.CarMapper">
 
-	<!-- 차량 추가 메서드
-	public int insertCar(CarDTO cdto); -->
-	<insert id="insertCar" parameterType="carDTO">
-		INSERT INTO car (
-	        carImg, brandLogo, brand, model, color, 
-	        plateNumber, modelYear, seats, carSize, carType, 
-	        fuelType, branchId, licenseType, driverMinAge, kmPer, 
-	        priceValue, navigation, rearCamera, heatSeat, heatHandle, 
-	        bluetooth, smartKey, sunRoof
-    	) VALUES (
-	        #{carImg}, #{brandLogo}, #{brand}, #{model}, #{color}, 
-	        #{plateNumber}, #{modelYear}, #{seats}, #{carSize}, #{carType}, 
-	        #{fuelType}, #{branchId}, #{licenseType}, #{driverMinAge}, #{kmPer}, 
-	        #{priceValue}, #{navigation}, #{rearCamera}, #{heatSeat}, #{heatHandle}, 
-	        #{bluetooth}, #{smartKey}, #{sunRoof}
-    	)
-	</insert>
+   <!-- 차량 추가 메서드
+   public int insertCar(CarDTO cdto); -->
+   <insert id="insertCar" parameterType="carDTO">
+      INSERT INTO car (
+           carImg, brandLogo, brand, model, color, 
+           plateNumber, modelYear, seats, carSize, carType, 
+           fuelType, branchId, licenseType, driverMinAge, kmPer, 
+           priceValue, navigation, rearCamera, heatSeat, heatHandle, 
+           bluetooth, smartKey, sunRoof
+       ) VALUES (
+           #{carImg}, #{brandLogo}, #{brand}, #{model}, #{color}, 
+           #{plateNumber}, #{modelYear}, #{seats}, #{carSize}, #{carType}, 
+           #{fuelType}, #{branchId}, #{licenseType}, #{driverMinAge}, #{kmPer}, 
+           #{priceValue}, #{navigation}, #{rearCamera}, #{heatSeat}, #{heatHandle}, 
+           #{bluetooth}, #{smartKey}, #{sunRoof}
+       )
+   </insert>
 
     <!-- 전체 차량 리스트 메서드
-	public List<CarDTO> getAllCar(); -->
-	<select id="getAllCar" resultType="carDTO">
-		SELECT * FROM car
-	</select>
-	
-	<!-- 전체 차량 페이징 버전
-	public List<CarDTO> AllCarPage(); -->
-	<select id="AllCarPage" resultType="carDTO">
-		SELECT * FROM car ORDER BY carId DESC LIMIT #{startRow}, #{pageSize}
-	</select>
-	
-	<!-- 전체 차량 개수 -->
-	<select id="getAllCount" resultType="int">
-		SELECT COUNT(*) FROM car
-	</select>
-	
-	<!-- 차량 검색 메서드
-	public List<CarDTO> getSearchCarList( String searchType, String searchKeyWord); -->
-	<select id="getSearchCar" resultType="carDTO">
-		SELECT * FROM car
-		<where>
-			<choose>
-				<when test="searchType == 'carName'">
-					model LIKE CONCAT("%",#{searchKeyWord},"%")
-				</when>
-				<otherwise>
-					plateNumber LIKE CONCAT("%",#{searchKeyWord},"%")
-				</otherwise>
-			</choose>
-		</where>
-		ORDER BY carId DESC LIMIT #{startRow}, #{pageSize}
-	</select>
-	
-	<!-- 검색 차량 개수
-	public int SearchCount(String searchType, String searchKeyWord); -->
-	<select id="SearchCount" resultType="int">
-		SELECT COUNT(*) FROM car
-		<where>
-			<choose>
-				<when test="searchType == 'carName'">
-					model LIKE CONCAT("%",#{searchKeyWord},"%")
-				</when>
-				<otherwise>
-					plateNumber LIKE CONCAT("%",#{searchKeyWord},"%")
-				</otherwise>
-			</choose>
-		</where>
-	</select>
-	
-	<!-- 차량 삭제 메서드
-	public int deleteCar(List<Integer> carId); -->
-	<delete id="deleteCar" parameterType="list">
-		DELETE FROM car WHERE carId IN
-		<foreach item="id" collection="list" open="(" separator="," close=")">
-			#{id}
-		</foreach>
-	</delete>
-	
-	<!-- 차량 상세보기 
-	public int oneCar(int carId); -->
-	<select id="oneCar" parameterType="int" resultType="carDTO">
-		SELECT * FROM car c
-		INNER JOIN branch b
-		ON c.branchId = b.branchId
-		WHERE carId=#{carId}
-	</select>
-	
-	<!-- 차량 수정하기
-	public int modCar(CarDTO carData); -->
-	<update id="modCar" parameterType="carDTO">
-		UPDATE car SET 
-		brand=#{brand}, model=#{model}, color=#{color}, 
+   public List<CarDTO> getAllCar(); -->
+   <select id="getAllCar" resultType="carDTO">
+      SELECT * FROM car
+   </select>
+   
+   <!-- 전체 차량 페이징 버전
+   public List<CarDTO> AllCarPage(); -->
+   <select id="AllCarPage" resultType="carDTO">
+      SELECT * FROM car ORDER BY carId DESC LIMIT #{startRow}, #{pageSize}
+   </select>
+   
+   <!-- 전체 차량 개수 -->
+   <select id="getAllCount" resultType="int">
+      SELECT COUNT(*) FROM car
+   </select>
+   
+   <!-- 차량 검색 메서드
+   public List<CarDTO> getSearchCarList( String searchType, String searchKeyWord); -->
+   <select id="getSearchCar" resultType="carDTO">
+      SELECT * FROM car
+      <where>
+         <choose>
+            <when test="searchType == 'carName'">
+               model LIKE CONCAT("%",#{searchKeyWord},"%")
+            </when>
+            <when test="searchType == 'carNum'">
+               plateNumber LIKE CONCAT("%",#{searchKeyWord},"%")
+            </when>
+            <otherwise>
+               brand LIKE CONCAT("%",#{searchKeyWord},"%")
+            </otherwise>
+         </choose>
+      </where>
+      ORDER BY carId DESC LIMIT #{startRow}, #{pageSize}
+   </select>
+   
+   <!-- 검색 차량 개수
+   public int SearchCount(String searchType, String searchKeyWord); -->
+   <select id="SearchCount" resultType="int">
+      SELECT COUNT(*) FROM car
+      <where>
+         <choose>
+            <when test="searchType == 'carName'">
+               model LIKE CONCAT("%",#{searchKeyWord},"%")
+            </when>
+            <when test="searchType == 'carNum'">
+               plateNumber LIKE CONCAT("%",#{searchKeyWord},"%")
+            </when>
+            <otherwise>
+               brand LIKE CONCAT("%",#{searchKeyWord},"%")
+            </otherwise>
+         </choose>
+      </where>
+   </select>
+   
+   <!-- 차량 삭제 메서드
+   public int deleteCar(List<Integer> carId); -->
+   <delete id="deleteCar" parameterType="list">
+      DELETE FROM car WHERE carId IN
+      <foreach item="id" collection="list" open="(" separator="," close=")">
+         #{id}
+      </foreach>
+   </delete>
+   
+   <!-- 차량 상세보기 
+   public int oneCar(int carId); -->
+   <select id="oneCar" parameterType="int" resultType="carDTO">
+      SELECT * FROM car c
+      INNER JOIN branch b
+      ON c.branchId = b.branchId
+      WHERE carId=#{carId}
+   </select>
+   
+   <!-- 차량 수정하기
+   public int modCar(CarDTO carData); -->
+   <update id="modCar" parameterType="carDTO">
+      UPDATE car SET 
+      brand=#{brand}, model=#{model}, color=#{color}, 
         plateNumber=#{plateNumber}, modelYear=#{modelYear}, seats=#{seats}, carSize=#{carSize}, carType=#{carType}, 
         fuelType=#{fuelType}, branchId=#{branchId}, licenseType=#{licenseType}, driverMinAge=#{driverMinAge}, kmPer=#{kmPer}, 
         priceValue=#{priceValue}, navigation=#{navigation}, rearCamera=#{rearCamera}, heatSeat=#{heatSeat}, heatHandle=#{heatHandle}, 
         bluetooth=#{bluetooth}, smartKey=#{smartKey}, sunRoof=#{sunRoof}
         WHERE carId=#{carId}
-	</update>
-	
-	
+   </update>
+   
+   
 </mapper>

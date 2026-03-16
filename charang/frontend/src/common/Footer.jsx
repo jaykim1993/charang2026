@@ -69,8 +69,8 @@ useEffect(() => {
     })
     .catch(err => console.log(err));
     }, []);
-    console.log("최신 공지",notice)
-    console.log("최신공지배열",noticeDetail)
+    // console.log("최신 공지",notice)
+    // console.log("최신공지배열",noticeDetail)
 
     
 

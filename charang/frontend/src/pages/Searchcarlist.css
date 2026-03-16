@@ -199,16 +199,29 @@ a, p, h4, h3, h2, h1{
     /* background-color: #fdfeff; */
     background-color: transparent;
     height: 40px;
-    padding: 0 15px;
+    padding: 0 5px;
     border-radius: 500px;
-    transition: 0.25s;
-    color: #1e75f5;
+    transition: 0.1s;
+    color: #464646;
+    position: relative;
 }
 #root .Recentcar .R_carlist .totalCar button:hover{
-    /* border: 1px solid #1763D1; */
-    text-decoration: underline;
+    color: #1e75f5;
 }
-
+#root .Recentcar .R_carlist .totalCar button::after{
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom: 1px solid #1e75f5;
+    transition: 0.1s ease;
+    opacity: 0;
+}
+#root .Recentcar .R_carlist .totalCar button:hover::after{
+    opacity: 1;
+}
 /* 날짜 . 지점 선택 */
 #root .Recentcar .R_carlist .R_reservation{
     display: flex;
@@ -269,8 +282,8 @@ a, p, h4, h3, h2, h1{
     gap: 70px;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 50px;
-    padding: 40px 30px;
+    margin-bottom: 30px;
+    padding: 35px 30px;
     /* background-color: #f6f7f8; */
     background-color: #f0f3f6;
     /* background: #eceef2; */

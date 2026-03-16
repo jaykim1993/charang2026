@@ -32,7 +32,7 @@ const FILTER_CONFIG = {
         { name: '아우디즈', img: 'AUDI.png', category: '수입' },
         { name: '빈츠', img: 'BENZ.png', category: '수입' },
         { name: 'BMW', img: 'BMW.png', category: '수입' },
-        { name: 'BYD', img: 'BYD.png', category: '수입' },
+        { name: 'BYZ', img: 'BYZ.png', category: '수입' },
         { name: '푸도', img: 'FORD.png', category: '수입' },
         { name: '렉사드', img: 'LEXUS.png', category: '수입' },
         { name: '테셀라', img: 'TESLA.png', category: '수입' },

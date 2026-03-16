@@ -114,6 +114,8 @@ export default function AllReservationPage(){
                     onChange={(e)=> setSearchTypeBook(e.target.value)}>
                         <option value="bookingId">예약코드</option>
                         <option value="userId">예약자ID</option>
+                        <option value="name">예약자</option>
+                        <option value="car">예약차량</option>
                     </select>
                     {/* 검색 */}
                     <input 

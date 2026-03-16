@@ -124,9 +124,11 @@ export default function MypageMyinfo() {
                     </tr>
                 </tbody>
             </table>
+            {userinfo.userId=='admin'?<></>:
             <button className='myinfo-btn2' type='button' onClick={() => {setUnregiOverlay(true); setUnregiInput(null);}}>
-                회원 탈퇴하기
+                       회원 탈퇴하기
             </button>
+            }
             {unregiOverlay &&
                 <div className='unreOverlay'>
                     <div className='loginOverlay' >

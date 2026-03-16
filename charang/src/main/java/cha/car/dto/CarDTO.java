@@ -1,6 +1,5 @@
 package cha.car.dto;
 
-import java.sql.Date;
 import java.time.LocalDateTime; // 변경
 
 import com.fasterxml.jackson.annotation.JsonFormat;
