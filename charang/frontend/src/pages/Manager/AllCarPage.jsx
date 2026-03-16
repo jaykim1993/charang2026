@@ -151,7 +151,27 @@ export default function AllCarPage() {
         }
     
         // =============================================================================================
-    
+        const delKeyword = () => {
+            setSearchWord("");
+            setPageNum(1);
+
+            axios.get("/api/searchCar", {
+                params: {
+                    searchType: searchType,
+                    searchWord: "",
+                    page: 1
+                }
+            })
+            .then((res) => {
+                setPaging(res.data.ph);
+                setSearchCar(res.data.list);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        };
+         // =============================================================================================
+
         return (
             <div className="ManagerAllCar">
                 <h1>전체 차량목록</h1>
@@ -162,11 +182,11 @@ export default function AllCarPage() {
                         <select className="mac_type" name="searchType" onChange={(e) => setSearchType(e.target.value)}>
                             <option value="carName">모델명</option>
                             <option value="carNum">차량번호</option>
-                            <option value="carBrand">브랜드</option>
                         </select>
                         {/* 검색 */}
                         <input className="mac_word" type="text" name="searchWord" placeholder={placeholderWord()}
-                            onChange={(e) => setSearchWord(e.target.value)} />
+                            onChange={(e) => setSearchWord(e.target.value)} value={searchWord}/>
+                        {searchWord != "" ? <i className="bi bi-x-circle-fill" onClick={delKeyword}></i> : <></>}
                         <button className="acp_btn" type="button" onClick={searchHandler}>검색</button>
                     </div>
                     <div className="MAC_BTN">

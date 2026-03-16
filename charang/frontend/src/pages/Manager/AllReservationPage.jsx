@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AllReservationPage(){
 
-    const { pageNum, paging, allBookCar, searchTypeBook, setSearchTypeBook, setSearchWordBook, searchResetHandler,
+    const { pageNum, paging, allBookCar, searchTypeBook, setSearchTypeBook, searchWordBook, setSearchWordBook, searchResetHandler,
         bookFind, setPageNum, pagesHandler, allBookStatus, bookStatusFind } = useContext(DataContext);
 
     // 화면 이동 훅
@@ -103,32 +103,41 @@ export default function AllReservationPage(){
         }
     };
     
+    useEffect(() => {
+        if (searchWordBook === "") {
+            searchHandler();
+        }
+    }, [searchWordBook]);
 
-    return(
+    const inputDelHandler = () => {
+        setSearchWordBook("");
+        searchHandler("");
+    }
+
+    return (
         <div className="AllReservation">
             <h1>전체 예약목록</h1>
             <div className="AllReservation_top">
                 <div className="search_area">
                     {/* 검색 타입 */}
                     <select name="searchTypeBook" className="search_select" value={searchTypeBook}
-                    onChange={(e)=> setSearchTypeBook(e.target.value)}>
+                        onChange={(e) => setSearchTypeBook(e.target.value)}>
                         <option value="bookingId">예약코드</option>
                         <option value="userId">예약자ID</option>
-                        <option value="name">예약자</option>
-                        <option value="car">예약차량</option>
                     </select>
                     {/* 검색 */}
-                    <input 
-                    type="text" 
-                    name="searchWordBook" 
-                    className="search_input" 
-                    placeholder={placeholderWord()}
-                    onChange={(e)=> setSearchWordBook(e.target.value)}/>
+                    <input
+                        type="text"
+                        name="searchWordBook"
+                        value={searchWordBook}
+                        className="search_input"
+                        placeholder={placeholderWord()}
+                        onChange={(e) => setSearchWordBook(e.target.value)} />
+                    {searchWordBook != "" ? <i className="bi bi-x-circle-fill" onClick={inputDelHandler}></i> : <></>}
                     <button type="button" onClick={searchHandler} className="search_btn">검색</button>
                 </div>
                 <button className="del_btn" onClick={delHandler}>삭제하기</button>
-            </div>
-            
+            </div>       
 
             <table className="AllReservation_table" border={1}>
                 <thead className="AllReservation_table_th">

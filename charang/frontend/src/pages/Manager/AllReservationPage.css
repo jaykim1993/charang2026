@@ -51,7 +51,23 @@
     display: flex;
     justify-content: space-between;
 }
-
+.AllReservation .AllReservation_top .search_area{
+    display: flex;
+    gap: 5px;
+    position: relative;
+}
+.AllReservation .search_area .search_input{
+    padding-right: 30px;
+}
+.AllReservation .AllReservation_top .search_area .bi-x-circle-fill{
+    position: absolute;
+    right: 90px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    font-size: 17px;
+}
 /* 테이블*/
 
 /* 추가 */
