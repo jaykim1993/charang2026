@@ -70,22 +70,24 @@ export default function DataProvider({children}){
   // console.log(sort)
   const [isUserLoading, setIsUserLoading] = useState(false); // 로딩 상태 추가
   // 전체 회원
-  const userFind = () => {
-        setIsUserLoading(true);
-        axios.get("/api/searchUser",{params:{searchType:userSearchType,searchWord:userSearchWord, page:pageNum, sortType:sortType, sort:sort}})
-        .then((res)=>{
-            // console.log("검색 회원: ",res.data);
-            // console.log("회원 검색어: ",userSearchWord);
-            setUser(res.data.list); // 검색 회원 가져온 데이터
-            setPaging(res.data.ph); // 페이징
-        })
-        .catch((error)=>{
-            console.log("검색 회원 출력 에러: ",error);
-        })
-        .finally(() => {
-        setIsUserLoading(false); // 성공하든 실패하든 요청 끝나면 로딩 종료
-        });
-    }
+  const userFind = (word = userSearchWord) => { // word 인자 추가 (기본값은 현재 상태)
+      setIsUserLoading(true);
+      axios.get("/api/searchUser", {
+          params: {
+              searchType: userSearchType,
+              searchWord: word, // ◀ 상태값 대신 인자로 받은 word를 사용
+              page: pageNum,
+              sortType: sortType,
+              sort: sort
+          }
+      })
+      .then((res) => {
+          setUser(res.data.list);
+          setPaging(res.data.ph);
+      })
+      .catch((error) => console.log("검색 회원 출력 에러: ", error))
+      .finally(() => setIsUserLoading(false));
+  }
 
     // 전체 예약 (관리자용)
     const bookStatusFind = () => {
