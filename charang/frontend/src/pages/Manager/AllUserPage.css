@@ -58,6 +58,26 @@
     background-color: #555;
 }
 
+.ManagerAllUser .mau_find{
+    display: flex;
+    gap: 5px;
+    position: relative;
+}
+
+.ManagerAllUser .mau_find .mau_input{
+    padding-right: 40px;
+}
+
+.ManagerAllUser .mau_find .bi-x-circle-fill{
+    position: absolute;
+    left: 345px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    font-size: 17px;
+}
+
 /* 테이블 스타일 */
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_tb .managerAllUser_tr{
     height: 60px;
@@ -158,23 +178,4 @@
     height: 18px;
     cursor: pointer;
     margin-top: 5px;
-}
-.ManagerAllUser .mau_find{
-    display: flex;
-    gap: 5px;
-    position: relative;
-}
-
-.ManagerAllUser .mau_find .mau_input{
-    padding-right: 40px;
-}
-
-.ManagerAllUser .mau_find .bi-x-circle-fill{
-    position: absolute;
-    left: 345px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #666;
-    font-size: 17px;
 }

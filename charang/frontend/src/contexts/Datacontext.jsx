@@ -66,10 +66,12 @@ export default function DataProvider({children}){
   const [userSearchWord, setUserSearchWord] = useState('');
   const [sortType, setSortType] = useState('userId');
   const [sort, setSort] = useState('desc');
+  // console.log(sortType)
+  // console.log(sort)
 
   // 전체 회원
   const userFind = () => {
-        axios.get("/api/searchUser",{params:{searchType:userSearchType,searchWord:userSearchWord, page:pageNum}})
+        axios.get("/api/searchUser",{params:{searchType:userSearchType,searchWord:userSearchWord, page:pageNum, sortType:sortType, sort:sort}})
         .then((res)=>{
             // console.log("검색 회원: ",res.data);
             // console.log("회원 검색어: ",userSearchWord);
@@ -175,6 +177,7 @@ export default function DataProvider({children}){
               userSearchType,
               setUserSearchType,
               setUserSearchWord,
+              userSearchWord,
               // 검색 - 예약
               setSearchWordBook,
               searchTypeBook,
