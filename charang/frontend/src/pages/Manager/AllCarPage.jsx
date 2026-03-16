@@ -142,8 +142,11 @@ export default function AllCarPage() {
         const placeholderWord = () => {
             if (searchType === "carName") {
                 return "모델명을 검색하세요";
-            } else {
+            }
+            if (searchType === "carNum") {
                 return "차량번호를 검색하세요";
+            } else {
+                return "차량브랜드를 검색하세요";
             }
         }
     
@@ -159,6 +162,7 @@ export default function AllCarPage() {
                         <select className="mac_type" name="searchType" onChange={(e) => setSearchType(e.target.value)}>
                             <option value="carName">모델명</option>
                             <option value="carNum">차량번호</option>
+                            <option value="carBrand">브랜드</option>
                         </select>
                         {/* 검색 */}
                         <input className="mac_word" type="text" name="searchWord" placeholder={placeholderWord()}
