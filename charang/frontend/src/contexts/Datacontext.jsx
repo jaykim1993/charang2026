@@ -70,12 +70,13 @@ export default function DataProvider({children}){
   // console.log(sort)
   const [isUserLoading, setIsUserLoading] = useState(false); // 로딩 상태 추가
   // 전체 회원
-  const userFind = (word = userSearchWord) => { // word 인자 추가 (기본값은 현재 상태)
+  // DataContext.js 내의 userFind 함수
+  const userFind = (word = userSearchWord) => { // word 인자 추가
       setIsUserLoading(true);
       axios.get("/api/searchUser", {
           params: {
               searchType: userSearchType,
-              searchWord: word, // ◀ 상태값 대신 인자로 받은 word를 사용
+              searchWord: word, // ◀ 중요: 상태값이 아닌 인자로 받은 word를 사용
               page: pageNum,
               sortType: sortType,
               sort: sort
@@ -85,7 +86,7 @@ export default function DataProvider({children}){
           setUser(res.data.list);
           setPaging(res.data.ph);
       })
-      .catch((error) => console.log("검색 회원 출력 에러: ", error))
+      .catch((error) => console.log("검색 에러: ", error))
       .finally(() => setIsUserLoading(false));
   }
 
@@ -195,7 +196,7 @@ export default function DataProvider({children}){
               allBookStatus, // 변수
 
               // 로딩 보내기
-              isUserLoading, // 유저
+              isUserLoading // 유저
               }}>
         {children}
       </DataContext.Provider>
