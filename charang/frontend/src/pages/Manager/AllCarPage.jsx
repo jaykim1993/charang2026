@@ -124,12 +124,19 @@ export default function AllCarPage() {
         if (searchType === "carNum") return "차량번호를 검색하세요";
         return "차량브랜드를 검색하세요";
     }
+    
+    useEffect(() => {
+        if (searchWord === "") {
+            setPageNum(1);
+            userFind();
+        }
+    }, [searchWord]);
 
-    const delKeyword = () => {
+    const inputDelHandler = () => {
         setSearchWord("");
         setPageNum(1);
-        // carFind를 직접 호출하거나 useEffect가 감지하게 할 수 있습니다.
-    };
+        carFind();
+    }
 
     return (
         <div className="ManagerAllCar">
@@ -144,7 +151,7 @@ export default function AllCarPage() {
                     </select>
                     <input className="mac_word" type="text" placeholder={placeholderWord()} value={searchWord}
                         onChange={(e) => setSearchWord(e.target.value)} />
-                    {searchWord !== "" && <i className="bi bi-x-circle-fill" onClick={delKeyword}></i>}
+                    {searchWord !== "" && <i className="bi bi-x-circle-fill" onClick={inputDelHandler}></i>}
                     <button className="acp_btn" onClick={searchHandler}>검색</button>
                 </div>
                 <div className="MAC_BTN">

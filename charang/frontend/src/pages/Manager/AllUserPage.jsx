@@ -34,8 +34,7 @@ export default function AllUserPage() {
     const inputDelHandler = () => {
         setUserSearchWord("");
         setPageNum(1);
-        searchResetHandler();
-        userFind("");
+        userFind();
     }
 
     const sortHandler = (type) => {

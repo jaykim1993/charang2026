@@ -111,7 +111,7 @@ export default function AllReservationPage(){
 
     const inputDelHandler = () => {
         setSearchWordBook("");
-        searchHandler("");
+        searchHandler();
     }
 
     return (
