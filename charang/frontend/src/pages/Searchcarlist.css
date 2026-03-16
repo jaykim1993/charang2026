@@ -21,6 +21,24 @@ a, p, h4, h3, h2, h1{
 #root .Recentcar .R_category{
     width: 350px;
 }
+#root .Recentcar .R_category .R_cate_top{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 35px;
+    margin-top: 27px;
+}
+
+#root .Recentcar .R_category .R_cate_top h5{
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#root .Recentcar .R_category .R_cate_top > button{
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+}
 
 #root .Recentcar .R_category ul li{
     margin-bottom: 30px;
@@ -38,7 +56,7 @@ a, p, h4, h3, h2, h1{
 } */
 
 #root .Recentcar .R_category ul li h3{
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
     color: #272727;
     margin-bottom: 20px;
@@ -100,7 +118,7 @@ a, p, h4, h3, h2, h1{
 }
 /* 카테고리 선택 취소버튼 */
 #root .Recentcar .R_carlist .cate_choice .cate_Btn{
-    margin: 35px 0;
+    /* margin: 35px 0; */
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -160,15 +178,35 @@ a, p, h4, h3, h2, h1{
 }
 
 /* 총 n대 */
-#root .Recentcar .R_carlist > p{
+#root .Recentcar .R_carlist .totalCar p{
     margin: 20px 0 20px 0;
     display: flex;
     align-items: center;
     color: #8d8d8d;
 }
-#root .Recentcar .R_carlist > p strong{
+#root .Recentcar .R_carlist .totalCar p strong{
     color: #333;
     font-size: 19px;
+}
+#root .Recentcar .R_carlist .totalCar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#root .Recentcar .R_carlist .totalCar button{
+    /* border: 1px solid #dddddd; */
+    border: none;
+    /* background-color: #fdfeff; */
+    background-color: transparent;
+    height: 40px;
+    padding: 0 15px;
+    border-radius: 500px;
+    transition: 0.25s;
+    color: #1e75f5;
+}
+#root .Recentcar .R_carlist .totalCar button:hover{
+    /* border: 1px solid #1763D1; */
+    text-decoration: underline;
 }
 
 /* 날짜 . 지점 선택 */
@@ -335,12 +373,27 @@ a, p, h4, h3, h2, h1{
 
 /* ---------------------------------- */
 
-.empty_car {
-    padding: 60px 0;
+.empty_car{
     text-align: center;
-    color: #888;
+    padding: 100px 0;
+    background-color: #f7f8fa;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+.empty_car p{
+    color: #666;
     font-size: 17px;
 }
+.empty_car button{
+    border: none;
+    background-color: transparent;
+    color: #1e75f5;
+    padding: 10px 0;
+}
+.empty_car button:hover{
+    color: #1763D1;
+}
+
 #root .R_carlist .R_reservation{
     display: flex;
     /* border: 1px solid red; */
@@ -532,7 +585,7 @@ a, p, h4, h3, h2, h1{
 }
 
 .GrounpedCarsWrap{
-    max-height: 880px;
+    max-height: 957px;
     overflow-y: auto;
     overflow-x: hidden;
     transition: max-height 0.4s ease;

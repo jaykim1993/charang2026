@@ -54,22 +54,22 @@ const FILTER_CONFIG = {
 export default function Recentcar() {
     // ================= 2. Context & Hooks =================
     const navigate = useNavigate();
-    const[isAllCar,setIsAllCar]= useState(false)
+    const [isAllCar, setIsAllCar] = useState(false)
     let selectedModel = null;
     const { state } = useLocation();
     const sessionAllCar = sessionStorage.getItem("allCarShow");
-    const isAll = sessionAllCar? JSON.parse(sessionAllCar).isAllCar : null;
-    if(isAll === null){
+    const isAll = sessionAllCar ? JSON.parse(sessionAllCar).isAllCar : null;
+    if (isAll === null) {
         selectedModel = state?.model; // 메인에서 모델 선택해서 넘어온 경우
     }
-    
+
 
     const {
         firstFilteredCar, setLocation, setBranchId, location,
         startDate, endDate, startTime, endTime,
         setStartDate, setEndDate,
         setIsLocation, setIsCalendar, isLocation, isCalendar,
-        startdayText, enddayText, DeleteYear, timeAMPM,todayStartDate, CanRentHour,canRentMin,setStartTime,setEndTime 
+        startdayText, enddayText, DeleteYear, timeAMPM
     } = useContext(CalendarContext);
 
     const { fetchBookedList, calculatePrice } = useContext(BookingContext);
@@ -161,28 +161,23 @@ export default function Recentcar() {
         setIsLocation(false);
         setLocation("");
         setBranchId("");
-        setStartDate(todayStartDate);
+        setStartDate(null);
         setEndDate(null);
-        setEndTime(`${CanRentHour()+1}:${canRentMin()}`);
-        setStartTime(`${CanRentHour()}:${canRentMin()}`);
-        resetFilters();
+        // resetFilters();
         alert("검색 조건이 초기화되었습니다.");
         sessionStorage.removeItem("calendarFilters");
         sessionStorage.removeItem("filteredInfoUser");
         sessionStorage.removeItem("firstFilteredCar");
-        // navigate는 필요 시 여기서 호출 (현재 로직상 불필요해 보임)
     };
 
-    
-    const showAllCar =()=>{
+
+    const showAllCar = () => {
         setIsCalendar(false);
         setIsLocation(false);
         setLocation("");
         setBranchId("");
-        setStartDate(todayStartDate);
+        setStartDate(null);
         setEndDate(null);
-        setEndTime(`${CanRentHour()+1}:${canRentMin()}`);
-        setStartTime(`${CanRentHour()}:${canRentMin()}`);
         resetFilters();
         setIsAllCar(true)
         selectedModel = null;
@@ -219,7 +214,7 @@ export default function Recentcar() {
     };
 
     // -----------------------------------------------------------------
-    
+
     // 지점 상세보기 모달
     const [isDetailOpen, setIsDetailOpen] = useState(false);
     const [selectedBranchId, setSelectedBranchId] = useState(null);
@@ -286,10 +281,14 @@ export default function Recentcar() {
     // 차량 목록 렌더링
     const renderCarList = () => {
         const models = Object.keys(groupedCars);
-        if (models.length === 0) return <p className="empty_car">해당 지점, 날짜에는 선택 가능한 차량이 없습니다. </p>;
-        // <button type="submit" onClick={handleResetAll}>
-        //                         초기화 <i className="bi bi-arrow-clockwise"></i>
-        //                     </button>
+        if (models.length === 0) {
+            return <div className="empty_car">
+            <p>선택한 지점과 날짜에 해당하는 차량이 없습니다.</p>
+            <button type="submit" onClick={handleResetAll}>
+                지점과 날짜를 초기화할까요?
+            </button>
+        </div>
+        };
 
         return models.map(modelName => {
             const group = groupedCars[modelName];
@@ -305,11 +304,7 @@ export default function Recentcar() {
                         {group.map((car, index) => {
                             const unitPrice = calculatePrice(car);
                             const totalPrice = unitPrice * rentalDuration;
-                            // 지점명 따기
-                            const selectedBranch = car
-                                ? branch.find(b => b.branchId === car.branchId)
-                                : null;
-                            const branchName = selectedBranch?.location || '';
+
                             return (
                                 <div key={car.carId}
                                     className={`car_variant_info ${index !== group.length - 1 ? "Line_active" : ""}`}
@@ -317,7 +312,7 @@ export default function Recentcar() {
                                     style={{ cursor: "pointer" }}>
 
                                     <h4>{modelName} {car.fuelType}</h4>
-                                    <p className="S_detail">{car.modelYear}년식 · {car.carSize} · {car.carType} · {branchName}</p>
+                                    <p className="S_detail">{car.modelYear}년식 · {car.carSize} · {car.carType}</p>
                                     <i className="bi bi-chevron-right"></i>
 
                                     {rentalDuration > 0 ? (
@@ -355,6 +350,14 @@ export default function Recentcar() {
         <div className="Recentcar">
             {/* 카테고리 필터 섹션 */}
             <div className="R_category">
+                <div className="R_cate_top">
+                    <h5>필터</h5>
+                    {Object.values(selectedFilters).some(arr => arr.length > 0) && (
+                        <button onClick={resetFilters}>
+                            <i className="bi bi-arrow-clockwise"></i>
+                        </button>
+                    )}
+                </div>
                 <ul>
                     <li>
                         <h3>차종/차량등급</h3>
@@ -618,31 +621,22 @@ export default function Recentcar() {
                     </div>
                 </div>
 
-
-
-
-
                 {/* 선택된 필터 태그 표시 & 초기화 버튼 */}
                 <div className="cate_choice">
                     <div className="cate_Btn">
                         {renderSelectedTags()}
                     </div>
-                    {Object.values(selectedFilters).some(arr => arr.length > 0) && (
-                        <div className="delBtn">
-                            <button onClick={resetFilters}>
-                                <i className="bi bi-arrow-clockwise"></i>
-                            </button>
-                        </div>
-                    )}
                 </div>
 
                 {/* 차량 리스트 결과 */}
-                <p>총 &nbsp;<strong>{selectedModel ? secondFilteredCar.length : secondFilteredCar.length}</strong>&nbsp; 종</p>
-                {/* <button onClick={showAllCar}>전체보기</button> */}
+                <div className="totalCar">
+                    <p>총 &nbsp;<strong>{selectedModel ? secondFilteredCar.length : secondFilteredCar.length}</strong>&nbsp; 종</p>
+                    <button onClick={showAllCar}>전체 차량보기</button>
+                </div>
                 <ul className={`GrounpedCarsWrap ${tdOpen ? 'open' : ''}`}>
                     {renderCarList()}
                 </ul>
-                {secondFilteredCar.length == 0 ? (<></>) : (<button className="tableOpener" onClick={() => setTdOpen(!tdOpen)}>
+                {secondFilteredCar.length == 0  || secondFilteredCar.length <= 3 ? (<></>) : (<button className="tableOpener" onClick={() => setTdOpen(!tdOpen)}>
                     {tdOpen ? '접기' : '더보기'}
                 </button>)}
 
