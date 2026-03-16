@@ -69,7 +69,7 @@ export default function Recentcar() {
         startDate, endDate, startTime, endTime,
         setStartDate, setEndDate,
         setIsLocation, setIsCalendar, isLocation, isCalendar,
-        startdayText, enddayText, DeleteYear, timeAMPM
+        startdayText, enddayText, DeleteYear, timeAMPM, todayStartDate
     } = useContext(CalendarContext);
 
     const { fetchBookedList, calculatePrice } = useContext(BookingContext);
@@ -161,7 +161,7 @@ export default function Recentcar() {
         setIsLocation(false);
         setLocation("");
         setBranchId("");
-        setStartDate(null);
+        setStartDate(todayStartDate);
         setEndDate(null);
         // resetFilters();
         alert("검색 조건이 초기화되었습니다.");
@@ -176,7 +176,7 @@ export default function Recentcar() {
         setIsLocation(false);
         setLocation("");
         setBranchId("");
-        setStartDate(null);
+        setStartDate(todayStartDate);
         setEndDate(null);
         resetFilters();
         setIsAllCar(true)
