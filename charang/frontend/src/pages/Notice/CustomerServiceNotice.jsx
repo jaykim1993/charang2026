@@ -68,14 +68,6 @@ export default function CustomerServiceNotice() {
             <div className="notice_admin" style={{ marginBottom: userid === 'admin' ? '11px' : '20px' }}>
                 <h4>공지사항</h4>
                 <div className="mac_find">
-                    {/* 관리자(=admin)일 때만 글쓰기 버튼 생김 */}
-                    {userid === 'admin' && (
-                        <div className="adminBtn">
-                            <button className="adminBtn_1" onClick={() => navigate("/customerservice/notice/manager/write")}>
-                                글쓰기
-                            </button>
-                        </div>
-                    )}
                     <div className="MAC_search">
                         {/* 검색 타입 */}
                         <select className="mac_type" name="searchType" onChange={(e) => setSearchType(e.target.value)}>
@@ -123,6 +115,7 @@ export default function CustomerServiceNotice() {
                         )}
                     </tbody>
                 </table>
+
                 {/* 페이징 */}
                 <div className="paging">
                     {/* 이전 버튼 */}
@@ -147,6 +140,14 @@ export default function CustomerServiceNotice() {
                         </button>
                     )}
                 </div>
+                {/* 관리자(=admin)일 때만 글쓰기 버튼 생김 */}
+                {userid === 'admin' && (
+                    <div className="adminBtn">
+                        <button className="adminBtn_1" onClick={() => navigate("/customerservice/notice/manager/write")}>
+                            글쓰기
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     )

@@ -17,7 +17,14 @@
 .notice .notice_admin h4 {
     font-size: 24px;
 }
-
+.notice_table {
+    position: relative;
+}
+.adminBtn{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
 /* 관리자 버튼 */
 .adminBtn button {
     /* color: white; */
