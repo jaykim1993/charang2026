@@ -182,7 +182,7 @@ export default function AllUserPage() {
                     </tbody>
                 )}
             </table>
-
+{/* d */}
             <div className="paging">
                 {paging.prev && (
                     <button onClick={() => setPageNum(paging.startPage - 1)}>
