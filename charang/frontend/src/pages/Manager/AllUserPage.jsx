@@ -9,21 +9,30 @@ export default function AllUserPage() {
         pagesHandler, paging, pageNum, setPageNum, user, searchResetHandler, 
         setSortType, setSort, sortType, sort, userSearchWord,
         userFind, userSearchType, setUserSearchType, setUserSearchWord, 
-        bookStatusFind, allBookStatus, isLoading // DataContext에서 isLoading 가져오기
+        bookStatusFind, allBookStatus, isLoading 
     } = useContext(DataContext);
 
+    const navigate = useNavigate();
+    const [userCnt, setUserCnt] = useState(0);
+
+    // 1. 컴포넌트 마운트 시 초기화
     useEffect(() => {
         setPageNum(1);
         setUserSearchWord('');
+        setSortType('userId');
+        setSort('desc');
         searchResetHandler();
         userCount();
     }, []);
 
-    const searchHandler = () => {
-        setPageNum(1);
+    // 2. 검색, 페이지, 정렬이 바뀔 때 데이터를 불러오는 통합 이펙트
+    useEffect(() => {
         userFind();
-    }
+        bookStatusFind();
+        userCount();
+    }, [pageNum, sortType, sort]);
 
+    // 3. 검색어 실시간 감시 (검색어를 다 지웠을 때만 자동 실행)
     useEffect(() => {
         if (userSearchWord === "") {
             setPageNum(1);
@@ -31,11 +40,22 @@ export default function AllUserPage() {
         }
     }, [userSearchWord]);
 
+    // 검색 핸들러
+    const searchHandler = () => {
+        setPageNum(1);
+        userFind();
+    }
+
+    // X 버튼: 검색어 및 모든 정렬/페이지 상태 초기화
     const inputDelHandler = () => {
         setUserSearchWord("");
         setPageNum(1);
+        setSortType("userId");
+        setSort("desc");
+        // userFind는 위 useEffect[userSearchWord]가 감지해서 자동으로 호출합니다.
     }
 
+    // 정렬 핸들러
     const sortHandler = (type) => {
         if (sortType === type) {
             setSort(prev => prev === 'asc' ? 'desc' : 'asc');
@@ -44,40 +64,32 @@ export default function AllUserPage() {
             setSort("desc");
         }
         setPageNum(1);
-        // 여기서 userFind()를 직접 호출하지 마세요. 아래 useEffect가 감지합니다.
     }
 
-    useEffect(() => {
-        userFind();
-        bookStatusFind();
-        userCount();
-    }, [pageNum, sortType, sort]);
-
-    // 회원 삭제 관련 로직
+    // 회원 삭제 로직
     const [delUser, setDelUser] = useState([]);
     const checkHandler = (e, userId) => {
-        let delUserCopy = [...delUser];
         if (e.target.checked) {
-            delUserCopy.push(userId);
+            setDelUser(prev => [...prev, userId]);
         } else {
-            delUserCopy = delUser.filter(id => id !== userId);
+            setDelUser(prev => prev.filter(id => id !== userId));
         }
-        setDelUser(delUserCopy);
     }
 
     const delHandler = () => {
         if (delUser.length === 0) {
-            alert("삭제할 예약을 선택해주세요.");
+            alert("삭제할 회원을 선택해주세요.");
             return;
         }
         const confirmCancel = window.confirm(`${delUser.length}명의 회원데이터를 삭제하시겠습니까?`);
         if (!confirmCancel) return;
+        
         axios.delete("/api/delete", { data: delUser })
             .then((res) => {
                 if (res.data === 1) {
                     alert(`${delUser.length}명의 회원데이터가 삭제되었습니다`);
-                    userFind();
                     setDelUser([]);
+                    userFind();
                     userCount();
                 } else {
                     alert("다시 시도해주세요.");
@@ -88,23 +100,19 @@ export default function AllUserPage() {
 
     const noRes = (userId) => {
         const ingUser = allBookStatus
-            .filter(pastStatus => pastStatus.bookingStatus === "UPCOMING" || pastStatus.bookingStatus === "ONGOING")
+            .filter(book => book.bookingStatus === "UPCOMING" || book.bookingStatus === "ONGOING")
             .map(res => res.userId);
         return ingUser.includes(userId);
     }
 
-    const navigate = useNavigate();
-    const oneInfoClick = (userId) => navigate(`/manager/userDetail/${userId}`);
-
-    const placeholderWord = () => userSearchType === 'userId' ? "아이디를 검색하세요" : "이름을 검색하세요";
-
-    const [userCnt, setUserCnt] = useState(0);
     const userCount = () => {
         axios.get("/api/allUserCount")
             .then((res) => setUserCnt(res.data))
             .catch((error) => console.log("카운트 에러: ", error));
     }
 
+    const oneInfoClick = (userId) => navigate(`/manager/userDetail/${userId}`);
+    const placeholderWord = () => userSearchType === 'userId' ? "아이디를 검색하세요" : "이름을 검색하세요";
     const maskNum = (num) => num ? num.slice(0, 8) + "******" : "";
 
     return (
@@ -112,13 +120,13 @@ export default function AllUserPage() {
             <h1>전체 회원목록</h1>
 
             <div className="mau_find">
-                <select name="userSearchType" className="mau_select" onChange={(e) => setUserSearchType(e.target.value)}>
+                <select name="userSearchType" className="mau_select" value={userSearchType} onChange={(e) => setUserSearchType(e.target.value)}>
                     <option value="userId">회원ID</option>
                     <option value="name">회원이름</option>
                 </select>
                 <input type="text" className="mau_input" placeholder={placeholderWord()}
                     onChange={(e) => setUserSearchWord(e.target.value)} value={userSearchWord} />
-                {userSearchWord !== "" && <i className="bi bi-x-circle-fill" onClick={inputDelHandler}></i>}
+                {userSearchWord !== "" && <i className="bi bi-x-circle-fill" onClick={inputDelHandler} style={{cursor:'pointer'}}></i>}
                 <button className="mau_btn" onClick={searchHandler}>검색</button>
                 <p className="mau_info">
                     <i className="bi bi-exclamation-circle-fill" style={{ paddingRight: "5px" }}></i>
@@ -127,28 +135,23 @@ export default function AllUserPage() {
                 <button className="del_btn" onClick={delHandler}>삭제하기</button>
             </div>
 
-            <table className="managerAllUser_table" border={1}>
+            <table className="managerAllUser_table">
                 <thead className="managerAllUser_table_th">
                     <tr className="managerAllUser_tr">
                         <th>번호</th>
                         <th onClick={() => sortHandler("userId")} style={{cursor:'pointer'}}>회원ID</th>
                         <th onClick={() => sortHandler("name")} style={{cursor:'pointer'}}>회원이름</th>
                         <th onClick={() => sortHandler("mail")} style={{cursor:'pointer'}}>이메일</th>
-                        <th onClick={() => sortHandler("resistNum")} style={{cursor:'pointer'}}>주민등록번호</th>
+                        <th onClick={() => sortHandler("resistNum")} style={{cursor:'pointer'}}>주민번호</th>
                         <th onClick={() => sortHandler("phone")} style={{cursor:'pointer'}}>휴대폰번호</th>
                         <th onClick={() => sortHandler("regDate")} style={{cursor:'pointer'}}>가입일자</th>
                         <th>삭제<p>({delUser.length}/{userCnt})</p></th>
                     </tr>
                 </thead>
 
-                {/* --- Step.2 로딩 상태 적용 부분 --- */}
                 {isLoading ? (
                     <tbody>
-                        <tr>
-                            <td colSpan={8} style={{ textAlign: 'center', padding: '20px' }}>
-                                데이터를 불러오는 중입니다...
-                            </td>
-                        </tr>
+                        <tr><td colSpan={8} style={{ textAlign: 'center', padding: '20px' }}>데이터를 불러오는 중입니다...</td></tr>
                     </tbody>
                 ) : (
                     <tbody className="managerAllUser_table_tb">
@@ -174,9 +177,7 @@ export default function AllUserPage() {
                                 );
                             })
                         ) : (
-                            <tr>
-                                <td colSpan={8} style={{ textAlign: 'center' }}>회원 정보가 없습니다.</td>
-                            </tr>
+                            <tr><td colSpan={8} style={{ textAlign: 'center', padding: '20px' }}>회원 정보가 없습니다.</td></tr>
                         )}
                     </tbody>
                 )}
@@ -188,7 +189,7 @@ export default function AllUserPage() {
                         <i className="bi bi-caret-left-fill"></i>
                     </button>
                 )}
-                {pagesHandler().map(num => (
+                {pagesHandler(paging).map(num => (
                     <button key={num} className={pageNum === num ? "active" : ""} onClick={() => setPageNum(num)}>
                         {num}
                     </button>

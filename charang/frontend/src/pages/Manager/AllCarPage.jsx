@@ -135,6 +135,8 @@ export default function AllCarPage() {
     const inputDelHandler = () => {
         setSearchWord("");
         setPageNum(1);
+        setSortType("carId");  // 정렬 기준을 carId(기본값)로 리셋
+        setSort("desc");       // 정렬 방향을 desc(내림차순)로 리셋
     }
 
     return (
