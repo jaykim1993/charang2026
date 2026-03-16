@@ -12,29 +12,29 @@ import cha.user.mapper.UserMapper;
 @Service
 public class UserServiceImpl implements UserService {
    // 전체 회원 출력
-	@Override
-	public List<UserDTO> getAllUser(int startRow, int pageSize) {
-		System.out.println("전체 회원 출력 서비스");
-		return usermapper.selectAllUser(startRow, pageSize);
-	}
-	// 전체 회원 개수
+   @Override
+   public List<UserDTO> getAllUser(int startRow, int pageSize, String sortType, String sort) {
+      System.out.println("전체 회원 출력 서비스");
+      return usermapper.selectAllUser(startRow, pageSize, sortType, sort);
+   }
+   // 전체 회원 개수
    @Override
    public int getAllCount() {
-	   System.out.println("전체 회원 개수 서비스");
-		return usermapper.getAllCnt();
+      System.out.println("전체 회원 개수 서비스");
+      return usermapper.getAllCnt();
    }
-	
-	// 검색 회원 출력
+   
+   // 검색 회원 출력
    @Override
-   public List<UserDTO> getSearchUser(String searchType, String searchWord, int startRow, int pageSize) {
-	   System.out.println("검색 회원 출력 서비스");
-	   return usermapper.getUserSearch(searchType, searchWord, startRow,pageSize);
+   public List<UserDTO> getSearchUser(String searchType, String searchWord, int startRow, int pageSize, String sortType, String sort) {
+      System.out.println("검색 회원 출력 서비스");
+      return usermapper.getUserSearch(searchType, searchWord, startRow,pageSize, sortType, sort);
    }
    // 검색 회원 개수 
    @Override
    public int getSearchCount(String searchType, String searchWord) {
-	   System.out.println("검색 회원 개수 서비스");
-	   return usermapper.getUserSearchCount(searchType, searchWord);
+      System.out.println("검색 회원 개수 서비스");
+      return usermapper.getUserSearchCount(searchType, searchWord);
    }
    
 
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
    
    @Override
    public int insertUser(UserDTO udto) {
-	   System.out.println("User serviceImpl 회원 추가 출력");
+      System.out.println("User serviceImpl 회원 추가 출력");
       boolean isUser = usermapper.isUser(udto.getUserId());
       if(isUser == false) {
          String encodepw = passwordEncoder.encode(udto.getUserPw());
@@ -72,13 +72,13 @@ public class UserServiceImpl implements UserService {
 
    @Override
    public boolean isUser(String userId) {
-	   System.out.println("로그인할 계정이 DB에 있는지 아이디 중복체크");
+      System.out.println("로그인할 계정이 DB에 있는지 아이디 중복체크");
        return usermapper.isUser(userId);
    }
 
    @Override
    public boolean modUser(UserDTO udto) {
-	   System.out.println("회원 수정");
+      System.out.println("회원 수정");
        String dbPass = usermapper.getPass(udto.getUserId());
        if(dbPass == null) {
            return false;
@@ -127,25 +127,25 @@ public class UserServiceImpl implements UserService {
 
    @Override
    public String findUserId(String name, String mail) {
-	   System.out.println("UserService findUserId() 유저 아이디찾기  ");
+      System.out.println("UserService findUserId() 유저 아이디찾기  ");
        String dbUser = usermapper.findUserId(name, mail);
        if (dbUser == null) {
            return null;
        }
-	   return dbUser;
+      return dbUser;
    }
 
    @Override
    public boolean findUserPw(String userId, String name, String mail) {
-	   System.out.println("MemberService findUserPw() 유저 비밀번호찾기  ");
-	   return usermapper.findUserPw(userId, name, mail);
+      System.out.println("MemberService findUserPw() 유저 비밀번호찾기  ");
+      return usermapper.findUserPw(userId, name, mail);
    }
 
    @Override
    public boolean updatePassword(String userId, String newPw) {
-	   System.out.println("MemberService updatePassword() 유저 비밀번호찾기 / 비번변경  ");
-	   String encodePw = passwordEncoder.encode(newPw);
-	   return usermapper.updatePassword(userId, encodePw);
+      System.out.println("MemberService updatePassword() 유저 비밀번호찾기 / 비번변경  ");
+      String encodePw = passwordEncoder.encode(newPw);
+      return usermapper.updatePassword(userId, encodePw);
    }
    
    

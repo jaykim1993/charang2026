@@ -11,26 +11,30 @@ import cha.user.dto.UserDTO;
 @Mapper
 public interface UserMapper {
 
-  	// 전체 회원 출력
-	public List<UserDTO> selectAllUser(
-		   @Param("startRow") int startRow,
-		   @Param("pageSize") int pageSize
-			);
-	// 전체 회원 개수
-	public int getAllCnt();
-	
+     // 전체 회원 출력
+   public List<UserDTO> selectAllUser(
+         @Param("startRow") int startRow,
+         @Param("pageSize") int pageSize,
+         @Param("sortType") String sortType, 
+         @Param("sort") String sort
+         );
+   // 전체 회원 개수
+   public int getAllCnt();
+   
    // 검색 회원 출력
    public List<UserDTO> getUserSearch(
-		   @Param("searchType") String searchType, 
-		   @Param("searchWord") String searchWord,
-		   @Param("startRow") int startRow,
-		   @Param("pageSize") int pageSize
-		   );
+         @Param("searchType") String searchType, 
+         @Param("searchWord") String searchWord,
+         @Param("startRow") int startRow,
+         @Param("pageSize") int pageSize,
+         @Param("sortType") String sortType, 
+         @Param("sort") String sort
+         );
    // 검색 회원 개수
    public int getUserSearchCount(
-		   @Param("searchType") String searchType, 
-		   @Param("searchWord") String searchWord
-		   );
+         @Param("searchType") String searchType, 
+         @Param("searchWord") String searchWord
+         );
    
    // 회원가입
    public int insertUser(UserDTO udto);

@@ -6,12 +6,12 @@ import cha.user.dto.UserDTO;
 
 public interface UserService {
    // 전체 회원 출력 메서드
-	public List<UserDTO> getAllUser(int startRow, int pageSize);
+   public List<UserDTO> getAllUser(int startRow, int pageSize, String sortType, String sort);
    // 전체 회원 개수
    public int getAllCount();
    
    // 검색 회원 출력
-   public List<UserDTO> getSearchUser(String searchType, String searchWord, int startRow, int pageSize);
+   public List<UserDTO> getSearchUser(String searchType, String searchWord, int startRow, int pageSize, String sortType, String sort);
    // 검색 회원 개수 
    public int getSearchCount(String searchType, String searchWord);
    
