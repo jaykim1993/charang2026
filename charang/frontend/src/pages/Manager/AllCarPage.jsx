@@ -128,14 +128,13 @@ export default function AllCarPage() {
     useEffect(() => {
         if (searchWord === "") {
             setPageNum(1);
-            userFind();
+            carFind();
         }
     }, [searchWord]);
 
     const inputDelHandler = () => {
         setSearchWord("");
         setPageNum(1);
-        carFind();
     }
 
     return (
