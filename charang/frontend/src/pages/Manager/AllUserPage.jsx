@@ -115,6 +115,12 @@ export default function AllUserPage(){
         })
     }
 
+    // 마스킹 함수
+    const maskNum = (num) => {
+        if (!num) return "";
+        return num.slice(0,8) + "******";
+    };
+
 
     return(
         <div className="ManagerAllUser">
@@ -165,7 +171,7 @@ export default function AllUserPage(){
                                 <td className="mau_td" onClick={()=>oneInfoClick(user.userId)}>{user.userId}</td>
                                 <td className="mau_td" onClick={()=>oneInfoClick(user.userId)}>{user.name}</td>
                                 <td className="mau_td" onClick={()=>oneInfoClick(user.userId)}>{user.mail}</td>
-                                <td className="mau_td" onClick={()=>oneInfoClick(user.userId)}>{user.resistNum}</td>
+                                <td className="mau_td" onClick={()=>oneInfoClick(user.userId)}>{maskNum(user.resistNum)}</td>
                                 <td className="mau_td" onClick={()=>oneInfoClick(user.userId)}>{user.phone}</td>
                                 <td>{user.regDate}</td>
                                 <td className="mau_delCheck">
