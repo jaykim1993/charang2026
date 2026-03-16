@@ -50,13 +50,22 @@ public class NoticeServiceImpl implements NoticeService {
 	
 //  ======================= 페이징 =======================
 
-	@Override
-	public int getAllCount() {
-		return noticemapper.getAllCount();
-	}
+	   @Override
+	   public int getAllCount() {
+	      return noticemapper.getAllCount();
+	   }
+	   @Override
+	   public int AllSearchNoticeCount(String searchType, String searchWord) {
+	       return noticemapper.AllSearchNoticeCount(searchType, searchWord);
+	   }
 
-	@Override
-	public List<NoticeDTO> getPageList(int startRow, int pageSize) {
-		return noticemapper.getPageList(startRow, pageSize);
-	}
+	   @Override
+	   public List<NoticeDTO> GetAllSearchNotice(int startRow, int pageSize, String searchType, String searchWord) {
+	       return noticemapper.GetAllSearchNotice(startRow, pageSize, searchType, searchWord);
+	   }
+
+	   @Override
+	   public List<NoticeDTO> getPageList(int startRow, int pageSize) {
+	      return noticemapper.getPageList(startRow, pageSize);
+	   }
 }

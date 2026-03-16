@@ -43,4 +43,36 @@
 	<select id="getPageList" resultType="noticeDTO">
 		SELECT * FROM notice ORDER BY noticeId DESC LIMIT #{startRow}, #{pageSize}
 	</select>
+	
+	<select id="GetAllSearchNotice" resultType="noticeDTO">
+     SELECT * FROM notice n
+     <where>
+       <choose>
+         <when test="searchType == 'title'">
+           n.title LIKE CONCAT('%', #{searchWord}, '%')
+         </when>
+         <otherwise>
+           n.content LIKE CONCAT('%', #{searchWord}, '%')
+         </otherwise>
+       </choose>
+     </where>
+     ORDER BY n.noticeId DESC
+     LIMIT #{startRow}, #{pageSize}
+</select>
+      
+<!-- 검색 예약 수 -->
+   <select id="AllSearchNoticeCount" resultType="int">
+     SELECT COUNT(*)
+     FROM notice n 
+     <where>
+       <choose>
+         <when test="searchType == 'title'">
+            n.title LIKE CONCAT('%', #{searchWord}, '%')
+         </when>
+         <otherwise>
+           n.content LIKE CONCAT('%', #{searchWord}, '%')
+         </otherwise>
+       </choose>
+     </where>
+   </select>
 </mapper>

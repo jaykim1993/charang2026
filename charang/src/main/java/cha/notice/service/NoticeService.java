@@ -30,4 +30,17 @@ public interface NoticeService {
 
 //	공지 전체 목록
 	public List<NoticeDTO> getPageList(@Param("startRow") int startRow, @Param("pageSize") int pageSize);
+	
+	   // 검색 예약 수
+	   public int AllSearchNoticeCount(
+	         @Param("searchType") String searchType, 
+	         @Param("searchWord") String searchKeyWord
+	         );
+	   // 검색 페이징 메서드
+	   public List<NoticeDTO> GetAllSearchNotice(
+	         @Param("startRow") int startRow, 
+	         @Param("pageSize") int pageSize,
+	         @Param("searchType") String searchType, 
+	         @Param("searchWord") String searchKeyWord
+	         );
 }

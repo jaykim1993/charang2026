@@ -11,7 +11,7 @@ export default function CalendarProvider({ children }) {
   const { userid } = useContext(AuthContext);
   const { car } = useContext(DataContext);
   const { bookedlistAll } = useContext(BookingContext);
-  
+
   //시작 달력 초기값 정하기 13시2분이면 13시30분부터 
   const canRentStart = new Date();
 
@@ -52,10 +52,10 @@ export default function CalendarProvider({ children }) {
     savedCalendar?.endDate ?? null
   );
   const [startTime, setStartTime] = useState(
-  savedCalendar?.startTime ?? `${CanRentHour()}:${canRentMin()}`
+    savedCalendar?.startTime ?? `${CanRentHour()}:${canRentMin()}`
   );
   const [endTime, setEndTime] = useState(
-    savedCalendar?.endTime ?? `${CanRentHour()+1}:${canRentMin()}`
+    savedCalendar?.endTime ?? `${CanRentHour() + 1}:${canRentMin()}`
   );
 
   // 사용자 입력 차량 위치 정보, 홈에서 공유받아야 하며 지금은 임시
@@ -177,9 +177,11 @@ export default function CalendarProvider({ children }) {
   const enddayText = days[enddayindex];
 
   const DeleteYear = (dateStr) => {
+    if (!dateStr) return "";
     const [, month, day] = dateStr.split("-");
     return `${month}.${day}`;
   };
+
 
   //다음예약가능 시간 30분으로 쪼개서 ex) 현재시간 오후 4시52분 => 4시30분 && 이전 블럭될수있게
   // 현재 시각 기준 → 다음 예약 가능한 30분 단위 시간
@@ -253,7 +255,7 @@ export default function CalendarProvider({ children }) {
     setEndTime("14:30");
     setLocation("");
     setBranchId("");
-    
+
     // sessionStorage 비우기
     sessionStorage.removeItem("filteredInfoUser");
     sessionStorage.removeItem("firstFilteredCar");

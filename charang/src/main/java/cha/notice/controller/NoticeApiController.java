@@ -27,28 +27,42 @@ public class NoticeApiController {
 	NoticeService noticeservice;
 
 //	전체 공지사항 목록 (페이징)
-	@GetMapping("/notice")
-	public Map<String, Object> noticeList(
-//			1. 페이지 번호 - 1부터 시작이므로 초기값 1로 정의
-			@RequestParam(value="page", defaultValue = "1") int page,
-//			2. 페이지 사이즈 - 한 화면에 보여지는 게시글 개수를 5로 초기화
-			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-		System.out.println("NoticeApiController - 공지사항 전체목록");
-		
-		int totalCnt = noticeservice.getAllCount();
-		
-//		PageHandler 클래스 접근하기 위해 인스턴스화
-		PageHandler ph = new PageHandler(totalCnt, page, pageSize);
-		
-		List<NoticeDTO> noticeList = noticeservice.getPageList(ph.getStartRow(), pageSize);
-		
-		Map<String, Object> result = new HashMap<>();
-		
-        result.put("list", noticeList);
-        result.put("ph", ph);
-		System.out.println(result);
-		return result;  // JSON 형태로 받아가야해서 
-	}
+	 @GetMapping("/notice")
+     public Map<String, Object> noticeList(
+             @RequestParam(value="searchType", required=false) String searchType,
+             @RequestParam(value="searchWord", required=false) String searchWord,
+             @RequestParam(value="page", defaultValue="1") int page,
+             @RequestParam(value="pageSize", defaultValue="10") int pageSize
+     ){
+         List<NoticeDTO> noticeList;
+         PageHandler ph;
+         Map<String, Object> result = new HashMap<>();
+         int totalCnt;
+         // 검색 O
+         if(searchWord != null && !searchWord.trim().isEmpty()){
+             totalCnt = noticeservice.AllSearchNoticeCount(searchType, searchWord);
+             ph = new PageHandler(totalCnt, page, pageSize);
+             noticeList = noticeservice.GetAllSearchNotice(
+                     ph.getStartRow(),
+                     pageSize,
+                     searchType,
+                     searchWord
+             );
+         }
+         // 검색 X
+         else{
+             totalCnt = noticeservice.getAllCount();
+             ph = new PageHandler(totalCnt, page, pageSize);
+             noticeList = noticeservice.getPageList(
+                     ph.getStartRow(),
+                     pageSize
+             );
+         }
+         result.put("list", noticeList);
+         result.put("ph", ph);
+         return result;
+     }
+
 
 //	공지사항 상세
 	@GetMapping("/notice/Info/{noticeId}")

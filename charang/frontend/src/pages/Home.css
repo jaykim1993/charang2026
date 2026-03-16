@@ -619,12 +619,11 @@ input:checked + .checkmark {
 }
 .H_sec_noRecentcars{
     width: 100%;
-    background-color: rgb(233, 233, 233);
+    background-color: #f7f8fa;
     border-radius: 10px;
-    height: 150px;
-    padding: 30px;
+    /* height: 150px; */
+    padding: 70px;
     text-align: center;
-
 }
 .H_sec_noRecentcars p{
     margin-bottom: 20px;
@@ -633,7 +632,7 @@ input:checked + .checkmark {
 }
 .H_sec_noRecentcars div{
     margin: 0 auto;
-    background-color: rgb(189, 189, 189);
+    background-color: #cbcbce;
     width: 40px;
     height: 40px;
     border-radius: 50%;
