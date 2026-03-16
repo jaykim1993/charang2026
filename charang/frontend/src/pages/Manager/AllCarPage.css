@@ -24,6 +24,17 @@
 .ManagerAllCar .mac_find .MAC_search{
     display: flex;
     gap: 5px;
+    position: relative;
+}
+
+.ManagerAllCar .mac_find .MAC_search .bi-x-circle-fill {
+    position: absolute;
+    right: 85px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    font-size: 17px;
 }
 .ManagerAllCar .mac_find .MAC_BTN{
     display: flex;

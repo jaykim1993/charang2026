@@ -634,7 +634,7 @@ export default function Recentcar() {
                 {/* 차량 리스트 결과 */}
                 <div className="totalCar">
                     <p>총 &nbsp;<strong>{selectedModel ? secondFilteredCar.length : secondFilteredCar.length}</strong>&nbsp; 종</p>
-                    <button onClick={showAllCar}>전체 차량보기</button>
+                    <button onClick={showAllCar}>전체 차량보기 +</button>
                 </div>
                 <ul className={`GrounpedCarsWrap ${tdOpen ? 'open' : ''}`}>
                     {renderCarList()}
