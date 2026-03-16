@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cha.user.service.UserService;
 import cha.verification.service.VerificationService;
 
 @RestController
@@ -20,8 +19,6 @@ public class VerificationApiController {
 	 	@Autowired
 	    private VerificationService verificationservice;
 
-	    @Autowired
-	    private UserService userservice;
 	    
 	 // 인증 코드 보내기
 	 @PostMapping("/findpw")

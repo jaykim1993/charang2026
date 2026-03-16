@@ -22,14 +22,19 @@ export default function AllCarPage() {
     //  검색 차량 출력(검색값 보내기) axios
     const [searchType, setSearchType] = useState('carName');
     const [searchWord, setSearchWord] = useState('');
+    const [sortType, setSortType] = useState('carId');
+    const [sort, setSort] = useState('desc');
     const [searchCar, setSearchCar] = useState([]);
-
+    console.log(sortType);
+    console.log(sort);
     const carFind = () => {
         // http://api/searchcar/searchType=검색타입&&searchWord="검색단어"
-        axios.get("/api/searchCar", { params: { searchType: searchType, searchWord: searchWord, page: pageNum } })
+        axios.get("/api/searchCar", { params: { searchType: searchType, searchWord: searchWord, page: pageNum, sortType: sortType, sort: sort} })
             .then((res) => {
                 // console.log("검색어: ", searchWord);
                 // console.log("확인", res.data.list);
+                console.log(sortType);
+                console.log(sort);
                 setPaging(res.data.ph); // 페이징
                 setSearchCar(res.data.list); // 가져온 데이터
             })
@@ -42,6 +47,20 @@ export default function AllCarPage() {
     const searchHandler = () => {
         setPageNum(1); // 검색했을때 1페이지를 기본값으로 초기화
         carFind();
+    }
+
+    // 차량 sort 핸들러
+    const sortHandler = (type) => {
+        // 재클릭(desc -> asc)
+        if(sortType === type){
+            sort === 'asc'? setSort("desc") : setSort("asc")
+        }
+        // 처음 클릭(desc)
+        else{
+            setSortType(type);
+        }
+        carFind();
+        setPageNum(1);
     }
 
     // =============================================================================================
@@ -71,7 +90,7 @@ export default function AllCarPage() {
     useEffect(() => {
         carFind();
         bookStatusFind();
-    }, [pageNum]);
+    }, [pageNum,sortType,sort]);
 
     // =============================================================================================
 
@@ -151,26 +170,26 @@ export default function AllCarPage() {
         }
     
         // =============================================================================================
-        const delKeyword = () => {
-            setSearchWord("");
-            setPageNum(1);
+    
+          const delKeyword = () => {
+        setSearchWord("");
+        setPageNum(1);
 
-            axios.get("/api/searchCar", {
-                params: {
-                    searchType: searchType,
-                    searchWord: "",
-                    page: 1
-                }
-            })
-            .then((res) => {
-                setPaging(res.data.ph);
-                setSearchCar(res.data.list);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-        };
-         // =============================================================================================
+        axios.get("/api/searchCar", {
+            params: {
+                searchType: searchType,
+                searchWord: "",
+                page: 1
+            }
+        })
+        .then((res) => {
+            setPaging(res.data.ph);
+            setSearchCar(res.data.list);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
 
         return (
             <div className="ManagerAllCar">
@@ -182,10 +201,11 @@ export default function AllCarPage() {
                         <select className="mac_type" name="searchType" onChange={(e) => setSearchType(e.target.value)}>
                             <option value="carName">모델명</option>
                             <option value="carNum">차량번호</option>
+                            <option value="carBrand">브랜드</option>
                         </select>
                         {/* 검색 */}
-                        <input className="mac_word" type="text" name="searchWord" placeholder={placeholderWord()}
-                            onChange={(e) => setSearchWord(e.target.value)} value={searchWord}/>
+                        <input className="mac_word" type="text" name="searchWord" placeholder={placeholderWord()} value={searchWord}
+                            onChange={(e) => setSearchWord(e.target.value)} />
                         {searchWord != "" ? <i className="bi bi-x-circle-fill" onClick={delKeyword}></i> : <></>}
                         <button className="acp_btn" type="button" onClick={searchHandler}>검색</button>
                     </div>
@@ -199,12 +219,12 @@ export default function AllCarPage() {
                     <thead className="m_AllCar_th">
                         <tr className="m_AllCar_tr">
                             <th className="m_AllCar_tableNum">번호</th>
-                            <th className="m_AllCar_tablecod">차량ID</th>
+                            <th className="m_AllCar_tablecod" onClick={() => sortHandler("carId")}>차량ID</th>
                             <th className="m_AllCar_tableCarImg">이미지</th>
-                            <th className="m_AllCar_tableCar">브랜드</th>
-                            <th className="m_AllCar_tableCar">모델명</th>
-                            <th className="m_AllCar_tableCarNum">차량번호</th>
-                            <th className="m_AllCar_tableRegDate">등록일자</th>
+                            <th className="m_AllCar_tableCar" onClick={() => sortHandler("brand")}>브랜드</th>
+                            <th className="m_AllCar_tableCar" onClick={() => sortHandler("model")}>모델명</th>
+                            <th className="m_AllCar_tableCarNum" onClick={() => sortHandler("number")}>차량번호</th>
+                            <th className="m_AllCar_tableRegDate" onClick={() => sortHandler("regDate")}>등록일자</th>
                             <th className="m_AllCar_tableDel">삭제<p>({delCar.length}/{car.length})</p></th>
                         </tr>
                     </thead>
