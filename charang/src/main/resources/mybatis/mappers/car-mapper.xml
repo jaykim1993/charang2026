@@ -31,7 +31,20 @@
    <!-- 전체 차량 페이징 버전
    public List<CarDTO> AllCarPage(); -->
    <select id="AllCarPage" resultType="carDTO">
-      SELECT * FROM car ORDER BY carId DESC LIMIT #{startRow}, #{pageSize}
+      SELECT * FROM car
+      ORDER BY 
+         <choose>
+            <when test="sortType == 'carId'">carId</when>
+            <when test="sortType == 'brand'">brand</when>
+            <when test="sortType == 'model'">model</when>
+            <when test="sortType == 'number'">plateNumber</when>
+            <when test="sortType == 'regDate'">regDate</when>
+         </choose>
+         <choose>
+            <when test="sort == 'desc'">DESC</when>
+            <when test="sort == 'asc'">ASC</when>
+         </choose>
+      LIMIT #{startRow}, #{pageSize}
    </select>
    
    <!-- 전체 차량 개수 -->
@@ -48,7 +61,13 @@
             <when test="searchType == 'carName'">
                model LIKE CONCAT("%",#{searchKeyWord},"%")
             </when>
-            <when test="searchType == 'carNum'">
+            <when test="searchType == 'brand'">
+               brand LIKE CONCAT("%",#{searchKeyWord},"%")
+            </when>
+            <when test="searchType == 'model'">
+               model LIKE CONCAT("%",#{searchKeyWord},"%")
+            </when>
+            <when test="searchType == 'number'">
                plateNumber LIKE CONCAT("%",#{searchKeyWord},"%")
             </when>
             <otherwise>
@@ -56,7 +75,19 @@
             </otherwise>
          </choose>
       </where>
-      ORDER BY carId DESC LIMIT #{startRow}, #{pageSize}
+      ORDER BY 
+         <choose>
+            <when test="sortType == 'carId'">carId</when>
+            <when test="sortType == 'brand'">brand</when>
+            <when test="sortType == 'model'">model</when>
+            <when test="sortType == 'number'">plateNumber</when>
+            <when test="sortType == 'regDate'">regDate</when>
+         </choose>
+         <choose>
+            <when test="sort == 'desc'">DESC</when>
+            <when test="sort == 'asc'">ASC</when>
+         </choose>
+       LIMIT #{startRow}, #{pageSize}
    </select>
    
    <!-- 검색 차량 개수
