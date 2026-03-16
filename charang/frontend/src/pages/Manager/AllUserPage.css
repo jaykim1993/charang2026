@@ -89,28 +89,51 @@
 
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userId {
     width: 10%;
+    cursor: pointer;
+}
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userId:hover {
+    text-decoration: underline;
 }
 
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userName {
     width: 7%;
+    cursor: pointer;
+}
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userName:hover {
+    text-decoration: underline;
 }
 
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userEmail {
     width: 20%;
+    cursor: pointer;
+}
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userEmail:hover {
+    text-decoration: underline;
 }
 
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userResiNum {
     width: 15%;
+    cursor: pointer;
+}
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userResiNum:hover {
+    text-decoration: underline;
 }
 
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userPhone {
     width: 10%;
+    cursor: pointer;
+}
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userPhone:hover {
+    text-decoration: underline;
 }
 
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userRegDate {
     width: 15%;
+    cursor: pointer;
 }
-
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userRegDate:hover {
+    text-decoration: underline;
+}
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userDel {
     width: 7%;
 }

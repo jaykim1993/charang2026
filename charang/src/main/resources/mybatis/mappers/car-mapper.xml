@@ -67,7 +67,7 @@
             <when test="searchType == 'model'">
                model LIKE CONCAT("%",#{searchKeyWord},"%")
             </when>
-            <when test="searchType == 'number'">
+            <when test="searchType == 'carNum'">
                plateNumber LIKE CONCAT("%",#{searchKeyWord},"%")
             </when>
             <otherwise>

@@ -33,8 +33,8 @@ export default function AllCarPage() {
             .then((res) => {
                 // console.log("검색어: ", searchWord);
                 // console.log("확인", res.data.list);
-                console.log(sortType);
-                console.log(sort);
+                // console.log(sortType);
+                // console.log(sort);
                 setPaging(res.data.ph); // 페이징
                 setSearchCar(res.data.list); // 가져온 데이터
             })
