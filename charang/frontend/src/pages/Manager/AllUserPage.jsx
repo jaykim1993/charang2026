@@ -15,24 +15,30 @@ export default function AllUserPage() {
     const navigate = useNavigate();
     const [userCnt, setUserCnt] = useState(0);
 
-    // 1. 컴포넌트 마운트 시 초기화
+    // 1. 초기 마운트 시 데이터 로드
     useEffect(() => {
-        setPageNum(1);
-        setUserSearchWord('');
-        setSortType('userId');
-        setSort('desc');
-        searchResetHandler();
         userCount();
+        bookStatusFind();
+        // 초기 진입 시에는 기존 검색어 등을 리셋하고 싶다면 아래 주석 해제
+        // searchResetHandler();
     }, []);
 
-    // 2. 검색, 페이지, 정렬이 바뀔 때 데이터를 불러오는 통합 이펙트
+    // 2. 핵심 통합 이펙트 (페이지, 정렬, 검색어가 바뀔 때마다 실행)
+    // "검색" 버튼을 눌러서 pageNum이 1이 되거나, userSearchWord가 ""이 되면 여기서 반응합니다.
     useEffect(() => {
         userFind();
-        bookStatusFind();
-        userCount();
     }, [pageNum, sortType, sort]);
 
-    // 3. 검색어 실시간 감시 (검색어를 다 지웠을 때만 자동 실행)
+    // 3. 검색 핸들러: 단순히 페이지를 1로 세팅하여 위 useEffect를 트리거함
+    const searchHandler = () => {
+        if (pageNum === 1) {
+            userFind(); // 이미 1페이지면 수동으로 한 번 더 호출
+        } else {
+            setPageNum(1); // 페이지가 바뀌면서 useEffect가 작동함
+        }
+    }
+
+    // 4. 검색어 실시간 감시 (X 버튼 클릭 등으로 빈 값이 되었을 때 즉시 초기화 검색)
     useEffect(() => {
         if (userSearchWord === "") {
             setPageNum(1);
@@ -40,22 +46,16 @@ export default function AllUserPage() {
         }
     }, [userSearchWord]);
 
-    // 검색 핸들러
-    const searchHandler = () => {
-        setPageNum(1);
-        userFind();
-    }
-
-    // X 버튼: 검색어 및 모든 정렬/페이지 상태 초기화
+    // 5. X 버튼 (초기화) 핸들러
     const inputDelHandler = () => {
         setUserSearchWord("");
         setPageNum(1);
         setSortType("userId");
         setSort("desc");
-        // userFind는 위 useEffect[userSearchWord]가 감지해서 자동으로 호출합니다.
+        // 상태가 변하면 위 useEffect들이 순차적으로 반응합니다.
     }
 
-    // 정렬 핸들러
+    // 6. 정렬 핸들러
     const sortHandler = (type) => {
         if (sortType === type) {
             setSort(prev => prev === 'asc' ? 'desc' : 'asc');
@@ -66,7 +66,7 @@ export default function AllUserPage() {
         setPageNum(1);
     }
 
-    // 회원 삭제 로직
+    // --- 이하 로직 (삭제 등) 동일 ---
     const [delUser, setDelUser] = useState([]);
     const checkHandler = (e, userId) => {
         if (e.target.checked) {
@@ -118,20 +118,15 @@ export default function AllUserPage() {
     return (
         <div className="ManagerAllUser">
             <h1>전체 회원목록</h1>
-
             <div className="mau_find">
-                <select name="userSearchType" className="mau_select" value={userSearchType} onChange={(e) => setUserSearchType(e.target.value)}>
+                <select className="mau_select" value={userSearchType} onChange={(e) => setUserSearchType(e.target.value)}>
                     <option value="userId">회원ID</option>
                     <option value="name">회원이름</option>
                 </select>
                 <input type="text" className="mau_input" placeholder={placeholderWord()}
                     onChange={(e) => setUserSearchWord(e.target.value)} value={userSearchWord} />
-                {userSearchWord !== "" && <i className="bi bi-x-circle-fill" onClick={inputDelHandler} style={{cursor:'pointer'}}></i>}
+                {userSearchWord !== "" && <i className="bi bi-x-circle-fill" onClick={inputDelHandler} style={{cursor:'pointer', marginLeft: '-25px', marginRight: '10px'}}></i>}
                 <button className="mau_btn" onClick={searchHandler}>검색</button>
-                <p className="mau_info">
-                    <i className="bi bi-exclamation-circle-fill" style={{ paddingRight: "5px" }}></i>
-                    이용 중이거나 예약된 내역이 있으면 삭제가 불가능합니다.
-                </p>
                 <button className="del_btn" onClick={delHandler}>삭제하기</button>
             </div>
 
@@ -148,11 +143,8 @@ export default function AllUserPage() {
                         <th>삭제<p>({delUser.length}/{userCnt})</p></th>
                     </tr>
                 </thead>
-
                 {isLoading ? (
-                    <tbody>
-                        <tr><td colSpan={8} style={{ textAlign: 'center', padding: '20px' }}>데이터를 불러오는 중입니다...</td></tr>
-                    </tbody>
+                    <tbody><tr><td colSpan={8} style={{textAlign:'center', padding:'40px'}}>로딩 중...</td></tr></tbody>
                 ) : (
                     <tbody className="managerAllUser_table_tb">
                         {user && user.length > 0 ? (
@@ -177,28 +169,18 @@ export default function AllUserPage() {
                                 );
                             })
                         ) : (
-                            <tr><td colSpan={8} style={{ textAlign: 'center', padding: '20px' }}>회원 정보가 없습니다.</td></tr>
+                            <tr><td colSpan={8} style={{textAlign:'center', padding:'40px'}}>데이터가 없습니다.</td></tr>
                         )}
                     </tbody>
                 )}
             </table>
-{/* d */}
+
             <div className="paging">
-                {paging.prev && (
-                    <button onClick={() => setPageNum(paging.startPage - 1)}>
-                        <i className="bi bi-caret-left-fill"></i>
-                    </button>
-                )}
+                {paging.prev && <button onClick={() => setPageNum(paging.startPage - 1)}><i className="bi bi-caret-left-fill"></i></button>}
                 {pagesHandler(paging).map(num => (
-                    <button key={num} className={pageNum === num ? "active" : ""} onClick={() => setPageNum(num)}>
-                        {num}
-                    </button>
+                    <button key={num} className={pageNum === num ? "active" : ""} onClick={() => setPageNum(num)}>{num}</button>
                 ))}
-                {paging.next && (
-                    <button onClick={() => setPageNum(paging.endPage + 1)}>
-                        <i className="bi bi-caret-right-fill"></i>
-                    </button>
-                )}
+                {paging.next && <button onClick={() => setPageNum(paging.endPage + 1)}><i className="bi bi-caret-right-fill"></i></button>}
             </div>
         </div>
     );
