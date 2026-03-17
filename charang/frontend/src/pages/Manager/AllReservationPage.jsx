@@ -117,7 +117,7 @@ export default function AllReservationPage(){
         } else if(searchTypeBook === "name") {
             return "예약자를 검색하세요";
         } else if(searchTypeBook === "car") {
-            return "예약차량를 검색하세요";
+            return "예약차량을 검색하세요";
         }
     };
     

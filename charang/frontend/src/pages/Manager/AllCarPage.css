@@ -44,6 +44,7 @@
 .mac_type, .mac_word{
     height: 40px;
     padding: 0 10px;
+    padding-right: 37px;
     border: 1px solid #ddd;
     border-radius: 5px;
     outline: none;
