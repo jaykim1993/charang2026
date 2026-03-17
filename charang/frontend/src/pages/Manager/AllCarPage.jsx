@@ -171,7 +171,7 @@ export default function AllCarPage() {
                         <th className="m_AllCar_tableTh" style={{ width: "15%" }} onClick={() => sortHandler("model")}>모델명<i class="bi bi-chevron-down"></i></th>
                         <th className="m_AllCar_tableTh" style={{ width: "10%" }} onClick={() => sortHandler("number")}>차량번호<i class="bi bi-chevron-down"></i></th>
                         <th className="m_AllCar_tableTh" style={{ width: "15%" }} onClick={() => sortHandler("regDate")}>등록일자<i class="bi bi-chevron-down"></i></th>
-                        <th className="m_AllCar_tableTh" style={{ width: "10%" }}>삭제<p>({delCar.length}/{car.length})</p></th>
+                        <th className="m_AllCar_tableDel" style={{ width: "10%" }}>삭제<p>({delCar.length}/{car.length})</p></th>
                     </tr>
                 </thead>
 
