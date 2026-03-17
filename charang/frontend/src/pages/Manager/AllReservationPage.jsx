@@ -174,7 +174,7 @@ export default function AllReservationPage(){
                 {isBookLoading? (
                     <tbody className="m_AllCar_tb">
                         <tr className="m_AllCar_tr_none">
-                            <td colSpan={8} className="m_AllCar_td_none">
+                            <td colSpan={11} className="m_AllCar_td_none">
                                 예약정보를 불러오는 중입니다...
                             </td>
                         </tr>
