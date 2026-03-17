@@ -6,8 +6,8 @@ import './AllCarPage.css';
 
 export default function AllCarPage() {
     // DataContext에서 isLoading 추가로 가져오기
-    const { 
-        pageNum, setPageNum, pagesHandler, paging, setPaging, 
+    const {
+        pageNum, setPageNum, pagesHandler, paging, setPaging,
         bookStatusFind, allBookStatus, car, allCar, searchResetHandler,
         isLoading // 로딩 상태 추가
     } = useContext(DataContext);
@@ -32,19 +32,19 @@ export default function AllCarPage() {
     const carFind = () => {
         setIsCarLoading(true);
         // DataProvider 내부에서 setIsLoading(true/false) 처리가 되어 있어야 합니다.
-        axios.get("/api/searchCar", { 
-            params: { searchType, searchWord, page: pageNum, sortType, sort } 
+        axios.get("/api/searchCar", {
+            params: { searchType, searchWord, page: pageNum, sortType, sort }
         })
-        .then((res) => {
-            setPaging(res.data.ph);
-            setSearchCar(res.data.list);
-        })
-        .catch((error) => {
-            console.log("검색 차량 출력 에러: ", error);
-        })
-        .finally(() => {
-        setIsCarLoading(false); // 성공하든 실패하든 요청 끝나면 로딩 종료
-        });
+            .then((res) => {
+                setPaging(res.data.ph);
+                setSearchCar(res.data.list);
+            })
+            .catch((error) => {
+                console.log("검색 차량 출력 에러: ", error);
+            })
+            .finally(() => {
+                setIsCarLoading(false); // 성공하든 실패하든 요청 끝나면 로딩 종료
+            });
     }
 
     // 검색 핸들러
@@ -101,9 +101,9 @@ export default function AllCarPage() {
                     alert(`${delCar.length}개의 차량데이터가 삭제되었습니다.`);
                     setDelCar([]);
                     carFind();
-                    
+
                     // 로컬스토리지 동기화
-                    const recentCars = localStorage.getItem("recentView"); 
+                    const recentCars = localStorage.getItem("recentView");
                     if (recentCars) {
                         const parsedCars = JSON.parse(recentCars);
                         const updatedCars = parsedCars.filter(c => !delCar.includes(c.carId));
@@ -124,7 +124,7 @@ export default function AllCarPage() {
         if (searchType === "carNum") return "차량번호를 검색하세요";
         return "브랜드를 검색하세요";
     }
-    
+
     useEffect(() => {
         if (searchWord === "") {
             setPageNum(1);
@@ -164,14 +164,14 @@ export default function AllCarPage() {
             <table className="m_AllCar_table">
                 <thead className="m_AllCar_th">
                     <tr className="m_AllCar_tr">
-                        <th className="m_AllCar_tableNum">번호</th>
-                        <th onClick={() => sortHandler("carId")} className="m_AllCar_tableTh">차량ID<i class="bi bi-chevron-down"></i></th>
-                        <th className="m_AllCar_tableCarImg">이미지</th>
-                        <th onClick={() => sortHandler("brand")} className="m_AllCar_tableTh">브랜드<i class="bi bi-chevron-down"></i></th>
-                        <th onClick={() => sortHandler("model")} className="m_AllCar_tableTh">모델명<i class="bi bi-chevron-down"></i></th>
-                        <th onClick={() => sortHandler("number")} className="m_AllCar_tableTh">차량번호<i class="bi bi-chevron-down"></i></th>
-                        <th onClick={() => sortHandler("regDate")} className="m_AllCar_tableTh">등록일자<i class="bi bi-chevron-down"></i></th>
-                        <th className="m_AllCar_tableDel">삭제<p>({delCar.length}/{car.length})</p></th>
+                        <th className="m_AllCar_tableNum" style={{ width: "7%" }}>번호</th>
+                        <th className="m_AllCar_tablecod" style={{ width: "10%" }} onClick={() => sortHandler("carId")}>차량ID<i className="bi bi-caret-down-fill"></i></th>
+                        <th className="m_AllCar_tableCarImg" style={{ width: "15%" }}>이미지</th>
+                        <th className="m_AllCar_tableCar" style={{ width: "10%" }} onClick={() => sortHandler("brand")}>브랜드<i className="bi bi-caret-down-fill"></i></th>
+                        <th className="m_AllCar_tableCar" style={{ width: "15%" }} onClick={() => sortHandler("model")}>모델명<i className="bi bi-caret-down-fill"></i></th>
+                        <th className="m_AllCar_tableCarNum" style={{ width: "10%" }} onClick={() => sortHandler("number")}>차량번호<i className="bi bi-caret-down-fill"></i></th>
+                        <th className="m_AllCar_tableRegDate" style={{ width: "15%" }} onClick={() => sortHandler("regDate")}>등록일자<i className="bi bi-caret-down-fill"></i></th>
+                        <th className="m_AllCar_tableDel" style={{ width: "10%" }}>삭제<p>({delCar.length}/{car.length})</p></th>
                     </tr>
                 </thead>
 
