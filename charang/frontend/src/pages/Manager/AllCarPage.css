@@ -118,35 +118,12 @@
     text-align: center;
 }
 
-.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tablecod{
-    width: 10%;
-}
-.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableCarImg{
-    width: 15%;
-}
-.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableBrand{
-    width: 15%;
+.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableBrand, .m_AllCar_tableModel, .m_AllCar_tableId, .m_AllCar_tableCarNum{
     cursor: pointer;
 }
-.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableBrand:hover{
-    text-decoration: underline;
-}
-.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableModel{
-    width: 15%;
-    cursor: pointer;
-}
-.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableModel:hover{
-    text-decoration: underline;
-}
-.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableId{
-    cursor: pointer;
-}
-.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableId:hover{
-    text-decoration: underline;
-}
-.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableCarNum{
-    cursor: pointer;
-}
+.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableBrand:hover,
+.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableModel:hover,
+.ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableId:hover,
 .ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr .m_AllCar_tableCarNum:hover{
     text-decoration: underline;
 }
