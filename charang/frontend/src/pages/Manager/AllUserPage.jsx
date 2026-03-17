@@ -233,17 +233,17 @@ export default function AllUserPage() {
 
                         <th>번호</th>
 
-                        <th onClick={() => sortHandler("userId")} className="managerAllUser_userId">회원ID<i className="bi bi-caret-down-fill"></i></th>
+                        <th onClick={() => sortHandler("userId")} className="managerAllUser_userId">회원ID<i class="bi bi-chevron-down"></i></th>
 
-                        <th onClick={() => sortHandler("name")} className="managerAllUser_userName">회원이름<i className="bi bi-caret-down-fill"></i></th>
+                        <th onClick={() => sortHandler("name")} className="managerAllUser_userName">회원이름<i class="bi bi-chevron-down"></i></th>
 
-                        <th onClick={() => sortHandler("mail")} className="managerAllUser_userEmail">이메일<i className="bi bi-caret-down-fill"></i></th>
+                        <th onClick={() => sortHandler("mail")} className="managerAllUser_userEmail">이메일<i class="bi bi-chevron-down"></i></th>
 
-                        <th onClick={() => sortHandler("resistNum")} className="managerAllUser_userResiNum">주민등록번호<i className="bi bi-caret-down-fill"></i></th>
+                        <th onClick={() => sortHandler("resistNum")} className="managerAllUser_userResiNum">주민등록번호<i class="bi bi-chevron-down"></i></th>
 
-                        <th onClick={() => sortHandler("phone")} className="managerAllUser_userPhone">휴대폰번호<i className="bi bi-caret-down-fill"></i></th>
+                        <th onClick={() => sortHandler("phone")} className="managerAllUser_userPhone">휴대폰번호<i class="bi bi-chevron-down"></i></th>
 
-                        <th onClick={() => sortHandler("regDate")} className="managerAllUser_userRegDate">가입일자<i className="bi bi-caret-down-fill"></i></th>
+                        <th onClick={() => sortHandler("regDate")} className="managerAllUser_userRegDate">가입일자<i class="bi bi-chevron-down"></i></th>
 
                         <th>
                             삭제
