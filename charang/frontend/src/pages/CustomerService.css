@@ -60,8 +60,11 @@
 }
 .invendropdownBtn .bi.bi-chevron-down.active {
   transform: rotate(180deg);
-}
 
+}
+.invenTH .invendropdownBtn i{
+    margin-left: 20px;
+}
 
 .togglediv{
     /* padding: 15px; */
