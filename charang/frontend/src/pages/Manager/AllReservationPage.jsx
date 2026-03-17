@@ -6,8 +6,22 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AllReservationPage(){
 
-    const { pageNum, paging, allBookCar, searchTypeBook, setSearchTypeBook, searchWordBook, setSearchWordBook, searchResetHandler,
-        bookFind, setPageNum, pagesHandler, allBookStatus, bookStatusFind } = useContext(DataContext);
+    const { 
+        pageNum, 
+        paging, 
+        allBookCar, 
+        searchTypeBook, 
+        setSearchTypeBook, 
+        searchWordBook, 
+        setSearchWordBook, 
+        searchResetHandler,
+        bookFind, 
+        setPageNum, 
+        pagesHandler, 
+        allBookStatus, 
+        bookStatusFind, 
+        isBookLoading 
+    } = useContext(DataContext);
 
     // 화면 이동 훅
     const navi = useNavigate();
@@ -157,6 +171,15 @@ export default function AllReservationPage(){
                         <th className="AllReservation_tableResDate" style={{width:'10%'}}>삭제<p>({delBooking.length}/{allBookStatus.length})</p></th>
                     </tr>
                 </thead>
+                {isBookLoading? (
+                    <tbody className="m_AllCar_tb">
+                        <tr className="m_AllCar_tr_none">
+                            <td colSpan={8} className="m_AllCar_td_none">
+                                예약정보를 불러오는 중입니다...
+                            </td>
+                        </tr>
+                    </tbody>
+                ) : (
                 <tbody className="AllReservation_table_tb">
                     {allBookCar && allBookCar.length > 0 ? (
                     allBookCar.map((item, index) => {
@@ -197,6 +220,7 @@ export default function AllReservationPage(){
                     )}
                     
                 </tbody>
+                )}
             </table>
             {/* 페이징 */}
             <div className="paging">

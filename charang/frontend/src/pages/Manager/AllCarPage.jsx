@@ -178,9 +178,9 @@ export default function AllCarPage() {
                 {/* --- Step.2 로딩 상태 적용 --- */}
                 {isCarLoading ? (
                     <tbody className="m_AllCar_tb">
-                        <tr>
-                            <td colSpan={8} style={{ textAlign: 'center', padding: '30px' }}>
-                                차량 정보를 불러오는 중입니다...
+                        <tr className="m_AllCar_tr_none">
+                            <td colSpan={8} className="m_AllCar_td_none">
+                                차량정보를 불러오는 중입니다...
                             </td>
                         </tr>
                     </tbody>
