@@ -96,7 +96,7 @@
 }
 
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userName {
-    width: 7%;
+    width: 9%;
     cursor: pointer;
 }
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userName:hover {
@@ -120,7 +120,7 @@
 }
 
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userPhone {
-    width: 10%;
+    width: 13%;
     cursor: pointer;
 }
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userPhone:hover {
@@ -128,7 +128,7 @@
 }
 
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userRegDate {
-    width: 15%;
+    width: 17%;
     cursor: pointer;
 }
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userRegDate:hover {
