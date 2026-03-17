@@ -167,13 +167,12 @@
     border-bottom: none;
 }
 
-.mau_div {
-    text-decoration: underline;
+.mau_td{
+    cursor: pointer;
 }
 
 .mau_td:hover {
     text-decoration: underline;
-    cursor: pointer;
 }
 
 

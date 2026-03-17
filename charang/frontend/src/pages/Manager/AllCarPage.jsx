@@ -165,12 +165,12 @@ export default function AllCarPage() {
                 <thead className="m_AllCar_th">
                     <tr className="m_AllCar_tr">
                         <th className="m_AllCar_tableNum">번호</th>
-                        <th onClick={() => sortHandler("carId")} className="m_AllCar_tablecod">차량ID</th>
+                        <th onClick={() => sortHandler("carId")} className="m_AllCar_tableTh">차량ID</th>
                         <th className="m_AllCar_tableCarImg">이미지</th>
-                        <th onClick={() => sortHandler("brand")} >브랜드</th>
-                        <th onClick={() => sortHandler("model")} >모델명</th>
-                        <th onClick={() => sortHandler("number")} className="m_AllCar_tableCarNum">차량번호</th>
-                        <th onClick={() => sortHandler("regDate")} className="m_AllCar_tableRegDate">등록일자</th>
+                        <th onClick={() => sortHandler("brand")} className="m_AllCar_tableTh">브랜드</th>
+                        <th onClick={() => sortHandler("model")} className="m_AllCar_tableTh">모델명</th>
+                        <th onClick={() => sortHandler("number")} className="m_AllCar_tableTh">차량번호</th>
+                        <th onClick={() => sortHandler("regDate")} className="m_AllCar_tableTh">등록일자</th>
                         <th className="m_AllCar_tableDel">삭제<p>({delCar.length}/{car.length})</p></th>
                     </tr>
                 </thead>
