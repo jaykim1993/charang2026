@@ -85,6 +85,15 @@ th .bi-chevron-down{
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_tb .managerAllUser_tr{
     height: 60px;
 }
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_tb .managerAllUser_tr th{
+    background-color: #f1f3f5;
+    color: #555;
+    padding: 12px 10px;
+    font-size: 15px;
+    border-bottom: 1px solid #d8d8d8;
+    text-align: center;
+    font-weight: 600;
+}
 
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_num {
     width: 5%;
