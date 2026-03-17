@@ -245,7 +245,7 @@ export default function AllUserPage() {
 
                         <th onClick={() => sortHandler("regDate")} className="managerAllUser_userRegDate">가입일자<i class="bi bi-chevron-down"></i></th>
 
-                        <th>
+                        <th className="managerAllUser_userDel">
                             삭제
                             <p>({delUser.length}/{userCnt})</p>
                         </th>
