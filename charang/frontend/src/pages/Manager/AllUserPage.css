@@ -100,7 +100,7 @@ th .bi-chevron-down{
 }
 
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userName {
-    width: 9%;
+    width: 11%;
     cursor: pointer;
 }
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userName:hover {
