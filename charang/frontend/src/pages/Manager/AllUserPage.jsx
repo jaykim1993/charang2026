@@ -143,10 +143,10 @@ export default function AllUserPage() {
     const placeholderWord = () => {
 
         if (userSearchType === "userId") {
-            return "아이디를 검색하세요";
+            return "회원ID를 검색하세요";
         }
 
-        return "이름을 검색하세요";
+        return "회원이름을 검색하세요";
     };
 
     // ================= 회원 수 =================

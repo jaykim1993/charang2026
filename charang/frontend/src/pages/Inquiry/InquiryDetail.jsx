@@ -106,7 +106,7 @@ export default function AllInquiryDetail() {
                     </tr>
                 </tbody>
             </table>
-            <button onClick={() => navigate("/customerservice/inquiry/list")}>목록으로 돌아가기</button>
+            <button onClick={() => navigate(-1)}>목록으로 돌아가기</button>
         </div>
     )
 }

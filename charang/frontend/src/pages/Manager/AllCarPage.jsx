@@ -122,7 +122,7 @@ export default function AllCarPage() {
     const placeholderWord = () => {
         if (searchType === "carName") return "모델명을 검색하세요";
         if (searchType === "carNum") return "차량번호를 검색하세요";
-        return "차량브랜드를 검색하세요";
+        return "브랜드를 검색하세요";
     }
     
     useEffect(() => {
