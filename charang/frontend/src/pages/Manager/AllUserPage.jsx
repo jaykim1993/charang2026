@@ -22,7 +22,8 @@ export default function AllUserPage() {
         setUserSearchType,
         setUserSearchWord,
         bookStatusFind,
-        allBookStatus
+        allBookStatus,
+        isUserLoading
     } = useContext(DataContext);
 
     // 실제 검색에 사용할 키워드
@@ -45,7 +46,7 @@ export default function AllUserPage() {
 
     // ================= 검색 =================
     const searchHandler = () => {
-        setPageNum(1);
+        setPageNum(1); 
         setSearchKeyword(userSearchWord);
     };
 
@@ -214,7 +215,7 @@ export default function AllUserPage() {
 
                 <p className="mau_info">
                     <i className="bi bi-exclamation-circle-fill"
-                       style={{ paddingRight: "5px" }}></i>
+                        style={{ paddingRight: "5px" }}></i>
                     이용 중이거나 예약된 내역이 있으면 삭제가 불가능합니다.
                 </p>
 
@@ -251,22 +252,25 @@ export default function AllUserPage() {
 
                     </tr>
                 </thead>
-
-                {user && user.length > 0 ? (
+                {isUserLoading ? (
+                    <tbody className="m_AllCar_tb">
+                        <tr className="m_AllCar_tr_none">
+                            <td colSpan={8} className="m_AllCar_td_none">
+                                회원정보를 불러오는 중입니다...
+                            </td>
+                        </tr>
+                    </tbody>
+                ) : user && user.length > 0 ? (
 
                     <tbody className="managerAllUser_table_tb">
 
                         {user.map((user, index) => {
 
                             const pageSize = paging?.pageSize || 10;
-
-                            const rowNumber =
-                                (pageNum - 1) * pageSize + index + 1;
+                            const rowNumber = (pageNum - 1) * pageSize + index + 1;
 
                             return (
-
                                 <tr key={index}>
-
                                     <td>{rowNumber}</td>
 
                                     <td onClick={() => oneInfoClick(user.userId)} className="mau_td">
@@ -292,23 +296,17 @@ export default function AllUserPage() {
                                     <td>{user.regDate}</td>
 
                                     <td>
-
                                         {noRes(user.userId)
                                             ? <p>불가</p>
                                             :
                                             <input
                                                 type="checkbox"
                                                 checked={delUser.includes(user.userId)}
-                                                onChange={(e) =>
-                                                    checkHandler(e, user.userId)
-                                                }
+                                                onChange={(e) => checkHandler(e, user.userId)}
                                             />
                                         }
-
                                     </td>
-
                                 </tr>
-
                             )
                         })}
 
@@ -317,18 +315,15 @@ export default function AllUserPage() {
                 ) : (
 
                     <tbody>
-
-                        <tr>
-
-                            <td colSpan={7}>
-                                회원 정보가 없습니다.
+                        <tr className="m_AllCar_tr_none">
+                            <td className="m_AllCar_td_none" colSpan={7}>
+                                회원이 존재하지 않습니다.
                             </td>
-
                         </tr>
-
                     </tbody>
 
                 )}
+
 
             </table>
 
@@ -341,7 +336,7 @@ export default function AllUserPage() {
                             setPageNum(paging.startPage - 1)
                         }
                     >
-                        ◀
+                        <i className="bi bi-caret-left-fill"></i>
                     </button>
                 }
 
@@ -363,7 +358,7 @@ export default function AllUserPage() {
                             setPageNum(paging.endPage + 1)
                         }
                     >
-                        ▶
+                        <i className="bi bi-caret-right-fill"></i>
                     </button>
                 }
 

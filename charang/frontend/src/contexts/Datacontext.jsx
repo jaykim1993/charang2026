@@ -42,12 +42,13 @@ export default function DataProvider({children}){
   // 예약 검색
   const [searchTypeBook, setSearchTypeBook] = useState('');
   const [searchWordBook, setSearchWordBook] = useState('');
-
+  const [isBookLoading, setIsBookLoading] = useState(false); // 로딩 상태 추가
 
   // 전체 예약
     const bookFind = () => {
         // console.log("검색 타입:", searchTypeBook); 
         // console.log("검색 단어:", searchWordBook);
+        setIsBookLoading(true);
         axios.get("/api/bookcarlist",{params:{searchType:searchTypeBook, searchWord:searchWordBook, page:pageNum}})
         .then((res)=>{
             if(res.data){
@@ -59,6 +60,7 @@ export default function DataProvider({children}){
         .catch((error)=>{
             console.log("예약정보 받기 서버 오류", error);
         })
+        .finally(()=> setIsBookLoading(false));
     }
 
   // 회원 검색
@@ -196,7 +198,8 @@ export default function DataProvider({children}){
               allBookStatus, // 변수
 
               // 로딩 보내기
-              isUserLoading // 유저
+              isUserLoading, // 유저
+              isBookLoading // 예약
               }}>
         {children}
       </DataContext.Provider>
