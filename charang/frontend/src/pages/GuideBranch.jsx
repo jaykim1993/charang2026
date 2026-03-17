@@ -83,7 +83,7 @@ export default function GuideBranch(){
       (pos) => {
         const mylat = pos.coords.latitude;
         const mylng = pos.coords.longitude;
-        console.log('내 위치:', mylat, mylng);
+        // console.log('내 위치:', mylat, mylng);
       },
       (err) => {
         console.error('위치 오류', err);
