@@ -1,4 +1,3 @@
-
 .AllReservation {
     max-width: 1300px;
     margin: 120px auto;
@@ -74,6 +73,7 @@
 .AllReservation .AllReservation_table .AllReservation_table_th .AllReservation_tableResDate>p {
     font-size: 13px;
     font-weight: 500;
+    margin-top: 7px;
 }
 
 .AllReservation .AllReservation_table {
@@ -89,6 +89,7 @@
 
 .AllReservation .AllReservation_table thead tr{
     height: 60px;
+    line-height: 0.7;
 }
 .AllReservation .AllReservation_table thead tr th {
     background-color: #f1f3f5;

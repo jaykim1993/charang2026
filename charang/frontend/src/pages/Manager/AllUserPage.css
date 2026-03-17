@@ -11,7 +11,7 @@
 th .bi-chevron-down{
     color: #555;
     font-size: 15px;
-    padding-left: 8px;
+    margin-left: 5px
 }
 .ManagerAllUser h1 {
     text-align: center;
@@ -83,8 +83,9 @@ th .bi-chevron-down{
 }
 
 /* 테이블 스타일 */
-.ManagerAllUser .managerAllUser_table .managerAllUser_table_tb .managerAllUser_tr{
+.ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr{
     height: 60px;
+    line-height: 0.7;
 }
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr th{
     background-color: #f1f3f5;
@@ -154,6 +155,7 @@ th .bi-chevron-down{
 .ManagerAllUser .managerAllUser_table .managerAllUser_table_th .managerAllUser_tr .managerAllUser_userDel p {
     font-size: 13px;
     font-weight: 500;
+    margin-top: 7px;
 }
 
 .managerAllUser_table {
