@@ -12,7 +12,6 @@ export default function AllUserPage() {
         pageNum,
         setPageNum,
         user,
-        searchResetHandler,
         setSortType,
         setSort,
         sortType,
@@ -26,51 +25,50 @@ export default function AllUserPage() {
         allBookStatus
     } = useContext(DataContext);
 
-    const [searchState, setSearchState] = useState(false);
+    // 실제 검색에 사용할 키워드
+    const [searchKeyword, setSearchKeyword] = useState("");
 
     // ================= 초기 진입 =================
     useEffect(() => {
         setPageNum(1);
-        setUserSearchWord('');
-        searchResetHandler();
-        userCount();
+        setUserSearchWord("");
+        setSearchKeyword("");
         bookStatusFind();
+        userCount();
     }, []);
 
     // ================= 데이터 조회 =================
     useEffect(() => {
-        userFind(userSearchWord);
+        userFind(searchKeyword);
         userCount();
-    }, [pageNum, sortType, sort, searchState]);
+    }, [pageNum, sortType, sort, searchKeyword]);
 
     // ================= 검색 =================
     const searchHandler = () => {
         setPageNum(1);
-        userFind(userSearchWord);
-        setSearchState(!searchState);
-    }
+        setSearchKeyword(userSearchWord);
+    };
 
     const inputDelHandler = () => {
         setUserSearchWord("");
+        setSearchKeyword("");
         setPageNum(1);
-        setSearchState(!searchState);
-    }
+    };
 
     // ================= 정렬 =================
     const sortHandler = (type) => {
 
         if (sortType === type) {
-            sort === 'asc'
+            sort === "asc"
                 ? setSort("desc")
                 : setSort("asc");
-        }
-        else {
+        } else {
             setSortType(type);
             setSort("desc");
         }
 
         setPageNum(1);
-    }
+    };
 
     // ================= 삭제 =================
     const [delUser, setDelUser] = useState([]);
@@ -86,7 +84,7 @@ export default function AllUserPage() {
         }
 
         setDelUser(delUserCopy);
-    }
+    };
 
     const delHandler = () => {
 
@@ -103,9 +101,10 @@ export default function AllUserPage() {
             .then((res) => {
 
                 if (res.data === 1) {
+
                     alert(`${delUser.length}명의 회원데이터가 삭제되었습니다`);
 
-                    userFind(userSearchWord);
+                    userFind(searchKeyword);
                     setDelUser([]);
                     userCount();
 
@@ -116,10 +115,10 @@ export default function AllUserPage() {
             })
             .catch((error) => {
                 console.log("삭제 에러:", error);
-            })
-    }
+            });
+    };
 
-    // ================= 예약 존재 여부 =================
+    // ================= 예약 여부 =================
     const noRes = (userId) => {
 
         const ingUser = allBookStatus
@@ -130,24 +129,24 @@ export default function AllUserPage() {
             .map(res => res.userId);
 
         return ingUser.includes(userId);
-    }
+    };
 
     // ================= 상세 페이지 =================
     const navigate = useNavigate();
 
     const oneInfoClick = (userId) => {
         navigate(`/manager/userDetail/${userId}`);
-    }
+    };
 
     // ================= placeholder =================
     const placeholderWord = () => {
 
-        if (userSearchType === 'userId') {
+        if (userSearchType === "userId") {
             return "아이디를 검색하세요";
         }
 
         return "이름을 검색하세요";
-    }
+    };
 
     // ================= 회원 수 =================
     const [userCnt, setUserCnt] = useState(0);
@@ -160,8 +159,8 @@ export default function AllUserPage() {
             })
             .catch((error) => {
                 console.log("회원 수 에러:", error);
-            })
-    }
+            });
+    };
 
     // ================= 주민번호 마스킹 =================
     const maskNum = (num) => {
@@ -233,17 +232,17 @@ export default function AllUserPage() {
 
                         <th>번호</th>
 
-                        <th onClick={() => sortHandler("userId")}>회원ID</th>
+                        <th onClick={() => sortHandler("userId")} className="managerAllUser_userId">회원ID</th>
 
-                        <th onClick={() => sortHandler("name")}>회원이름</th>
+                        <th onClick={() => sortHandler("name")} className="managerAllUser_userName">회원이름</th>
 
-                        <th onClick={() => sortHandler("mail")}>이메일</th>
+                        <th onClick={() => sortHandler("mail")} className="managerAllUser_userEmail">이메일</th>
 
-                        <th onClick={() => sortHandler("resistNum")}>주민등록번호</th>
+                        <th onClick={() => sortHandler("resistNum")} className="managerAllUser_userResiNum">주민등록번호</th>
 
-                        <th onClick={() => sortHandler("phone")}>휴대폰번호</th>
+                        <th onClick={() => sortHandler("phone")} className="managerAllUser_userPhone">휴대폰번호</th>
 
-                        <th onClick={() => sortHandler("regDate")}>가입일자</th>
+                        <th onClick={() => sortHandler("regDate")} className="managerAllUser_userRegDate">가입일자</th>
 
                         <th>
                             삭제
@@ -270,23 +269,23 @@ export default function AllUserPage() {
 
                                     <td>{rowNumber}</td>
 
-                                    <td onClick={() => oneInfoClick(user.userId)}>
+                                    <td onClick={() => oneInfoClick(user.userId)} className="mau_td">
                                         {user.userId}
                                     </td>
 
-                                    <td onClick={() => oneInfoClick(user.userId)}>
+                                    <td onClick={() => oneInfoClick(user.userId)} className="mau_td">
                                         {user.name}
                                     </td>
 
-                                    <td onClick={() => oneInfoClick(user.userId)}>
+                                    <td onClick={() => oneInfoClick(user.userId)} className="mau_td">
                                         {user.mail}
                                     </td>
 
-                                    <td onClick={() => oneInfoClick(user.userId)}>
+                                    <td onClick={() => oneInfoClick(user.userId)} className="mau_td">
                                         {maskNum(user.resistNum)}
                                     </td>
 
-                                    <td onClick={() => oneInfoClick(user.userId)}>
+                                    <td onClick={() => oneInfoClick(user.userId)} className="mau_td">
                                         {user.phone}
                                     </td>
 

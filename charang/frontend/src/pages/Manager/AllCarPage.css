@@ -92,30 +92,13 @@
     text-align: center;
     border-bottom: 1px solid #c0c0c0;
 }
-.ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tr .m_AllCar_tablecod{
+.ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tr .m_AllCar_tableTh{
     cursor: pointer;
 }
-.ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tr .m_AllCar_tablecod:hover{
+.ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tr .m_AllCar_tableTh:hover{
     text-decoration: underline;
 }
-.ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tr .m_AllCar_tableCar{
-    cursor: pointer;
-}
-.ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tr .m_AllCar_tableCar:hover{
-    text-decoration: underline;
-}
-.ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tr .m_AllCar_tableCarNum{
-    cursor: pointer;
-}
-.ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tr .m_AllCar_tableCarNum:hover{
-    text-decoration: underline;
-}
-.ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tr .m_AllCar_tableRegDate{
-    cursor: pointer;
-}
-.ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tr .m_AllCar_tableRegDate:hover{
-    text-decoration: underline;
-}
+
 .ManagerAllCar .m_AllCar_table .m_AllCar_tb .m_AllCar_tr{
     height: 60px;
 }
