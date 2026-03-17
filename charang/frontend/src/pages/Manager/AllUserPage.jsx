@@ -1,257 +1,370 @@
 import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/Datacontext";
 import { useNavigate } from "react-router-dom";
-
 import './AllUserPage.css';
 import axios from "axios";
 
 export default function AllUserPage() {
 
-    const { pagesHandler, paging, pageNum, setPageNum, user, searchResetHandler, setSortType, setSort, sortType, sort, userSearchWord,
-        userFind, userSearchType, setUserSearchType, setUserSearchWord, bookStatusFind, allBookStatus } = useContext(DataContext);
-    // --- 추가된 초기화 로직 ---
+    const {
+        pagesHandler,
+        paging,
+        pageNum,
+        setPageNum,
+        user,
+        searchResetHandler,
+        setSortType,
+        setSort,
+        sortType,
+        sort,
+        userSearchWord,
+        userFind,
+        userSearchType,
+        setUserSearchType,
+        setUserSearchWord,
+        bookStatusFind,
+        allBookStatus
+    } = useContext(DataContext);
+
+    // ================= 초기 진입 =================
     useEffect(() => {
-        // 다른 페이지에서 진입 시 무조건 1페이지로 시작
         setPageNum(1);
         setUserSearchWord('');
         searchResetHandler();
         userCount();
+        bookStatusFind();
     }, []);
 
-    // 회원 검색 핸들러
+    // ================= 데이터 조회 =================
+    useEffect(() => {
+        userFind(userSearchWord);
+        userCount();
+    }, [pageNum, sortType, sort, userSearchWord]);
+
+    // ================= 검색 =================
     const searchHandler = () => {
-        setPageNum(1); // 검색했을때 1페이지를 기본값으로 초기화cd 
-        userFind(userSearchWord); // ◀ 인자 추가
+        setPageNum(1);
     }
 
-    useEffect(() => {
-        if (userSearchWord === "") {
-            // 인풋이 비워졌을 때만 1페이지로 돌리고 데이터를 새로 고침
-            setPageNum(1);
-            userFind("");
-        }
-    }, [userSearchWord]); // userSearchWord가 ""로 변하는 순간 딱 한 번 실행됨
-
-const inputDelHandler = () => {
+    const inputDelHandler = () => {
         setUserSearchWord("");
         setPageNum(1);
-        searchResetHandler();
-        userFind(""); 
     }
 
-    // sort 핸들러
+    // ================= 정렬 =================
     const sortHandler = (type) => {
-        // 재클릭(desc -> asc)
+
         if (sortType === type) {
-            sort === 'asc' ? setSort("desc") : setSort("asc")
+            sort === 'asc'
+                ? setSort("desc")
+                : setSort("asc");
         }
-        // 처음 클릭(desc)
         else {
             setSortType(type);
+            setSort("desc");
         }
+
         setPageNum(1);
     }
-    // -----------------------
-    // 전체 예약, 전체 회원 출력 함수 호출
-    useEffect(() => {
-        userFind();
-        bookStatusFind();
-        userCount();
-    }, [pageNum, sortType, sort]);
 
-    // 회원 삭제
+    // ================= 삭제 =================
     const [delUser, setDelUser] = useState([]);
-    // 체크된 회원의 id만 가져오는 핸들러
+
     const checkHandler = (e, userId) => {
 
         let delUserCopy = [...delUser];
 
-        // 체크되어있으면 delUser배열에 넣기(true)
         if (e.target.checked) {
             delUserCopy.push(userId);
-            setDelUser(delUserCopy);
-        }
-        // 체크를 했다가 취소할 경우(false)
-        else {
+        } else {
             delUserCopy = delUser.filter(id => id !== userId);
-            setDelUser(delUserCopy);
         }
+
+        setDelUser(delUserCopy);
     }
 
     const delHandler = () => {
-        if (delUser.length == 0) {
-            alert("삭제할 예약을 선택해주세요.");
+
+        if (delUser.length === 0) {
+            alert("삭제할 회원을 선택해주세요.");
             return;
-        } else {
-            const confirmCancel = window.confirm(`${delUser.length}명의 회원데이터를 삭제하시겠습니까?`);
-            if (!confirmCancel) return;
-            axios.delete("/api/delete", { data: delUser })
-                .then((res) => {
-                    // console.log("삭제 결과: ", res.data);
-                    if (res.data == 1) {
-                        alert(`${delUser.length}명의 회원데이터가 삭제되었습니다`);
-                        userFind();
-                        setDelUser([]);
-                        userCount();
-                    } else {
-                        alert("다시 시도해주세요.");
-                    }
-                })
-                .catch((error) => {
-                    console.log("받아온 삭제 결과 에러: ", error);
-                })
         }
+
+        const confirmCancel = window.confirm(`${delUser.length}명의 회원데이터를 삭제하시겠습니까?`);
+
+        if (!confirmCancel) return;
+
+        axios.delete("/api/delete", { data: delUser })
+            .then((res) => {
+
+                if (res.data === 1) {
+                    alert(`${delUser.length}명의 회원데이터가 삭제되었습니다`);
+
+                    userFind(userSearchWord);
+                    setDelUser([]);
+                    userCount();
+
+                } else {
+                    alert("다시 시도해주세요.");
+                }
+
+            })
+            .catch((error) => {
+                console.log("삭제 에러:", error);
+            })
     }
 
-
-    // 예약이 앞으로 존재하는 회원인지 구분
+    // ================= 예약 존재 여부 =================
     const noRes = (userId) => {
-        // 앞으로 예약이 존재하는 회원
+
         const ingUser = allBookStatus
-            .filter(pastStatus => pastStatus.bookingStatus === "UPCOMING" || pastStatus.bookingStatus === "ONGOING")
+            .filter(status =>
+                status.bookingStatus === "UPCOMING" ||
+                status.bookingStatus === "ONGOING"
+            )
             .map(res => res.userId);
+
         return ingUser.includes(userId);
     }
 
-    // 해당 정보 상세보기 핸들러
+    // ================= 상세 페이지 =================
     const navigate = useNavigate();
 
     const oneInfoClick = (userId) => {
-        navigate(`/manager/userDetail/${userId}`); // 주소창에 ID를 실어서 페이지 자체를 이동
+        navigate(`/manager/userDetail/${userId}`);
     }
 
-    // placeholder
+    // ================= placeholder =================
     const placeholderWord = () => {
-        // console.log("검색", userSearchType);
+
         if (userSearchType === 'userId') {
             return "아이디를 검색하세요";
-        } else {
-            return "이름을 검색하세요";
         }
+
+        return "이름을 검색하세요";
     }
 
-    // 전체 회원 개수 불러오기
+    // ================= 회원 수 =================
     const [userCnt, setUserCnt] = useState(0);
+
     const userCount = () => {
+
         axios.get("/api/allUserCount")
             .then((res) => {
-                // console.log("받아온 전체 회원 개수: ", res.data);
                 setUserCnt(res.data);
             })
             .catch((error) => {
-                console.log("불러온 전체 회원 개수 에러: ", error);
+                console.log("회원 수 에러:", error);
             })
     }
 
-    // 마스킹 함수
+    // ================= 주민번호 마스킹 =================
     const maskNum = (num) => {
+
         if (!num) return "";
+
         return num.slice(0, 8) + "******";
     };
 
-
     return (
         <div className="ManagerAllUser">
+
             <h1>전체 회원목록</h1>
 
             {/* 검색 */}
             <div className="mau_find">
-                {/* 검색 타입 */}
-                <select name="userSearchType" className="mau_select"
-                    onChange={(e) => setUserSearchType(e.target.value)}>
+
+                <select
+                    name="userSearchType"
+                    className="mau_select"
+                    value={userSearchType}
+                    onChange={(e) => setUserSearchType(e.target.value)}
+                >
                     <option value="userId">회원ID</option>
                     <option value="name">회원이름</option>
                 </select>
-                {/* 검색 단어*/}
-                <input type="text" name="searchWord" className="mau_input" placeholder={placeholderWord()}
-                    onChange={(e) => setUserSearchWord(e.target.value)} value={userSearchWord} />
-                {userSearchWord != "" ? <i className="bi bi-x-circle-fill" onClick={inputDelHandler}></i> : <></>}
-                <button className="mau_btn" type="button" onClick={searchHandler}>검색</button>
+
+                <input
+                    type="text"
+                    name="searchWord"
+                    className="mau_input"
+                    placeholder={placeholderWord()}
+                    value={userSearchWord}
+                    onChange={(e) => setUserSearchWord(e.target.value)}
+                />
+
+                {userSearchWord !== "" &&
+                    <i
+                        className="bi bi-x-circle-fill"
+                        onClick={inputDelHandler}
+                    ></i>
+                }
+
+                <button
+                    className="mau_btn"
+                    type="button"
+                    onClick={searchHandler}
+                >
+                    검색
+                </button>
+
                 <p className="mau_info">
-                    <i className="bi bi-exclamation-circle-fill" style={{ paddingRight: "5px" }}></i>
+                    <i className="bi bi-exclamation-circle-fill"
+                       style={{ paddingRight: "5px" }}></i>
                     이용 중이거나 예약된 내역이 있으면 삭제가 불가능합니다.
                 </p>
-                <button className="del_btn" onClick={delHandler}>삭제하기</button>
+
+                <button className="del_btn" onClick={delHandler}>
+                    삭제하기
+                </button>
+
             </div>
 
+            {/* 테이블 */}
             <table className="managerAllUser_table" border={1}>
+
                 <thead className="managerAllUser_table_th">
                     <tr className="managerAllUser_tr">
-                        <th className="managerAllUser_num">번호</th>
-                        <th className="managerAllUser_userId" onClick={() => sortHandler("userId")}>회원ID</th>
-                        <th className="managerAllUser_userName" onClick={() => sortHandler("name")}>회원이름</th>
-                        <th className="managerAllUser_userEmail" onClick={() => sortHandler("mail")}>이메일</th>
-                        <th className="managerAllUser_userResiNum" onClick={() => sortHandler("resistNum")}>주민등록번호</th>
-                        <th className="managerAllUser_userPhone" onClick={() => sortHandler("phone")}>휴대폰번호</th>
-                        <th className="managerAllUser_userRegDate" onClick={() => sortHandler("regDate")}>가입일자</th>
-                        <th className="managerAllUser_userDel">삭제<p>({delUser.length}/{userCnt})</p></th>
+
+                        <th>번호</th>
+
+                        <th onClick={() => sortHandler("userId")}>회원ID</th>
+
+                        <th onClick={() => sortHandler("name")}>회원이름</th>
+
+                        <th onClick={() => sortHandler("mail")}>이메일</th>
+
+                        <th onClick={() => sortHandler("resistNum")}>주민등록번호</th>
+
+                        <th onClick={() => sortHandler("phone")}>휴대폰번호</th>
+
+                        <th onClick={() => sortHandler("regDate")}>가입일자</th>
+
+                        <th>
+                            삭제
+                            <p>({delUser.length}/{userCnt})</p>
+                        </th>
+
                     </tr>
                 </thead>
-                {user && user.length > 0 ?
-                    <tbody className="managerAllUser_table_tb">
-                        {user.map((user, index) => {
-                            const pageSize = paging?.pageSize || 10; // 페이지당 개수
-                            const rowNumber = (pageNum - 1) * pageSize + index + 1;
 
+                {user && user.length > 0 ? (
+
+                    <tbody className="managerAllUser_table_tb">
+
+                        {user.map((user, index) => {
+
+                            const pageSize = paging?.pageSize || 10;
+
+                            const rowNumber =
+                                (pageNum - 1) * pageSize + index + 1;
 
                             return (
-                                <tr className="managerAllUser_tr" key={index}>
+
+                                <tr key={index}>
+
                                     <td>{rowNumber}</td>
-                                    <td className="mau_td" onClick={() => oneInfoClick(user.userId)}>{user.userId}</td>
-                                    <td className="mau_td" onClick={() => oneInfoClick(user.userId)}>{user.name}</td>
-                                    <td className="mau_td" onClick={() => oneInfoClick(user.userId)}>{user.mail}</td>
-                                    <td className="mau_td" onClick={() => oneInfoClick(user.userId)}>{maskNum(user.resistNum)}</td>
-                                    <td className="mau_td" onClick={() => oneInfoClick(user.userId)}>{user.phone}</td>
+
+                                    <td onClick={() => oneInfoClick(user.userId)}>
+                                        {user.userId}
+                                    </td>
+
+                                    <td onClick={() => oneInfoClick(user.userId)}>
+                                        {user.name}
+                                    </td>
+
+                                    <td onClick={() => oneInfoClick(user.userId)}>
+                                        {user.mail}
+                                    </td>
+
+                                    <td onClick={() => oneInfoClick(user.userId)}>
+                                        {maskNum(user.resistNum)}
+                                    </td>
+
+                                    <td onClick={() => oneInfoClick(user.userId)}>
+                                        {user.phone}
+                                    </td>
+
                                     <td>{user.regDate}</td>
-                                    <td className="mau_delCheck">
-                                        {/* 체크한 회원의 userId만 값을 들고옴 */}
-                                        {/* e : 해당 값의 체크 상태를 확인하기 위해 */}
-                                        {noRes(user.userId) ?
-                                            <p>불가</p>
+
+                                    <td>
+
+                                        {noRes(user.userId)
+                                            ? <p>불가</p>
                                             :
-                                            <input type="checkbox" name="delcheck" checked={delUser.includes(user.userId)}
-                                                className="AllUser_del" onChange={(e) => { checkHandler(e, user.userId) }}></input>
+                                            <input
+                                                type="checkbox"
+                                                checked={delUser.includes(user.userId)}
+                                                onChange={(e) =>
+                                                    checkHandler(e, user.userId)
+                                                }
+                                            />
                                         }
 
                                     </td>
-                                </tr>)
+
+                                </tr>
+
+                            )
                         })}
+
                     </tbody>
-                    :
-                    <tbody className="managerAllUser_table_tb_none">
-                        <tr className="managerAllUser_tr">
-                            <td className="managerAllUser_table_td_none" colSpan={7}>
+
+                ) : (
+
+                    <tbody>
+
+                        <tr>
+
+                            <td colSpan={7}>
                                 회원 정보가 없습니다.
                             </td>
+
                         </tr>
+
                     </tbody>
-                }
+
+                )}
+
             </table>
 
             {/* 페이징 */}
             <div className="paging">
-                {/* 이전 버튼 */}
-                {/* 5페이지 넘어가야 화살표 나옴 */}
-                {paging.prev && (
-                    <button onClick={() => setPageNum(paging.startPage - 1)}>
-                        <i className="bi bi-caret-left-fill"></i>
-                    </button>
-                )}
 
-                {/* 페이지 번호들 */}
+                {paging.prev &&
+                    <button
+                        onClick={() =>
+                            setPageNum(paging.startPage - 1)
+                        }
+                    >
+                        ◀
+                    </button>
+                }
+
                 {pagesHandler().map(num => (
-                    <button key={num} className={pageNum === num ? "active" : ""} onClick={() => setPageNum(num)}>
+
+                    <button
+                        key={num}
+                        className={pageNum === num ? "active" : ""}
+                        onClick={() => setPageNum(num)}
+                    >
                         {num}
                     </button>
+
                 ))}
 
-                {/* 다음 버튼 */}
-                {paging.next && (
-                    <button onClick={() => setPageNum(paging.endPage + 1)}>
-                        <i className="bi bi-caret-right-fill"></i>
+                {paging.next &&
+                    <button
+                        onClick={() =>
+                            setPageNum(paging.endPage + 1)
+                        }
+                    >
+                        ▶
                     </button>
-                )}
+                }
+
             </div>
+
         </div>
     )
 }
