@@ -53,12 +53,12 @@
     margin-bottom: 80px;
 }
 
-.bi.bi-chevron-down {
+.invendropdownBtn .bi.bi-chevron-down {
   transition: transform 0.3s ease;
   scale: 0.8;
   margin-left: 20px;
 }
-.bi.bi-chevron-down.active {
+.invendropdownBtn .bi.bi-chevron-down.active {
   transform: rotate(180deg);
 }
 
