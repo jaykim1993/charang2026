@@ -25,7 +25,9 @@ export default function AllUserPage() {
         bookStatusFind,
         allBookStatus
     } = useContext(DataContext);
-    const [searchKeyword, setSearchKeyword] = useState("");
+
+    const [searchState, setSearchState] = useState(false);
+
     // ================= 초기 진입 =================
     useEffect(() => {
         setPageNum(1);
@@ -37,21 +39,22 @@ export default function AllUserPage() {
 
     // ================= 데이터 조회 =================
     useEffect(() => {
-        userFind(searchKeyword);
+        userFind(userSearchWord);
         userCount();
-    }, [pageNum, sortType, sort, searchKeyword]);
+    }, [pageNum, sortType, sort, searchState]);
 
     // ================= 검색 =================
     const searchHandler = () => {
         setPageNum(1);
-        setSearchKeyword(userSearchWord);
+        userFind(userSearchWord);
+        setSearchState(!searchState);
     }
 
     const inputDelHandler = () => {
         setUserSearchWord("");
-        setSearchKeyword("");
         setPageNum(1);
-    }   
+        setSearchState(!searchState);
+    }
 
     // ================= 정렬 =================
     const sortHandler = (type) => {
