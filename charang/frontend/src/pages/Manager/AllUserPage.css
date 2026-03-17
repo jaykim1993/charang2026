@@ -166,14 +166,6 @@ th .bi-chevron-down{
     border: 1px solid rgb(221, 221, 221);
 }
 
-.managerAllUser_table th {
-    background-color: #f1f3f5;
-    color: #555;
-    padding: 10px 10px;
-    font-size: 16px;
-    border-bottom: 1px solid #d8d8d8;
-    text-align: center;
-}
 
 .managerAllUser_table .managerAllUser_table_tb .managerAllUser_tr:last-child td {
     border-bottom: none;
