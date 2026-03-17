@@ -1,4 +1,3 @@
-
 .ManagerAllCar {
     max-width: 1300px;
     min-height: 800px;
@@ -83,7 +82,7 @@
 
 .ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tr {
     background-color: #f4f5f8;
-    line-height: 0.7;
+    line-height: 1;
 }
 
 .ManagerAllCar .m_AllCar_table .m_AllCar_th .m_AllCar_tr > th {
