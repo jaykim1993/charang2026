@@ -112,8 +112,12 @@ export default function AllReservationPage(){
         // console.log("검색 타입:", searchTypeBook);
         if (searchTypeBook === "bookingId") {
             return "예약코드를 검색하세요";
-        } else {
+        } else if(searchTypeBook === "userId") {
             return "예약자ID를 검색하세요";
+        } else if(searchTypeBook === "name") {
+            return "예약자를 검색하세요";
+        } else if(searchTypeBook === "car") {
+            return "예약차량를 검색하세요";
         }
     };
     

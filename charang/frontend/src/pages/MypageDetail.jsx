@@ -100,10 +100,28 @@ export default function MypageDetail() {
                             </div>
                         </div>
                         <div className='myPageCancleBtnBox'>
+                        {dText === "완료된 예약" ? (
                             <button
-                                className='myPageCancleBtn'
-                                onClick={handleDeleteBooking}
-                            >예약 취소하기</button>
+                            className='myPageCancleBtn'
+                            onClick={() => alert("완료된 예약은 취소할 수 없습니다.")}
+                            >
+                            예약 취소하기
+                            </button>
+                        ) : dText === "진행중" ? (
+                            <button
+                            className='myPageCancleBtn'
+                            onClick={() => alert("진행중인 예약은 취소할 수 없습니다.")}
+                            >
+                            예약 취소하기
+                            </button>
+                        ) : (
+                            <button
+                            className='myPageCancleBtn'
+                            onClick={handleDeleteBooking}
+                            >
+                            예약 취소하기
+                            </button>
+                        )}
                         </div>
                     </div>
                     <div className='mypageDetail2'>
