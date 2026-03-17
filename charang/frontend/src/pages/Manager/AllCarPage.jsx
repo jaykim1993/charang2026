@@ -165,12 +165,12 @@ export default function AllCarPage() {
                 <thead className="m_AllCar_th">
                     <tr className="m_AllCar_tr">
                         <th className="m_AllCar_tableNum" style={{ width: "7%" }}>번호</th>
-                        <th className="m_AllCar_tablecod" style={{ width: "10%" }} onClick={() => sortHandler("carId")}>차량ID<i className="bi bi-caret-down-fill"></i></th>
+                        <th className="m_AllCar_tablecod" style={{ width: "10%" }} onClick={() => sortHandler("carId")}>차량ID<i class="bi bi-chevron-down"></i></th>
                         <th className="m_AllCar_tableCarImg" style={{ width: "15%" }}>이미지</th>
-                        <th className="m_AllCar_tableCar" style={{ width: "10%" }} onClick={() => sortHandler("brand")}>브랜드<i className="bi bi-caret-down-fill"></i></th>
-                        <th className="m_AllCar_tableCar" style={{ width: "15%" }} onClick={() => sortHandler("model")}>모델명<i className="bi bi-caret-down-fill"></i></th>
-                        <th className="m_AllCar_tableCarNum" style={{ width: "10%" }} onClick={() => sortHandler("number")}>차량번호<i className="bi bi-caret-down-fill"></i></th>
-                        <th className="m_AllCar_tableRegDate" style={{ width: "15%" }} onClick={() => sortHandler("regDate")}>등록일자<i className="bi bi-caret-down-fill"></i></th>
+                        <th className="m_AllCar_tableCar" style={{ width: "10%" }} onClick={() => sortHandler("brand")}>브랜드<i class="bi bi-chevron-down"></i></th>
+                        <th className="m_AllCar_tableCar" style={{ width: "15%" }} onClick={() => sortHandler("model")}>모델명<i class="bi bi-chevron-down"></i></th>
+                        <th className="m_AllCar_tableCarNum" style={{ width: "10%" }} onClick={() => sortHandler("number")}>차량번호<i class="bi bi-chevron-down"></i></th>
+                        <th className="m_AllCar_tableRegDate" style={{ width: "15%" }} onClick={() => sortHandler("regDate")}>등록일자<i class="bi bi-chevron-down"></i></th>
                         <th className="m_AllCar_tableDel" style={{ width: "10%" }}>삭제<p>({delCar.length}/{car.length})</p></th>
                     </tr>
                 </thead>
