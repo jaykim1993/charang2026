@@ -17,49 +17,49 @@ export default function GuidePricing() {
     const selectKorean = () => {
         SetSelectWhereCar(true);
         SetSelectKoreanSize(1);
-        console.log(selectWhereCar);
+        // console.log(selectWhereCar);
     }
     const selectForeign = () => {
         SetSelectWhereCar(false);
         SetSelectForeignSize(1)
-        console.log(selectWhereCar);
+        // console.log(selectWhereCar);
     }
     //=====================================================================================================================
     const [selectKoreanSize, SetSelectKoreanSize] = useState(1); //국내차량 사이즈선택 기본값   소형 1 중형2 대형3 RV4 화물5
     const selectKoreanSmall = () => {  //국내소형선택
         SetSelectKoreanSize(1);
-        console.log(selectKoreanSize);
+        // console.log(selectKoreanSize);
     }
     const selectKoreanMiddle = () => {  //국내중형선택
         SetSelectKoreanSize(2);
-        console.log(selectKoreanSize);
+        // console.log(selectKoreanSize);
     }
     const selectKoreanLarge = () => {  //국내대형선택
         SetSelectKoreanSize(3);
-        console.log(selectKoreanSize);
+        // console.log(selectKoreanSize);
     }
     const selectKoreanRV = () => {  //국내RV선택
         SetSelectKoreanSize(4);
-        console.log(selectKoreanSize);
+        // console.log(selectKoreanSize);
     }
     const selectKoreanTruck = () => {  //국내화물선택
         SetSelectKoreanSize(5);
-        console.log(selectKoreanSize);
+        // console.log(selectKoreanSize);
     }
     //=====================================================================================================================
 
     const [selectForeignSize, SetSelectForeignSize] = useState(1); //수입차량 사이즈선택 기본값   소형 1 중형2 대형3
     const selectForeignSmall = () => {  //수입소형선택
         SetSelectForeignSize(1);
-        console.log(selectForeignSize);
+        // console.log(selectForeignSize);
     }
     const selectForeignMiddle = () => {  //수입중형선택
         SetSelectForeignSize(2);
-        console.log(selectForeignSize);
+        // console.log(selectForeignSize);
     }
     const selectForeignLarge = () => {  //수입대형선택
         SetSelectForeignSize(3);
-        console.log(selectForeignSize);
+        // console.log(selectForeignSize);
     }
     //=====================================================================================================================
     const KOREAN_BRANDS = ['한대', '크아', '제네러스', 'KGB', '라노', '쉐레보'];
