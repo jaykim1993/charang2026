@@ -296,7 +296,7 @@ export default function AllUserPage() {
                                     <td>{user.regDate}</td>
 
                                     <td>
-                                        {noRes(user.userId)
+                                        {noRes(user.userId) || user.userId === "admin"
                                             ? <p>불가</p>
                                             :
                                             <input

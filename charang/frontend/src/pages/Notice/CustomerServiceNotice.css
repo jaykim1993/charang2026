@@ -20,7 +20,7 @@
 .notice_table {
     position: relative;
 }
-.adminBtn{
+.admin_notice_write{
     position: absolute;
     right: 0;
     bottom: 0;
