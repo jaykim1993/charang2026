@@ -1,5 +1,5 @@
 /* 공지사항 전체 */
-.notice{
+.notice {
     /* width: 90%; */
     min-height: 800px;
     /* margin: 50px auto; */
@@ -7,18 +7,26 @@
 }
 
 /* 공지사항 타이틀 */
-.notice_admin{
+.notice_admin {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     /* margin-bottom: 10px; */
 }
-.notice .notice_admin h4{
+
+.notice .notice_admin h4 {
     font-size: 24px;
 }
-
+.notice_table {
+    position: relative;
+}
+.adminBtn{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
 /* 관리자 버튼 */
-.adminBtn button{
+.adminBtn button {
     /* color: white; */
     padding: 7px 20px;
     border: none;
@@ -26,17 +34,21 @@
     cursor: pointer;
     margin: 0 5px;
 }
-.adminBtn .adminBtn_1{
+
+.adminBtn .adminBtn_1 {
     background-color: #1e75f5;
     color: #fff;
 }
-.adminBtn .adminBtn_1:hover{
+
+.adminBtn .adminBtn_1:hover {
     background-color: #1763D1;
 }
-.adminBtn .adminBtn_2{
+
+.adminBtn .adminBtn_2 {
     background-color: #dee2e6;
 }
-.adminBtn .adminBtn_2:hover{
+
+.adminBtn .adminBtn_2:hover {
     background-color: #c7cbce;
 }
 
@@ -86,44 +98,89 @@
     text-overflow: ellipsis;
 }
 
-/* .notice .notice_table table td a:hover{
-    color: #0b79b7;
-} */
-
 /* 번호, 날짜, 조회수 열 너비 조절 */
-.notice th:nth-child(1), .notice td:nth-child(1){ width: 10%; text-align: center; }
-.notice th:nth-child(2), .notice td:nth-child(2){ text-align: left; }
-.notice th:nth-child(3), .notice td:nth-child(3){ width: 20%; text-align: center; }
-.notice th:nth-child(4), .notice td:nth-child(4){ width: 15%; text-align: center; }
+.notice th:nth-child(1),
+.notice td:nth-child(1) {
+    width: 10%;
+    text-align: center;
+}
+
+.notice th:nth-child(2),
+.notice td:nth-child(2) {
+    text-align: left;
+}
+
+.notice th:nth-child(3),
+.notice td:nth-child(3) {
+    width: 20%;
+    text-align: center;
+}
+
+.notice th:nth-child(4),
+.notice td:nth-child(4) {
+    width: 15%;
+    text-align: center;
+}
 
 /* 데이터 없을 때 메시지 */
-.notice .notice_table table td[colspan="4"]{
+.notice .notice_table table td[colspan="4"] {
     padding: 50px 0;
     color: #adb5bd;
     font-style: italic;
 }
 
 /* 페이징 */
-.paging{
+.paging {
     text-align: center;
     margin-bottom: 100px;
 }
-.paging button{
+
+.paging button {
     border: none;
     background-color: transparent;
     padding: 10px;
     color: #666;
 }
-.paging button:hover{
+
+.paging button:hover {
     color: #333;
 }
-.paging button i{
+
+.paging button i {
     color: #666;
 }
-.paging button i:hover{
+
+.paging button i:hover {
     color: #333;
 }
-.paging button.active{
+
+.paging button.active {
     font-weight: bold;
     color: #333;
+}
+
+/* 검색 */
+.notice .mac_find {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notice .MAC_search {
+    position: relative;
+}
+
+.bi-x-circle-fill {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    font-size: 17px;
+}
+
+.notice .MAC_search input {
+    padding-right: 30px;
+    margin-left: 5px;
 }
