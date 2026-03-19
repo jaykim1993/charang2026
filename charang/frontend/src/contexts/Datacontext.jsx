@@ -67,7 +67,7 @@ export default function DataProvider({children}){
   const [userSearchType, setUserSearchType] = useState('userId');
   const [userSearchWord, setUserSearchWord] = useState('');
   const [sortType, setSortType] = useState('userId');
-  const [sort, setSort] = useState('desc');
+  const [sort, setSort] = useState('asc');
   // console.log(sortType)
   // console.log(sort)
   const [isUserLoading, setIsUserLoading] = useState(false); // 로딩 상태 추가
