@@ -31,7 +31,7 @@ const FILTER_CONFIG = {
         { name: '라노', img: 'RENAULT-KOREA.png', category: '국산' },
         { name: '아우디즈', img: 'AUDI.png', category: '수입' },
         { name: '빈츠', img: 'BENZ.png', category: '수입' },
-        { name: 'BMW', img: 'BMW.png', category: '수입' },
+        { name: 'DMW', img: 'BMW.png', category: '수입' },
         { name: 'BYZ', img: 'BYZ.png', category: '수입' },
         { name: '푸도', img: 'FORD.png', category: '수입' },
         { name: '렉사드', img: 'LEXUS.png', category: '수입' },
