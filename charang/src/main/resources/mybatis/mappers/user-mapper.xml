@@ -7,24 +7,27 @@
 
    <!-- 전체 회원 출력
    List<UserDTO> selectAllUser(); -->
-   <select id="selectAllUser" resultType="userDTO">
-      SELECT * FROM user 
-      ORDER BY 
-         <choose>
-            <when test="sortType == 'userId'">userId</when>
-            <when test="sortType == 'name'">name</when>
-            <when test="sortType == 'mail'">mail</when>
-            <when test="sortType == 'resistNum'">resistNum</when>
-            <when test="sortType == 'phone'">phone</when>
-            <when test="sortType == 'regDate'">regDate</when>
-         </choose>
-         <choose>
-            <when test="sort == 'desc'">DESC</when>
-            <when test="sort == 'asc'">ASC</when>
-         </choose>
-      ORDER BY regDate DESC
-      LIMIT #{startRow}, #{pageSize}
-   </select>
+	<select id="selectAllUser" resultType="userDTO">
+	   SELECT * FROM user 
+	   ORDER BY 
+	      <choose>
+	         <when test="sortType == 'userId'">userId</when>
+	         <when test="sortType == 'name'">name</when>
+	         <when test="sortType == 'mail'">mail</when>
+	         <when test="sortType == 'resistNum'">resistNum</when>
+	         <when test="sortType == 'phone'">phone</when>
+	         <when test="sortType == 'regDate'">regDate</when>
+	         <otherwise>regDate</otherwise>
+	      </choose>
+	      
+	      <choose>
+	         <when test="sort == 'desc'"> DESC</when>
+	         <otherwise> ASC</otherwise>
+	      </choose>
+	      
+	      , regDate DESC
+	   LIMIT #{startRow}, #{pageSize}
+	</select>
    
    <!-- 전체 회원 개수
    public int getAllCnt(); -->
