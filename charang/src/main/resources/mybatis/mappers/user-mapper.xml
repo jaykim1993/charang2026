@@ -22,8 +22,8 @@
             <when test="sort == 'desc'">DESC</when>
             <when test="sort == 'asc'">ASC</when>
          </choose>
-      LIMIT #{startRow}, #{pageSize}
       ORDER BY regDate DESC
+      LIMIT #{startRow}, #{pageSize}
    </select>
    
    <!-- 전체 회원 개수

@@ -86,6 +86,7 @@ export default function DataProvider({children}){
       })
       .then((res) => {
           setUser(res.data.list);
+          console.log(user);
           setPaging(res.data.ph);
       })
       .catch((error) => console.log("검색 에러: ", error))
