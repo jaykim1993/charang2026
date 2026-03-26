@@ -121,6 +121,7 @@ export default function Header() {
                                                 <Link to="/manager/carlist" className='item'>차량관리</Link>
                                                 <Link to="/manager/userlist" className='item'>회원관리</Link>
                                                 <Link to="/manager/reservationlist" className='item'>예약관리</Link>
+                                                <Link to="/manager/GraphDashBoard" className='item'>통계보기</Link>
                                                 <Link to="/customerservice/notice" className='item'>공지사항</Link>
                                                 <Link to="/customerservice/inquiry/list" className='item'>문의하기</Link>
                                             </div>
@@ -461,6 +462,14 @@ export default function Header() {
                                 <Link to={'/manager/reservationlist'} style={{ textDecoration: 'none' }}>
                                     <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
                                         <div>예약관리</div>
+                                        <div className='headerNavpointer'>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </div>
+                                    </li>
+                                </Link>
+                                <Link to={"/manager/GraphDashBoard"} style={{ textDecoration: 'none' }}>
+                                    <li className='headerNavLi' onClick={() => window.scrollTo(0, 0)}>
+                                        <div>통계보기</div>
                                         <div className='headerNavpointer'>
                                             <i className="bi bi-chevron-right"></i>
                                         </div>

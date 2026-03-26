@@ -23,6 +23,7 @@
             <when test="sort == 'asc'">ASC</when>
          </choose>
       LIMIT #{startRow}, #{pageSize}
+      ORDER BY regDate DESC
    </select>
    
    <!-- 전체 회원 개수

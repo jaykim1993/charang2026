@@ -33,6 +33,7 @@ import AllUserPage from './pages/Manager/AllUserPage';
 import UserDetailPage from './pages/Manager/UserDetailPage';
 import CarDetailPage from './pages/Manager/CarDetailPage';
 import CarModPage from './pages/Manager/CarModPage';
+import GraphPage from './pages/Manager/GraphPage';
 
 import AllInquiry from './pages/Inquiry/AllInquiry';
 import InquiryDetail from './pages/Inquiry/InquiryDetail';
@@ -52,6 +53,7 @@ import GuideInventory from './pages/GuideInventory';
 import GuideReturn from './pages/GuideReturn';
 import GuideRental from './pages/GuideRental';
 import GuidePricing from './pages/GuidePricing';
+
 
 
 // 폰트어썸
@@ -119,6 +121,7 @@ import ScrollToTop from './ScrollToTop';
                   <Route path="/manager/userDetail/:userId" element={<UserDetailPage/>}/>
                   <Route path="/manager/carDetail/:carId" element={<CarDetailPage/>}/>
                   <Route path="/manager/modPage/:carId" element={<CarModPage/>}/>
+                  <Route path="/manager/GraphDashBoard" element={<GraphPage/>}/>
                 </Routes>
                 <Footer />
               </BrowserRouter>

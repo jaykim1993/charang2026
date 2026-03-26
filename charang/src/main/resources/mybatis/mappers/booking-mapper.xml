@@ -34,7 +34,6 @@
 	    ]]>
 	</select>
 	
-	
 	<!-- 로그인한 유저 예약 목록 출력 -->
 	<select id="getUserBooking" resultType="bookingDTO">
 		SELECT * FROM booking

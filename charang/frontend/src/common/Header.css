@@ -400,7 +400,7 @@
 .headerNavLi {
   display: flex;
   justify-content: space-between;
-  padding: 15px 5px 15px 5px;
+  padding: 12px 5px 12px 15px;
   padding-left: 15px;
   border-bottom: 1px solid #eee;
   font-size: 17px;

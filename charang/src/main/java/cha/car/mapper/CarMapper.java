@@ -51,4 +51,7 @@ public interface CarMapper {
    
    // 차량 수정 메서드
    public int modCar(CarDTO carData);
+
+   // 인기순
+   public List<CarDTO> getPopular();
 }

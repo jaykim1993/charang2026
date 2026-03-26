@@ -27,7 +27,13 @@
    <select id="getAllCar" resultType="carDTO">
       SELECT * FROM car
    </select>
-   
+   <select id="getPopularCar" resultType="carDTO">
+      SELECT b.carId, c.model, c.brand, c.carImg, c.modelYear, c.carType, c.fuelType, count(*) AS bookCount FROM booking b
+		INNER JOIN car c ON b.carId = c.carId
+		GROUP BY carId 
+		ORDER BY bookCount DESC
+		LIMIT 3;
+   </select>
    <!-- 전체 차량 페이징 버전
    public List<CarDTO> AllCarPage(); -->
    <select id="AllCarPage" resultType="carDTO">
@@ -139,5 +145,18 @@
         WHERE carId=#{carId}
    </update>
    
-   
+   <!-- // 인기순
+   public List<BookingDTO> getPopular(); -->
+   <select id="getPopular" resultType="CarDTO">
+       SELECT 
+           b.carId, c.model, c.brand, c.carImg, 
+           c.modelYear, c.carType, c.fuelType, 
+           COUNT(*) AS bookCount 
+       FROM car c
+       INNER JOIN booking b ON b.carId = c.carId
+       GROUP BY 
+           b.carId
+       ORDER BY COUNT(*) DESC
+       LIMIT 3
+   </select>
 </mapper>

@@ -92,4 +92,11 @@ public class CarServiceImpl implements CarService {
       return carmapper.modCar(carData);
    }
 
+   // 인기순 
+   @Override
+   public List<CarDTO> getPopular() {
+      System.out.println("예약 서비스 - 인기순 출력");
+      return carmapper.getPopular();
+   }
+
 }

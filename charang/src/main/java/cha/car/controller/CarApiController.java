@@ -200,5 +200,11 @@ public class CarApiController {
       return result;
       
    }
+   //   인기순 출력
+   @GetMapping("/popular")
+   public List<CarDTO> getPopular(){
+      System.out.println("인기순 차량 컨트롤러");
+      return carservice.getPopular();
+   }
 }
 
