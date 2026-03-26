@@ -132,10 +132,10 @@
     border: none;
 }
 #root .FooterScrollToTop button:hover{
-    background-color: #b8b8b8;
+    background-color: #dbdbdb;
 }
 #root .FooterScrollToTop .bi-arrow-up-short{
-   color: rgb(99, 99, 99);
+   color:#333;
    font-size: 45px;
    line-height: 20px;
 }

@@ -39,5 +39,8 @@ public interface CarService {
    
    // 차량 수정하기 서비스
    public int updateCar(CarDTO carData);
+   
+   // 인기순 출력
+   public List<CarDTO> getPopular();
 
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import axios from "axios";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -189,7 +190,6 @@ export default function Home() {
 
   // 해당 차량 브랜드 searchcarlist로 넘기기
   const goToSearchcarlist = (model) => {
-    sessionStorage.removeItem("allCarShow")
     navigate("/searchcarlist", {
       state: { model }
     });
@@ -228,10 +228,36 @@ export default function Home() {
 
 
   // 인기순 차량 배열
+  const [popularCar, setPopularCar] = useState([]);
+
+  useEffect(() => {
+    axios.get("/api/popular")
+      .then((res) => {
+        // 1. 서버에서 온 데이터(res.data)를 기반으로 새로운 배열 생성
+        const combinedData = res.data.map((car, index) => {
+          // 2. index를 활용해 goodCar에 있는 정보를 가져와서 합치기
+          // (만약 서버 데이터가 3개보다 많을 경우를 대비해 % 연산자를 쓰면 안전합니다)
+          const additionalInfo = goodCar[index % goodCar.length];
+
+          return {
+            ...car,           // 원래 차 정보 (carId, model 등)
+            carInfo: additionalInfo.carInfo, // 설명 추가
+            hashtag: additionalInfo.hashtag   // 해시태그 추가
+          };
+        });
+        console.log(combinedData)
+        setPopularCar(combinedData)
+      })
+      .catch((error) => {
+        console.log("인기순 차량 에러: ", error);
+      })
+  }, []);
+
+
   const goodCar = [
-    { id: 1, model: '그랑조', img: 'hy_2.webp', brand: '한대', carInfo: '20대도 즐겨 찾는 인기 렌트카, 세련된 디자인과 편안한 주행감을 갖춘 한대 그랑조!', hashtag: `#요즘세단` },
-    { id: 2, model: 'NEW X5', img: 'bmw_5.webp', brand: 'DMW', carInfo: '프리미엄 세단. 비즈니스와 일상 모두에 잘 어울리는 모델!', hashtag: '#도심드라이브' },
-    { id: 3, model: 'WV-7', img: 'kia_2.webp', brand: '크아', carInfo: '넉넉한 실내 공간과 실용성을 강조한 SUV. 가족 이동이나 장거리 주행에 부담 없는 선택!', hashtag: '#여행각SUV' },
+    { carInfo: '20대도 즐겨 찾는 인기 렌트카, 세련된 디자인과 편안한 주행감을 갖춘 한대 그랑조!', hashtag: `#요즘세단` },
+    { carInfo: '탁 트인 글라스 루프! 패밀리 여행부터 차박까지 소화하는 올라운더 해치백 모델M!', hashtag: '#하이브리드' },
+    { carInfo: '혁신적인 자율주행과 압도적인 가속력! 심플한 인테리어로 스마트한 드라이빙!', hashtag: '#미래형세단' },
   ];
 
   const SelectedIcon = new L.Icon({
@@ -491,9 +517,9 @@ export default function Home() {
         }}>
 
           {images.map((item, i) => (
-            <Link to={item.link} key={i} style={{ width: "100%", flexShrink: 0, display: 'block'}}>
-              <img src={item.img} alt={`banner0${i+1}`}
-                style={{ width: "100%", flexShrink: 0, pointerEvents: "none"}} />
+            <Link to={item.link} key={i} style={{ width: "100%", flexShrink: 0, display: 'block' }}>
+              <img src={item.img} alt={`banner0${i + 1}`}
+                style={{ width: "100%", flexShrink: 0, pointerEvents: "none" }} />
             </Link>
           ))}
         </div>
@@ -502,10 +528,10 @@ export default function Home() {
       {/* 광고_1 */}
       <div className="H_section05">
         <h4 className="H_sec04_H">
+          쉽고 빠른 차량 렌트
           <span className="H_sec04_H_span">
             차랑차랑
           </span>
-          을 쉽고 빠르게
         </h4>
 
 
@@ -529,16 +555,19 @@ export default function Home() {
       {/* sec - 인기순 */}
       <div className="H_sec_top5">
         <h4>인기순</h4>
+        {/* <div className="H_sec_top5_hashtag">
+          <span>#인기폭발</span><span>#가성비갑</span><span>#신차</span>
+        </div> */}
         <ul className="H_sec_top5_map">
-          {goodCar.map((item, index) => (
+          {popularCar.map((item, index) => (
             <li key={index} onClick={() => { goToSearchcarlist(item.model); scrollTo(0, 0); }}>
               <span className="H_sec_top5_rank">{index + 1}</span>
               <span className="H_sec_top5_sticker">인기차량</span>
               <div className="top5_img">
-                <img src={`/images/cars/${item.img}`} alt={item.model} />
+                <img src={`/images/cars/${item.carImg}`} alt={item.carId} />
               </div>
               <div className="H_good">
-                <h5>{item.brand} - {item.model}</h5>
+                <h5>{item.brand} {item.model}</h5>
                 <p className="H_good_p">{item.carInfo}</p>
                 <p className="hashtags">{item.hashtag}</p>
               </div>
@@ -576,11 +605,9 @@ export default function Home() {
 
 
       {/* 광고_2 */}
-      <Link to={'/customerservice/notice/Info/22'}>
-        <div className="H_sec_banner_one">
-          <img className="H_ad10" src='/images/banner/advertise10.png'></img>
-        </div>
-      </Link>
+      <div className="H_sec_banner_one">
+        <img className="H_ad10" src='/images/banner/advertise10.png'></img>
+      </div>
 
       {/* sec - 최근본차량 */}
       {userid &&

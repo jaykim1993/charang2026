@@ -37,6 +37,6 @@ public class CarDTO {
    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
    private LocalDateTime modDate;
    private String name;
-   
+   private int bookCount;
    
 }

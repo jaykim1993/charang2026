@@ -1,0 +1,300 @@
+.graphBack {
+    width: 100%;
+    padding: 1px 0;
+    background-color: #f4f5f8;
+}
+
+.ManagerGraph {
+    max-width: 1300px;
+    min-height: 800px;
+    margin: 120px auto;
+    /* padding: 40px;
+    border-radius: 20px;
+    background: #ffffff; */
+    /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); */
+    font-family: sans-serif;
+    position: relative;
+}
+
+.graphBack hr {
+    margin: 40px 0;
+}
+
+.ManagerGraph>h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* .graphBack h4{
+    margin: 0 0 20px 0;
+} */
+.graphBack .gsdd>span {
+    /* text-align: center; */
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.graphBack p {
+    margin-bottom: 50px;
+    font-size: 18px;
+}
+
+.graphSectionDiv1,
+.graphSectionDiv3,
+.graphSectionDiv4,
+.graphSectionDiv5 {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 50px;
+    margin-bottom: 50px;
+}
+
+.ManagerGraph .graphSectionDiv1 .gsd {
+    display: flex;
+    gap: 30px;
+}
+
+.ManagerGraph .graphSectionDiv1 .gsd .gsdd {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ManagerGraph .graphSectionDiv1 .gsdd {
+    text-align: center;
+}
+
+.ManagerGraph .graphSectionDiv1 .gsdd .graphTdTitle {
+    width: 108.59px;
+}
+
+.ManagerGraph .graphSectionDiv1 .gsd img {
+    width: 100%;
+}
+
+.graphSectionDiv2 img {
+    width: 100%;
+}
+
+.graphSectionDiv1_3 {
+    width: 100%;
+}
+
+.graphSectionDiv3 button {
+    border: none;
+    background-color: #ebebeb;
+    color: #b4b4b4;
+    padding: 10px 15px;
+    border-radius: 7px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.graphSectionDiv3 button:hover {
+    color: #555;
+    background-color: #d6d6d6;
+}
+
+.graphSectionDiv3 button.active {
+    background-color: #333;
+    color: #fff;
+}
+
+.graphSectionDiv3 .gsdd {
+    width: 100%;
+    text-align: center;
+}
+
+.graphSectionDiv3 .gsdd img {
+    width: 100%;
+}
+
+/* 예약 통계 그래프 - table 사이즈 */
+.graphSectionDiv3 .graphComment {
+    width: 100%;
+}
+
+.graphSectionDiv3 .graphComment .graphTdTitle {
+    width: 108.59px;
+}
+
+.ManagerGraph .graphSectionDiv4 .gsd {
+    display: flex;
+    gap: 30px;
+}
+
+.ManagerGraph .graphSectionDiv4 .gsd .gsdd {
+    width: 50%;
+}
+
+.ManagerGraph .graphSectionDiv4 .gsd img {
+    width: 100%;
+}
+
+.ManagerGraph .graphSectionDiv4 .gsd .gsdd {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ManagerGraph .graphSectionDiv5 .gsdd span {
+    display: block;
+
+}
+
+.ManagerGraph .graphSectionDiv5 .gsdd {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    text-align: center;
+}
+
+.ManagerGraph .graphSectionDiv5 .gsdd .gsddd {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.ManagerGraph .graphSectionDiv5 .gsdd .gsddd img {
+    width: 50%;
+}
+
+/* 테이블 */
+
+.graphComment {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    height: fit-content;
+    background-color: #f6f7fa;
+    border: 1px solid #c2c2c2;
+    border-radius: 20px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.graphTable {
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+}
+
+.graphTr {
+    border-bottom: 1px solid #c2c2c2;
+}
+
+.graphTr:last-child {
+    border-bottom: none;
+}
+
+.graphTd {
+    padding: 16px 20px;
+    font-size: 14px;
+    color: #495057;
+    line-height: 1.6;
+    text-align: left;
+    display: flex;
+}
+
+.graphTd>i {
+    font-size: 20px;
+}
+
+.graphTr .graphTdTitle {
+    text-align: left;
+    width: 20%;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4f5257;
+    border-right: 1px solid #c2c2c2;
+}
+
+.graphTd span {
+    display: inline-block;
+    background: #333;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 400;
+    margin-right: 6px;
+    text-transform: uppercase;
+}
+
+.graphTr:nth-child(3)>.graphTdTitle {
+    padding-top: 15px;
+    vertical-align: top;
+}
+
+.graphTr:nth-child(3) .graphTd {
+    white-space: pre-line;
+    font-weight: 500;
+}
+
+/* 상단 시계 */
+.dayBox, .dayBox div {
+    font-family: 'DepartureMono', monospace;
+}
+
+.dayBox {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    font-size: 40px;
+    background-color: #333;
+    padding: 50px 50px 90px 50px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-shadow: 0px 0px 20px rgb(130 255 250);
+    color: #e7ffff;
+}
+
+.dayBox .dDay, 
+.dayBox .hours, 
+.dayBox .minutes, 
+.dayBox .seconds{
+    position: relative;
+    color: #e7ffff;
+}
+
+.dayBox .dDay::after{
+    position: absolute;
+    content: 'DAY';
+    font-size: 25px;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.dayBox .hours::after{
+    position: absolute;
+    content: 'HRS';
+    font-size: 25px;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.dayBox .minutes::after{
+    position: absolute;
+    content: 'MIN';
+    font-size: 25px;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.dayBox .seconds::after{
+    position: absolute;
+    content: 'SEC';
+    font-size: 25px;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
