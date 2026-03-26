@@ -34,7 +34,7 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
     const [address_detail, setAddress_detail] = useState("");
     const [zipcode, setZipcode] = useState('');
     const [isOpen, setIsOpen] = useState(false);
-    console.log(isOpen);
+    // console.log(isOpen);
 
     const addresstHandler = (data) => {
         let arr = ''
@@ -129,15 +129,15 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                 <ul className='joinUlC'>
                     <li className='joinLiB'>
                         <label className='joinLabelB'>
-                            <div className='joinTextC'>* 이름</div>
+                            <div className='joinTextC'>이름</div>
                             <div className="joinContentC">
                                 <input className='joinInputName'
                                     type="text"
                                     placeholder="이름 입력"
                                     name="username"
                                     value={username}
-                                    onChange={(e) => {
-                                        const val = e.target.value.replace(/[^가-힣a-zA-Z\s]/g, '');
+                                     onChange={(e) => {
+                                        const val = e.target.value.replace(/[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z\s]/g, '');
                                         setUserName(val);
                                     }}
                                 />
@@ -146,7 +146,7 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                     </li>
                     <li className='joinLiB'>
                         <label className='joinLabelB'>
-                            <div className='joinTextC'>* 이메일</div>
+                            <div className='joinTextC'>이메일</div>
                             <div className="joinContentC">
                                 <input className='joinInputEmail'
                                     type="text"
@@ -171,7 +171,7 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                     </li>
                     <li className='joinLiB'>
                         <label className='joinLabelB'>
-                            <div className='joinTextC'>* 주민등록번호</div>
+                            <div className='joinTextC'>주민등록번호</div>
                             <div className="joinContentC">
                                 <input className='joinInputResi'
                                     type="text"
@@ -199,7 +199,7 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                     </li>
                     <li className='joinLiB'>
                         <label className='joinLabelB'>
-                            <div className='joinTextC'>* 전화번호</div>
+                            <div className='joinTextC'>전화번호</div>
                             <div className="joinContentC">
                                 <input className='joinInput4'
                                     type="text"

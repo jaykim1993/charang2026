@@ -64,7 +64,7 @@ export default function AllInquiryDetail() {
                 (inquiry.answer != null ? <></>
                  : 
                 (userid === 'admin' && <div className="inquiryDetail_updateBtn">
-                    <button onClick={() => navigate(`/manager/inquiry/answer/${inquiryId}`)}>
+                    <button className="inquiryDetail_updateBtn_admin" onClick={() => navigate(`/manager/inquiry/answer/${inquiryId}`)}>
                         답변하기
                     </button>
                 </div>))
