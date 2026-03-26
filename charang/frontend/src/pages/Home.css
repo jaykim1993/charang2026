@@ -223,6 +223,7 @@ input:checked + .checkmark {
     border-bottom: 1px solid #999;
     padding-bottom: 20px;
     margin-bottom: 20px;
+    font-size: 1.1rem;
 }
 
 #root .Home .H_sec_top5 .H_sec_top5_map > li .H_good .hashtags{

@@ -16,6 +16,16 @@
     position: relative;
 }
 
+.ManagerGraph p.lastUpdate .bi-exclamation-circle-fill{
+    color: #888;
+}
+.ManagerGraph p.lastUpdate{
+    text-align: right;
+    margin: 10px 0;
+    font-size: 15px;
+    color: #888;
+}
+
 .graphBack hr {
     margin: 40px 0;
 }
