@@ -245,7 +245,7 @@ export default function Home() {
             hashtag: additionalInfo.hashtag   // 해시태그 추가
           };
         });
-        console.log(combinedData)
+        // console.log(combinedData)
         setPopularCar(combinedData)
       })
       .catch((error) => {
