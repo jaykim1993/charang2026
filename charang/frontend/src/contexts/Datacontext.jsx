@@ -66,8 +66,8 @@ export default function DataProvider({children}){
   // 회원 검색
   const [userSearchType, setUserSearchType] = useState('userId');
   const [userSearchWord, setUserSearchWord] = useState('');
-  const [sortType, setSortType] = useState('userId');
-  const [sort, setSort] = useState('asc');
+  const [sortType, setSortType] = useState('regDate');
+  const [sort, setSort] = useState('desc');
   // console.log(sortType)
   // console.log(sort)
   const [isUserLoading, setIsUserLoading] = useState(false); // 로딩 상태 추가

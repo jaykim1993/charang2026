@@ -164,7 +164,7 @@ const seconds = String(now.getSeconds()).padStart(2, '0');
                                 {table(7)}
                             </div>
                             <div className='gsdd'>
-                                <span>모델별 예약 탑 9 </span>
+                                <span>모델별 예약 순위 </span>
                                 <img src='/graph/그래프9.png' />
                                 {table(8)}
                             </div>
