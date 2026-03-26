@@ -37,7 +37,7 @@ public class UserApiController {
    public Map<String, Object> getSearchUserList(
          @RequestParam(value="searchType", required=false) String searchType, // 검색 타입
          @RequestParam(value="searchWord", required=false) String searchWord, // 검색어
-         @RequestParam(value="sortType", defaultValue = "userId") String sortType,
+         @RequestParam(value="sortType", defaultValue = "regDate") String sortType,
           @RequestParam(value="sort", defaultValue = "desc") String sort,
          @RequestParam( value="page", defaultValue = "1") int page, // 페이지 번호
          @RequestParam( value="pageSize", defaultValue = "10") int pageSize // 한 화면에 보여지는 user개수

@@ -14,8 +14,8 @@ export default function JoinFormB({ onClose, onNext }) {
   const [userpwCheck, setUserpwCheck] = useState("");
 
   // DB 내 아이디 중복 체크
-  const [isidChecked, setIsidChecked] = useState(true);
-  const [ispwChecked, setIspwChecked] = useState(true);
+  const [isidChecked, setIsidChecked] = useState(false);
+  const [ispwChecked, setIspwChecked] = useState(false);
 
   const checkId = () => {
     if (!userid) return alert("아이디를 입력하세요.");
@@ -57,8 +57,8 @@ export default function JoinFormB({ onClose, onNext }) {
   const handleNext = () => {
     if (!userid || !userpw) return alert("아이디와 비밀번호를 모두 입력하세요.");
     if (userpw !== userpwCheck) return alert("비밀번호가 일치하지 않습니다.");
-    if (!isidChecked) return alert("아이디 중복 확인이 필요합니다.");
-    if (!ispwChecked) return alert("비밀번호 확인이 필요합니다.");
+    if (isidChecked == false) return alert("아이디 중복 확인이 필요합니다.");
+    if (ispwChecked == false) return alert("비밀번호 확인이 필요합니다.");
   
     // Header에서 받은 onNext 호출, userid/userpw 전달
     onNext({ userid, userpw });

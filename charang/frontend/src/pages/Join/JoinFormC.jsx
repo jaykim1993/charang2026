@@ -136,7 +136,10 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                     placeholder="이름 입력"
                                     name="username"
                                     value={username}
-                                    onChange={(e) => setUserName(e.target.value)}
+                                    onChange={(e) => {
+                                        const val = e.target.value.replace(/[^가-힣a-zA-Z\s]/g, '');
+                                        setUserName(val);
+                                    }}
                                 />
                             </div>
                         </label>
@@ -175,7 +178,10 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                     maxLength="6"
                                     placeholder="주민등록번호 앞자리"
                                     value={resistFront}
-                                    onChange={(e) => setResistFront(e.target.value)}
+                                    onChange={(e) => {
+                                        const val = e.target.value.replace(/[^0-9]/g, '');
+                                        setResistFront(val);
+                                    }}
                                 />
                                 -
                                 <input className='joinInputResi'
@@ -183,7 +189,10 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                     maxLength="7"
                                     placeholder="주민등록번호 뒷자리"
                                     value={resistBack}
-                                    onChange={(e) => setResistBack(e.target.value)}
+                                    onChange={(e) => {
+                                        const val = e.target.value.replace(/[^0-9]/g, '');
+                                        setResistBack(val);
+                                    }}
                                 />
                             </div>
                         </label>
@@ -196,21 +205,30 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                     type="text"
                                     maxLength="3"
                                     value={phoneFront}
-                                    onChange={(e) => setPhoneFront(e.target.value)}
+                                    onChange={(e) => {
+                                        const val = e.target.value.replace(/[^0-9]/g, '');
+                                        setPhoneFront(val);
+                                    }}
                                 />
                                 -
                                 <input className='joinInput4'
                                     type="text"
                                     maxLength="4"
                                     value={phoneMiddle}
-                                    onChange={(e) => setPhoneMiddle(e.target.value)}
+                                    onChange={(e) => {
+                                        const val = e.target.value.replace(/[^0-9]/g, '');
+                                        setPhoneMiddle(val);
+                                    }}
                                 />
                                 -
                                 <input className='joinInput4'
                                     type="text"
                                     maxLength="4"
                                     value={phoneBack}
-                                    onChange={(e) => setPhoneBack(e.target.value)}
+                                    onChange={(e) => {
+                                        const val = e.target.value.replace(/[^0-9]/g, '');
+                                        setPhoneBack(val);
+                                    }}
                                 />
                             </div>
                         </label>
@@ -312,7 +330,11 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                     maxLength="2"
                                     placeholder=""
                                     value={licenseFront}
-                                    onChange={(e) => setLicenseFront(e.target.value)}
+                                    onChange={(e) => {
+                                        const val = e.target.value.replace(/[^0-9]/g, '');
+                                        setLicenseFront(val);
+                                    }}
+                                    
                                 />
                                 -
                                 <input className='joinInputC'
@@ -320,7 +342,10 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                     maxLength="2"
                                     placeholder=""
                                     value={licenseSecond}
-                                    onChange={(e) => setLicenseSecond(e.target.value)}
+                                    onChange={(e) => {
+                                        const val = e.target.value.replace(/[^0-9]/g, '');
+                                        setLicenseSecond(val);
+                                    }}
                                 />
                                 -
                                 <input className='joinInputCC'
@@ -328,7 +353,10 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                     maxLength="6"
                                     placeholder=""
                                     value={licenseThird}
-                                    onChange={(e) => setLicenseThird(e.target.value)}
+                                    onChange={(e) => {
+                                        const val = e.target.value.replace(/[^0-9]/g, '');
+                                        setLicenseThird(val);
+                                    }}
                                 />
                                 -
                                 <input className='joinInputC'
@@ -336,7 +364,10 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                     maxLength="2"
                                     placeholder=""
                                     value={licenseBack}
-                                    onChange={(e) => setLicenseBack(e.target.value)}
+                                    onChange={(e) => {
+                                        const val = e.target.value.replace(/[^0-9]/g, '');
+                                        setLicenseBack(val);
+                                    }}
                                 />
                             </div>
                         </label>
