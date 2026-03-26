@@ -10,7 +10,7 @@ import DaumPostCode from 'react-daum-postcode';
 export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
 
     // 3. 이름: 홍길동
-    const[username, setUserName] = useState("");
+    const [username, setUserName] = useState("");
     // 4. 이메일: emailId @ emailDomain
     const [emailId, setEmailId] = useState("");
     const [emailDomain, setEmailDomain] = useState("naver.com");
@@ -32,25 +32,25 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
     // DaumPostCode API 사용
     const [address, setAddress] = useState("");
     const [address_detail, setAddress_detail] = useState("");
-    const [zipcode, setZipcode]=useState('');
+    const [zipcode, setZipcode] = useState('');
     const [isOpen, setIsOpen] = useState(false);
-    // console.log(isOpen);
+    console.log(isOpen);
 
     const addresstHandler = (data) => {
-        let arr =''
-        if(data.userSelectedType === 'R'){
+        let arr = ''
+        if (data.userSelectedType === 'R') {
             arr = data.roadAddress; //도로명 주소
-        }else{
+        } else {
             arr = data.jibunAddress; //지역명 주소
         }
         setZipcode(data.zonecode);
         setAddress(arr);
         setIsOpen(false);
-    }  
+    }
 
     // 9. 내/외국인 체크박스
     const [user_iskorean, setUser_iskorean] = useState(0)
-    
+
     // 10. 운전면허번호 (licenseFront - licenseBack)
     const [licenseFront, setLicenseFront] = useState("");
     const [licenseSecond, setLicenseSecond] = useState("");
@@ -62,43 +62,60 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
     const [license, setLicense] = useState("");
 
     // 데이터 DB에 추가
-    const signup =()=>{
-        axios.post('/api/signup',{ userId: userid, userPw: userpw,name: username, mail: user_email,resistNum: user_resistnum,
-            phone: user_phonenum,address: address,addressDetail: address_detail,isKorean: user_iskorean,licenseNum: user_license,license:license})
-        .then((res)=>{
-            if(res.data === 1){
-                alert("회원 가입을 환영합니다. 로그인 페이지로 이동합니다.");
-                onClose();
-                onComplete();     
-                // 초기화
-             setUserName('');
-             setEmailId('');
-             setEmailDomain('naver.com');
-             setResistFront('');
-             setResistBack('');
-             setPhoneFront('');
-             setPhoneMiddle('');
-             setPhoneBack('');
-             setAddress('');
-             setAddress_detail('');
-             setZipcode('');
-             setLicenseFront('');
-             setLicenseSecond('');
-             setLicenseThird('');
-             setLicenseBack('');
-             setUser_iskorean(0);
-             setLicense('');
+    const signup = () => {
+        if (!username.trim()) return alert("이름을 입력해주세요.");
+        if (!emailId.trim()) return alert("이메일을 입력해주세요.");
+        if (!resistFront.trim() || resistFront.length !== 6) return alert("주민등록번호 앞자리 6자리를 입력해주세요.");
+        if (!resistBack.trim() || resistBack.length !== 7) return alert("주민등록번호 뒷자리 7자리를 입력해주세요.");
+        if (!phoneFront.trim() || phoneFront.length !== 3) return alert("전화번호 앞자리 3자리를 입력해주세요.");
+        if (!phoneMiddle.trim() || phoneMiddle.length !== 4) return alert("전화번호 중간자리 4자리를 입력해주세요.");
+        if (!phoneBack.trim() || phoneBack.length !== 4) return alert("전화번호 뒷자리 4자리를 입력해주세요.");
+        if (!zipcode.trim()) return alert("주소를 검색해주세요.");
+        if (!address.trim()) return alert("도로명 주소를 입력해주세요.");
+        if (!licenseFront.trim() || licenseFront.length !== 2) return alert("운전면허번호를 올바르게 입력해주세요.");
+        if (!licenseSecond.trim() || licenseSecond.length !== 2) return alert("운전면허번호를 올바르게 입력해주세요.");
+        if (!licenseThird.trim() || licenseThird.length !== 6) return alert("운전면허번호를 올바르게 입력해주세요.");
+        if (!licenseBack.trim() || licenseBack.length !== 2) return alert("운전면허번호를 올바르게 입력해주세요.");
+        if (!license) return alert("면허 종류를 선택해주세요.");
+        axios.post('/api/signup', {
+            userId: userid, userPw: userpw, name: username, mail: user_email, resistNum: user_resistnum,
+            phone: user_phonenum, address: address, addressDetail: address_detail, isKorean: user_iskorean, licenseNum: user_license, license: license
+        })
+            .then((res) => {
 
-            }else if(res.data === 0){
-                alert("아이디가 이미 존재합니다.")
-            }else{
-                alert("회원가입 실패")
-            }
-        })
-        .catch((error)=>{
-            alert("중복된 값이 존재합니다.");
-            console.log(error);
-        })
+                if (res.data === 1) {
+                    alert("회원 가입을 환영합니다. 로그인 페이지로 이동합니다.");
+                    onClose();
+                    onComplete();
+                    // 초기화
+                    setUserName('');
+                    setEmailId('');
+                    setEmailDomain('naver.com');
+                    setResistFront('');
+                    setResistBack('');
+                    setPhoneFront('');
+                    setPhoneMiddle('');
+                    setPhoneBack('');
+                    setAddress('');
+                    setAddress_detail('');
+                    setZipcode('');
+                    setLicenseFront('');
+                    setLicenseSecond('');
+                    setLicenseThird('');
+                    setLicenseBack('');
+                    setUser_iskorean(0);
+                    setLicense('');
+
+                } else if (res.data === 0) {
+                    alert("아이디가 이미 존재합니다.")
+                } else {
+                    alert("회원가입 실패")
+                }
+            })
+            .catch((error) => {
+                alert("중복된 값이 존재합니다.");
+                console.log(error);
+            })
     }
 
 
@@ -132,7 +149,10 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                                     type="text"
                                     placeholder="이메일 계정 입력"
                                     value={emailId}
-                                    onChange={(e) => setEmailId(e.target.value)}
+                                    onChange={(e) => {
+                                        const val = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
+                                        setEmailId(val);
+                                    }}
                                 />
                                 @
                                 <select className='joinSelectEmail'
@@ -200,83 +220,86 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                             <div className='joinTextCC'>주소</div>
                             <div className='joinContentC'>
                                 <button className='joinbtnC'
-                                    type='button' 
-                                    id='userAddSearch' 
-                                    onClick={()=>setIsOpen(true)}>
-                                        우편번호 검색
+                                    type='button'
+                                    id='userAddSearch'
+                                    onClick={() => setIsOpen(true)}>
+                                    우편번호 검색
                                 </button>
-                        
-                                <input  className='joinInputAdd'
-                                    type='text' 
-                                    value={zipcode} 
-                                    placeholder='우편번호' 
-                                    readOnly 
-                                    name='post' 
-                                    id='post'/>
-                        
+
+                                <input className='joinInputAdd'
+                                    type='text'
+                                    value={zipcode}
+                                    style={{ cursor: "default" }}
+                                    placeholder='우편번호'
+                                    readOnly
+                                    name='post'
+                                    id='post' />
+
                                 <div className="joinContentC">
-                                    <input  className='joinInputLong'
-                                    type='text' 
-                                    value={address} 
-                                    onChange={(e) => setAddress(e.target.value)} 
-                                    placeholder='도로명 주소' 
-                                    name='address' 
-                                    id='address'/>
+                                    <input className='joinInputLong'
+                                        type='text'
+                                        value={address}
+                                        onChange={(e) => setAddress(e.target.value)}
+                                        placeholder='도로명 주소'
+                                        readOnly
+                                        name='address'
+                                        id='address' style={{ cursor: "default" }} />
                                 </div>
-                                <input  className='joinInputLong'
-                                type='text' 
-                                value={address_detail} 
-                                onChange={(e) => setAddress_detail(e.target.value)} 
-                                placeholder='상세주소' 
-                                name='address_detail' 
-                                id='address_detial'
+                                <input className='joinInputLong'
+                                    type='text'
+                                    value={address_detail}
+                                    onChange={(e) => setAddress_detail(e.target.value)}
+                                    placeholder='상세주소'
+                                    name='address_detail'
+                                    id='address_detial'
                                 />
                             </div>
                         </label>
-                         {isOpen && (
+                        {isOpen && (
                             <div
-                                className="joinCOverlay" 
+                                className="joinCOverlay"
                             >
                                 <div
-                                className="addressWrap"
-                                onClick={(e) => e.stopPropagation()} 
+                                    className="addressWrap"
+                                    onClick={(e) => e.stopPropagation()}
                                 >
                                     <button
                                         className="joinBtnXx"
                                         type="button"
-                                        onClick={() => setIsOpen(false)} 
+                                        onClick={() => setIsOpen(false)}
                                     >
                                         <i className="bi bi-x"></i>
                                     </button>
                                     <h2 className="loginH">주소 검색</h2>
                                     <DaumPostCode
-                                        style={{ height: '550px' }} 
-                                        onComplete={addresstHandler} 
-                                        height="100%" 
+                                        style={{ height: '550px' }}
+                                        onComplete={addresstHandler}
+                                        height="100%"
                                     />
                                 </div>
                             </div>
                         )}
                     </li>
                     <li className='joinLiB'>
-                        
+
                         <label className='joinLabelB'>
                             <div className='joinTextCC'>국적</div>
                             국내국적자
                             <input
-                            type="radio"
-                            name="user_iskorean"
-                            value="0"
-                            onChange={(e) => setUser_iskorean(Number(e.target.value))}
+                                type="radio"
+                                name="user_iskorean"
+                                value="0"
+                                defaultChecked
+                                onChange={(e) => setUser_iskorean(Number(e.target.value))}
                             />
                         </label>
                         <label className='joinLabelB'>
                             해외국적자
                             <input
-                            type="radio"
-                            name="user_iskorean"
-                            value="1"
-                            onChange={(e) => setUser_iskorean(Number(e.target.value))}
+                                type="radio"
+                                name="user_iskorean"
+                                value="1"
+                                onChange={(e) => setUser_iskorean(Number(e.target.value))}
                             />
                         </label>
                     </li>
@@ -319,25 +342,25 @@ export default function JoinFormC({ userid, userpw, onClose, onComplete }) {
                         </label>
                     </li>
                     <li className='joinLiB'>
-                        
+
                         <label className='joinLabelB'>
                             <div className='joinTextCC'>면허 종류</div>
                             1종
                             <input
-                            type="radio"
-                            name="license"
-                            value="1"
-                            onChange={(e) => setLicense(e.target.value)}
+                                type="radio"
+                                name="license"
+                                value="1"
+                                onChange={(e) => setLicense(e.target.value)}
                             />
                         </label>
 
                         <label className='joinLabelB'>
                             2종
                             <input
-                            type="radio"
-                            name="license"
-                            value="2"
-                            onChange={(e) => setLicense(e.target.value)}
+                                type="radio"
+                                name="license"
+                                value="2"
+                                onChange={(e) => setLicense(e.target.value)}
                             />
                         </label>
                     </li>
