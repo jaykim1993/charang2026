@@ -27,6 +27,14 @@
     cursor: pointer;
     margin: 0 5px;
 }
+.AllInquiryDetail .inquiryDetail_updateBtn .inquiryDetail_updateBtn_admin{
+    background-color: #1e75f5;
+    color: #fff;
+}
+.AllInquiryDetail .inquiryDetail_updateBtn .inquiryDetail_updateBtn_admin:hover{
+    background-color: #1763D1;
+}
+
 .AllInquiryDetail .inquiryDetail_updateBtn .inquiryDetail_updateBtn_1{
     background-color: #1e75f5;
     color: #fff;
