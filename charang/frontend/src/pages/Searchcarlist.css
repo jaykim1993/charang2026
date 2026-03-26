@@ -47,13 +47,6 @@ a, p, h4, h3, h2, h1{
     position: relative;
 }
 
-/* #root .Recentcar .R_category ul li .R_title{
-    position: absolute;
-    left: 0;
-    width: 2px;
-    height: 18px;
-    background-color: #666;
-} */
 
 #root .Recentcar .R_category ul li h3{
     font-size: 17px;
@@ -82,6 +75,7 @@ a, p, h4, h3, h2, h1{
     background-color: #fdfeff;
     color: #464646 ;
     cursor: pointer;
+    transition: 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,7 +88,6 @@ a, p, h4, h3, h2, h1{
 #root .Recentcar .R_category ul li button:hover{
     /* background-color: #f7f7f7; */
     border: 1px solid #1763D1;
-    transition: 0.3s;
 }
 #root .Recentcar .R_category ul li h4{
     color: #6c6c6c;
@@ -172,6 +165,8 @@ a, p, h4, h3, h2, h1{
     color: #3f3f3f;
     font-weight: bold;
     font-size: 20px;
+    transition: 0.2s;
+    cursor: pointer;
 }
 #root .Recentcar .R_carlist .cate_choice .delBtn > button i:hover{
     color: #1763D1;
@@ -269,6 +264,7 @@ a, p, h4, h3, h2, h1{
     width: 120px;
     font-size: 16px;
     font-weight: 600;
+    transition: 0.2s;
 }
 #root .Recentcar .R_reservation .R_dateTable .searchButton > button:hover{
     background-color: #dbe0ea;
@@ -364,9 +360,7 @@ a, p, h4, h3, h2, h1{
     display: inline;
     font-weight: 550;
 }
-/* .grouped_car_item .car_list_ul .car_variant_info > span{
-    margin-left: 10px;
-} */
+
 .grouped_car_item .car_list_ul .car_variant_info .carPrice{
     display: flex;
     align-items: center;
@@ -402,6 +396,7 @@ a, p, h4, h3, h2, h1{
     background-color: transparent;
     color: #1e75f5;
     padding: 10px 0;
+    transition: 0.2s;
 }
 .empty_car button:hover{
     color: #1763D1;

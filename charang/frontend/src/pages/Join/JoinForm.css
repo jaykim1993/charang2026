@@ -186,7 +186,6 @@
     transition: 0.2s;
 }
 .joinCheckAll {
-    transform: scale(1.5);
     cursor: pointer;
 }
 
