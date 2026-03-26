@@ -99,6 +99,9 @@ const seconds = String(now.getSeconds()).padStart(2, '0');
         <div className='graphBack'>
             <div className="ManagerGraph">
                 <h1>통계 대시보드</h1>
+                <p className='lastUpdate'>
+                    <i className="bi bi-exclamation-circle-fill"></i>
+                    &nbsp;&nbsp;마지막 업데이트 : 2026-03-26</p>
                 <div className='dayBox'>
                     <div className='dDay'>{dDay}</div> : 
                     <div className='hours'>{hours}</div> : 
