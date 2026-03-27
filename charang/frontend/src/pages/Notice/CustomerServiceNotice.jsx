@@ -37,11 +37,7 @@ export default function CustomerServiceNotice() {
     const [searchWord, setSearchWord] = useState('');
 
 
-     useEffect(() => {
-        if (pageNum !== 1) {
-            setPageNum(1);
-        }  
-    }, [searchWord, searchType]);
+
     
     useEffect(() => {
         const timer = setTimeout(() => {

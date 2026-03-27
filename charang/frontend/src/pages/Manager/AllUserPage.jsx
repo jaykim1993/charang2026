@@ -33,23 +33,19 @@ export default function AllUserPage() {
 
     // ================= 초기 진입 =================
     // 추가된 초기화 로직 ---
-    if(visitChild == true){
-        useEffect(() => {
-            setUserSearchWord("");
-            setSearchKeyword("");
-            bookStatusFind();
-            userCount();
+    useEffect(() => {
+        setUserSearchWord("");
+        setSearchKeyword("");
+        bookStatusFind();
+        userCount();
+        if (visitChild == true) {
             setVisitChild(false);
-        }, []);
-    } else {
-        useEffect(() => {
+        } else {
             setPageNum(1);
-            setUserSearchWord("");
-            setSearchKeyword("");
-            bookStatusFind();
-            userCount();
-        }, []);
-    }
+        }
+    }, []);
+
+    console.log("비짓차일드 :", visitChild)
     // ================= 데이터 조회 =================
     useEffect(() => {
         userFind(searchKeyword);
@@ -58,7 +54,7 @@ export default function AllUserPage() {
 
     // ================= 검색 =================
     const searchHandler = () => {
-        setPageNum(1); 
+        setPageNum(1);
         setSearchKeyword(userSearchWord);
     };
 
