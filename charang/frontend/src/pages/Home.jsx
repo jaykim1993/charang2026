@@ -559,7 +559,7 @@ export default function Home() {
           <span className="H_sec04_H_span">
             급상승
           </span>
-          </h4>
+        </h4>
         {/* <div className="H_sec_top5_hashtag">
           <span>#인기폭발</span><span>#가성비갑</span><span>#신차</span>
         </div> */}
@@ -614,7 +614,9 @@ export default function Home() {
 
       {/* 광고_2 */}
       <div className="H_sec_banner_one">
-        <img className="H_ad10" src='/images/banner/advertise10.png'></img>
+        <Link to={'/customerservice/notice/Info/22'}>
+          <img className="H_ad10" src='/images/banner/advertise11.png'></img>
+        </Link>
       </div>
 
       {/* sec - 최근본차량 */}

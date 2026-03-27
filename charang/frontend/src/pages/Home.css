@@ -208,7 +208,7 @@ input:checked + .checkmark {
 #root .Home .H_sec_top5_map .H_good {
     position: relative;
     z-index: 2;
-    width: 45%;
+    width: 50%;
     height: 100%;
     margin-left: auto;
     padding: 30px 25px;

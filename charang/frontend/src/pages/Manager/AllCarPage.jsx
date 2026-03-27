@@ -7,16 +7,16 @@ import './AllCarPage.css';
 export default function AllCarPage() {
     // DataContext에서 isLoading 추가로 가져오기
     const {
-        pageNum, 
-        setPageNum, 
-        pagesHandler, 
-        paging, 
+        pageNum,
+        setPageNum,
+        pagesHandler,
+        paging,
         setPaging,
-        bookStatusFind, 
-        allBookStatus, 
-        car, 
-        allCar, 
-        searchResetHandler, 
+        bookStatusFind,
+        allBookStatus,
+        car,
+        allCar,
+        searchResetHandler,
         visitChild,
         setVisitChild
     } = useContext(DataContext);
@@ -33,17 +33,15 @@ export default function AllCarPage() {
 
 
     // --- 추가된 초기화 로직 ---
-    if(visitChild == true){
-        useEffect(() => {
-            searchResetHandler();
+    useEffect(() => {
+        if (visitChild == true) {
+            searchResetHandler(); // 검색 타입, 검색 키워드 초기화 핸들러
             setVisitChild(false);
-        }, []);
-    } else {
-        useEffect(() => {
+        }else{
             setPageNum(1);
             searchResetHandler();
-        }, []);
-    }
+        }
+    }, []);
 
     // 차량 검색 API 호출 함수
     const carFind = () => {
@@ -142,13 +140,6 @@ export default function AllCarPage() {
         return "브랜드를 검색하세요";
     }
 
-    useEffect(() => {
-        if (searchWord === "") {
-            setPageNum(1);
-            carFind();
-        }
-    }, [searchWord]);
-
     const inputDelHandler = () => {
         setSearchWord("");
         setPageNum(1);
@@ -182,12 +173,12 @@ export default function AllCarPage() {
                 <thead className="m_AllCar_th">
                     <tr className="m_AllCar_tr">
                         <th className="m_AllCar_tableNum" style={{ width: "7%" }}>번호</th>
-                        <th className="m_AllCar_tableTh" style={{ width: "10%" }} onClick={() => sortHandler("carId")}>차량ID<i class="bi bi-chevron-down"></i></th>
+                        <th className="m_AllCar_tableTh" style={{ width: "10%" }} onClick={() => sortHandler("carId")}>차량ID<i className="bi bi-chevron-down"></i></th>
                         <th className="m_AllCar_tableCarImg" style={{ width: "15%" }}>이미지</th>
-                        <th className="m_AllCar_tableTh" style={{ width: "10%" }} onClick={() => sortHandler("brand")}>브랜드<i class="bi bi-chevron-down"></i></th>
-                        <th className="m_AllCar_tableTh" style={{ width: "15%" }} onClick={() => sortHandler("model")}>모델명<i class="bi bi-chevron-down"></i></th>
-                        <th className="m_AllCar_tableTh" style={{ width: "10%" }} onClick={() => sortHandler("number")}>차량번호<i class="bi bi-chevron-down"></i></th>
-                        <th className="m_AllCar_tableTh" style={{ width: "15%" }} onClick={() => sortHandler("regDate")}>등록일자<i class="bi bi-chevron-down"></i></th>
+                        <th className="m_AllCar_tableTh" style={{ width: "10%" }} onClick={() => sortHandler("brand")}>브랜드<i className="bi bi-chevron-down"></i></th>
+                        <th className="m_AllCar_tableTh" style={{ width: "15%" }} onClick={() => sortHandler("model")}>모델명<i className="bi bi-chevron-down"></i></th>
+                        <th className="m_AllCar_tableTh" style={{ width: "10%" }} onClick={() => sortHandler("number")}>차량번호<i className="bi bi-chevron-down"></i></th>
+                        <th className="m_AllCar_tableTh" style={{ width: "15%" }} onClick={() => sortHandler("regDate")}>등록일자<i className="bi bi-chevron-down"></i></th>
                         <th className="m_AllCar_tableDel" style={{ width: "10%" }}>삭제<p>({delCar.length}/{car.length})</p></th>
                     </tr>
                 </thead>
