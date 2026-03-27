@@ -17,7 +17,8 @@ export default function AllCarPage() {
         car, 
         allCar, 
         searchResetHandler, 
-        visitChild
+        visitChild,
+        setVisitChild
     } = useContext(DataContext);
 
     const navigate = useNavigate();
@@ -35,6 +36,7 @@ export default function AllCarPage() {
     if(visitChild == true){
         useEffect(() => {
             searchResetHandler();
+            setVisitChild(false);
         }, []);
     } else {
         useEffect(() => {

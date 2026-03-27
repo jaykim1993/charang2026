@@ -210,6 +210,7 @@ export default function DataProvider({ children }) {
 
           // 세부페이지뒤로가기
           visitChild,
+          setVisitChild,
           allHandler
         }}>
         {children}
