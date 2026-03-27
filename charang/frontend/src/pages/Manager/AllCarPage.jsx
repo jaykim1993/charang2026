@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/Datacontext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import './AllCarPage.css';
 
@@ -20,7 +20,7 @@ export default function AllCarPage() {
         visitChild,
         setVisitChild
     } = useContext(DataContext);
-
+    const location = useLocation();
     const navigate = useNavigate();
 
     // 로컬 상태들
@@ -34,14 +34,14 @@ export default function AllCarPage() {
 
     // --- 추가된 초기화 로직 ---
     useEffect(() => {
+        window.scrollTo(0, 0);
+        searchResetHandler();
         if (visitChild == true) {
-            searchResetHandler(); // 검색 타입, 검색 키워드 초기화 핸들러
             setVisitChild(false);
         }else{
             setPageNum(1);
-            searchResetHandler();
         }
-    }, []);
+    }, [location.key]);
 
     // 차량 검색 API 호출 함수
     const carFind = () => {

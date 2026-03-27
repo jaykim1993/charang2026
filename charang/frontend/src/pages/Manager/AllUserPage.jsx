@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/Datacontext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import './AllUserPage.css';
 import axios from "axios";
 
@@ -27,13 +27,14 @@ export default function AllUserPage() {
         visitChild,
         setVisitChild
     } = useContext(DataContext);
-
+    const location = useLocation();
     // 실제 검색에 사용할 키워드
     const [searchKeyword, setSearchKeyword] = useState("");
 
     // ================= 초기 진입 =================
     // 추가된 초기화 로직 ---
     useEffect(() => {
+        window.scrollTo(0, 0);
         setUserSearchWord("");
         setSearchKeyword("");
         bookStatusFind();
@@ -43,9 +44,9 @@ export default function AllUserPage() {
         } else {
             setPageNum(1);
         }
-    }, []);
+    }, [location.key]);
 
-    console.log("비짓차일드 :", visitChild)
+    // console.log("비짓차일드 :", visitChild)
     // ================= 데이터 조회 =================
     useEffect(() => {
         userFind(searchKeyword);

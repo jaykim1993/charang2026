@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/Authcontext"
 import { DataContext } from "../../contexts/Datacontext";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import axios from "axios";
 
 import './AllInquiry.css'
@@ -9,19 +9,20 @@ import './AllInquiry.css'
 export default function AllInquiry() {
     const { pageNum, setPageNum, pagesHandler, paging, setPaging } = useContext(DataContext);
     const { visitChild, setVisitChild } = useContext(DataContext);
+    const location = useLocation();
     const navigate = useNavigate();
-
-    const { userid, username } = useContext(AuthContext);
+    const { userid} = useContext(AuthContext);
     // --- 추가된 초기화 로직 ---
-    if(visitChild == true){
         useEffect(() => {
-            setVisitChild(false);
-        }, []); 
-    } else {
-        useEffect(() => {
-            setPageNum(1);
-        }, []); 
-    }
+            window.scrollTo(0, 0);
+            if(visitChild == true){
+                setVisitChild(false);
+            } else {
+                setPageNum(1);
+            }
+            
+        }, [location.key]); 
+
     // -----------------------
     // 문의 목록
     const [inquiry, setInquiry] = useState([]);

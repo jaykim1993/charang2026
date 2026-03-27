@@ -77,7 +77,7 @@ export default function CustomerServiceNoticeDetail() {
             </table>
 
             <div className="noticeInfo_btn">
-                <button onClick={() => {allHandler(); navigate("/customerservice/notice")} }>목록으로 돌아가기</button>
+                <button onClick={() => {allHandler(); navigate(-1)} }>뒤로가기</button>
             </div>
         </div>
     );
