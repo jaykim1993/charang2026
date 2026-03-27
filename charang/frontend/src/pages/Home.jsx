@@ -599,7 +599,9 @@ export default function Home() {
                     <div className="H_new_carName">
                       <b className="H_new_Year">{item.modelYear}년 입고</b>
                       <br />
-                      <b className="H_new_Name">{item.model}</b>
+                      <div className="H_new_back">
+                        <b className="H_new_Name">{item.model}</b>
+                      </div>
                     </div>
                     <img src={`/images/cars/${item.carImg}`} alt='carImg' />
                   </div>
