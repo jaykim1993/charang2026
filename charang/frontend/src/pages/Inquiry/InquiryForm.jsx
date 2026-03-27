@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { DataContext } from "../../contexts/Datacontext";
 import { AuthContext } from "../../contexts/Authcontext"
 import { useNavigate } from "react-router-dom"
 import axios from "axios";
@@ -11,7 +11,7 @@ export default function InquiryForm(){
     const navigate = useNavigate();
 
     const { userid, username } = useContext(AuthContext);
-
+    const{ allHandler } = useContext(DataContext);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [password, setPassword] = useState('');
@@ -43,6 +43,7 @@ export default function InquiryForm(){
 
     const backHandler = () => {
         if(confirm('저장되지 않습니다. 돌아가시겠습니까?')){
+            allHandler();
             navigate(-1);
         }else{
             return;

@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom"
 import { AuthContext } from "../../contexts/Authcontext"
 import { DataContext } from "../../contexts/Datacontext";
 import '../CustomerService.css'
@@ -11,7 +10,7 @@ export default function CustomerServiceNoticeWrite(){
     const navigate = useNavigate();
 
     const { userid } = useContext(AuthContext);
-
+    const{ allHandler } = useContext(DataContext);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
@@ -33,6 +32,7 @@ export default function CustomerServiceNoticeWrite(){
             if(res.data === 1){
                 // console.log("res.data : ", res.data);
                 alert('공지사항이 등록되었습니다.')
+                allHandler();
                 navigate('/customerservice/notice');
             }else{
                 alert("공지사항 등록 실패 - 권한이 없거나 데이터 오류");

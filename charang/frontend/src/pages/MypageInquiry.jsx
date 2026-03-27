@@ -8,7 +8,7 @@ import axios from "axios";
 import './MypageInquiry.css'
 
 export default function MypageInquiry() {
-    const { pageNum, setPageNum, pagesHandler, paging, setPaging } = useContext(DataContext);
+    const { pageNum, setPageNum, pagesHandler, paging, setPaging, visitChild } = useContext(DataContext);
 
     const navigate = useNavigate();
 

@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom"
 import { AuthContext } from "../../contexts/Authcontext"
+import { DataContext } from "../../contexts/Datacontext";
 import { useNavigate } from "react-router-dom"
 import axios from "axios";
 
@@ -10,7 +11,7 @@ export default function AllInquiryDetail() {
     const navigate = useNavigate();
 
     const { userid } = useContext(AuthContext);
-
+    const{ allHandler } = useContext(DataContext);
     const { inquiryId } = useParams();
 
     const [inquiry, setInquiry] = useState({});
@@ -106,7 +107,7 @@ export default function AllInquiryDetail() {
                     </tr>
                 </tbody>
             </table>
-            <button onClick={() => navigate(-1)}>목록으로 돌아가기</button>
+            <button onClick={() => {allHandler(); navigate(-1)}}>목록으로 돌아가기</button>
         </div>
     )
 }
