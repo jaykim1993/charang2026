@@ -148,109 +148,113 @@ input:checked + .checkmark {
 
 /* ---------------------------------- */
 
-/* sec - 인기순 */
-#root .Home .H_sec_top5 > h4{
-    margin-bottom: 20px;
+/* sec - 실시간 예약 급상승 */
+#root .H_sec_top5{
+    margin: 50px 0;
 }
-#root .Home .H_sec_top5_map{
-    margin-bottom: 50px;
+#root .H_sec_top5 .H_sec_top5_map{
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 30px;
+    margin: 20px 0;
 }
-#root .Home .H_sec_top5_map > li{
+
+/* 각 카드박스 */
+#root .Home .H_sec_top5_map > li {
     width: 410px;
     height: 265px;
     display: flex;
-    gap: 30px;
     position: relative;
-    /* background-color: #fff; */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.178);
+    background-color: #f7f7f7;
+    transition: 0.4s ease;
     cursor: pointer;
-    transition: 0.3s;
 }
-#root .Home .H_sec_top5_map > li:hover{
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    transform: translateY(-5px);
+
+/* 호버 움직임 */
+#root .Home .H_sec_top5_map > li:hover {
+    transform: translateY(-4px);
 }
+
 /* 바로가기 화살표 */
 #root .Home .H_sec_top5_map > li .bi-arrow-right-circle-fill{
     position: absolute;
+    z-index: 10;
     right: 20px;
     bottom: 13px;
     font-size: 20px;
-    color: #ff6e1a;
-}
-/* 순위 */
-#root .Home .H_sec_top5_map .H_sec_top5_rank{
-    position: absolute;
-    top: 8px;
-    left: 17px;
-    font-size: 30px;
-    font-weight: 500;
-    font-style: italic;
-    text-shadow: 0 0 10px #00000046;
-    z-index: 10;
-    color: #424242;
-}
-#root .Home .H_sec_top5_map .H_sec_top5_sticker{
-    position: absolute;
-    top: -7px;
-    right: 15px;
-    font-size: 12px;
-    font-weight: 500;
-    text-shadow: 0 0 10px #00000046;
-    font-family: sans-serif;
-    z-index: 10;
-    color: white;
-    background-color: #ff6e1a;
-    padding: 3px 5px;
-    border-radius: 5px;
-}
-/* li 내용 */
-#root .Home .H_sec_top5_map .H_good .H_good_p{
-    min-height: 120px;
-}
-#root .Home .H_sec_top5_map .H_good{
-    width: 240px;
-    padding-right: 30px;
-    padding-top: 30px;
-    word-break: keep-all;
-}
-#root .Home .H_sec_top5_map .H_good > h5{
-    border-bottom: 1px solid #999;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-    font-size: 1.1rem;
+    color: #555;
 }
 
-#root .Home .H_sec_top5 .H_sec_top5_map > li .H_good .hashtags{
-    font-style: italic;
-    font-size: 13px;
-    margin-top: 5px;
-}
-#root .Home .H_sec_top5 .H_sec_top5_map > li .top5_img{
-    width: 320px;
-    overflow: hidden;
-    position: relative;
-
-}
-#root .Home .H_sec_top5 .H_sec_top5_map > li .top5_img img{
-    width: 410px;
-    
-}
-#root .Home .H_sec_top5 .H_sec_top5_map > li .top5_img::before{
-    content: '';
+/* 이미지 영역을 배경처럼 전체로 확장 */
+#root .Home .H_sec_top5 .H_sec_top5_map > li .top5_img {
     position: absolute;
-    background-color: #ebebee;
-    border-radius: 10px 0 0 10px;
-    width: 100%;
-    height: 100%;
+    left: 0;
     top: 0;
-    right: 0;
-    z-index: -1;
+    width: 100%; /* 카드 전체를 덮도록 */
+    height: 100%;
+    z-index: 1;
+}
+
+#root .Home .H_sec_top5 .H_sec_top5_map > li .top5_img img {
+    width: 95%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left center;
+    margin-top: 10px;
+}
+
+#root .Home .H_sec_top5_map .H_good {
+    position: relative;
+    z-index: 2;
+    width: 45%;
+    height: 100%;
+    margin-left: auto;
+    padding: 30px 25px;
+    background: rgb(255 255 255 / 60%);  /* 이미지 블러효과 */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(12px);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#root .Home .H_sec_top5_map .H_good > h5 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 10px;
+}
+
+#root .Home .H_sec_top5_map .H_good .H_good_p {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    min-height: 80px;
+    font-weight: 500;
+}
+
+/* 순위와 스티커를 이미지 위로 올림 */
+#root .Home .H_sec_top5_map .H_sec_top5_rank {
+    position: absolute;
+    top: 5px;
+    left: 25px;
+    font-size: 45px;
+    font-weight: 700;
+    color: #333;
+    font-style: italic;
+}
+
+#root .Home .H_sec_top5_map .H_sec_top5_sticker {
+    position: absolute;
+    z-index: 10;
+    background-color: #ff6e1a;
+    top: 0;
+    right: 15px;
+    padding: 3px 10px;
+    border-radius: 5px;
+    color: #fff;
 }
 
 /* ---------------------------------- */
@@ -566,7 +570,7 @@ input:checked + .checkmark {
 }
 
 .H_sec04_card {
-    border-radius: 50px;
+    border-radius: 40px;
     padding: 32px 20px;
     width: 270px;
     height: 270px;
@@ -574,6 +578,7 @@ input:checked + .checkmark {
     cursor: pointer;
     transition: 0.3s;
 }
+
 .H_sec04_card:hover{
     transform: translateY(-7px);
 }

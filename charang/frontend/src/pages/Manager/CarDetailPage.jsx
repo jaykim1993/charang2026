@@ -1,12 +1,12 @@
 import { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../contexts/Authcontext";
+import { DataContext } from "../../contexts/Datacontext";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import './CarDetailPage.css';
 
 export default function CarDetailPage(){
-
+    const{ visitChild } = useContext(DataContext);
     const navigate = useNavigate();
 
     // params로 carId값 들고 넘어옴
@@ -54,7 +54,7 @@ export default function CarDetailPage(){
                 <div className="carDetail_header">
                     <h2 className="carDetail_title">차량 상세정보</h2>
                     <div className="carDetail_btnBox">
-                        <button type="button" className="carDetail_listBtn" onClick={() => navigate(-1)}>전체목록</button>
+                        <button type="button" className="carDetail_listBtn" onClick={() => {visitChild(); navigate(-1)}}>전체목록</button>
                         <button type="button" className="carDetail_listBtn" onClick={modPageHandler}>수정하기</button>
                     </div>
                 </div>

@@ -1,12 +1,12 @@
 import { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../contexts/Authcontext";
+import { DataContext } from "../../contexts/Datacontext";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import './UserDetailPage.css';
 
 export default function UserDetailPage() {
-
+    const{ allHandler } = useContext(DataContext);
     const navigate = useNavigate();
 
     // params로 userId값 들고 넘어옴
@@ -49,7 +49,7 @@ export default function UserDetailPage() {
                 <div className="userMod_header">
                     <h2 className="userMod_title">회원 상세정보</h2>
                     <div className="userMod_btnBox">
-                        <button type="button" className="userMod_listBtn" onClick={() => navigate(-1)}>전체목록</button>
+                        <button type="button" className="userMod_listBtn" onClick={() => {allHandler(); navigate(-1)}}>전체목록</button>
                     </div>
                 </div>
 

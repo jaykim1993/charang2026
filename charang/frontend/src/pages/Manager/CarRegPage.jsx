@@ -6,7 +6,7 @@ import { DataContext } from "../../contexts/Datacontext";
 import './CarRegPage.css';
 
 export default function CarRegPage() {
-    const { allCar } = useContext(DataContext);
+    const { allCar, visitChild } = useContext(DataContext);
     // 모든 값 하나의 객체로 관리
     const [regCar, setRegCar] = useState({
         brand: '', // 브랜드 이름
@@ -114,7 +114,7 @@ export default function CarRegPage() {
             <div className="crp_container">
                 <div className="crp_header">
                     <h1>차량 등록</h1>
-                    <button type="button" className="crp_listBtn" onClick={() => navi(-1)}>전체목록</button>
+                    <button type="button" className="crp_listBtn" onClick={() => {visitChild(); navi(-1)}}>전체목록</button>
                 </div>
 
                 <table className="car_reg_table">

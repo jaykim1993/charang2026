@@ -34,11 +34,11 @@ export default function GraphPage() {
         content: '대여 이용 시간대별 분포를 꺾은선 그래프로 시각화하여 단기·장기 대여 수요 패턴을 파악할 수 있다.\n\n· 12~16시간 구간 최다, 단기 수요 집중 / 48시간 이상 장기 수요도 유효\n· 단기·장기 요금제 구성 및 차량 회전율 최적화 전략 수립에 활용'},
     {type: 'fa-solid fa-chart-line', source: ['booking'],
         content: '시간대별 누적 이용량을 꺾은선 그래프로 시각화하여 차량 수요가 집중되는 피크 시간대를 파악할 수 있다.\n\n· 21~22시 이용량 최고조, 오전 5시 이후 점진적 증가 패턴 확인\n· 피크 시간대 배차·반납 집중 관리 및 심야·새벽 수요 분산 전략에 활용'},
-    {type: 'fa-solid fa-chart-pie', source: ['booking', 'car'],
+    {type: 'fa-solid fa-chart-pie', source: ['car', 'booking'],
         content: '브랜드별 예약 점유율을 도넛 차트로 시각화하여 브랜드 간 수요 비중을 한눈에 비교할 수 있다.\n\n· 한대·테셀라·크아 상위 3개 브랜드가 약 65% 차지\n· 수요 높은 브랜드 우선 확보 및 저점유 브랜드 보유 필요성 재검토'},
-    {type: 'fa-solid fa-chart-bar', source: ['booking', 'car'],
+    {type: 'fa-solid fa-chart-bar', source: ['car', 'booking'],
         content: '예약 건수 상위 9개 모델을 가로 막대 그래프로 시각화하여 인기 차종 순위를 한눈에 확인할 수 있다.\n\n· 상위 모델에 수요가 집중되며 하위 모델과 예약 건수 차이가 뚜렷함\n· 인기 모델 우선 확보, 하위 모델은 배치 및 프로모션 전략 재검토'},
-    {type: 'fa-solid fa-chart-simple', source: ['booking', 'car', 'branch'],
+    {type: 'fa-solid fa-chart-simple', source: ['branch', 'booking', 'car'],
         content: '지점별 예약 상위 브랜드를 누적 막대 그래프로 시각화하여 지점 간 브랜드 수요 차이를 비교할 수 있다.\n\n· 지점별 선호 브랜드가 상이하며 수요 쏠림 현상이 뚜렷하게 나타남\n· 브랜드 맞춤 배치로 예약률 향상 및 불필요한 차량 이동 비용 절감'},
 ]
         return (

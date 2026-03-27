@@ -23,21 +23,31 @@ export default function AllUserPage() {
         setUserSearchWord,
         bookStatusFind,
         allBookStatus,
-        isUserLoading
+        isUserLoading,
+        visitChild
     } = useContext(DataContext);
 
     // 실제 검색에 사용할 키워드
     const [searchKeyword, setSearchKeyword] = useState("");
 
     // ================= 초기 진입 =================
-    useEffect(() => {
-        setPageNum(1);
-        setUserSearchWord("");
-        setSearchKeyword("");
-        bookStatusFind();
-        userCount();
-    }, []);
-
+    // 추가된 초기화 로직 ---
+    if(visitChild == true){
+        useEffect(() => {
+            setUserSearchWord("");
+            setSearchKeyword("");
+            bookStatusFind();
+            userCount();
+        }, []);
+    } else {
+        useEffect(() => {
+            setPageNum(1);
+            setUserSearchWord("");
+            setSearchKeyword("");
+            bookStatusFind();
+            userCount();
+        }, []);
+    }
     // ================= 데이터 조회 =================
     useEffect(() => {
         userFind(searchKeyword);
