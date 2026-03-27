@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { AuthContext } from "../../contexts/Authcontext"
 import { DataContext } from "../../contexts/Datacontext";
@@ -9,21 +9,20 @@ import './CustomerServiceNotice.css'
 
 export default function CustomerServiceNotice() {
     const { pageNum, setPageNum, pagesHandler, paging, setPaging, visitChild, setVisitChild } = useContext(DataContext);
+    const location = useLocation();
     // --- 추가된 초기화 로직 ---
-    if(visitChild == true){
-        useEffect(() => {
-                setSearchWord('');
-                setSearchType('title');
-                setVisitChild(false);
-            }, []); 
-    } else {
-            useEffect(() => {
-                setSearchWord('');
-                setSearchType('title');
-                setPageNum(1);
-            }, []); 
-    }
-    
+    useEffect(() => {
+        setSearchWord('');
+        setSearchType('title');
+        window.scrollTo(0, 0);
+        if (visitChild == true) {
+            setVisitChild(false);
+        } else {
+            setPageNum(1);
+        }
+    }, [location.key]);
+
+
     // -----------------------
     // 로그인 정보/유저 현재 로그인 유저 아이디 알아야됨
     const { userid } = useContext(AuthContext);
@@ -38,7 +37,7 @@ export default function CustomerServiceNotice() {
 
 
 
-    
+
     useEffect(() => {
         const timer = setTimeout(() => {
             axios.get("/api/customerservice/notice", {
@@ -93,7 +92,7 @@ export default function CustomerServiceNotice() {
                     </div>
                 </div>
             </div>
-             <div className="notice_table">
+            <div className="notice_table">
                 <table>
                     <thead>
                         <tr>

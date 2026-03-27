@@ -8,7 +8,7 @@ import axios from "axios";
 import './MypageInquiry.css'
 
 export default function MypageInquiry() {
-    const { pageNum, setPageNum, pagesHandler, paging, setPaging } = useContext(DataContext);
+    const { pagesHandler, paging, setPaging } = useContext(DataContext);
 
     const navigate = useNavigate();
 
@@ -23,10 +23,12 @@ export default function MypageInquiry() {
     // 비밀번호
     const [inputPw, setInputPw] = useState("");
 
+    const [currentPage, setCurrentPage] = useState(1);
+
     useEffect(() => {
         if (!userid) return;
 
-        axios.get(`/api/customerservice/inquiry/list?page=${pageNum}&userId=${userid}`)
+        axios.get(`/api/customerservice/inquiry/list?page=${currentPage}&userId=${userid}`)
             .then((res) => {
                 // console.log("문의목록 - 받아온데이터 : ", res.data);
                 setInquiry(res.data.list);  // 받아온 데이터
@@ -35,7 +37,7 @@ export default function MypageInquiry() {
                 // console.log("문의목록 - res.data.ph : ", res.data.ph);
             })
             .catch(error => console.log("error : ", error));
-    }, [pageNum, userid]);
+    }, [currentPage, userid]);
 
     // 비밀번호가 있는지 체크
     const myInquiryHandler = (item) => {
@@ -96,7 +98,7 @@ export default function MypageInquiry() {
                             <tbody>
                                 {inquiry.map((data, index) => (
                                     <tr key={index} onClick={() => myInquiryHandler(data)}>
-                                        <td>{paging.totalCnt - ((pageNum - 1) * paging.pageSize) - index}</td>
+                                        <td>{paging.totalCnt - ((currentPage - 1) * paging.pageSize) - index}</td>
                                         <td>
                                             {data.password && <i className="bi bi-lock-fill"></i>}
                                             &nbsp;{data.title}
@@ -112,21 +114,21 @@ export default function MypageInquiry() {
                             {/* 이전 버튼 */}
                             {/* 5페이지 넘어가야 화살표 나옴 */}
                             {paging.prev && (
-                                <button onClick={() => setPageNum(paging.startPage - 1)}>
+                                <button onClick={() => setCurrentPage(paging.startPage - 1)}>
                                     <i className="bi bi-caret-left-fill"></i>
                                 </button>
                             )}
 
                             {/* 페이지 번호들 */}
                             {pagesHandler(paging).map(num => (
-                                <button key={num} className={pageNum === num ? "active" : ""} onClick={() => setPageNum(num)}>
+                                <button key={num} className={currentPage === num ? "active" : ""} onClick={() => setCurrentPage(num)}>
                                     {num}
                                 </button>
                             ))}
 
                             {/* 다음 버튼 */}
                             {paging.next && (
-                                <button onClick={() => setPageNum(paging.endPage + 1)}>
+                                <button onClick={() => setCurrentPage(paging.endPage + 1)}>
                                     <i className="bi bi-caret-right-fill"></i>
                                 </button>
                             )}
