@@ -586,8 +586,8 @@ export default function Home() {
       <div className="H_sec_new">
         <h4>
           <span className="H_sec04_H_span">
-            NEW
-          </span>: 신규 입고 차량</h4>
+            NEW&nbsp;
+          </span>신규 입고 차량</h4>
         <div className="H_sec_new_map">
           <p onClick={before_btn} className="H_before_btn">〈</p>
           <div className="H_slide">

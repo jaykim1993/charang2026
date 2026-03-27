@@ -7,8 +7,8 @@ import { CalendarContext } from "../../contexts/Calendarcontext";
 import axios from "axios";
 
 export default function ReservationDetailPage() {
-
-    const { branch } = useContext(DataContext); // 지점 정보 호출
+    
+    const { branch, allHandler } = useContext(DataContext); // 지점 정보 호출
     const { startdayText, enddayText } = useContext(CalendarContext);
     const navigate = useNavigate();
 
@@ -89,7 +89,7 @@ export default function ReservationDetailPage() {
                 <div className="reservationDetail_header">
                     <h2 className="reservationDetail_title">예약 상세정보</h2>
                     <div className="reservationDetail_btnBox">
-                        <button type="button" className="reservationDetail_listBtn" onClick={() => navigate(-1)}>전체목록</button>
+                        <button type="button" className="reservationDetail_listBtn" onClick={() => {allHandler(); navigate(-1)}}>전체목록</button>
                     </div>
                 </div>
 

@@ -6,7 +6,7 @@ import axios from "axios";
 import './CarDetailPage.css';
 
 export default function CarDetailPage(){
-    const{ visitChild } = useContext(DataContext);
+    const{ allHandler } = useContext(DataContext);
     const navigate = useNavigate();
 
     // params로 carId값 들고 넘어옴
@@ -17,7 +17,7 @@ export default function CarDetailPage(){
 
     // 해당 carI 정보 불러오기
     useEffect(()=>{
-        console.log("현재 useParams로 가져온 carId: ", carId);
+        // console.log("현재 useParams로 가져온 carId: ", carId);
         axios.get("/api/carinfo/"+carId)
         .then((res)=>{
             // console.log("해당 id 데이터: ",res.data);
@@ -54,7 +54,7 @@ export default function CarDetailPage(){
                 <div className="carDetail_header">
                     <h2 className="carDetail_title">차량 상세정보</h2>
                     <div className="carDetail_btnBox">
-                        <button type="button" className="carDetail_listBtn" onClick={() => {visitChild(); navigate(-1)}}>전체목록</button>
+                        <button type="button" className="carDetail_listBtn" onClick={() => {allHandler(); navigate(-1)}}>전체목록</button>
                         <button type="button" className="carDetail_listBtn" onClick={modPageHandler}>수정하기</button>
                     </div>
                 </div>

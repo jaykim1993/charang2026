@@ -1,13 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import { DataContext } from "../../contexts/Datacontext";
 import axios from "axios";
 
 import './InquiryAnswer.css'
 
 export default function InquiryAnswer() {
     const navigate = useNavigate();
-
+    const{ allHandler } = useContext(DataContext);
     const { inquiryId } = useParams();
 
     const [inquiry, setInquiry] = useState({});
@@ -35,6 +36,7 @@ export default function InquiryAnswer() {
                 if (res.data === "success") {
                     // console.log("답변등록 - res.data : ", res.data);
                     alert('답변이 등록되었습니다.')
+                    allHandler();
                     navigate(-1);
                 } else {
                     alert("답변 등록 실패 - 데이터 오류");

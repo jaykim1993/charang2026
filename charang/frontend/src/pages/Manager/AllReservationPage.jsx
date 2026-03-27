@@ -20,7 +20,8 @@ export default function AllReservationPage(){
         pagesHandler, 
         allBookStatus, 
         bookStatusFind, 
-        isBookLoading 
+        isBookLoading , 
+        visitChild
     } = useContext(DataContext);
 
     // 화면 이동 훅
@@ -32,6 +33,22 @@ export default function AllReservationPage(){
         bookFind();
     }
     
+    // --- 추가된 초기화 로직 ---
+    if(visitChild == true){
+        useEffect(() => {
+            setSearchTypeBook("bookingId");
+            searchResetHandler();
+            bookStatusFind();
+        }, []);
+    } else {
+        useEffect(() => {
+            setPageNum(1);
+            setSearchTypeBook("bookingId");
+            searchResetHandler();
+            bookStatusFind();
+        }, []);
+    }
+
     // --- 추가된 초기화 로직 ---
     useEffect(() => {
         // 다른 페이지에서 진입 시 무조건 1페이지로 시작
