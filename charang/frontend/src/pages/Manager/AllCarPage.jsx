@@ -7,9 +7,17 @@ import './AllCarPage.css';
 export default function AllCarPage() {
     // DataContext에서 isLoading 추가로 가져오기
     const {
-        pageNum, setPageNum, pagesHandler, paging, setPaging,
-        bookStatusFind, allBookStatus, car, allCar, searchResetHandler,
-        isLoading // 로딩 상태 추가
+        pageNum, 
+        setPageNum, 
+        pagesHandler, 
+        paging, 
+        setPaging,
+        bookStatusFind, 
+        allBookStatus, 
+        car, 
+        allCar, 
+        searchResetHandler, 
+        visitChild
     } = useContext(DataContext);
 
     const navigate = useNavigate();
@@ -22,11 +30,18 @@ export default function AllCarPage() {
     const [searchCar, setSearchCar] = useState([]);
     const [isCarLoading, setIsCarLoading] = useState(false);
 
-    // 초기화 로직
-    useEffect(() => {
-        setPageNum(1);
-        searchResetHandler();
-    }, []);
+
+    // --- 추가된 초기화 로직 ---
+    if(visitChild == true){
+        useEffect(() => {
+            searchResetHandler();
+        }, []);
+    } else {
+        useEffect(() => {
+            setPageNum(1);
+            searchResetHandler();
+        }, []);
+    }
 
     // 차량 검색 API 호출 함수
     const carFind = () => {

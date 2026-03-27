@@ -529,7 +529,7 @@ export default function Home() {
       <div className="H_section05">
         <h4 className="H_sec04_H">
           <span className="H_sec04_H_span">
-            차랑차랑 &nbsp;
+            차랑차랑&nbsp;
           </span>
           쉽고 빠른 차량 렌트
         </h4>
@@ -552,9 +552,14 @@ export default function Home() {
         </ul>
       </div>
 
-      {/* sec - 인기순 */}
+      {/* sec - 실시간 예약 급상승 */}
       <div className="H_sec_top5">
-        <h4>인기순</h4>
+        <h4>
+          실시간 예약&nbsp;
+          <span className="H_sec04_H_span">
+            급상승
+          </span>
+          </h4>
         {/* <div className="H_sec_top5_hashtag">
           <span>#인기폭발</span><span>#가성비갑</span><span>#신차</span>
         </div> */}
@@ -562,7 +567,7 @@ export default function Home() {
           {popularCar.map((item, index) => (
             <li key={index} onClick={() => { goToSearchcarlist(item.model); scrollTo(0, 0); }}>
               <span className="H_sec_top5_rank">{index + 1}</span>
-              <span className="H_sec_top5_sticker">인기차량</span>
+              {/* <span className="H_sec_top5_sticker">HOT</span> */}
               <div className="top5_img">
                 <img src={`/images/cars/${item.carImg}`} alt={item.carId} />
               </div>
@@ -579,7 +584,10 @@ export default function Home() {
 
       {/* 신규차량 */}
       <div className="H_sec_new">
-        <h4>신규 차량</h4>
+        <h4>
+          <span className="H_sec04_H_span">
+            NEW
+          </span>: 신규 입고 차량</h4>
         <div className="H_sec_new_map">
           <p onClick={before_btn} className="H_before_btn">〈</p>
           <div className="H_slide">
@@ -613,7 +621,7 @@ export default function Home() {
       {userid &&
         <div className="H_sec_history">
           <div className="H_sec_history_block">
-            <h4><span className="joinColorText">{username}</span>님의 최근 본 차량</h4>
+            <h4><span className="H_sec04_H_span">{username}</span>님의 최근 본 차량</h4>
             <Link to={'/mypage/recent'} className="H_more">
               <span>더보기</span>
             </Link>
@@ -640,7 +648,7 @@ export default function Home() {
 
       {/* 광고 3 배너 */}
       <div className="H_sect_blockBanner">
-        <h4>2026 특가 혜택!</h4>
+        <h4>진행 중인 혜택 & 이벤트</h4>
         <div className="H_sec04_advertisementBanner">
           <Link to={'/customerservice/notice/Info/9'}>
             <img src="/images/banner/advertisementBanner01.png" alt="광고배너1" />
