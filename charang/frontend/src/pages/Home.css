@@ -315,37 +315,52 @@ input:checked + .checkmark {
 #root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li .H_new{
     display: inline-block;
     position: relative;
-    background-color: #ebebee;
+    background-color: #eeeeee;
     width: 240px;
-    height: 300px;
+    height: 280px;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
 }
-/* 
-.H_new_carLogo{
+
+/* 밑에 모델명 들어가는 영역 DIV */
+.H_new_back{  
+     background: linear-gradient(
+        to top,
+        #363636 0%,
+        rgba(54, 54, 54, 0.7) 40%,
+        rgba(54, 54, 54, 0) 100%
+    );
+    width: 100%;
+    height: 150px;
     position: absolute;
-    z-index: 20px;
-    width: 10px;
-} */
-#root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li .H_new .H_new_carName{
-    position: absolute;
-    top: 10px;
-    left: 30px;
-    font-size: 25px;
-    
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    padding-top: 105px;
+}
+#root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li .H_new .H_new_Name{
+    font-size: 23px;
+    color: white;
 }
 .H_new_Year{
-    font-size: 15px;
-    color: #1e75f5;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 17px;
+    color: #333;
 }
 .H_new_Name{
     font-style: italic;
 }
 #root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li .H_new >img{
     width: 400px;
-    padding: 50px 0 0 15px;
+    transition:0.2s;
 }
+#root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li .H_new:hover img{
+    transform: translateY(-5px);
+}
+
 
 /* 최근 본 차량 */
 #root .Home .H_sec_history .H_sec_history_block{
