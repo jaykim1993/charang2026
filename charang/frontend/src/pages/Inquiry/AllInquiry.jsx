@@ -8,14 +8,17 @@ import './AllInquiry.css'
 
 export default function AllInquiry() {
     const { pageNum, setPageNum, pagesHandler, paging, setPaging } = useContext(DataContext);
-    const { visitChild } = useContext(DataContext);
+    const { visitChild, setVisitChild } = useContext(DataContext);
     const navigate = useNavigate();
 
     const { userid, username } = useContext(AuthContext);
     // --- 추가된 초기화 로직 ---
-    if(visitChild == false){
+    if(visitChild == true){
         useEffect(() => {
-            // 다른 페이지에서 진입 시 무조건 1페이지로 시작
+            setVisitChild(false);
+        }, []); 
+    } else {
+        useEffect(() => {
             setPageNum(1);
         }, []); 
     }

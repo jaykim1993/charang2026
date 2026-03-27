@@ -21,7 +21,8 @@ export default function AllReservationPage(){
         allBookStatus, 
         bookStatusFind, 
         isBookLoading , 
-        visitChild
+        visitChild,
+        setVisitChild
     } = useContext(DataContext);
 
     // 화면 이동 훅
@@ -39,6 +40,7 @@ export default function AllReservationPage(){
             setSearchTypeBook("bookingId");
             searchResetHandler();
             bookStatusFind();
+            setVisitChild(false);
         }, []);
     } else {
         useEffect(() => {

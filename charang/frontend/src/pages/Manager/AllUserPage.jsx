@@ -24,7 +24,8 @@ export default function AllUserPage() {
         bookStatusFind,
         allBookStatus,
         isUserLoading,
-        visitChild
+        visitChild,
+        setVisitChild
     } = useContext(DataContext);
 
     // 실제 검색에 사용할 키워드
@@ -38,6 +39,7 @@ export default function AllUserPage() {
             setSearchKeyword("");
             bookStatusFind();
             userCount();
+            setVisitChild(false);
         }, []);
     } else {
         useEffect(() => {
