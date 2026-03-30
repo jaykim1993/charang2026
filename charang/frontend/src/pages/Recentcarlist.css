@@ -1,16 +1,17 @@
-#root .Recent_car_list{
+#root .Recent_car_list {
     width: 900px;
     padding: 0;
     margin-top: 20px;
     min-height: 900px;
 }
 
-#root .Recent_car_list .Recent_Head{
+#root .Recent_car_list .Recent_Head {
     display: flex;
     gap: 10px;
     margin: 30px 0;
 }
-#root .Recent_car_p{
+
+#root .Recent_car_p {
     /* margin: 0 0 20px 0; */
     padding-top: 15px;
     color: #333;
@@ -18,20 +19,26 @@
     font-size: 17px;
     border-top: 1px solid #cad7e8;
 }
-#root .Recent_car_p span{
+
+#root .Recent_car_p span {
     font-size: 14px;
 }
-.Recent_car_span{
+
+.Recent_car_span {
     font-size: 15px;
+    color: #5d5d5d;
 }
-#root .Recent_car_list > ul{
+
+#root .Recent_car_list>ul {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     gap: 29px 13px;
     padding: 15px 0;
 }
+
 /* 1대 */
-#root .Recent_car_list .Recent_ByDate  .Recent_car_item{
+#root .Recent_car_list .Recent_ByDate .Recent_car_item {
     width: 290px;
     font-size: 17px;
     font-weight: 500;
@@ -39,70 +46,90 @@
     position: relative;
     margin: 0;
     padding: 20px 20px;
-    background-color: #eaf2f9;
-    border-radius: 5px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
     min-height: 280px;
+    border: 1px solid #e7e9eb;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-#root .Recent_car_list .Recent_ByDate .Recent_car_img{
+
+#root .Recent_car_list .Recent_ByDate .Recent_car_item:hover {
+    /* transform: none; */
+    background-color: #fff;
+}
+
+.Recent_oneCar:hover .Recent_car_item {
+    box-shadow: 0 0 20px rgba(102, 156, 238, 0.15);
+}
+
+#root .Recent_car_list .Recent_ByDate .Recent_car_img {
     border-radius: 7px;
     width: 100%;
     margin-bottom: 20px;
     transition: 0.2s;
-    min-height: 160px;   
+    min-height: 160px;
 }
-#root .Recent_car_list .Recent_ByDate  .Recent_car_item:hover{
-    /* background-color: #d8e1e8; */
-    background-color: #f5fbff;
-    /* border: 1px solid #cad7e8; */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+.Recent_oneCar {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.Recent_oneCar:hover {
+    transform: translateY(-3px);
+}
+
 .Recent_logo {
     position: absolute;
     max-width: 30px;
     height: 30px;
 }
-.RecentCar_viewDate{
+
+.RecentCar_viewDate {
     font-size: 13px;
     color: #777;
 }
-.Recent_buttons{
+
+.Recent_buttons {
     display: flex;
     justify-content: center;
 }
-.Recent_buttons > button{
-    padding: 15px; 
+
+.Recent_buttons>button {
+    padding: 15px;
     border: none;
     background-color: transparent;
 }
-.Recent_buttons > button > i{
+
+.Recent_buttons>button>i {
     font-size: 30px;
     color: #657282;
 }
 
-.RecentDel{
+.RecentDel {
     font-size: 30px;
     width: 30px;
     height: 30px;
     line-height: 30px;
     background-color: transparent;
     border: none;
-}
-.RecentDel i:hover{
-    color: #0b79b7;
-}
-.hihihihi{
-    position: relative;
-}
-.RecentDelBox{
     text-align: right;
     position: absolute;
     right: 10px;
     top: 10px;
     z-index: 1;
 }
-.noRecentCar{
+
+.bi-x:hover {
+    color: #0b79b7;
+}
+
+.Recent_oneCar {
+    position: relative;
+}
+
+.noRecentCar {
     width: 200px;
     margin: 150px auto;
     text-align: center;
-
 }

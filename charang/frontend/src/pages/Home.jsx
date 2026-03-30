@@ -193,7 +193,6 @@ export default function Home() {
     navigate("/searchcarlist", {
       state: { model }
     });
-    sessionStorage.removeItem("allCarShow");
   };
 
   const homeAD = [
@@ -561,12 +560,9 @@ export default function Home() {
             급상승
           </span>
         </h4>
-        {/* <div className="H_sec_top5_hashtag">
-          <span>#인기폭발</span><span>#가성비갑</span><span>#신차</span>
-        </div> */}
         <ul className="H_sec_top5_map">
           {popularCar.map((item, index) => (
-            <li key={index} onClick={() => { goToSearchcarlist(item.model); scrollTo(0, 0); }}>
+            <li key={index} >
               <span className="H_sec_top5_rank">{index + 1}</span>
               {/* <span className="H_sec_top5_sticker">HOT</span> */}
               <div className="top5_img">
@@ -577,7 +573,10 @@ export default function Home() {
                 <p className="H_good_p">{item.carInfo}</p>
                 <p className="hashtags">{item.hashtag}</p>
               </div>
-              <i className="bi bi-arrow-right-circle-fill"></i>
+              <div className="H_sec_top5_bookBtn" onClick={() => { goToSearchcarlist(item.model); }}>
+                예약하기&nbsp;
+                <i className="bi bi-arrow-right"></i>
+              </div>
             </li>
           ))}
         </ul>
@@ -599,7 +598,6 @@ export default function Home() {
                     {/* <img className="H_new_carLogo" src={`/images/brands/${item.brand_logo}`} alt="car_logo" style={{width:"10px"}}/> */}
                     <div className="H_new_carName">
                       <b className="H_new_Year">{item.modelYear}년 입고</b>
-                      <br />
                       <div className="H_new_back">
                         <b className="H_new_Name">{item.model}</b>
                       </div>
@@ -618,7 +616,7 @@ export default function Home() {
       {/* 광고_2 */}
       <div className="H_sec_banner_one">
         <Link to={'/customerservice/notice/Info/22'}>
-          <img className="H_ad10" src='/images/banner/advertise11.png'></img>
+          <img className="H_ad10" src='/images/banner/advertise10.png'></img>
         </Link>
       </div>
 
@@ -628,7 +626,7 @@ export default function Home() {
           <div className="H_sec_history_block">
             <h4><span className="H_sec04_H_span">{username}</span>님의 최근 본 차량</h4>
             <Link to={'/mypage/recent'} className="H_more">
-              <span>더보기</span>
+              <span className="H_sec04_H_more">더보기</span>
             </Link>
           </div>
           {sec03Sort.length > 0 ?
@@ -642,10 +640,8 @@ export default function Home() {
             :
             <>
               <div className="H_sec_noRecentcars">
+                <i className="bi bi-chat-square-dots"></i>
                 <p>최근 본 차량이 없습니다.</p>
-                <div>
-                  <span>!</span>
-                </div>
               </div>
             </>}
         </div>

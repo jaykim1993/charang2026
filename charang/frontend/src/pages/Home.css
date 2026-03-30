@@ -1,4 +1,4 @@
-*{
+* {
     /* box-sizing: border-box; */
     margin: 0;
     padding: 0;
@@ -7,11 +7,12 @@
     text-decoration: none;
 }
 
-input:checked + .checkmark {
+input:checked+.checkmark {
     background: #1e75f5;
     border-color: #1e75f5;
 }
-#root .Home{
+
+#root .Home {
     width: 1300px;
     margin: 105px auto;
     position: relative;
@@ -19,7 +20,7 @@ input:checked + .checkmark {
 }
 
 /* 예약섹션 */
-#root .Home .H_reservation{
+#root .Home .H_reservation {
     width: 940px;
     height: 136px;
     display: flex;
@@ -33,11 +34,12 @@ input:checked + .checkmark {
 }
 
 /* 날짜/시간선택 */
-#root .Home .H_reservation .H_dateTable{
+#root .Home .H_reservation .H_dateTable {
     width: 460px;
     padding-left: 10px;
 }
-#root .Home .H_reservation .H_dateTable.open{
+
+#root .Home .H_reservation .H_dateTable.open {
     margin-top: 25px;
     background-color: #fff;
     width: 446px;
@@ -47,32 +49,35 @@ input:checked + .checkmark {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
-#root .Home .H_reservation .H_dateTable > p{
+#root .Home .H_reservation .H_dateTable>p {
     color: rgb(142, 142, 142);
     font-size: 15px;
     font-weight: 500;
     padding: 34px 0 0 20px;
 
 }
-#root .Home .H_reservation .H_spotTable .spot_choice > p {
+
+#root .Home .H_reservation .H_spotTable .spot_choice>p {
     color: rgb(142, 142, 142);
     font-size: 15px;
     font-weight: 500;
     /* padding: 34px 0 0 40px; */
 }
 
-#root .Home .H_reservation .H_dateTable .H_dateTitle > p{
+#root .Home .H_reservation .H_dateTable .H_dateTitle>p {
     font-size: 19px;
     font-weight: 700;
     cursor: pointer;
     padding: 5px 0 0 20px;
 }
+
 /* 지점선택 */
-#root .Home .H_reservation .H_spotTable .spot_choice{
+#root .Home .H_reservation .H_spotTable .spot_choice {
     width: 420px;
     padding: 33px 0 0 0;
 }
-#root .Home .H_reservation .H_spotTable .spot_choice.open{
+
+#root .Home .H_reservation .H_spotTable .spot_choice.open {
     margin-top: 25px;
     background-color: #fff;
     width: 460px;
@@ -83,20 +88,22 @@ input:checked + .checkmark {
     border-radius: 100px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
+
 /* #root .Home .H_reservation .H_spotTable .spot_choice .H_spotTitle h2{
     cursor: pointer;
 } */
-#root .Home .H_reservation .H_spotTable .spot_choice .H_spotTitle >p{
+#root .Home .H_reservation .H_spotTable .spot_choice .H_spotTitle>p {
     font-size: 20px;
     font-weight: 700;
     cursor: pointer;
     padding: 5px 0 0 0;
 }
+
 /* 찾기버튼 */
-#root .Home .H_reservation .H_spotTable .spot_choice .H_searchButton{
+#root .Home .H_reservation .H_spotTable .spot_choice .H_searchButton {
     position: absolute;
     top: 39px;
-    right: 43px;   
+    right: 43px;
     width: 170px;
     padding: 15px 0px;
     border-radius: 50px;
@@ -107,11 +114,12 @@ input:checked + .checkmark {
     border: none;
     transition: 0.3s ease;
 }
+
 /* 찾기버튼 */
-#root .Home .H_reservation .H_spotTable .spot_choice.open .H_searchButton{
+#root .Home .H_reservation .H_spotTable .spot_choice.open .H_searchButton {
     position: absolute;
     top: 39px;
-    right: 43px;   
+    right: 43px;
     width: 170px;
     padding: 15px 0px;
     border-radius: 50px;
@@ -122,82 +130,99 @@ input:checked + .checkmark {
     border: none;
     transition: 0.3s ease;
 }
-#root .Home .H_reservation .H_spotTable .H_searchButton > i{
+
+#root .Home .H_reservation .H_spotTable .H_searchButton>i {
     color: #fff;
     font-weight: 900;
 }
-#root .Home .H_reservation .H_spotTable .H_searchButton:hover{
-    background-color:#1763D1;
+
+#root .Home .H_reservation .H_spotTable .H_searchButton:hover {
+    background-color: #1763D1;
 }
 
 /* ---------------------------------- */
 
 /* sec01 - 배너1 */
-#root .Home .H_sec01{
+#root .Home .H_sec01 {
     width: 100%;
     height: 300px;
     /* margin: 80px 0; */
     border-radius: 10px;
     cursor: pointer;
 }
+
 /* ---------------------------------- */
 
-#root .Home .H_section05{
+#root .Home .H_section05 {
     margin: 80px 0;
 }
 
 /* ---------------------------------- */
 
 /* sec - 실시간 예약 급상승 */
-#root .H_sec_top5{
+#root .H_sec_top5 {
     margin: 50px 0;
 }
-#root .H_sec_top5 .H_sec_top5_map{
+
+#root .H_sec_top5 .H_sec_top5_map {
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
 }
 
 /* 각 카드박스 */
-#root .Home .H_sec_top5_map > li {
+#root .Home .H_sec_top5_map>li {
     width: 410px;
     height: 265px;
     display: flex;
     position: relative;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.178);
-    background-color: #f7f7f7;
+    /* box-shadow: 0 0 20px rgba(102, 156, 238, 0.15); */
+    background-color: #f8f9fa;
     transition: 0.4s ease;
-    cursor: pointer;
+    border: 1px solid #dee2e6;
 }
 
 /* 호버 움직임 */
-#root .Home .H_sec_top5_map > li:hover {
-    transform: translateY(-4px);
-}
+/* #root .Home .H_sec_top5_map>li:hover {
+    transform: translateY(-3px);
+} */
 
-/* 바로가기 화살표 */
-#root .Home .H_sec_top5_map > li .bi-arrow-right-circle-fill{
+/* 예약하기 버튼 */
+#root .Home .H_sec_top5_map>li .H_sec_top5_bookBtn {
     position: absolute;
     z-index: 10;
-    right: 20px;
-    bottom: 13px;
-    font-size: 20px;
-    color: #555;
+    right: 15px;
+    bottom: 15px;
+    font-size: 15px;
+    color: #fff;
+    background-color: #555;
+    padding: 7px 18px;
+    border-radius: 100px;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+#root .Home .H_sec_top5_map>li .H_sec_top5_bookBtn:hover{
+    background-color: #333;
+}
+
+#root .Home .H_sec_top5_map>li .bi-arrow-right {
+    color: #fff;
 }
 
 /* 이미지 영역을 배경처럼 전체로 확장 */
-#root .Home .H_sec_top5 .H_sec_top5_map > li .top5_img {
+#root .Home .H_sec_top5 .H_sec_top5_map>li .top5_img {
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%; /* 카드 전체를 덮도록 */
+    width: 100%;
+    /* 카드 전체를 덮도록 */
     height: 100%;
     z-index: 1;
 }
 
-#root .Home .H_sec_top5 .H_sec_top5_map > li .top5_img img {
+#root .Home .H_sec_top5 .H_sec_top5_map>li .top5_img img {
     width: 95%;
     height: 100%;
     object-fit: contain;
@@ -212,13 +237,13 @@ input:checked + .checkmark {
     height: 100%;
     margin-left: auto;
     padding: 30px 25px;
-    background: rgb(255 255 255 / 60%);  /* 이미지 블러효과 */
+    background: rgb(255 255 255 / 60%);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(12px);
     border-left: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-#root .Home .H_sec_top5_map .H_good > h5 {
+#root .Home .H_sec_top5_map .H_good>h5 {
     font-size: 18px;
     font-weight: 600;
     color: #222;
@@ -227,12 +252,17 @@ input:checked + .checkmark {
     padding-bottom: 10px;
 }
 
-#root .Home .H_sec_top5_map .H_good .H_good_p {
+#root .Home .H_sec_top5_map .H_good .H_good_p,
+#root .Home .H_sec_top5_map .H_good .hashtags {
     font-size: 14px;
     color: #333;
     line-height: 1.5;
     min-height: 80px;
     font-weight: 500;
+    word-break: keep-all;
+}
+#root .Home .H_sec_top5_map .H_good .H_good_p{
+    margin-bottom: 10px;
 }
 
 /* 순위와 스티커를 이미지 위로 올림 */
@@ -259,171 +289,220 @@ input:checked + .checkmark {
 
 /* ---------------------------------- */
 
-/* sec02 - 최신순 */
-#root .Home .H_sec_new .H_sec_new_map{
-    margin-bottom: 50px;
+/* sec02 - 최신순*/
+#root .Home .H_sec_new {
     width: 1300px;
+    margin: 0 auto 80px;
+}
+
+#root .Home .H_sec_new .H_sec_new_map {
     position: relative;
+    width: 100%;
 }
-#root .Home .H_sec_new > h4{
-    margin-bottom: 20px;
-}
-#root .Home .H_sec_new .H_sec_new_map .H_slide{
+
+/* 슬라이드 영역 */
+#root .Home .H_sec_new .H_sec_new_map .H_slide {
     overflow: hidden;
+    padding: 15px 0px;
 }
-#root .Home .H_sec_new .H_sec_new_map > p{
-    cursor: pointer;
-}
-#root .Home .H_sec_new .H_sec_new_map .H_before_btn{
+
+/* 버튼 공통 스타일 정리 */
+#root .Home .H_sec_new .H_sec_new_map .H_before_btn,
+#root .Home .H_sec_new .H_sec_new_map .H_after_btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: -70px;
     z-index: 20;
     font-size: 50px;
     font-weight: 250;
-    border-radius: 50%;
-    color: #979797;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
-#root .Home .H_sec_new .H_sec_new_map .H_after_btn{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: -70px;
-    z-index: 10;
-    font-size: 50px;
-    font-weight: 250;
-    border-radius: 50%;
-    color: #979797;
+
+#root .Home .H_sec_new .H_sec_new_map .H_before_btn {
+    left: -60px;
 }
+
+#root .Home .H_sec_new .H_sec_new_map .H_after_btn {
+    right: -60px;
+}
+
 #root .Home .H_sec_new .H_sec_new_map .H_before_btn:hover,
-#root .Home .H_sec_new .H_sec_new_map .H_after_btn:hover{
-    color: #444;
+#root .Home .H_sec_new .H_sec_new_map .H_after_btn:hover {
+    color: #1e75f5;
 }
-#root .Home .H_sec_new .H_sec_new_map .H_slide > ul{
+
+/* 리스트 스타일 */
+#root .Home .H_sec_new .H_sec_new_map .H_slide>ul {
     display: flex;
     gap: 25px;
-    transition: transform 0.8s ease;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
-#root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li{
-    height: 300px;
+
+#root .Home .H_sec_new .H_sec_new_map .H_slide>ul>li {
+    transition: all 0.3s ease;
 }
-#root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li .H_new:hover{
-    background-color: #cbcbce;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-}
-#root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li .H_new{
-    display: inline-block;
+
+/* 카드 본체 */
+#root .Home .H_sec_new .H_sec_new_map .H_slide>ul>li .H_new {
     position: relative;
-    background-color: #eeeeee;
+    background-color: #f8f9fa;
     width: 240px;
-    height: 280px;
+    height: 240px;
+    border-radius: 10px;
+    border: 1px solid #e7e9eb;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#root .Home .H_sec_new .H_sec_new_map .H_slide>ul>li:hover .H_new {
+    border: 1px solid #1e75f5;
+    box-shadow: 0 0 20px rgba(102, 156, 238, 0.205);
+    transform: translateY(-3px);
+    background-color: #fff;
+}
+
+/* 카드 텍스트 정보 */
+#root .Home .H_sec_new .H_sec_new_map .H_slide>ul>li .H_new .H_new_carName {
+    position: absolute;
+    top: 25px;
+    left: 20px;
+    line-height: 1.4;
+}
+
+.H_new_Year {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e75f5;
+    margin-bottom: 5px;
+}
+
+.H_new_Name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+}
+
+/* 카드 이미지 */
+#root .Home .H_sec_new .H_sec_new_map .H_slide>ul>li .H_new>img {
+    width: 210px;
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    object-fit: contain;
+}
+
+/* 전체 컨테이너 */
+.H_sec_history {
+    width: 100%;
+}
+
+/* 헤더영역과 더보기 */
+.H_sec_history_block {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 24px;
+}
+
+/* 더보기 */
+.H_sec_history .H_sec_history_block .H_sec04_H_more {
+    font-size: 16px;
+}
+
+.H_sec_history .H_sec_history_block .H_sec04_H_more:hover {
+    color: #1763D1;
+}
+
+.H_sec04_H_span {
+    color: #1e75f5;
+}
+
+.H_more {
+    text-decoration: none;
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.H_more:hover {
+    color: #1e75f5;
+}
+
+/* 차량 리스트 그리드 */
+.H_sec_history_map {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+/* 최근 본 차량 카드 */
+.H_recent {
+    width: calc(25% - 15px);
+    width: 240px;
+    height: 160px;
+    background-color: #f8f9fa;
+    border: 1px solid #eef2f8;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-}
-
-/* 밑에 모델명 들어가는 영역 DIV */
-.H_new_back{  
-     background: linear-gradient(
-        to top,
-        #363636 0%,
-        rgba(54, 54, 54, 0.7) 40%,
-        rgba(54, 54, 54, 0) 100%
-    );
-    width: 100%;
-    height: 150px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    text-align: center;
-    padding-top: 105px;
-}
-#root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li .H_new .H_new_Name{
-    font-size: 23px;
-    color: white;
-}
-.H_new_Year{
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 17px;
-    color: #333;
-}
-.H_new_Name{
-    font-style: italic;
-}
-#root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li .H_new >img{
-    width: 400px;
-    transition:0.2s;
-}
-#root .Home .H_sec_new .H_sec_new_map .H_slide > ul > li .H_new:hover img{
-    transform: translateY(-5px);
-}
-
-
-/* 최근 본 차량 */
-#root .Home .H_sec_history .H_sec_history_block{
     display: flex;
     align-items: center;
-    padding-bottom: 20px;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-#root .Home .H_sec_history .H_sec_history_block .H_more > span{
-    color: #1e75f5;
-    font-weight: 600;
-    display: inline-block;
-    height: 38px;
-    line-height: 38px;
-    padding-left: 15px;
+
+.H_recent:hover {
+    transform: translateY(-3px);
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(102, 156, 238, 0.205);
+    border-color: #1e75f5;
 }
-#root .Home .H_sec_history .H_sec_history_block .H_more > span:hover{
-    color: #1763D1;
-    text-decoration: underline;
-}
-#root .Home .H_sec_history_map{
-    /* margin-bottom: 50px; */
-    display: flex;
-    gap: 25px;
-}
-#root .Home .H_sec_history_map .H_recent{
-    display: inline-block;
-    /* background-color: #eeeeee; */
-    background-color: #eaf2f9;
-    width: 240px;
-    height: 150px;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-}
-#root .Home .H_sec_history_map .H_recent:hover{
-    background-color: #f5fbff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-#root .Home .H_sec_history_map .H_recent > img{
-    width: 300px;
-    padding: 0 0 30px 40px;
+
+.H_recent img {
+    width: 85%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s;
 }
 
 /* 광고배너 */
-#root .Home .H_sect_blockBanner{
+#root .Home .H_sect_blockBanner {
     margin: 80px 0;
 }
-#root .Home .H_sect_blockBanner > h4{
-    padding-bottom: 20px;
-}
-#root .Home .H_sect_blockBanner > .H_sec04_advertisementBanner{
-    display: flex;
-    justify-content: space-between;
-}
-#root .Home .H_sect_blockBanner > .H_sec04_advertisementBanner img{
+
+#root .Home .H_sect_blockBanner .H_sec04_advertisementBanner img {
+    transition: all 0.3s ease;
+    border: 1px solid #d9e2ee;
     border-radius: 10px;
     cursor: pointer;
+}
+
+#root .Home .H_sect_blockBanner .H_sec04_advertisementBanner img:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(102, 156, 238, 0.205);
+}
+
+#root .Home .H_sect_blockBanner>h4 {
+    padding-bottom: 20px;
+}
+
+#root .Home .H_sect_blockBanner>.H_sec04_advertisementBanner {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* ---------------------------------- */
 
 /* 지점 선택 모달. */
-.H_location{
+.H_location {
     width: 460px;
     margin: 0 auto;
     padding: 15px 25px 25px 25px;
@@ -443,31 +522,37 @@ input:checked + .checkmark {
     overflow: hidden;
 
 }
-.calendar-slide .Home_isCalendar_top{
+
+.calendar-slide .Home_isCalendar_top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 5px;
 }
-.calendar-slide p.Home_isCalendar_p{
+
+.calendar-slide p.Home_isCalendar_p {
     padding-left: 20px;
     font-size: 18px;
     font-weight: 500;
 }
-.calendar-slide .H_close02{
+
+.calendar-slide .H_close02 {
     padding-left: 635px;
 }
-.calendar-slide .H_close02 > i{
+
+.calendar-slide .H_close02>i {
     width: 15px;
     cursor: pointer;
     color: #999;
 }
-.calendar-slide .H_close02 > i:hover{
+
+.calendar-slide .H_close02>i:hover {
     color: #333;
 }
 
 .calendar-slide.open {
-    max-height: 800px; /* 캘린더 높이 예상값 */
+    max-height: 800px;
+    /* 캘린더 높이 예상값 */
     position: absolute;
     top: 140px;
     left: 0;
@@ -481,88 +566,103 @@ input:checked + .checkmark {
 }
 
 /* 지점 선택 목록 */
-.H_location .H_close01{
+.H_location .H_close01 {
     padding-left: 393px;
     margin-bottom: 15px;
 }
-.H_location .H_close01 > i{
+
+.H_location .H_close01>i {
     width: 15px;
     cursor: pointer;
     color: #999;
 }
-.H_location .H_close01:hover > i{
+
+.H_location .H_close01:hover>i {
     color: #333;
 }
-.H_location .H_selectLocation{
+
+.H_location .H_selectLocation {
     /* border: 1px solid red; */
     position: relative;
     padding-top: 20px;
 }
-.H_location .H_selectLocation > span{
+
+.H_location .H_selectLocation>span {
     display: inline-block;
     font-weight: 500;
     margin-bottom: 8px;
 }
-.H_location .H_selectLocation p{
+
+.H_location .H_selectLocation p {
     font-size: 16px;
     margin-bottom: 37px;
     display: flex;
     align-items: center;
 }
-.H_location .H_selectLocation p > span{
+
+.H_location .H_selectLocation p>span {
     font-size: 12px;
     color: rgb(157, 156, 156);
     margin-left: 10px;
 }
-.H_location .H_selectLocation .H_detail{
+
+.H_location .H_selectLocation .H_detail {
     width: 40px;
     height: 30px;
     border: none;
     font-size: 14px;
     border-radius: 3px;
 }
-.H_location .H_selectLocation .H_detail:hover{
-   background-color: rgb(225, 225, 225);
+
+.H_location .H_selectLocation .H_detail:hover {
+    background-color: rgb(225, 225, 225);
 }
-.H_location .H_selectLocation .H_gu{
+
+.H_location .H_selectLocation .H_gu {
     display: flex;
     justify-content: space-between;
 }
-.H_location .H_selectLocation .H_gu .H_Click> p{
+
+.H_location .H_selectLocation .H_gu .H_Click>p {
     cursor: pointer;
 }
-.H_location .H_selectLocation .H_seoul::before{
+
+.H_location .H_selectLocation .H_seoul::before {
     content: '';
     width: 100%;
     border-bottom: 1px solid rgb(227, 227, 227);
     position: absolute;
-    top:215px;
+    top: 215px;
 }
-.H_location .H_selectLocation .H_gimpo::before{
+
+.H_location .H_selectLocation .H_gimpo::before {
     content: '';
     width: 100%;
     border-bottom: 1px solid rgb(227, 227, 227);
     position: absolute;
-    top:310px;
+    top: 310px;
 }
 
 /* 지점 위치 상세보기 (지도) */
-.H_location .H_selectLocation_detail{
+.H_location .H_selectLocation_detail {
     padding: 25px 0 25px 0;
     width: 444px;
 }
-.H_location .H_selectLocation_detail > h5{
+
+.H_location .H_selectLocation_detail>h5 {
     padding: 20px 0;
 }
-.H_location .H_selectLocation_detail > h5::before{
+
+.H_location .H_selectLocation_detail>h5::before {
     content: '';
     width: 394px;
     border-bottom: 1px solid rgb(227, 227, 227);
     position: absolute;
-    top:710px;
+    top: 710px;
 }
-.H_location .H_selectLocation_detail .H_detial_address_title{
-    color: rgb(190, 190, 190) ;
+
+.H_location .H_selectLocation_detail .H_detial_address_title {
+    color: rgb(190, 190, 190);
     font-size: 15px;
     padding: 10px 0;
 }
@@ -570,6 +670,7 @@ input:checked + .checkmark {
 .H_sec04_H {
     margin-bottom: 30px;
 }
+
 .H_sec04_H_span {
     color: #1e75f5;
 }
@@ -589,13 +690,13 @@ input:checked + .checkmark {
     padding: 32px 20px;
     width: 270px;
     height: 270px;
-    box-shadow: 0 0 10px rgba(32, 32, 32, 0.2);
+    box-shadow: 0 0 20px rgb(92 127 179 / 24%);
     cursor: pointer;
     transition: 0.3s;
 }
 
-.H_sec04_card:hover{
-    transform: translateY(-7px);
+.H_sec04_card:hover {
+    transform: translateY(-3px);
 }
 
 .H_sec04_imgWrap {
@@ -629,16 +730,18 @@ input:checked + .checkmark {
 }
 
 /* 광고_2 */
-.H_sec_banner_one{
+.H_sec_banner_one {
     margin: 80px 0;
 }
-.H_ad10{
+
+.H_ad10 {
     border-radius: 10px;
     width: 1300px;
     text-align: center;
     cursor: pointer;
 }
-.H_sec_noRecentcars{
+
+.H_sec_noRecentcars {
     width: 100%;
     background-color: #f7f8fa;
     border-radius: 10px;
@@ -646,19 +749,27 @@ input:checked + .checkmark {
     padding: 70px;
     text-align: center;
 }
-.H_sec_noRecentcars p{
+
+.H_sec_noRecentcars p {
     margin-bottom: 20px;
     color: #333;
     font-size: 20px;
 }
-.H_sec_noRecentcars div{
+
+.H_sec_noRecentcars {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.H_sec_noRecentcars .bi-chat-square-dots {
     margin: 0 auto;
-    background-color: #cbcbce;
+    padding-bottom: 20px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
     font-weight: 600;
     font-size: 25px;
-    color: #777777;
     padding-bottom: 1px;
 }
