@@ -193,6 +193,7 @@ export default function Home() {
     navigate("/searchcarlist", {
       state: { model }
     });
+    sessionStorage.removeItem("allCarShow");
   };
 
   const homeAD = [

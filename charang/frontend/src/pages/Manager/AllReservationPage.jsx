@@ -22,9 +22,13 @@ export default function AllReservationPage() {
         bookStatusFind,
         isBookLoading,
         visitChild,
-        setVisitChild
+        setVisitChild,
+        sortBookType,
+        setSortBookType,
+        sortBook,
+        setSortBook
     } = useContext(DataContext);
-
+    
     // 화면 이동 훅
     const navi = useNavigate();
     const location = useLocation();
@@ -63,7 +67,7 @@ export default function AllReservationPage() {
     useEffect(() => {
         bookFind();
         bookStatusFind();
-    }, [pageNum]);
+    }, [pageNum, sortBookType, sortBook]);
 
     // console.log(user);
 
@@ -72,6 +76,21 @@ export default function AllReservationPage() {
         // console.log("paging 상태가 변경됨!! : ", paging);
     }, [paging]); // paging 값이 바뀔 때마다 실행됨
 
+
+    // ================= 정렬 =================
+    const sortHandler = (type) => {
+
+        if (sortType === type) {
+            sort === "asc"
+                ? setSortBook("desc")
+                : setSortBook("asc");
+        } else {
+            sortBookType(type);
+            setSortBook("desc");
+        }
+
+        setPageNum(1);
+    };
 
 
     // --------------삭제
@@ -179,13 +198,13 @@ export default function AllReservationPage() {
                 <thead className="AllReservation_table_th">
                     <tr className="AllReservation_table_tr">
                         <th className="AllReservation_tableNum" style={{ width: '5%' }}>번호</th>
-                        <th className="AllReservation_tableNum" style={{ width: '20%' }}>예약코드</th>
+                        <th onClick={()=> sortHandler("bookingId")} className="AllReservation_tableNum" style={{ width: '20%' }}>예약코드<i className="bi bi-chevron-down"></i></th>
                         <th className="AllReservation_tableUser" style={{ width: '5%' }}>예약자ID</th>
                         <th className="AllReservation_tableUser" style={{ width: '7%' }}>예약자</th>
                         <th className="AllReservation_tableCar" style={{ width: '10%' }}>예약차량</th>
-                        <th className="AllReservation_tableResDate" style={{ width: '9%' }}>예약일자</th>
-                        <th className="AllReservation_tableRentDate" style={{ width: '10%' }}>대여일자</th>
-                        <th className="AllReservation_tableResDate" style={{ width: '10%' }}>반납일자</th>
+                        <th onClick={()=> sortHandler("bookedDate")} className="AllReservation_tableResDate" style={{ width: '9%' }}>예약일자<i className="bi bi-chevron-down"></i></th>
+                        <th onClick={()=> sortHandler("startDate")}className="AllReservation_tableRentDate" style={{ width: '10%' }}>대여일자<i className="bi bi-chevron-down"></i></th>
+                        <th onClick={()=> sortHandler("endDate")}className="AllReservation_tableResDate" style={{ width: '10%' }}>반납일자<i className="bi bi-chevron-down"></i></th>
                         <th className="AllReservation_tableResDate" style={{ width: '10%' }}>결제금액</th>
                         <th className="AllReservation_tableResDate" style={{ width: '7%' }}>진행상태</th>
                         <th className="AllReservation_tableResDate" style={{ width: '10%' }}>삭제<p>({delBooking.length}/{allBookStatus.length})</p></th>

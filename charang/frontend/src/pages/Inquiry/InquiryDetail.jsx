@@ -62,12 +62,16 @@ export default function AllInquiryDetail() {
                     <button onClick={deleteHandler} className="inquiryDetail_updateBtn_2">삭제하기</button>
                 </div>
                 :
-                (inquiry.answer != null ? <></>
+                (inquiry.answer != null ? 
+                    <div className="inquiryDetail_updateBtn">
+                        <button onClick={deleteHandler} className="inquiryDetail_updateBtn_2">삭제하기</button>
+                    </div>
                  : 
                 (userid === 'admin' && <div className="inquiryDetail_updateBtn">
                     <button className="inquiryDetail_updateBtn_admin" onClick={() => navigate(`/manager/inquiry/answer/${inquiryId}`)}>
                         답변하기
                     </button>
+                    <button onClick={deleteHandler} className="inquiryDetail_updateBtn_2">삭제하기</button>
                 </div>))
             }
             <table>

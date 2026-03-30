@@ -43,13 +43,14 @@ export default function DataProvider({ children }) {
   const [searchTypeBook, setSearchTypeBook] = useState('');
   const [searchWordBook, setSearchWordBook] = useState('');
   const [isBookLoading, setIsBookLoading] = useState(false); // 로딩 상태 추가
-
+  const [sortBookType, setSortBookType] = useState('bookedDate');
+  const [sortBook, setSortBook] = useState('desc');
   // 전체 예약
   const bookFind = () => {
     // console.log("검색 타입:", searchTypeBook); 
     // console.log("검색 단어:", searchWordBook);
     setIsBookLoading(true);
-    axios.get("/api/bookcarlist", { params: { searchType: searchTypeBook, searchWord: searchWordBook, page: pageNum } })
+    axios.get("/api/bookcarlist", { params: { searchType: searchTypeBook, searchWord: searchWordBook, page: pageNum, sortBookType, sortBook } })
       .then((res) => {
         if (res.data) {
           setAllBookCar(res.data.list);
@@ -187,6 +188,10 @@ export default function DataProvider({ children }) {
           sort,
           // 예약 출력
           bookFind,
+          sortBookType,
+          setSortBookType,
+          sortBook,
+          setSortBook,
           // 회원 출력
           userFind,
           // 검색 - 회원

@@ -69,7 +69,9 @@ export default function Recentcar() {
         startDate, endDate, startTime, endTime,
         setStartDate, setEndDate,
         setIsLocation, setIsCalendar, isLocation, isCalendar,
-        startdayText, enddayText, DeleteYear, timeAMPM, todayStartDate
+        startdayText, enddayText, DeleteYear, timeAMPM, todayStartDate,
+        resetFilters,
+        resetFiltersCal
     } = useContext(CalendarContext);
 
     const { fetchBookedList, calculatePrice } = useContext(BookingContext);
@@ -152,7 +154,7 @@ export default function Recentcar() {
         });
     };
 
-    const resetFilters = () => {
+    const resetFiltersOption = () => {
         setSelectedFilters({ carSize: [], fuelType: [], brand: [], option: [] });
     };
 
@@ -163,7 +165,7 @@ export default function Recentcar() {
         setBranchId("");
         setStartDate(todayStartDate);
         setEndDate(null);
-        // resetFilters();
+        resetFiltersCal();
         alert("검색 조건이 초기화되었습니다.");
         sessionStorage.removeItem("calendarFilters");
         sessionStorage.removeItem("filteredInfoUser");
@@ -179,6 +181,7 @@ export default function Recentcar() {
         setStartDate(todayStartDate);
         setEndDate(null);
         resetFilters();
+        resetFiltersOption();
         setIsAllCar(true)
         selectedModel = null;
         const confirmCancel = window.confirm('해당 차량에 대한 검색이 초기화됩니다. 계속하시겠습니까?');
