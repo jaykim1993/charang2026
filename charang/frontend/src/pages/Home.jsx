@@ -377,7 +377,7 @@ export default function Home() {
                           onClick={() => {
                             setLocation(""); 
                             setBranchId(""); 
-                            setIsLocation(false);
+                            // setIsLocation(false);
                             }}>
                             <i className="bi bi-arrow-clockwise"></i>
                           </button>
