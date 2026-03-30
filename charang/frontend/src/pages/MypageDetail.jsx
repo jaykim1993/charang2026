@@ -118,6 +118,13 @@ export default function MypageDetail() {
                             >
                             예약 취소하기
                             </button>
+                        ) : dText === "D-Day" ? (
+                            <button
+                            className='myPageCancleBtn'
+                            onClick={() => alert("예약은 당일 취소할 수 없습니다.")}
+                            >
+                            예약 취소하기
+                            </button>
                         ) : (
                             <button
                             className='myPageCancleBtn'

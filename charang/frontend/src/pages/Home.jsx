@@ -370,7 +370,14 @@ export default function Home() {
                   ) : (
                     // 지점 목록 
                     <>
-                      <h3>지점을 선택하세요</h3>
+                      <h3>지점을 선택하세요&nbsp;&nbsp;&nbsp;
+                        {location != "" ? (
+                          <button onClick={() => { setLocation(""); setBranchId("") }}>
+                            <i className="bi bi-arrow-clockwise"></i>
+                          </button>
+                        ) : (<></>)
+                        }
+                      </h3>
                       <div className="H_selectLocation">
                         <span>서울</span>
                         <div className="H_seoul">
