@@ -359,7 +359,7 @@ export default function Recentcar() {
                 <div className="R_cate_top">
                     <h5>필터</h5>
                     {Object.values(selectedFilters).some(arr => arr.length > 0) && (
-                        <button onClick={resetFilters}>
+                        <button onClick={resetFiltersOption}>
                             <i className="bi bi-arrow-clockwise"></i>
                         </button>
                     )}

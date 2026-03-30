@@ -236,7 +236,6 @@ export default function Home() {
         // 1. 서버에서 온 데이터(res.data)를 기반으로 새로운 배열 생성
         const combinedData = res.data.map((car, index) => {
           // 2. index를 활용해 goodCar에 있는 정보를 가져와서 합치기
-          // (만약 서버 데이터가 3개보다 많을 경우를 대비해 % 연산자를 쓰면 안전합니다)
           const additionalInfo = goodCar[index % goodCar.length];
 
           return {
