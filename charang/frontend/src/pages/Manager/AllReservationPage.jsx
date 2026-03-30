@@ -196,13 +196,13 @@ export default function AllReservationPage() {
                 <thead className="AllReservation_table_th">
                     <tr className="AllReservation_table_tr">
                         <th className="AllReservation_tableNum" style={{ width: '5%' }}>번호</th>
-                        <th onClick={()=> sortHandler("bookingId")} className="AllReservation_tableNum" style={{ width: '20%' }}>예약코드<i className="bi bi-chevron-down"></i></th>
+                        <th onClick={()=> sortHandler("bookingId")} className="ARSVTD" style={{ width: '20%' }}>예약코드<i className="bi bi-chevron-down"></i></th>
                         <th className="AllReservation_tableUser" style={{ width: '5%' }}>예약자ID</th>
                         <th className="AllReservation_tableUser" style={{ width: '7%' }}>예약자</th>
                         <th className="AllReservation_tableCar" style={{ width: '10%' }}>예약차량</th>
-                        <th onClick={()=> sortHandler("bookedDate")} className="AllReservation_tableResDate" style={{ width: '9%' }}>예약일자<i className="bi bi-chevron-down"></i></th>
-                        <th onClick={()=> sortHandler("startDate")}className="AllReservation_tableRentDate" style={{ width: '10%' }}>대여일자<i className="bi bi-chevron-down"></i></th>
-                        <th onClick={()=> sortHandler("endDate")}className="AllReservation_tableResDate" style={{ width: '10%' }}>반납일자<i className="bi bi-chevron-down"></i></th>
+                        <th onClick={()=> sortHandler("bookedDate")} className="ARSVTD" style={{ width: '9%' }}>예약일자<i className="bi bi-chevron-down"></i></th>
+                        <th onClick={()=> sortHandler("startDate")}className="ARSVTD" style={{ width: '10%' }}>대여일자<i className="bi bi-chevron-down"></i></th>
+                        <th onClick={()=> sortHandler("endDate")}className="ARSVTD" style={{ width: '10%' }}>반납일자<i className="bi bi-chevron-down"></i></th>
                         <th className="AllReservation_tableResDate" style={{ width: '10%' }}>결제금액</th>
                         <th className="AllReservation_tableResDate" style={{ width: '7%' }}>진행상태</th>
                         <th className="AllReservation_tableResDate" style={{ width: '10%' }}>삭제<p>({delBooking.length}/{allBookStatus.length})</p></th>

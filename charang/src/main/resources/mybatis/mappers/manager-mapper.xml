@@ -42,8 +42,9 @@
       INNER JOIN user u
       ON b.userId = u.userId
       ORDER BY 
+      ]]>
          <choose>
-            <when test="sortType == 'bookedId'">bookedId</when>
+            <when test="sortType == 'bookingId'">bookingId</when>
             <when test="sortType == 'bookedDate'">bookedDate</when>
             <when test="sortType == 'startDate'">startDate</when>
             <when test="sortType == 'endDate'">endDate</when>
@@ -53,7 +54,6 @@
             <when test="sort == 'asc'">ASC</when>
          </choose>
       LIMIT #{startRow}, #{pageSize}
-      ]]>
    </select>
    
    <!-- 검색 예약 메서드 -->
@@ -96,7 +96,7 @@
 
     ORDER BY 
     <choose>
-      <when test="sortType == 'bookedId'">bookedId</when>
+      <when test="sortType == 'bookingId'">bookingId</when>
       <when test="sortType == 'bookedDate'">bookedDate</when>
       <when test="sortType == 'startDate'">startDate</when>
       <when test="sortType == 'endDate'">endDate</when>

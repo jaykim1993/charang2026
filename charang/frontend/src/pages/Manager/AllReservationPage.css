@@ -75,7 +75,12 @@
     font-weight: 500;
     margin-top: 7px;
 }
-
+.AllReservation .AllReservation_table .AllReservation_table_th .ARSVTD{
+    cursor: pointer;
+}
+.AllReservation .AllReservation_table .AllReservation_table_th .ARSVTD:hover{
+    text-decoration: underline;
+}
 .AllReservation .AllReservation_table {
     width: 1300px;
     border-collapse: separate;
