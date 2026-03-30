@@ -32,8 +32,8 @@ public class ManagerApiController {
 			@RequestParam(value="page", defaultValue = "1") int page,
 //			2. 페이지 사이즈 - 한 화면에 보여지는 게시글 개수를 5로 초기화
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-			@RequestParam(value="sortType", defaultValue = "bookedDate") String sortType,
-          	@RequestParam(value="sort", defaultValue = "desc") String sort
+			@RequestParam(value="sortBookType", defaultValue = "bookedDate") String sortType,
+          	@RequestParam(value="sortBook", defaultValue = "desc") String sort
 			){
 		System.out.println("매니져 컨트롤러 - 검색 예약 출력 컨트롤러");
 		List<ManagerDTO> bookList;
