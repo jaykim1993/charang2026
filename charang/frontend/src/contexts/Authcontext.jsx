@@ -35,7 +35,6 @@ export default function AuthProvider({children}){
     // 로그아웃 함수
     const logout =()=>{
         //세션 스토리지 정보 삭제
-        resetFilters();
         sessionStorage.removeItem("userid");
         sessionStorage.removeItem("filteredInfoUser");
         sessionStorage.removeItem("searchFilters");
