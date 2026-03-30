@@ -44,7 +44,7 @@
 }
 
 .hLogoP {
-  margin-left: 50px;
+  margin-left: 35px;
   font-size: 25px;
   color: white;
   padding-left: 200px;
@@ -69,19 +69,19 @@
 
   /* ▶ 우측 정지 + 미세 흔들림 */
   0% {
-    transform: translate(180px, -4px);
+    transform: translate(165px, -4px);
   }
 
   5% {
-    transform: translate(180px, -2px);
+    transform: translate(165px, -2px);
   }
 
   10% {
-    transform: translate(180px, -4px);
+    transform: translate(165px, -4px);
   }
 
   15% {
-    transform: translate(180px, -2px);
+    transform: translate(165px, -2px);
   }
 
   /* ▶ 우측 → 좌측 천천히 이동 */
@@ -108,7 +108,7 @@
 
   /* ▶ 좌측 → 우측 천천히 복귀 */
   100% {
-    transform: translate(180px, -4px);
+    transform: translate(165px, -4px);
   }
 }
 
