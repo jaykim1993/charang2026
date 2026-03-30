@@ -1,5 +1,3 @@
-
-
 .header {
   position: fixed;
   top: 0;
@@ -13,14 +11,17 @@
   padding: 13px;
   /* border-bottom: 1px solid #e2e4e9; */
 }
-.headerflex{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    transform: translateY(-10px);
+
+.headerflex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  transform: translateY(-10px);
+  white-space: nowrap;
 }
-.hLogo{
+
+.hLogo {
   width: 500px;
   background-color: inherit;
   display: flex;
@@ -30,123 +31,91 @@
   background-color: #333;
   border-bottom-right-radius: 50px;
   border-top-right-radius: 50px;
-}
-.hLogoWrap{
-  position: relative;
-  width: 600px;
+  height: 100%;
+  align-items: center;
+  /* left: 0; */
 }
 
-.hLogoP{
-  margin-left: 70px;
+.hLogoWrap {
+  position: relative;
+  width: 600px;
+  height: 60px;
+  margin-left: 80px;
+}
+
+.hLogoP {
+  margin-left: 50px;
   font-size: 25px;
   color: white;
   padding-left: 200px;
   transform: translateY(2px);
   font-family: 'Jua', sans-serif;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
+
 .headerLogo {
-    width: 100px;
-    
+  width: 100px;
+
 }
+
 /* 로고 애니매이션----------------------------------------------------------- */
 .animate-logo {
-  animation: logoSlideFloat 13s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: logoSlideFloat 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @keyframes logoSlideFloat {
+
   /* ▶ 우측 정지 + 미세 흔들림 */
   0% {
-    transform: translate(200px, -4px);
+    transform: translate(180px, -4px);
   }
 
   5% {
-    transform: translate(200px, -2px);
+    transform: translate(180px, -2px);
   }
 
   10% {
-    transform: translate(200px, -4px);
+    transform: translate(180px, -4px);
   }
 
   15% {
-    transform: translate(200px, -2px);
+    transform: translate(180px, -2px);
   }
 
   /* ▶ 우측 → 좌측 천천히 이동 */
   40% {
-    transform: translate(-300px, -2px);
+    transform: translate(-250px, -2px);
   }
 
   /* ▶ 좌측 정지 + 흔들림 */
   45% {
-    transform: translate(-300px, -4px);
+    transform: translate(-250px, -4px);
   }
 
   50% {
-    transform: translate(-300px, -2px);
+    transform: translate(-250px, -2px);
   }
 
   55% {
-    transform: translate(-300px, -4px);
+    transform: translate(-250px, -4px);
   }
 
   60% {
-    transform: translate(-300px, -2px);
+    transform: translate(-250px, -2px);
   }
 
   /* ▶ 좌측 → 우측 천천히 복귀 */
   100% {
-    transform: translate(200px, -4px);
+    transform: translate(180px, -4px);
   }
 }
 
 
 
-.bi-list{
-    color: #ececec;
-}
-.bi-house-door-fill{
-    color: #ececec;
-}
-.headerBrand{
-    display: inline-block;
-    width: fit-content;
-    height: 30px;
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0;
-    transition: 0.3s;
-    color: #0b79b7;
-    transform: translateY(-12px);
-}
-.headerNavRighttop {
-    display: flex;
-    gap: 20px;
-}
-.headerBtnCate{
-    position: relative;
-    border: none;
-    padding: 12px;
-    border-radius: 5px;
-    background-color: inherit;
-    font-size: 25px;
-    transition: 0.3s;
-    cursor: pointer;
-}
-.headerBtnCate .bi {
-    position: absolute;
-    z-index: 130;
-    top: -10px;
-}
-.headerBtn{
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    background-color: inherit;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: 0.3s;
-    cursor: pointer;
-    color: #ececec;
+.bi-list {
+  color: #ececec;
 }
 
 .bi-house-door-fill {
@@ -161,7 +130,57 @@
   font-weight: bold;
   margin: 0;
   transition: 0.3s;
-  color: #1e75f5 ;
+  color: #0b79b7;
+  transform: translateY(-12px);
+}
+
+.headerNavRighttop {
+  display: flex;
+  gap: 20px;
+}
+
+.headerBtnCate {
+  position: relative;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  background-color: inherit;
+  font-size: 25px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.headerBtnCate .bi {
+  position: absolute;
+  z-index: 130;
+  top: -10px;
+}
+
+.headerBtn {
+  border: none;
+  padding: 19px 12px;
+  border-radius: 5px;
+  background-color: inherit;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: 0.3s;
+  cursor: pointer;
+  color: #ececec;
+}
+
+.bi-house-door-fill {
+  color: #ececec;
+}
+
+.headerBrand {
+  display: inline-block;
+  width: fit-content;
+  height: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+  transition: 0.3s;
+  color: #1e75f5;
   transform: translateY(-12px);
 }
 
@@ -180,7 +199,7 @@
   cursor: pointer;
 }
 
-.headerBtn {
+/* .headerBtn {
   border: none;
   padding: 16px;
   border-radius: 5px;
@@ -190,13 +209,13 @@
   transition: 0.3s;
   cursor: pointer;
   color: #ececec;
-}
+} */
 
 .headerBtnCate:hover,
 .headerBrand:hover,
 .headerBtnX:hover {
   text-shadow: 0 0 20px rgba(255, 255, 255, 1);
-  color: #1e75f5 ;
+  color: #1e75f5;
 }
 
 .headerUserBookedModal {
@@ -242,7 +261,7 @@
 }
 
 .headerUserBookModalContext::-webkit-scrollbar-thumb {
-  background: #1e75f5 ;
+  background: #1e75f5;
   border-radius: 3px;
 }
 
@@ -293,7 +312,7 @@
   width: 100%;
   margin-top: 20px;
   padding: 12px 0;
-  background: #1e75f5 ;
+  background: #1e75f5;
   color: white;
   border-radius: 6px;
   font-size: 16px;
@@ -302,7 +321,7 @@
 }
 
 .headerModalBtn:hover {
-  background:#1763D1;
+  background: #1763D1;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
@@ -351,7 +370,7 @@
 }
 
 .headerNavSide::-webkit-scrollbar-thumb {
-  background:  #1e75f5 98;
+  background: #1e75f5 98;
   border-radius: 3px;
 }
 
@@ -370,7 +389,7 @@
 }
 
 .headerNavHtop {
-  border-left: 3px solid #1e75f5 ;
+  border-left: 3px solid #1e75f5;
   display: inline-block;
   width: fit-content;
   font-weight: bold;
@@ -382,7 +401,7 @@
 }
 
 .headerNavH {
-  border-left: 3px solid #1e75f5 ;
+  border-left: 3px solid #1e75f5;
   display: inline-block;
   width: fit-content;
   font-weight: bold;
@@ -445,12 +464,14 @@ Link {
 .header-manager-dropdown-menu {
   position: absolute;
   width: 100px;
-  top: 56px;
+  top: 62px;
   left: 0;
   background-color: #333;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   opacity: 0;
   transform: translateY(-250px);
+  display: flex;
+  flex-direction: column;
 }
 
 .header-manager-dropdown-menu .item {
