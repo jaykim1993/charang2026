@@ -1,6 +1,5 @@
 // react에서 자료 공유
-import { CalendarContext } from "./Calendarcontext";
-import { createContext, useState, useEffect, useContext} from "react";
+import { createContext, useState, useEffect } from "react";
 
 // 공유할 데이터가 저장되는 저장소
 export const AuthContext = createContext();
@@ -13,7 +12,7 @@ export default function AuthProvider({children}){
     const[username, setUsername]=useState(null);
 
 
-    const { resetFilters } = useContext(CalendarContext);
+
     // 컴포넌트 마운트 될 때 sessionStorage에서 사용자 정보 불러오기
 
     useEffect(() => {

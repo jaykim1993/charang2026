@@ -29,11 +29,10 @@
     color: #5d5d5d;
 }
 
-#root .Recent_car_list>ul {
+#root .Recent_car_list>ul{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 29px 13px;
+    gap: 15px;
     padding: 15px 0;
 }
 
