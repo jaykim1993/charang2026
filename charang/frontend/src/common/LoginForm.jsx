@@ -91,21 +91,25 @@ export default function LoginForm({ onClose, onJoin }) {
     }
 
     //비밀번호 찾기 인증번호 발송
-    const findPw=(e)=>{
-        e.preventDefault();
-        axios.post('/api/findpw',{userId:userid,name:name,email:mail})
-        .then((res)=>{
-            if(res.data){
-                alert("인증번호가 메일로 발송되었습니다.")
-                setFormView(5)
-            }
-        
+    const findPw = (e) => {
+    e.preventDefault();
+    
+    // 여기서 버퍼링 시작
+    setBuffer(true); 
+
+    axios.post('/api/findpw', { userId: userid, name: name, email: mail })
+        .then((res) => {
+        if (res.data) {
+            alert("인증번호가 메일로 발송되었습니다.");
+            setFormView(5);
+        }
         })
-        .catch((error)=>{
-            alert("입력하신 정보를 다시 확인해주세요.")
-            console.log(error)
-        })
-    }
+        .catch((error) => {
+        alert("입력하신 정보를 다시 확인해주세요.");
+        console.log(error);
+        setBuffer(false); // 에러 시 버퍼링 해제
+        });
+    };
 
     //인증번호 비교
     const checkVerification=(e)=>{
@@ -338,7 +342,7 @@ export default function LoginForm({ onClose, onJoin }) {
                         </ul>
                     </div>
                     <div className="loginBtnWrapDif">
-                        <button className='loginBtnDif' type="submit" onClick={()=>buffering()}>인증번호 확인하기</button>
+                        <button className='loginBtnDif' type="submit">인증번호 확인하기</button>
                         <button className='loginBtnDif' type="button"  onClick={(e) => {e.preventDefault();e.stopPropagation();setFormView(1);}}>뒤로가기</button>
                     </div>
                 </form>
