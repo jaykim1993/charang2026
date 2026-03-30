@@ -21,7 +21,7 @@ export default function RentalCalendar() {
     handleDateFilter,
     isDisabledEndTime,
     isDisabledStartTime,
-    todayStartDate
+    resetFiltersCal
   } = useContext(CalendarContext);
 
   const calendarRef = useRef(null);
@@ -100,8 +100,7 @@ export default function RentalCalendar() {
 
   // 초기화 버튼 핸들러
   const allCancleHandler = () => {
-    setStartDate(todayStartDate);
-    setEndDate(null);
+    resetFiltersCal();
   }
 
   const renderDay = (arg) =>

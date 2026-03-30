@@ -249,10 +249,10 @@ export default function CalendarProvider({ children }) {
 
   // 초기화 버튼
   const resetFilters = () => {
-    setStartDate(null);
+    setStartDate(todayStartDate);
     setEndDate(null);
-    setStartTime("13:30");
-    setEndTime("14:30");
+    setStartTime(`${CanRentHour()}:${canRentMin()}`);
+    setEndTime(`${CanRentHour()+1}:${canRentMin()}`);
     setLocation("");
     setBranchId("");
 
@@ -261,6 +261,17 @@ export default function CalendarProvider({ children }) {
     sessionStorage.removeItem("firstFilteredCar");
     sessionStorage.removeItem("searchFilters");
   };
+  // 초기화 버튼
+  const resetFiltersCal = () => {
+    setStartDate(todayStartDate);
+    setEndDate(null);
+    setStartTime(`${CanRentHour()}:${canRentMin()}`);
+    setEndTime(`${CanRentHour()+1}:${canRentMin()}`);
+  };
+
+  // 결제 완료 후 뒤로가기 막기
+  const[backCheck, setBackCheck] = useState(false);
+
   return (
     <CalendarContext.Provider
       value={{
@@ -295,6 +306,7 @@ export default function CalendarProvider({ children }) {
         handleDateFilter,
         handleSearchBtn,
         resetFilters,
+        resetFiltersCal,
 
         // 모달창 열림 닫힘
         setIsLocation,
@@ -306,7 +318,11 @@ export default function CalendarProvider({ children }) {
         timeAMPM,
         todayStartDate,
         CanRentHour,
-        canRentMin
+        canRentMin,
+
+        // 결제 완료 후 뒤로가기 막기
+        backCheck, 
+        setBackCheck
       }}
     >
       {children}

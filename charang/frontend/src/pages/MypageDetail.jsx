@@ -11,13 +11,19 @@ export default function MypageDetail() {
     const { bookingId } = useParams(); // 예약번호
     const { myBooking, fetchOneBookCar, deleteBooking } = useContext(BookingContext); // 예약내역 보기 함수 호출
     const { username } = useContext(AuthContext); // 유저 정보 호출
-    const { DeleteYear, timeAMPM, startdayText, enddayText } = useContext(CalendarContext);
+    const { DeleteYear, timeAMPM, startdayText, enddayText, backCheck, setBackCheck } = useContext(CalendarContext);
     const { branch } = useContext(DataContext); // 지점 정보 호출
     const navigate = useNavigate();
 
     // 개인 예약 내역(+ 차량 정보 조인) 최신값 받기
     useEffect(() => {
         fetchOneBookCar();
+        if ( backCheck ) {   // 뒤로가기 체크키가 true이면 => 뒤로가기로 결제페이지를 접근했다가 다시 돌아왔다면
+            setTimeout(() => {
+            alert("결제 완료 페이지 접근 불가");
+             setBackCheck(false);
+        }, 5);
+        }
     }, []);
 
     // useParams 예약번호 받기
@@ -56,11 +62,9 @@ export default function MypageDetail() {
     const diffDayse = Math.ceil(
         (endDate - today) / (1000 * 60 * 60 * 24)
     );
-    // console.log(diffDays);
-    // console.log(diffDayse);
     let dText;
     if (diffDays > 0) dText = `D-${diffDays}`;
-    else if (diffDays <= 0 && diffDayse > 0) dText = '진행중';
+    else if (diffDays < 0 && diffDayse > 0) dText = '진행중';
     else if (diffDayse < 0) dText = `완료된 예약`;
     else if (diffDays === 0) dText = "D-Day";
 
