@@ -86,24 +86,24 @@
 
   /* ▶ 우측 → 좌측 천천히 이동 */
   40% {
-    transform: translate(-250px, -2px);
+    transform: translate(-290px, -2px);
   }
 
   /* ▶ 좌측 정지 + 흔들림 */
   45% {
-    transform: translate(-250px, -4px);
+    transform: translate(-290px, -4px);
   }
 
   50% {
-    transform: translate(-250px, -2px);
+    transform: translate(-290px, -2px);
   }
 
   55% {
-    transform: translate(-250px, -4px);
+    transform: translate(-290px, -4px);
   }
 
   60% {
-    transform: translate(-250px, -2px);
+    transform: translate(-290px, -2px);
   }
 
   /* ▶ 좌측 → 우측 천천히 복귀 */
