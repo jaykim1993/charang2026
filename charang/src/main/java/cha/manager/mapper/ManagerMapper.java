@@ -14,7 +14,9 @@ public interface ManagerMapper {
 	// 전체 예약 + 예약 내 차량 데이터 조인 메서드
 	public List<ManagerDTO> GetAllBookCar(
 			@Param("startRow") int startRow, 
-			@Param("pageSize") int pageSize
+			@Param("pageSize") int pageSize,
+			@Param("sortType") String sortType,
+			@Param("sort") String sort
 			);
 	
 	// 검색 예약 수
@@ -27,7 +29,9 @@ public interface ManagerMapper {
 			@Param("startRow") int startRow, 
 			@Param("pageSize") int pageSize,
 			@Param("searchType") String searchType, 
-			@Param("searchKeyWord") String searchKeyWord
+			@Param("searchKeyWord") String searchKeyWord,
+			@Param("sortType") String sortType,
+			@Param("sort") String sort
 			);
 	
 	

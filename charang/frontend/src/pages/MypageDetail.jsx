@@ -20,9 +20,9 @@ export default function MypageDetail() {
         fetchOneBookCar();
         if ( backCheck ) {   // 뒤로가기 체크키가 true이면 => 뒤로가기로 결제페이지를 접근했다가 다시 돌아왔다면
             setTimeout(() => {
-            alert("결제 완료 페이지 접근 불가");
+            alert("결제가 완료되어 접근할 수 없습니다.");
              setBackCheck(false);
-        }, 5);
+        }, 100);
         }
     }, []);
 

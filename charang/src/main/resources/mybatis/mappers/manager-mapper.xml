@@ -41,7 +41,17 @@
       ON b.carId = c.carId
       INNER JOIN user u
       ON b.userId = u.userId
-      ORDER BY b.bookedDate ASC
+      ORDER BY 
+         <choose>
+            <when test="sortType == 'bookedId'">bookedId</when>
+            <when test="sortType == 'bookedDate'">bookedDate</when>
+            <when test="sortType == 'startDate'">startDate</when>
+            <when test="sortType == 'endDate'">endDate</when>
+         </choose>
+         <choose>
+            <when test="sort == 'desc'">DESC</when>
+            <when test="sort == 'asc'">ASC</when>
+         </choose>
       LIMIT #{startRow}, #{pageSize}
       ]]>
    </select>
@@ -84,8 +94,18 @@
        </choose>
      </where>
 
-     ORDER BY b.bookedDate ASC
-   LIMIT #{startRow}, #{pageSize}
+    ORDER BY 
+    <choose>
+      <when test="sortType == 'bookedId'">bookedId</when>
+      <when test="sortType == 'bookedDate'">bookedDate</when>
+      <when test="sortType == 'startDate'">startDate</when>
+      <when test="sortType == 'endDate'">endDate</when>
+    </choose>
+    <choose>
+      <when test="sort == 'desc'">DESC</when>
+      <when test="sort == 'asc'">ASC</when>
+    </choose>
+    LIMIT #{startRow}, #{pageSize}
    </select>
    
 <!-- 검색 예약 수 -->
