@@ -307,6 +307,7 @@ a, p, h4, h3, h2, h1{
     padding-left: 20px;
     padding-right: 20px;
     position: relative;
+    transition: 0.2s;
     cursor: pointer;
 }
 #root .Recentcar .R_carlist .car_list_ul .car_variant_info:hover h4,
