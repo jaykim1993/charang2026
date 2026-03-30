@@ -1,6 +1,6 @@
 // react에서 자료 공유
-import axios from "axios";
-import { createContext, useState, useEffect} from "react";
+import { CalendarContext } from "./Calendarcontext";
+import { createContext, useState, useEffect, useContext} from "react";
 
 // 공유할 데이터가 저장되는 저장소
 export const AuthContext = createContext();
@@ -12,6 +12,8 @@ export default function AuthProvider({children}){
     const[userid, setUserid]=useState(null);
     const[username, setUsername]=useState(null);
 
+
+    const { resetFilters } = useContext(CalendarContext);
     // 컴포넌트 마운트 될 때 sessionStorage에서 사용자 정보 불러오기
 
     useEffect(() => {
@@ -34,6 +36,7 @@ export default function AuthProvider({children}){
     // 로그아웃 함수
     const logout =()=>{
         //세션 스토리지 정보 삭제
+        resetFilters();
         sessionStorage.removeItem("userid");
         sessionStorage.removeItem("filteredInfoUser");
         sessionStorage.removeItem("searchFilters");

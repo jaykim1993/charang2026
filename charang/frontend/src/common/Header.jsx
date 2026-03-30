@@ -1,6 +1,6 @@
 import './Header.css';
 import { useContext, useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { CalendarContext } from '../contexts/Calendarcontext';
 import { AuthContext } from '../contexts/Authcontext';
 import { BookingContext } from "../contexts/Bookingcontext";
 import { Link } from 'react-router-dom';
@@ -14,6 +14,7 @@ export default function Header() {
     const { userid, username, logout } = useContext(AuthContext);
     // 예약내역 보기 함수 호출
     const { myBooking } = useContext(BookingContext);
+    const { resetFilters } = useContext(CalendarContext);
 
     // logout 핸들러 함수
     const logoutHandler = () => {
@@ -127,7 +128,7 @@ export default function Header() {
                                             </div>
                                         </div>
                                         <Link to="/">
-                                            <button className='headerBtn' type='text' onClick={logoutHandler}>
+                                            <button className='headerBtn' type='text' onClick={()=>{logoutHandler(); resetFilters()}}>
                                                 로그아웃
                                             </button>
                                         </Link>
@@ -151,7 +152,7 @@ export default function Header() {
                                             예약내역
                                         </button>
                                         <Link to="/">
-                                            <button className='headerBtn' type='text' onClick={logoutHandler}>
+                                            <button className='headerBtn' type='text' onClick={()=>{logoutHandler(); resetFilters()}}>
                                                 로그아웃
                                             </button>
                                         </Link>
