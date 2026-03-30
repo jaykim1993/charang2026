@@ -370,9 +370,15 @@ export default function Home() {
                   ) : (
                     // 지점 목록 
                     <>
-                      <h3>지점을 선택하세요&nbsp;&nbsp;&nbsp;
+                      <h3>지점을 선택하세요&nbsp;&nbsp;
                         {location != "" ? (
-                          <button onClick={() => { setLocation(""); setBranchId("") }}>
+                          <button 
+                          className="loModalBTN"
+                          onClick={() => {
+                            setLocation(""); 
+                            setBranchId(""); 
+                            setIsLocation(false);
+                            }}>
                             <i className="bi bi-arrow-clockwise"></i>
                           </button>
                         ) : (<></>)

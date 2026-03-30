@@ -89,9 +89,15 @@ input:checked+.checkmark {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
-/* #root .Home .H_reservation .H_spotTable .spot_choice .H_spotTitle h2{
-    cursor: pointer;
-} */
+.loModalBTN{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #999;
+}
+.loModalBTN:hover{
+    color: #333;
+}
 #root .Home .H_reservation .H_spotTable .spot_choice .H_spotTitle>p {
     font-size: 20px;
     font-weight: 700;
