@@ -286,9 +286,9 @@ export default function Recentcar() {
         const models = Object.keys(groupedCars);
         if (models.length === 0) {
             return <div className="empty_car">
-            <p>선택한 지점과 날짜에 해당하는 차량이 없습니다.</p>
-            <button type="submit" onClick={handleResetAll}>
-                지점과 날짜를 초기화할까요?
+            <p>선택한 필터에 해당하는 차량이 없습니다.</p>
+            <button type="submit" onClick={()=>{handleResetAll(); resetFiltersOption()}}>
+                해당 필터를 초기화할까요?
             </button>
         </div>
         };
@@ -636,7 +636,7 @@ export default function Recentcar() {
 
                 {/* 차량 리스트 결과 */}
                 <div className="totalCar">
-                    <p>총 &nbsp;<strong>{selectedModel ? secondFilteredCar.length : secondFilteredCar.length}</strong>&nbsp; 종</p>
+                    <p>총 &nbsp;<strong>{secondFilteredCar.length}</strong>&nbsp; 종</p>
                     <button onClick={showAllCar}>전체 차량보기 +</button>
                 </div>
                 <ul className={`GrounpedCarsWrap ${tdOpen ? 'open' : ''}`}>

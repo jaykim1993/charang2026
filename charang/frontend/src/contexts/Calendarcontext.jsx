@@ -295,7 +295,8 @@ export default function CalendarProvider({ children }) {
         /* 위치 */
         location,
         setLocation,
-        branchId, setBranchId,
+        branchId, 
+        setBranchId,
 
         /* 데이터 */
         bookedlistAll,

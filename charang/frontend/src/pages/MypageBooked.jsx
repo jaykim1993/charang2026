@@ -62,7 +62,7 @@ export default function MypageBooked() {
                 ? "진행중인 예약"
                 : selectedStatus === "UPCOMING"
                   ? "다가오는 예약"
-                  : "지난 예약"}
+                  : "완료된 예약"}
               <i className="bi bi-caret-down-fill"></i>
             </button>
 
@@ -81,7 +81,7 @@ export default function MypageBooked() {
                       ? "진행중인 예약"
                       : status === "UPCOMING"
                         ? "다가오는 예약"
-                        : "지난 예약"}
+                        : "완료된 예약"}
                   </li>
                 ))}
               </ul>
