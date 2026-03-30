@@ -395,7 +395,12 @@
 
 
 .fc .fc-button:not(:disabled) {
-  font-size: 0px;
+  font-size: 0px !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .C_select_hr {
