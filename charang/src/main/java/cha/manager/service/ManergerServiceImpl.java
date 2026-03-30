@@ -16,9 +16,9 @@ public class ManergerServiceImpl implements ManagerService{
 
 	// 검색 페이징 메서드
 	@Override
-	public List<ManagerDTO> GetAllSearchBookCar(int startRow, int pageSize, String searchType, String searchKeyWord) {
+	public List<ManagerDTO> GetAllSearchBookCar(int startRow, int pageSize, String searchType, String searchKeyWord, String sortType, String sort ) {
 		
-		return managermapper.GetAllSearchBookCar(startRow, pageSize, searchType, searchKeyWord);
+		return managermapper.GetAllSearchBookCar(startRow, pageSize, searchType, searchKeyWord, sortType, sort);
 	}
 
 
@@ -32,9 +32,9 @@ public class ManergerServiceImpl implements ManagerService{
 
 	// 전체 예약 + 예약 내 차량 데이터 조인 메서드
 	@Override
-	public List<ManagerDTO> GetAllBookCar(int startRow, int pageSize) {
+	public List<ManagerDTO> GetAllBookCar(int startRow, int pageSize, String sortType, String sort) {
 		
-		return managermapper.GetAllBookCar(startRow, pageSize);
+		return managermapper.GetAllBookCar(startRow, pageSize, sortType, sort);
 	}
 
 

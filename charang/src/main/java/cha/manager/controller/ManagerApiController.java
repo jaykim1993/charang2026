@@ -31,7 +31,9 @@ public class ManagerApiController {
 //			1. 페이지 번호 - 1부터 시작이므로 초기값 1로 정의
 			@RequestParam(value="page", defaultValue = "1") int page,
 //			2. 페이지 사이즈 - 한 화면에 보여지는 게시글 개수를 5로 초기화
-			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+			@RequestParam(value="sortType", defaultValue = "bookedDate") String sortType,
+          	@RequestParam(value="sort", defaultValue = "desc") String sort
 			){
 		System.out.println("매니져 컨트롤러 - 검색 예약 출력 컨트롤러");
 		List<ManagerDTO> bookList;
@@ -43,13 +45,13 @@ public class ManagerApiController {
 				if(searchType != null && !searchKeyWord.trim().isEmpty()) {
 					int totalCnt = managerservice.AllSearchBookCarCount(searchType, searchKeyWord); // 검색 차량 개수
 					ph = new PageHandler(totalCnt, page, pageSize);
-					bookList = managerservice.GetAllSearchBookCar(ph.getStartRow(), pageSize, searchType, searchKeyWord);
+					bookList = managerservice.GetAllSearchBookCar(ph.getStartRow(), pageSize, searchType, searchKeyWord, sortType, sort);
 				}
 				// 검색 X -> 전체 예약 출력
 				else {
 					int totalCnt = managerservice.AllBookCarCount(); // 전체 차량 개수
 					ph = new PageHandler(totalCnt, page, pageSize);
-					bookList = managerservice.GetAllBookCar(ph.getStartRow(), pageSize);
+					bookList = managerservice.GetAllBookCar(ph.getStartRow(), pageSize, sortType, sort);
 				}
 				result.put("list", bookList);
 				result.put("ph", ph);

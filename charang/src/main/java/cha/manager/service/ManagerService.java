@@ -11,7 +11,7 @@ public interface ManagerService {
 	public int AllBookCarCount();
 	
 	// 전체 예약 + 예약 내 차량 데이터 조인 메서드
-	public List<ManagerDTO> GetAllBookCar(int startRow, int pageSize);
+	public List<ManagerDTO> GetAllBookCar(int startRow, int pageSize, String sortType, String sort);
 	
 	// 검색 예약 수
 	public int AllSearchBookCarCount(
@@ -24,7 +24,9 @@ public interface ManagerService {
 				int startRow, 
 				int pageSize,
 				String searchType, 
-				String searchKeyWord
+				String searchKeyWord,
+				String sortType, 
+      			String sort
 				);
 		
 	// 예약 아이디로 예약(차량조인) 하나 조회하기
