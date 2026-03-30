@@ -80,12 +80,10 @@ export default function AllReservationPage() {
     // ================= 정렬 =================
     const sortHandler = (type) => {
 
-        if (sortType === type) {
-            sort === "asc"
-                ? setSortBook("desc")
-                : setSortBook("asc");
+        if (sortBookType === type) {
+            setSortBook(prev => prev === 'asc' ? 'desc' : 'asc');
         } else {
-            sortBookType(type);
+            setSortBookType(type);
             setSortBook("desc");
         }
 
