@@ -339,6 +339,10 @@
 
 /* ---------------------------------- */
 
+.headerNavUl{
+  margin-bottom: 80px !important;
+}
+
 .headerBannerImg {
   width: 230px;
   height: 230px;
