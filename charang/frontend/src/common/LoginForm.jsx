@@ -149,7 +149,6 @@ export default function LoginForm({ onClose, onJoin }) {
         if(res.data){
             alert("비밀번호가 변경되었습니다.")
             setFormView(1)
-            setpAlert(0)
             setResetpw("")
             setResetpwCheck("")
             setName("")
@@ -228,8 +227,8 @@ export default function LoginForm({ onClose, onJoin }) {
                             </li>
                         </ul>
                         <div className='loginAccount'>
-                                <button className='loginBtnSamll' type='button' onClick={() => (setFormView(2), setpAlert(1))}>아이디 찾기</button> | 
-                                <button className='loginBtnSamll' type='button' onClick={() => (setFormView(3), setpAlert(1))}>비밀번호 찾기</button> |  
+                                <button className='loginBtnSamll' type='button' onClick={() => (setFormView(2))}>아이디 찾기</button> | 
+                                <button className='loginBtnSamll' type='button' onClick={() => (setFormView(3))}>비밀번호 찾기</button> |  
                                 <button className='loginBtnSamll' type='button' onClick={onJoin}>회원가입</button>
                         </div>
                     </div>
@@ -366,8 +365,8 @@ export default function LoginForm({ onClose, onJoin }) {
                         <p className='IDresultP'>조회된 회원님의 아이디는<span className='IDresultSpan'>{findedId}</span>입니다.</p>
                     </div>
                     <div className="loginBtnWrapDif">
-                        <button className='loginBtnDif' type="button" onClick={() => (setFormView(3), setpAlert(1))}>비밀번호찾기</button>
-                        <button className='loginBtnDif' type="button" onClick={() => (setFormView(1), setpAlert(0))}>로그인하기</button>
+                        <button className='loginBtnDif' type="button" onClick={() => (setFormView(3))}>비밀번호찾기</button>
+                        <button className='loginBtnDif' type="button" onClick={() => (setFormView(1))}>로그인하기</button>
                     </div>
                 </form>
             </div>
