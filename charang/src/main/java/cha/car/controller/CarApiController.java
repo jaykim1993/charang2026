@@ -112,8 +112,8 @@ public class CarApiController {
         CarDTO carData = mapper.readValue(carDTOData, CarDTO.class);
       
       // 01. 이미지 파일을 저장할 실제 하드디스크 위치 지정(webConfig에서 설정한 경로와 일치)
-      String savePath = "C:/Users/Administrator/Desktop/charang_ver_Pandas/frontend/public/images/brands/";
-      String savePath2 = "C:/Users/Administrator/Desktop/charang_ver_Pandas/frontend/public/images/cars/";
+      String savePath = "C:/charang2026/charang/frontend/public/images";
+      String savePath2 = "C:/charang2026/charang/frontend/public/images/cars";
       
       // 02. 해당 폴더가 존재하지 않을 경우 자동생성
       File saveDir = new File(savePath);
