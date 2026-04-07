@@ -88,7 +88,7 @@ export default function CarModPage() {
         // JSON 문자열로 변환해서 testData 하나로 묶기
         formData.append('carDTOData', JSON.stringify(textData));
 
-        console.log(" JSON.stringify(textData)", JSON.stringify(textData));
+        // console.log(" JSON.stringify(textData)", JSON.stringify(textData));
         axios.put("/api/modifyCar", formData)
             .then((res) => {
                 if (res.data === 1) {
